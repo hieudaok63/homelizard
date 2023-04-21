@@ -1,10 +1,13 @@
 /* eslint-disable */
 
 import React from "react";
+import { maybeCompleteAuthSession } from "expo-web-browser";
 import { Button, View } from "react-native";
 import { useOAuth, type UseOAuthFlowParams } from "@clerk/clerk-expo";
 
 import { useWarmUpBrowser } from "../hooks/useWarmUpBrowser";
+
+maybeCompleteAuthSession();
 
 type OAuthSignInButtonProps = {
   strategy: UseOAuthFlowParams["strategy"];

@@ -1,5 +1,5 @@
 {
-  "name": "@acme/nextjs",
+  "name": "@homelizard/nextjs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,9 +13,9 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@acme/api": "^0.1.0",
-    "@acme/db": "^0.1.0",
-    "@acme/tailwind-config": "^0.1.0",
+    "@homelizard/api": "^0.1.0",
+    "@homelizard/db": "^0.1.0",
+    "@homelizard/tailwind-config": "^0.1.0",
     "@clerk/nextjs": "^4.16.4",
     "@tanstack/react-query": "^4.29.2",
     "@trpc/client": "^10.20.0",
@@ -29,7 +29,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@acme/eslint-config": "^0.1.0",
+    "@homelizard/eslint-config": "^0.1.0",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
