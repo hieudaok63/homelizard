@@ -1,8 +1,11 @@
 import type { ExpoConfig } from "@expo/config";
 
+const CLERK_PUBLISHABLE_KEY =
+  "pk_test_bmF0aW9uYWwtd2hpcHBldC03MS5jbGVyay5hY2NvdW50cy5kZXYk";
+
 const defineConfig = (): ExpoConfig => ({
-  name: "expo",
-  slug: "expo",
+  name: "homelizard",
+  slug: "homelizard",
   scheme: "expo",
   version: "1.0.0",
   orientation: "portrait",
@@ -19,7 +22,7 @@ const defineConfig = (): ExpoConfig => ({
   assetBundlePatterns: ["**/*"],
   ios: {
     supportsTablet: true,
-    bundleIdentifier: "your.bundle.identifier",
+    bundleIdentifier: "de.prodactive.homelizard",
   },
   android: {
     adaptiveIcon: {
@@ -31,6 +34,7 @@ const defineConfig = (): ExpoConfig => ({
     eas: {
       // projectId: "your-project-id",
     },
+    CLERK_PUBLISHABLE_KEY,
   },
   plugins: ["./expo-plugins/with-modify-gradle.js"],
 });

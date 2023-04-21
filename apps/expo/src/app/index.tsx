@@ -5,6 +5,7 @@ import { Stack, useRouter } from "expo-router";
 import { FlashList } from "@shopify/flash-list";
 
 import { api, type RouterOutputs } from "~/utils/api";
+import { SignOutButton } from "~/components/SignOutButton";
 
 const PostCard: React.FC<{
   post: RouterOutputs["post"]["all"][number];
@@ -127,6 +128,7 @@ const Index = () => {
         />
 
         <CreatePost />
+        <SignOutButton />
       </View>
     </SafeAreaView>
   );
