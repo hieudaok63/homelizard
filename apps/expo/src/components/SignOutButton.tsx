@@ -8,7 +8,7 @@ export const SignOutButton = () => {
       <Button
         title="Sign Out"
         onPress={() => {
-          signOut();
+          void signOut();
         }}
       />
     </View>
