@@ -1,8 +1,8 @@
 /* eslint-disable */
 
 import React from "react";
-import { maybeCompleteAuthSession } from "expo-web-browser";
 import { Button, View } from "react-native";
+import { maybeCompleteAuthSession } from "expo-web-browser";
 import { useOAuth, type UseOAuthFlowParams } from "@clerk/clerk-expo";
 
 import { useWarmUpBrowser } from "../hooks/useWarmUpBrowser";
@@ -49,9 +49,16 @@ const SignInWithOAuth = () => {
     <>
       <OAuthSignInButton
         strategy="oauth_discord"
-        title="Sign in with Discord"
+        title="Sign in with Discords"
       />
       <OAuthSignInButton strategy="oauth_google" title="Sign in with Google" />
+      <Button
+        title={"test"}
+        onPress={() => {
+          const t = "test";
+          console.log(t);
+        }}
+      />
     </>
   );
 };

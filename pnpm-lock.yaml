@@ -64,9 +64,15 @@ importers:
       expo-auth-session:
         specifier: ^4.0.3
         version: 4.0.3(expo@48.0.11)
+      expo-build-properties:
+        specifier: ^0.6.0
+        version: 0.6.0(expo@48.0.11)
       expo-constants:
         specifier: ~14.2.1
         version: 14.2.1(expo@48.0.11)
+      expo-dev-client:
+        specifier: ~2.2.1
+        version: 2.2.1(expo@48.0.11)
       expo-linking:
         specifier: ~4.0.1
         version: 4.0.1(expo@48.0.11)
@@ -3576,6 +3582,15 @@ packages:
       json-schema-traverse: 0.4.1
       uri-js: 4.4.1
 
+  /ajv@8.12.0:
+    resolution: {integrity: sha512-sRu1kpcO9yLtYxBKvqfTeh9KzZEwO3STyX1HT+4CaDzC6HpTGYhIhPIzj9XuKU7KYDwnaeh5hcOwjy1QuJzBPA==}
+    dependencies:
+      fast-deep-equal: 3.1.3
+      json-schema-traverse: 1.0.0
+      require-from-string: 2.0.2
+      uri-js: 4.4.1
+    dev: false
+
   /anser@1.4.10:
     resolution: {integrity: sha512-hCv9AqTQ8ycjpSd3upOJd7vFwW1JaoYQ7tpham03GJ1ca8/65rqn0RpaWpItOAd6ylW9wAw6luXYPJIyPFVOww==}
     dev: false
@@ -5505,6 +5520,16 @@ packages:
       - supports-color
     dev: false
 
+  /expo-build-properties@0.6.0(expo@48.0.11):
+    resolution: {integrity: sha512-J9129dDhZp9Av/RctdpGUaC8eMgFcfKpmBpvwstr/2jKL5aaH8noJP1xbXw/xrDXmGm+YyjhVzRJjLbf0qAmJA==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      ajv: 8.12.0
+      expo: 48.0.11(@babel/core@7.21.4)
+      semver: 7.3.8
+    dev: false
+
   /expo-constants@14.2.1(expo@48.0.11):
     resolution: {integrity: sha512-DD5u4QmBds2U7uYo409apV7nX+XjudARcgqe7S9aRFJ/6kyftmuxvk1DpaU4X42Av8z/tfKwEpuxl+vl7HHx/Q==}
     peerDependencies:
@@ -5526,6 +5551,48 @@ packages:
       expo: 48.0.11(@babel/core@7.21.4)
     dev: false
 
+  /expo-dev-client@2.2.1(expo@48.0.11):
+    resolution: {integrity: sha512-BDhKyni82LiT6PypgBns1/FLqo3cGDBluaj4/Pojx9P7x9iwOFcesepO8r6BCWb4LuBjdB+z2yQ1fMXxzNC3qQ==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 48.0.11(@babel/core@7.21.4)
+      expo-dev-launcher: 2.2.1(expo@48.0.11)
+      expo-dev-menu: 2.2.0(expo@48.0.11)
+      expo-dev-menu-interface: 1.1.1(expo@48.0.11)
+      expo-manifests: 0.5.2
+      expo-updates-interface: 0.9.1(expo@48.0.11)
+    dev: false
+
+  /expo-dev-launcher@2.2.1(expo@48.0.11):
+    resolution: {integrity: sha512-TP9SOrNIKF5Whju7uhtBsJeOvf9idUSg7snhHNVRpm2mA5kReckeD3PFv4HsvBHdnrfoslpeq4spOdS6UUx3XA==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 48.0.11(@babel/core@7.21.4)
+      expo-dev-menu: 2.2.0(expo@48.0.11)
+      resolve-from: 5.0.0
+      semver: 7.3.8
+    dev: false
+
+  /expo-dev-menu-interface@1.1.1(expo@48.0.11):
+    resolution: {integrity: sha512-doT+7WrSBnxCcTGZw9QIEZoL+43U4RywbG8XZwbhkcsFWGsh9scp0y/bv3ieFHxRtIdImxbxOoYh7fy1O6g28w==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 48.0.11(@babel/core@7.21.4)
+    dev: false
+
+  /expo-dev-menu@2.2.0(expo@48.0.11):
+    resolution: {integrity: sha512-ImRUD7IVyLme7t3S+pNsOOgCBorkriVNo+ryEmkAjzRTKlpiklhoc1GEdQUU3qvO6e66gUguMbs4wnaP6o4NEw==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 48.0.11(@babel/core@7.21.4)
+      expo-dev-menu-interface: 1.1.1(expo@48.0.11)
+      semver: 7.3.8
+    dev: false
+
   /expo-file-system@15.2.2(expo@48.0.11):
     resolution: {integrity: sha512-LFkOLcWwlmnjkURxZ3/0ukS35OswX8iuQknLHRHeyk8mUA8fpRPPelD/a1lS+yclqfqavMJmTXVKM1Nsq5XVMA==}
     peerDependencies:
@@ -5542,6 +5609,10 @@ packages:
     dependencies:
       expo: 48.0.11(@babel/core@7.21.4)
       fontfaceobserver: 2.3.0
+    dev: false
+
+  /expo-json-utils@0.5.1:
+    resolution: {integrity: sha512-Y5boshyf40vPjwxNnOIfacZPNkOymecZRQ1k+TSXlq6gnw5XRsnM5hnP0VLVYhdv8x+9CX6E1fDsDUNvsK38Dg==}
     dev: false
 
   /expo-keep-awake@12.0.1(expo@48.0.11):
@@ -5563,6 +5634,12 @@ packages:
     transitivePeerDependencies:
       - expo
       - supports-color
+    dev: false
+
+  /expo-manifests@0.5.2:
+    resolution: {integrity: sha512-WnsTlE2le3pV/B/AJPKTOSjb2K9AT1mPDCfQxTQ/KMCwF95saoXYt2OPF3hxZNaMAV6VIAhXgd5Y6wpcH9ruPQ==}
+    dependencies:
+      expo-json-utils: 0.5.1
     dev: false
 
   /expo-modules-autolinking@1.2.0:
@@ -5653,6 +5730,14 @@ packages:
 
   /expo-status-bar@1.4.4:
     resolution: {integrity: sha512-5DV0hIEWgatSC3UgQuAZBoQeaS9CqeWRZ3vzBR9R/+IUD87Adbi4FGhU10nymRqFXOizGsureButGZIXPs7zEA==}
+    dev: false
+
+  /expo-updates-interface@0.9.1(expo@48.0.11):
+    resolution: {integrity: sha512-wk88LLhseQ7LJvxdN7BTKiryyqALxnrvr+lyHK3/prg76Yy0EGi2Q/oE/rtFyyZ1JmQDRbO/5pdX0EE6QqVQXQ==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 48.0.11(@babel/core@7.21.4)
     dev: false
 
   /expo-web-browser@12.1.1(expo@48.0.11):
@@ -7043,6 +7128,10 @@ packages:
 
   /json-schema-traverse@0.4.1:
     resolution: {integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==}
+
+  /json-schema-traverse@1.0.0:
+    resolution: {integrity: sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==}
+    dev: false
 
   /json-stable-stringify-without-jsonify@1.0.1:
     resolution: {integrity: sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==}

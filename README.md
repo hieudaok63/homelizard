@@ -208,3 +208,12 @@ https://github.com/t3-oss/create-t3-turbo/blob/656965aff7db271e5e080242c4a3ce4da
 The stack originates from [create-t3-app](https://github.com/t3-oss/create-t3-app).
 
 A [blog post](https://jumr.dev/blog/t3-turbo) where I wrote how to migrate a T3 app into this.
+
+
+## Local (non eas) builds for expo
+
+```
+brew install fastlane
+cd apps/expo
+eas build --platform ios -e dev --local
+```
