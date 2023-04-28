@@ -1,4 +1,4 @@
-// TODO: Add support for TS config files in Nativewind.
+
 
 // import { type Config } from "tailwindcss";
 
@@ -9,8 +9,20 @@
 //   content: ["./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
 // } satisfies Config;
 
+/** @type {import('tailwindcss').Config} */
 const config = {
   content: ["./src/**/*.{ts,tsx}"],
+  theme: {
+    extend: {
+      fontFamily: {
+        nunito: ["Nunito_400Regular"],
+        "nunito-italic": ["Nunito_400Regular_Italic"],
+        "nunito-bold": ["Nunito_700Bold"],
+
+        "nunito-bold-italic": ["Nunito_700Bold_Italic"],
+      },
+    },
+  },
 };
 
 module.exports = config;

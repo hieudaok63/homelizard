@@ -37,6 +37,9 @@ importers:
       '@clerk/clerk-expo':
         specifier: ^0.16.3
         version: 0.16.3(@babel/core@7.21.4)(@types/react@18.0.37)(expo-auth-session@4.0.3)(expo-web-browser@12.1.1)(react-dom@18.2.0)(react-native@0.71.7)(react@18.2.0)
+      '@expo-google-fonts/nunito':
+        specifier: ^0.2.3
+        version: 0.2.3
       '@expo/metro-config':
         specifier: ^0.7.1
         version: 0.7.1
@@ -61,6 +64,9 @@ importers:
       expo:
         specifier: ^48.0.11
         version: 48.0.11(@babel/core@7.21.4)
+      expo-asset:
+        specifier: ^8.9.1
+        version: 8.9.1(expo@48.0.11)
       expo-auth-session:
         specifier: ^4.0.3
         version: 4.0.3(expo@48.0.11)
@@ -73,6 +79,12 @@ importers:
       expo-dev-client:
         specifier: ~2.2.1
         version: 2.2.1(expo@48.0.11)
+      expo-font:
+        specifier: ~11.1.1
+        version: 11.1.1(expo@48.0.11)
+      expo-image:
+        specifier: ^1.0.0
+        version: 1.0.0(expo@48.0.11)
       expo-linking:
         specifier: ~4.0.1
         version: 4.0.1(expo@48.0.11)
@@ -1914,6 +1926,10 @@ packages:
   /@eslint/js@8.38.0:
     resolution: {integrity: sha512-IoD2MfUnOV58ghIHCiil01PcohxjbYR/qCxsoC+xNgUwh1EY8jOOrYmu3d3a71+tJJ23uscEV4X2HJWMsPJu4g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+
+  /@expo-google-fonts/nunito@0.2.3:
+    resolution: {integrity: sha512-z+Bx3IuT0t3jguoMxiyWuC7pW3wDVNHgYko/G9V23QhR/yDSjEsT+Kx+VGDT/hu9TXSxw3CtpQ5MFHikqSVDYw==}
+    dev: false
 
   /@expo/bunyan@4.0.0:
     resolution: {integrity: sha512-Ydf4LidRB/EBI+YrB+cVLqIseiRfjUI/AeHBgjGMtq3GroraDu81OV7zqophRgupngoL3iS3JUMDMnxO7g39qA==}
@@ -5609,6 +5625,14 @@ packages:
     dependencies:
       expo: 48.0.11(@babel/core@7.21.4)
       fontfaceobserver: 2.3.0
+    dev: false
+
+  /expo-image@1.0.0(expo@48.0.11):
+    resolution: {integrity: sha512-A1amVExKhBa/eRXuceauYtPkf9izeje5AbxEWL09tgK91rf3GSIZXM5PSDGlIM0s7dpCV+Iet2jhwcFUfWaZrw==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 48.0.11(@babel/core@7.21.4)
     dev: false
 
   /expo-json-utils@0.5.1:

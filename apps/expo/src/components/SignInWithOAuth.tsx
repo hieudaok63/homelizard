@@ -52,13 +52,6 @@ const SignInWithOAuth = () => {
         title="Sign in with Discords"
       />
       <OAuthSignInButton strategy="oauth_google" title="Sign in with Google" />
-      <Button
-        title={"test"}
-        onPress={() => {
-          const t = "test";
-          console.log(t);
-        }}
-      />
     </>
   );
 };
