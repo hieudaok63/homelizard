@@ -1,5 +1,3 @@
-
-
 // import { type Config } from "tailwindcss";
 
 // import baseConfig from "@homelizard/tailwind-config";
@@ -20,6 +18,10 @@ const config = {
         "nunito-bold": ["Nunito_700Bold"],
 
         "nunito-bold-italic": ["Nunito_700Bold_Italic"],
+      },
+      colors: {
+        // brand color dark grey
+        brand: "#1F2937",
       },
     },
   },

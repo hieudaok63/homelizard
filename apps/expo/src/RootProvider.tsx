@@ -1,5 +1,4 @@
 import React, { type PropsWithChildren } from "react";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import Constants from "expo-constants";
 import { ClerkProvider } from "@clerk/clerk-expo";
 
@@ -14,9 +13,7 @@ const RootProvider: React.FC<PropsWithChildren> = ({ children }) => {
       }
       tokenCache={tokenCache}
     >
-      <TRPCProvider>
-        <SafeAreaProvider>{children}</SafeAreaProvider>
-      </TRPCProvider>
+      <TRPCProvider>{children}</TRPCProvider>
     </ClerkProvider>
   );
 };

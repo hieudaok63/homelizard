@@ -89,7 +89,6 @@ const CreatePost: React.FC = () => {
 };
 
 const Index = () => {
-  console.log("rendering index");
   const utils = api.useContext();
 
   const postQuery = api.post.all.useQuery();
