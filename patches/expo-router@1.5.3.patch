@@ -1,0 +1,22 @@
+diff --git a/src/useNavigation.ts b/src/useNavigation.ts
+index 8b54a05a681676af3d1f3957c4adf91955fcb872..3121ee11c6bbf78983c872ff625f1f3378b1c77d 100644
+--- a/src/useNavigation.ts
++++ b/src/useNavigation.ts
+@@ -19,7 +19,7 @@ export function useNavigation(
+ 
+   const contextKey = useContextKey();
+   const normalizedParent = React.useMemo(() => {
+-    if (!parent) {
++    if (parent === undefined || parent === null) {
+       return null;
+     }
+     const normalized = getNameFromFilePath(parent);
+@@ -52,7 +52,7 @@ export function resolveParentId(
+   contextKey: string,
+   parentId?: string | null
+ ): string | null {
+-  if (!parentId) {
++  if (parentId === null || parentId === undefined) {
+     return null;
+   }
+ 

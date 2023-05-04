@@ -7,7 +7,7 @@ import { Button } from "~/components/ui/Button";
 const ObjectType = () => {
   return (
     <View>
-      <Stack.Screen name="../../" options={{ title: "Object Type" }} />
+      <Stack.Screen name="" options={{ title: "Object Type" }} />
       <Text>ObjectType</Text>
       <Button title="Weiter" onPress="/search/location" />
     </View>
