@@ -29,10 +29,5 @@
     "prettier-plugin-tailwindcss": "^0.2.7",
     "turbo": "^1.9.3",
     "typescript": "^5.0.4"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "expo-router@1.5.3": "patches/expo-router@1.5.3.patch"
-    }
   }
 }
