@@ -1,0 +1,41 @@
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   version="1.1"
+   id="svg156"
+   sodipodi:docname="PeopleIcon.svg"
+   inkscape:version="1.2.2 (b0a84865, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs160" />
+  <sodipodi:namedview
+     id="namedview158"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="42.791667"
+     inkscape:cx="7.1742941"
+     inkscape:cy="12.23369"
+     inkscape:window-width="3131"
+     inkscape:window-height="1205"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg156" />
+  <path
+     fill-rule="evenodd"
+     clip-rule="evenodd"
+     d="m 4.0000211,7.0000001 c 0,-1.65685 1.34314,-3 3,-3 1.6568499,0 2.9999599,1.34315 2.9999599,3 0,1.65685 -1.34311,2.9999998 -2.9999599,2.9999998 -1.65686,0 -3,-1.3431498 -3,-2.9999998 z m 3,-5 c -2.76143,0 -5,2.23858 -5,5 0,2.76142 2.23857,4.9999999 5,4.9999999 2.7614599,0 4.9999599,-2.2385799 4.9999599,-4.9999999 0,-2.76142 -2.2385,-5 -4.9999599,-5 z m 8.9999599,7 c 0,-1.10457 0.8955,-2 2,-2 1.1046,0 2,0.89543 2,2 0,1.1045999 -0.8954,1.9999999 -2,1.9999999 -1.1045,0 -2,-0.8954 -2,-1.9999999 z m 2,-4 c -2.2091,0 -4,1.79086 -4,4 0,2.2090999 1.7909,3.9999999 4,3.9999999 2.2092,0 4,-1.7909 4,-3.9999999 0,-2.20914 -1.7908,-4 -4,-4 z M 1.9e-5,19 c 0,-2.7614 2.2385721,-5 5.0000021,-5 H 9.000021 c 1.87706,0 3.51256,1.0343 4.36756,2.5641 0.9114,-0.9632 2.2017,-1.5641 3.6324,-1.5641 h 2 c 2.7615,0 5,2.2386 5,5 v 1 c 0,0.5523 -0.4477,1 -1,1 -0.5522,0 -1,-0.4477 -1,-1 v -1 c 0,-1.6569 -1.3431,-3 -3,-3 h -2 c -1.6568,0 -3,1.3431 -3,3 v 1 c 0,0.5523 -0.4477,1 -1,1 -0.5522,0 -1,-0.4477 -1,-1 v -1 -1 c 0,-1.6569 -1.3431,-3 -2.99996,-3 H 5.0000211 c -1.65686,0 -3,1.3431 -3,3 v 2 c 0,0.5523 -0.44772,1 -1.0000001,1 C 0.447734,22 1.9e-5,21.5523 1.9e-5,21 Z"
+     fill="#ffffff"
+     id="path154" />
+</svg>
