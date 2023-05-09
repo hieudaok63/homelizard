@@ -6,7 +6,7 @@ import { SignedOut } from "@clerk/clerk-expo";
 import { FlashList } from "@shopify/flash-list";
 
 import { api, type RouterOutputs } from "~/utils/api";
-import { SignOutButton } from "~/components/SignOutButton";
+import { SignOutButton } from "~/components/auth/SignOutButton";
 
 const PostCard: React.FC<{
   post: RouterOutputs["post"]["all"][number];

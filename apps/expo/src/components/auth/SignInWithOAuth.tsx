@@ -5,7 +5,7 @@ import { Button, View } from "react-native";
 import { maybeCompleteAuthSession } from "expo-web-browser";
 import { useOAuth, type UseOAuthFlowParams } from "@clerk/clerk-expo";
 
-import { useWarmUpBrowser } from "../hooks/useWarmUpBrowser";
+import { useWarmUpBrowser } from "../../hooks/useWarmUpBrowser";
 
 maybeCompleteAuthSession();
 
