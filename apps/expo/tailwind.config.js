@@ -22,6 +22,7 @@ const config = {
       colors: {
         // brand color dark grey
         brand: "#1F2937",
+        dark: "#262636",
       },
     },
   },

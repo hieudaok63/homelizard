@@ -3,17 +3,18 @@ import { createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import { type TabStackParams } from './routes';
 import { HomeScreen } from './Home';
 import { ProfileScreen } from './Profile';
+import TabBar from '~/components/navigation/TabBar';
 
-const TabStack = createBottomTabNavigator<TabStackParams>();
+const Tab = createBottomTabNavigator<TabStackParams>();
 
 const AppStack = () => {
   return (
-    <TabStack.Navigator>
-      <TabStack.Screen name="Home" component={HomeScreen} />
-      <TabStack.Screen name="Profile" component={ProfileScreen} initialParams={{
+    <Tab.Navigator tabBar={(props) => <TabBar {...props}/> }>
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} initialParams={{
         num: 2
       }}/>
-    </TabStack.Navigator>
+    </Tab.Navigator>
   )
 }
 
