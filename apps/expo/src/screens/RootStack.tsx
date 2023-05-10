@@ -24,6 +24,7 @@ export function RootStack() {
     <Stack.Navigator
       screenOptions={{
         headerTransparent: true,
+        animation: "slide_from_right",
       }}
     >
       {isSignedIn ? (
