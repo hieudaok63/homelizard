@@ -4,7 +4,7 @@ import { useHeaderHeight } from "@react-navigation/elements";
 
 import GradientPatternBackground from "~/components/ui/GradientPatternBackground";
 
-export const SearchLayout = ({children}: PropsWithChildren) => {
+export const SearchLayout = ({ children }: PropsWithChildren) => {
   const headerHeight = useHeaderHeight();
   return (
     <GradientPatternBackground variant="blue">
@@ -13,7 +13,7 @@ export const SearchLayout = ({children}: PropsWithChildren) => {
           marginTop: headerHeight,
         }}
       >
-      {children}
+        {children}
       </View>
     </GradientPatternBackground>
   );
