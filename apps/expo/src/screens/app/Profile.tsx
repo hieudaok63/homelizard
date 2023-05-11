@@ -1,16 +1,16 @@
 import { Text, View } from "react-native";
 
+import { type AppNavigationProps } from "~/components/navigation/useAppNavigation";
 import { Button } from "~/components/ui/Button";
-import { type TabStackParams } from "./routes";
-import { type BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 
 export type ProfileScreenProps = {
   num: number;
 };
 
-type Props = BottomTabScreenProps<TabStackParams, "Profile">;
-
-export const ProfileScreen = ({ route, navigation }: Props) => {
+export const ProfileScreen = ({
+  route,
+  navigation,
+}: AppNavigationProps<"Profile">) => {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Profile Screen {route.params.num}</Text>
