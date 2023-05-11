@@ -2,36 +2,7 @@
    width="24"
    height="24"
    viewBox="0 0 24 24"
-   fill="none"
-   version="1.1"
-   id="svg358"
-   sodipodi:docname="HomeIcon.svg"
-   inkscape:version="1.2.2 (b0a84865, 2022-12-01)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs362" />
-  <sodipodi:namedview
-     id="namedview360"
-     pagecolor="#505050"
-     bordercolor="#eeeeee"
-     borderopacity="1"
-     inkscape:showpageshadow="0"
-     inkscape:pageopacity="0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#505050"
-     showgrid="false"
-     inkscape:zoom="42.791667"
-     inkscape:cx="7.3612463"
-     inkscape:cy="8.2960078"
-     inkscape:window-width="2653"
-     inkscape:window-height="1304"
-     inkscape:window-x="0"
-     inkscape:window-y="25"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="svg358" />
+   >
   <path
      fill-rule="evenodd"
      clip-rule="evenodd"
