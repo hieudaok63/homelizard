@@ -15,7 +15,7 @@ const Results = ({ navigation }: Props) => {
       <Button
         title="Weiter"
         onPress={() => {
-          navigation.navigate("AppStack", { screen: "Home" });
+          navigation.navigate("Login");
         }}
       />
     </SearchLayout>
