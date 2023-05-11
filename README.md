@@ -1,19 +1,72 @@
-# create-t3-turbo
+# Homelizard
 
-<img width="1758" alt="turbo2" src="https://user-images.githubusercontent.com/51714798/213819392-33e50db9-3e38-4c51-9a22-03abe5e48f3d.png">
+<img width="1758" alt="turbo2" src="./apps/expo/assets/homelizard.svg">
 
 ## Installation
 
-There are two ways of initializing an app using `create-t3-turbo` starter. You can either use this repository as a template or use Turbo's CLI to init your project:
-```bash
-npx create-turbo@latest -e https://github.com/t3-oss/create-t3-turbo
+1. Install node v18.16.0
+2. Install pnpm
 ```
+npm i -g pnpm
+```
+
+## Quick Start
+
+To get it running, follow the steps below:
+
+### Setup dependencies
+
+```diff
+# Install dependencies
+pnpm i
+
+# Configure environment variables.
+# There is an `.env.example` in the root directory you can use for reference
+# use it to populate all required environment variables
+cp .env.example .env
+
+# Push the Prisma schema to your database
+pnpm db:push
+```
+
+
+> **TIP:** It might be easier to run each app in separate terminal windows so you get the logs from each app separately. This is also required if you want your terminals to be interactive, e.g. to access the Expo QR code. You can run `pnpm --filter expo dev` and `pnpm --filter nextjs dev` to run each app in a separate terminal window.
+
+### Run the Nextjs Application
+
+Run the `dev:next` script from the root directory
+```
+pnpm dev:next
+```
+
+### Run the Expo Application
+#### Use iOS Simulator
+
+1. Make sure you have XCode and XCommand Line Tools installed [as shown on expo docs](https://docs.expo.dev/workflow/ios-simulator/).
+   > **NOTE:** If you just installed XCode, or if you have updated it, you need to open the simulator manually once. Run `npx expo start` in the root dir, and then enter `I` to launch Expo Go. After the manual launch, you can run `pnpm dev` in the root directory.
+
+```
+$ pnpm dev:expo // and hit i
+// or
+$ cd apps/expo && pnpm dev:ios
+```
+
+#### For Android
+
+1. Install Android Studio tools [as shown on expo docs](https://docs.expo.dev/workflow/android-studio-emulator/).
+2. Change the `dev` script at `apps/expo/package.json` to open the Android emulator.
+
+```
+$ pnpm dev:expo // and hit i
+// or
+$ cd apps/expo && pnpm dev:ios
+```
+
+3. Run `pnpm dev` at the project root folder.
 
 ## About
 
-Ever wondered how to migrate your T3 application into a monorepo? Stop right here! This is the perfect starter repo to get you running with the perfect stack!
-
-It uses [Turborepo](https://turborepo.org/) and contains:
+It uses [Turborepo](https://turborepo.org/) and the t3-Stack and contains:
 
 ```
 .github
@@ -70,55 +123,6 @@ Integrating Solito into this repo isn't hard, and there are a few [offical templ
 No, it does not. The `api` package should only be a production dependency in the Next.js application where it's served. The Expo app, and all other apps you may add in the future, should only add the `api` package as a dev dependency. This lets you have full typesafety in your client applications, while keeping your backend code safe.
 
 If you need to share runtime code between the client and server, such as input validation schemas, you can create a separate `shared` package for this and import on both sides.
-
-## Quick Start
-
-To get it running, follow the steps below:
-
-### Setup dependencies
-
-```diff
-# Install dependencies
-pnpm i
-
-# In packages/db/prisma update schema.prisma provider to use sqlite
-# or use your own database provider
-- provider = "postgresql"
-+ provider = "sqlite"
-
-# Configure environment variables.
-# There is an `.env.example` in the root directory you can use for reference
-cp .env.example .env
-
-# Push the Prisma schema to your database
-pnpm db:push
-```
-
-### Configure Expo `dev`-script
-
-#### Use iOS Simulator
-
-1. Make sure you have XCode and XCommand Line Tools installed [as shown on expo docs](https://docs.expo.dev/workflow/ios-simulator/).
-   > **NOTE:** If you just installed XCode, or if you have updated it, you need to open the simulator manually once. Run `npx expo start` in the root dir, and then enter `I` to launch Expo Go. After the manual launch, you can run `pnpm dev` in the root directory.
-
-```diff
-+  "dev": "expo start --ios",
-```
-
-3. Run `pnpm dev` at the project root folder.
-
-> **TIP:** It might be easier to run each app in separate terminal windows so you get the logs from each app separately. This is also required if you want your terminals to be interactive, e.g. to access the Expo QR code. You can run `pnpm --filter expo dev` and `pnpm --filter nextjs dev` to run each app in a separate terminal window.
-
-#### For Android
-
-1. Install Android Studio tools [as shown on expo docs](https://docs.expo.dev/workflow/android-studio-emulator/).
-2. Change the `dev` script at `apps/expo/package.json` to open the Android emulator.
-
-```diff
-+  "dev": "expo start --android",
-```
-
-3. Run `pnpm dev` at the project root folder.
 
 ## Deployment
 
