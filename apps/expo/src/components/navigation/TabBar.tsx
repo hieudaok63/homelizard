@@ -1,10 +1,9 @@
 import React, { useEffect, useState, type ComponentProps } from "react";
-import {
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import Animated, {
+  FadeIn,
+  FadeOut,
+  Layout,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
@@ -15,17 +14,17 @@ import MenuIcon from "@assets/icons/MenuIcon.svg";
 import PeopleIcon from "@assets/icons/PeopleIcon.svg";
 import PersonIcon from "@assets/icons/PersonIcon.svg";
 import PlusIcon from "@assets/icons/PlusIcon.svg";
+import CloseIcon from "@assets/icons/CloseIcon.svg";
 import { type BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import clsx from "clsx";
 
-const AnimatedView = Animated.createAnimatedComponent(View);
-
-const PADDING_HEIGHT = 29;
+const PADDING_HEIGHT = 28;
 
 const shadowStyle = {
   shadowColor: "#000",
   shadowOffset: {
     width: 0,
-    height: 8,
+    height: 6,
   },
   shadowOpacity: 0.25,
   shadowRadius: 3.84,
@@ -39,8 +38,8 @@ const linkData = [
   { name: "Home3" },
   { name: "Home4" },
   { name: "Home5" },
-  { name: "Profile" }
-]
+  { name: "Profile" },
+];
 
 const TabBar = ({
   descriptors,
@@ -50,11 +49,14 @@ const TabBar = ({
 }: BottomTabBarProps) => {
   const maxHeight = useSharedValue(0);
   const [open, setOpen] = useState(false);
-  const [contentHeight, setContentHeight] = useState(0)
+  const [contentHeight, setContentHeight] = useState(0);
 
   useEffect(() => {
-    maxHeight.value = withSpring(open ? contentHeight + PADDING_HEIGHT : 0, { overshootClamping: true, damping: 15 });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    maxHeight.value = withSpring(open ? contentHeight + PADDING_HEIGHT : 0, {
+      overshootClamping: true,
+      damping: 15,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, contentHeight]);
 
   const animatedContentStyle = useAnimatedStyle(() => {
@@ -64,25 +66,25 @@ const TabBar = ({
       marginBottom: maxHeight.value === 0 ? 0 : -1,
     };
   });
-
+  
   return (
     <View className="flex items-center">
       <View className="absolute bottom-6 flex w-[328px]">
         <TopBackground />
-        <AnimatedView 
+        <Animated.View
           style={animatedContentStyle}
-          className="overflow-hidden flex flex-between bg-dark">
-            
-            <View
-              // basis-[1px] is used to allow RN to calculate the height of the view
-              className="bg-dark flex-grow basis-[1px]"
-              >
+          className="flex-between bg-dark flex overflow-hidden"
+        >
+          <View
+            // basis-[1px] is used to allow RN to calculate the height of the view
+            className="bg-dark flex-grow basis-[1px]"
+          >
             <View
               className=""
               onLayout={(e) => {
-                setContentHeight(e.nativeEvent.layout.height)
+                setContentHeight(e.nativeEvent.layout.height);
               }}
-              >
+            >
               {linkData.map((item) => (
                 <TouchableOpacity
                   key={item.name}
@@ -94,21 +96,25 @@ const TabBar = ({
                   </View>
                 </TouchableOpacity>
               ))}
-              </View>
-              </View>
-          <View 
+            </View>
+          </View>
+          <View
             style={{
               height: PADDING_HEIGHT,
             }}
-            className="bg-dark flex-none" />
-        </AnimatedView>
+            className="bg-dark flex-none"
+          />
+        </Animated.View>
         <BottomBackground />
 
         <ActionBar
           onMenuPress={() => {
             setOpen(!open);
           }}
+          menuOpen={open}
           navigation={navigation}
+          state={state}
+          showLabels={open}
         />
       </View>
     </View>
@@ -146,7 +152,6 @@ const TopBackground = () => (
 
 const BottomBackground = () => (
   <Svg className="h-8" style={shadowStyle}>
-  {/* <Svg className="h-8"> */}
     <Rect fill="#262636" y="-32" width="100%" height="200%" rx="32" />
   </Svg>
 );
@@ -154,22 +159,45 @@ const BottomBackground = () => (
 type ActionBarProps = {
   onMenuPress: () => void;
   navigation: BottomTabBarProps["navigation"];
+  state: BottomTabBarProps["state"];
+  menuOpen: boolean;
+  showLabels?: boolean;
 };
 
-const ActionBar = ({ onMenuPress, navigation }: ActionBarProps) => {
+const ActionBar = ({ onMenuPress, navigation, state, showLabels, menuOpen }: ActionBarProps) => {
   return (
     <>
-      <CenterButton
-        onPress={onMenuPress}
-      />
-      <View className="absolute bottom-0 left-0 right-0 flex flex-row justify-between">
-        <View className="flex flex-row px-2 py-1">
-          <TabActionButton onPress={() => navigation.navigate("Home")} Icon={HomeIcon} />
-          <TabActionButton onPress={() => navigation.navigate("Home")} Icon={PeopleIcon} />
+      <CenterButton onPress={onMenuPress} />
+      <View className="absolute bottom-0 left-0 right-0 flex h-16 flex-row justify-between">
+        <View className="flex flex-row items-center px-2 py-1">
+          <TabActionButton
+            Icon={HomeIcon}
+            label="Home"
+            showLabel={showLabels}
+            onPress={() => navigation.navigate("Home")}
+            active={state.index === 0}
+          />
+          <TabActionButton
+            Icon={PeopleIcon}
+            label="Accounts"
+            showLabel={showLabels}
+            onPress={() => navigation.navigate("LinkAccounts")}
+          />
         </View>
-        <View className="flex flex-row px-2 py-1">
-          <TabActionButton onPress={() => navigation.navigate("Profile")} Icon={PersonIcon} />
-          <TabActionButton onPress={onMenuPress} Icon={MenuIcon} />
+        <View className="flex flex-row items-center px-2 py-1">
+          <TabActionButton
+            onPress={() => navigation.navigate("Profile")}
+            label="Profile"
+            showLabel={showLabels}
+            Icon={PersonIcon}
+            active={state.index === 1}
+          />
+          <TabActionButton
+            label={"Close"}
+            showLabel={showLabels}
+            onPress={onMenuPress}
+            Icon={menuOpen ? CloseIcon : MenuIcon}
+          />
         </View>
       </View>
     </>
@@ -180,16 +208,34 @@ type TabActionButtonProps = {
   onPress: () => void;
   Icon: React.FC<SvgProps>;
   label?: string;
+  showLabel?: boolean;
+  active?: boolean;
 };
 
-const TabActionButton = ({ onPress, Icon }: TabActionButtonProps) => {
+const TabActionButton = ({
+  onPress,
+  Icon,
+  label,
+  showLabel,
+  active,
+}: TabActionButtonProps) => {
   return (
-    <TouchableOpacity
-      onPress={onPress}
-    >
-      <View className="p-4 bg-dark rounded-full">
-        <Icon/>
+    <TouchableOpacity onPress={onPress}>
+      <View className="bg-dark flex h-14 w-14 flex-col items-center justify-center rounded-full">
+        <Animated.View layout={Layout}>
+          <Icon className={clsx("fill-white", active && "fill-blue-400")} />
+        </Animated.View>
+        {showLabel && (
+          <Animated.Text
+            entering={FadeIn.duration(400)}
+            exiting={FadeOut.duration(200)}
+            layout={Layout}
+            className={clsx("text-xs text-white", active && "text-blue-400")}
+          >
+            {label}
+          </Animated.Text>
+        )}
       </View>
     </TouchableOpacity>
-  )
-}
+  );
+};
