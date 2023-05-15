@@ -70,7 +70,7 @@ const TabBar = ({
   state,
 }: BottomTabBarProps) => {
   const maxHeight = useSharedValue(0);
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
 
   useEffect(() => {
