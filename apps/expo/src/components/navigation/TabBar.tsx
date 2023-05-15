@@ -9,12 +9,17 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated";
 import { Circle, Defs, Mask, Rect, Svg, type SvgProps } from "react-native-svg";
+import { LinearGradient } from "expo-linear-gradient";
+import ArrowRightIcon from "@assets/icons/ArrowRightIcon.svg";
+import BookmarkIcon from "@assets/icons/BookmarkIcon.svg";
+import CloseIcon from "@assets/icons/CloseIcon.svg";
 import HomeIcon from "@assets/icons/HomeIcon.svg";
 import MenuIcon from "@assets/icons/MenuIcon.svg";
+import MessageIcon from "@assets/icons/MessageIcon.svg";
 import PeopleIcon from "@assets/icons/PeopleIcon.svg";
 import PersonIcon from "@assets/icons/PersonIcon.svg";
 import PlusIcon from "@assets/icons/PlusIcon.svg";
-import CloseIcon from "@assets/icons/CloseIcon.svg";
+import SettingsIcon from "@assets/icons/SettingsIcon.svg";
 import { type BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import clsx from "clsx";
 
@@ -31,14 +36,31 @@ const shadowStyle = {
   elevation: 5,
 };
 
-const linkData = [
-  { name: "Home" },
-  { name: "Home1" },
-  { name: "Home2" },
-  { name: "Home3" },
-  { name: "Home4" },
-  { name: "Home5" },
-  { name: "Profile" },
+const menuLinkData = [
+  {
+    name: "Settings",
+    Icon: SettingsIcon,
+    iconGradient: {
+      from: "#A079EB",
+      to: "#6E4AE5",
+    },
+  },
+  {
+    name: "Messages",
+    Icon: MessageIcon,
+    iconGradient: {
+      from: "#4AB0F7",
+      to: "#317FEC",
+    },
+  },
+  {
+    name: "Bookmarks",
+    Icon: BookmarkIcon,
+    iconGradient: {
+      from: "#FADA25",
+      to: "#F4B512",
+    },
+  },
 ];
 
 const TabBar = ({
@@ -48,13 +70,14 @@ const TabBar = ({
   state,
 }: BottomTabBarProps) => {
   const maxHeight = useSharedValue(0);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const [contentHeight, setContentHeight] = useState(0);
 
   useEffect(() => {
     maxHeight.value = withSpring(open ? contentHeight + PADDING_HEIGHT : 0, {
       overshootClamping: true,
-      damping: 15,
+      // damping: 10,
+      stiffness: 50,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, contentHeight]);
@@ -66,7 +89,7 @@ const TabBar = ({
       marginBottom: maxHeight.value === 0 ? 0 : -1,
     };
   });
-  
+
   return (
     <View className="flex items-center">
       <View className="absolute bottom-6 flex w-[328px]">
@@ -80,21 +103,12 @@ const TabBar = ({
             className="bg-dark flex-grow basis-[1px]"
           >
             <View
-              className=""
               onLayout={(e) => {
                 setContentHeight(e.nativeEvent.layout.height);
               }}
             >
-              {linkData.map((item) => (
-                <TouchableOpacity
-                  key={item.name}
-                  activeOpacity={0.8}
-                  onPress={() => navigation.navigate("Home")}
-                >
-                  <View className="flex flex-row p-2">
-                    <Text className="text-white">{item.name}</Text>
-                  </View>
-                </TouchableOpacity>
+              {menuLinkData.map((item) => (
+                <MenuLink key={item.name} {...item} />
               ))}
             </View>
           </View>
@@ -154,6 +168,7 @@ const BottomBackground = () => (
   <Svg className="h-8" style={shadowStyle}>
     <Rect fill="#262636" y="-32" width="100%" height="200%" rx="32" />
   </Svg>
+  // <View className="h-8 rounded-bl-full rounded-br-full bg-dark"/>
 );
 
 type ActionBarProps = {
@@ -164,7 +179,13 @@ type ActionBarProps = {
   showLabels?: boolean;
 };
 
-const ActionBar = ({ onMenuPress, navigation, state, showLabels, menuOpen }: ActionBarProps) => {
+const ActionBar = ({
+  onMenuPress,
+  navigation,
+  state,
+  showLabels,
+  menuOpen,
+}: ActionBarProps) => {
   return (
     <>
       <CenterButton onPress={onMenuPress} />
@@ -235,6 +256,23 @@ const TabActionButton = ({
             {label}
           </Animated.Text>
         )}
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+const MenuLink = ({ name, Icon, iconGradient }: (typeof menuLinkData)[0]) => {
+  return (
+    <TouchableOpacity onPress={() => {}}>
+      <View className="flex flex-row items-center border-b-[1px] border-[#303040] p-4 py-2">
+        <LinearGradient
+          className="rounded-bl-full rounded-tl-full rounded-tr-full p-2"
+          colors={[iconGradient.from, iconGradient.to]}
+        >
+          <Icon />
+        </LinearGradient>
+        <Text className="ml-4 flex-grow text-lg text-white">{name}</Text>
+        <ArrowRightIcon />
       </View>
     </TouchableOpacity>
   );
