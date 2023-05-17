@@ -4,6 +4,7 @@
     "dbaeumer.vscode-eslint",
     "bradlc.vscode-tailwindcss",
     "prisma.prisma",
-    "formulahendry.auto-rename-tag"
+    "formulahendry.auto-rename-tag",
+    "lokalise.i18n-ally"
   ]
 }

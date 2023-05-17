@@ -1,4 +1,6 @@
+import { useTranslation } from "react-i18next";
 import { Text, View } from "react-native";
+
 
 import { type AppNavigationProps } from "~/components/navigation/useAppNavigation";
 import { Button } from "~/components/ui/Button";
@@ -11,8 +13,10 @@ export const ProfileScreen = ({
   route,
   navigation,
 }: AppNavigationProps<"Profile">) => {
+  const { t } = useTranslation(["profile"]);
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Text>{t("profile:title")}</Text>
       <Text>Profile Screen {route.params.num}</Text>
       <Button
         title="Profile"

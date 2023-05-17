@@ -4,6 +4,8 @@
  */
 // !process.env.SKIP_ENV_VALIDATION && (await import("./src/env.mjs"));
 
+import i18nConfig from "./next-i18next.config.mjs";
+
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
@@ -13,6 +15,7 @@ const config = {
   /** We already do linting and typechecking as separate tasks in CI */
   eslint: { ignoreDuringBuilds: !!process.env.CI },
   typescript: { ignoreBuildErrors: !!process.env.CI },
+  i18n: i18nConfig.i18n,
 };
 
 export default config;

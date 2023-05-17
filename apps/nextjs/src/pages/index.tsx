@@ -3,8 +3,11 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { UserButton, useAuth } from "@clerk/nextjs";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 import { api, type RouterOutputs } from "~/utils/api";
+import nextI18nConfig from "../../next-i18next.config.mjs";
 
 const PostCard: React.FC<{
   post: RouterOutputs["post"]["all"][number];
@@ -81,7 +84,17 @@ const CreatePostForm: React.FC = () => {
   );
 };
 
+export const getServerSideProps = async ({ locale }: { locale: string }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common"], nextI18nConfig, [
+      "en",
+      "de",
+    ])),
+  },
+});
+
 const Home: NextPage = () => {
+  const { t } = useTranslation();
   const postQuery = api.post.all.useQuery();
 
   const deletePostMutation = api.post.delete.useMutation({
@@ -100,6 +113,7 @@ const Home: NextPage = () => {
           <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
             Create <span className="text-pink-400">T3</span> Turbo
           </h1>
+          {t("navigation.home")}
           <AuthShowcase />
 
           <CreatePostForm />
@@ -111,7 +125,7 @@ const Home: NextPage = () => {
               ) : (
                 <div className="flex h-[40vh] justify-center overflow-y-scroll px-4 text-2xl">
                   <div className="flex w-full flex-col gap-4">
-                    {postQuery.data?.map((p) => {
+                    {postQuery.data?.map((p: any) => {
                       return (
                         <PostCard
                           key={p.id}
