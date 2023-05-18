@@ -20,6 +20,10 @@
     },
     "lint": {},
     "lint:fix": {},
+    "test": {},
+    "test:watch": {
+      "cache": false
+    },
     "clean": {
       "cache": false
     },
