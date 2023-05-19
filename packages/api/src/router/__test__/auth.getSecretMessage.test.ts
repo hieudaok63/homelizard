@@ -6,6 +6,7 @@ import {
 import { prisma } from "@homelizard/db";
 
 import { appRouter } from "../../root";
+import { test, expect } from 'vitest'
 
 test("getSecretMessage", async () => {
   const caller = appRouter.createCaller({

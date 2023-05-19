@@ -18,8 +18,8 @@
     "lint": "turbo lint && manypkg check",
     "lint:fix": "turbo lint:fix && manypkg fix",
     "type-check": "turbo type-check",
-    "test": "turbo run test",
-    "test:watch": "turbo run test:watch"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@homelizard/eslint-config": "^0.1.0",

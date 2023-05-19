@@ -1,9 +1,10 @@
 import { type SignedInAuthObject } from "@clerk/nextjs/api";
-import { mockDeep } from "jest-mock-extended";
+import { mockDeep } from "vitest-mock-extended";
 
 import { type Post, type PrismaClient } from "@homelizard/db";
 
 import { appRouter } from "../../root";
+import { test, expect } from 'vitest'
 
 test("getAll", async () => {
   const prismaMock = mockDeep<PrismaClient>();

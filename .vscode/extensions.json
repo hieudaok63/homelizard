@@ -5,6 +5,7 @@
     "bradlc.vscode-tailwindcss",
     "prisma.prisma",
     "formulahendry.auto-rename-tag",
-    "lokalise.i18n-ally"
+    "lokalise.i18n-ally",
+    "zixuanchen.vitest-explorer"
   ]
 }
