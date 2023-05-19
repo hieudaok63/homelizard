@@ -3,7 +3,7 @@ import { mockDeep } from "vitest-mock-extended";
 
 import { type Post, type PrismaClient } from "@homelizard/db";
 
-import { appRouter } from "../../root";
+import { appRouter } from "../root";
 import { test, expect } from 'vitest'
 
 test("getAll", async () => {

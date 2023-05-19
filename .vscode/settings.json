@@ -6,7 +6,14 @@
   "editor.formatOnSave": true,
   "eslint.rules.customizations": [{ "rule": "*", "severity": "warn" }],
   "typescript.tsdk": "node_modules/typescript/lib",
-  "cSpell.words": ["homelizard", "nextjs", "prodactive", "superjson", "trpc"],
+  "cSpell.words": [
+    "homelizard",
+    "nextjs",
+    "prisma",
+    "prodactive",
+    "superjson",
+    "trpc"
+  ],
   "tailwindCSS.experimental.classRegex": [
     [
       "cva\\(([^)]*)\\)",
@@ -20,5 +27,13 @@
   "i18n-ally.namespace": true,
   "i18n-ally.defaultNamespace": "base",
   "i18n-ally.keystyle": "nested",
-  "vitest.commandLine": "pnpm vitest"
+  "vitest.commandLine": "pnpm vitest",
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.ts": "${capture}.*.test.ts, ${capture}.e2e.ts, ${capture}.spec.ts",
+    "*.tsx": "${capture}.*.test.tsx, ${capture}.e2e.tsx, ${capture}.spec.tsx",
+    "tsconfig.json": "tsconfig.*.json",
+    "package.json": ".npmrc, .nvmrc, package-lock.json, yarn.lock, pnpm-lock.yaml",
+    ".env": ".env.*"
+  }
 }

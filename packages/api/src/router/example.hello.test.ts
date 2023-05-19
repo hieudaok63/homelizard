@@ -2,7 +2,7 @@ import { type inferProcedureInput } from "@trpc/server";
 
 import { prisma } from "@homelizard/db";
 
-import { appRouter, type AppRouter } from "../../root";
+import { appRouter, type AppRouter } from "../root";
 import { signedOutAuthObject } from "@clerk/nextjs/api";
 import { test, expect } from 'vitest'
 
