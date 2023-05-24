@@ -5,7 +5,15 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./Login";
 import LoginOrSignUp from "./LoginOrSignup";
 import AppStack from "./app/AppStack";
+import { EditProfilePicture } from "./profilePicture";
+// register screens
+import {
+  RegisterAgb,
+  RegisterEmailPassword,
+  RegisterNameSex,
+} from "./register";
 import { type RootStackParams } from "./routes";
+// search screens
 import Availability from "./search/Availability";
 import LivingArea from "./search/LivingArea";
 import Location from "./search/Location";
@@ -25,6 +33,7 @@ export function RootStack() {
       screenOptions={{
         headerTransparent: true,
         animation: "slide_from_right",
+        headerTitle: "",
       }}
     >
       {isSignedIn ? (
@@ -49,6 +58,7 @@ export function RootStack() {
             }}
           />
           <Stack.Screen name="Login" component={Login} />
+          {/* search */}
           <Stack.Group>
             <Stack.Screen name="ObjectType" component={ObjectType} />
             <Stack.Screen name="Location" component={Location} />
@@ -62,6 +72,30 @@ export function RootStack() {
             <Stack.Screen name="Availability" component={Availability} />
             <Stack.Screen name="ObjectStyle" component={ObjectStyle} />
             <Stack.Screen name="Results" component={Results} />
+          </Stack.Group>
+
+          {/* register basic information */}
+          <Stack.Group>
+            <Stack.Screen
+              name="RegisterEmailPassword"
+              component={RegisterEmailPassword}
+            />
+            <Stack.Screen name="RegisterNameSex" component={RegisterNameSex} />
+            <Stack.Screen name="RegisterAgb" component={RegisterAgb} />
+          </Stack.Group>
+
+          {/* profile picture */}
+          <Stack.Group>
+            <Stack.Screen
+              name="ProfilePictureEdit"
+              component={EditProfilePicture}
+              options={{
+                headerShown: false,
+                headerStyle: {
+                  backgroundColor: "red",
+                },
+              }}
+            />
           </Stack.Group>
         </>
       )}

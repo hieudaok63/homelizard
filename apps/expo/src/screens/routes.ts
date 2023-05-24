@@ -1,7 +1,10 @@
 import { type NavigatorScreenParams } from "@react-navigation/native";
+
 import { type TabStackParams } from "./app/routes";
 
 export type RootStackParams = {
+  navigate: (arg0: string) => void;
+  goBack: () => void;
   // Tabstack
   AppStack: NavigatorScreenParams<TabStackParams>;
   LoginOrSignUp: undefined;
@@ -16,4 +19,10 @@ export type RootStackParams = {
   Availability: undefined;
   ObjectStyle: undefined;
   Results: undefined;
-}
+  // Register
+  RegisterEmailPassword: undefined;
+  RegisterNameSex: undefined;
+  RegisterAgb: undefined;
+  // Profile picture
+  ProfilePictureEdit: undefined;
+};
