@@ -1,7 +1,7 @@
-import { useTranslation } from "react-i18next";
 import { Text, View } from "react-native";
+import { useTranslation } from "react-i18next";
 
-
+import ImagePicker from "~/components/ImagePicker";
 import { type AppNavigationProps } from "~/components/navigation/useAppNavigation";
 import { Button } from "~/components/ui/Button";
 
@@ -24,6 +24,7 @@ export const ProfileScreen = ({
           navigation.navigate("Profile", { num: route.params.num + 1 })
         }
       />
+      <ImagePicker />
     </View>
   );
 };

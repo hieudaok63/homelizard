@@ -49,6 +49,7 @@ const defineConfig = (): ExpoConfig => ({
         },
       },
     ],
+    ["expo-image-picker"],
   ],
 });
 
