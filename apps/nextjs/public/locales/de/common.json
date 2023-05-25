@@ -1,7 +1,12 @@
 {
-    "navigation": {
-      "home": "Home",
-      "profile": "Profil"
-    },
-    "continue": "Weiter"
+  "navigation": {
+    "home": "Home",
+    "profile": "Profil"
+  },
+  "continue": "Weiter",
+  "gender": {
+    "male": "Mr",
+    "female": "Mrs",
+    "other": "Other"
+  }
 }

@@ -1,15 +1,21 @@
 import { useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import ArrowDownIcon from "@assets/icons/ArrowDownIcon.svg";
 import QuestionCircleIcon from "@assets/icons/QuestionCircleIcon.svg";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Controller, type SubmitHandler } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { z } from "zod";
 
-import { AppInput, Button } from "~/components/ui";
+import { Button } from "~/components/ui";
 import { BottomSheet } from "~/components/ui/BottomSheet";
+import TextInput from "~/components/ui/input/TextInput";
 import { useZodForm } from "~/hooks/useZodForm";
 import { type RootStackParams } from "~/screens/routes";
 import { RegisterLayout } from "./_layout";
@@ -17,20 +23,19 @@ import { RegisterLayout } from "./_layout";
 // types
 type IProps = NativeStackScreenProps<RootStackParams, "RegisterNameSex">;
 
+const genderOptions = ["female", "male", "other"] as const;
+
 // form schema
 const formSchema = z.object({
-  first_name: z.string().min(1, "This field is required"),
-  last_name: z.string().min(1, "This field is required"),
-  sex: z.string().min(1, "This field is required"),
+  firstName: z.string().min(1, "This field is required"),
+  lastName: z.string().min(1, "This field is required"),
+  gender: z.enum(genderOptions),
 });
-
-type FormSchemaType = z.infer<typeof formSchema>;
-
-const salutationOptions: string[] = ["Frau", "Herr", "Divers"];
 
 export const RegisterNameSex = ({ navigation }: IProps) => {
   // local states
   const [showBottomSheet, setShowBottomSheet] = useState(false);
+  const { t } = useTranslation();
 
   const {
     handleSubmit,
@@ -38,20 +43,15 @@ export const RegisterNameSex = ({ navigation }: IProps) => {
     setValue,
     formState: { errors },
     control,
-  } = useZodForm<FormSchemaType>({
+  } = useZodForm({
     schema: formSchema,
-    defaultValues: {
-      first_name: "",
-      last_name: "",
-      sex: "",
-    },
   });
 
   // functions
-  const onSubmit: SubmitHandler<FormSchemaType> = (data) => {
+  const onSubmit = handleSubmit((data) => {
     console.log(data); // for debug
     navigation?.navigate("RegisterAgb");
-  };
+  });
 
   const openBottomSheet = () => {
     setShowBottomSheet(true);
@@ -64,25 +64,30 @@ export const RegisterNameSex = ({ navigation }: IProps) => {
   // main return
   return (
     <RegisterLayout>
-      <KeyboardAwareScrollView>
-        <View className="h-full w-full px-5 pb-14">
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        className="flex h-full justify-between px-6"
+      >
+        <View>
           <Text className="font-nunito-800 text-font-18 text-dark">
             Login : Registrierung
           </Text>
           <Text className="font-nunito-800 text-font-18 text-dark pl-16">
             Anrede und Name
           </Text>
+        </View>
 
+        <View className="flex gap-6">
           <View>
             <TouchableOpacity
-              className="mt-32 rounded-l-2xl rounded-t-2xl bg-white px-4 py-5"
+              className="rounded-l-2xl rounded-t-2xl bg-white px-4 py-5"
               onPress={openBottomSheet}
             >
-              {watch("sex") ? (
+              {watch("gender") ? (
                 <>
                   <Text className="text-placeholder  text-xs">Anrede</Text>
                   <Text className="font-weight_600  text-base text-black">
-                    {watch("sex")}
+                    {t(`gender.${watch("gender")}`)}
                   </Text>
                 </>
               ) : (
@@ -91,60 +96,31 @@ export const RegisterNameSex = ({ navigation }: IProps) => {
                 </Text>
               )}
             </TouchableOpacity>
-            {errors?.sex ? (
+            {errors?.gender && (
               <Text className="mt-1 pl-2 text-red-700">
-                {errors?.sex?.message}
+                {errors?.gender?.message}
               </Text>
-            ) : null}
+            )}
           </View>
 
-          <Controller
-            control={control}
-            name="first_name"
-            render={({ field: { onChange, value } }) => (
-              <AppInput
-                placeholder="Vorname"
-                className="mt-5"
-                value={value}
-                onChangeText={onChange}
-                error={errors?.first_name?.message}
-              />
-            )}
-          />
+          <TextInput control={control} name="firstName" placeholder="Vorname" />
+          <TextInput control={control} name="lastName" placeholder="Nachname" />
+        </View>
 
-          <Controller
-            control={control}
-            name="last_name"
-            render={({ field: { onChange, value } }) => (
-              <AppInput
-                placeholder="Nachname"
-                className="mt-5"
-                value={value}
-                onChangeText={onChange}
-                error={errors?.last_name?.message}
-              />
-            )}
-          />
-
-          <View className="mt-48 w-full">
-            <View className="relative">
-              <LinearGradient
-                colors={["#F5F7F9", "#ECEEEF"]}
-                className=" h-3 w-full rounded-t-full"
-              />
-              <LinearGradient
-                colors={["#4AB0F7", "#317FEC"]}
-                className="absolute h-3 w-1/3 rounded-tl-full"
-              />
-            </View>
-            <Button
-              title="Weiter"
-              onPress={handleSubmit(onSubmit)}
-              className="rounded-full"
+        <View>
+          <View className="relative">
+            <LinearGradient
+              colors={["#F5F7F9", "#ECEEEF"]}
+              className="mx-6 h-3 rounded-t-full"
+            />
+            <LinearGradient
+              colors={["#4AB0F7", "#317FEC"]}
+              className="absolute mx-6 h-3 w-1/3 rounded-tl-full"
             />
           </View>
+          <Button title="Weiter" onPress={onSubmit} className="rounded-full" />
         </View>
-      </KeyboardAwareScrollView>
+      </KeyboardAvoidingView>
 
       {/* bottom menu */}
       <BottomSheet
@@ -165,17 +141,17 @@ export const RegisterNameSex = ({ navigation }: IProps) => {
             </TouchableOpacity>
           </View>
 
-          {salutationOptions?.map((item) => (
+          {genderOptions?.map((item) => (
             <TouchableOpacity
               key={item}
               className="border-color_gray flex-row justify-center border-b py-4"
               onPress={() => {
-                setValue("sex", item, { shouldValidate: true });
+                setValue("gender", item, { shouldValidate: true });
                 hideBottomSheet();
               }}
             >
               <Text className="text-blue text-font-24 font-weight_400">
-                {item}
+                {t(`gender.${item}`)}
               </Text>
             </TouchableOpacity>
           ))}

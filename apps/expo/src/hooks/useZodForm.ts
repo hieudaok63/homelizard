@@ -1,52 +1,19 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, type ValidationMode } from "react-hook-form";
-import { type ZodRawShape, type ZodTypeAny, type z } from "zod";
+import { useForm, type UseFormProps } from "react-hook-form";
+import { type z } from "zod";
 
-interface IProps<T> {
-  schema: z.ZodEffects<ZodTypeAny> | z.ZodObject<ZodRawShape>;
-  mode?: keyof ValidationMode;
-  defaultValues?: T;
-}
+type IProps<T extends z.Schema> = {
+  schema: T;
+} & Omit<UseFormProps<z.infer<T>>, "resolver">;
 
-export function useZodForm<TFormSchemaType>(props: IProps<TFormSchemaType>) {
-  const { mode, schema } = props;
+export function useZodForm<TFormSchemaType extends z.Schema>(
+  props: IProps<TFormSchemaType>,
+) {
+  const { schema, mode, ...useFormProps } = props;
 
-  const {
-    handleSubmit,
-    watch,
-    setValue,
-    formState: {
-      errors,
-      isDirty,
-      isLoading,
-      isSubmitSuccessful,
-      isSubmitted,
-      isSubmitting,
-      isValid,
-      isValidating,
-    },
-    reset,
-    control,
-  } = useForm<TFormSchemaType>({
-    mode: mode || "onChange",
+  return useForm<z.infer<TFormSchemaType>>({
     resolver: zodResolver(schema),
+    mode: mode || "onBlur",
+    ...useFormProps,
   });
-
-  return {
-    handleSubmit,
-    watch,
-    setValue,
-    formState: {
-      errors,
-      isDirty,
-      isLoading,
-      isSubmitSuccessful,
-      isSubmitted,
-      isSubmitting,
-      isValid,
-      isValidating,
-    },
-    reset,
-    control,
-  };
 }

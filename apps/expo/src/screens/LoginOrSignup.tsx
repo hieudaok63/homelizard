@@ -1,9 +1,7 @@
 import React from "react";
-import { Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { View } from "react-native";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
-import { AppInput } from "~/components/AppInput";
 import { Button } from "~/components/ui/Button";
 import { type RootStackParams } from "./routes";
 

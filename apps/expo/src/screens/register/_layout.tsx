@@ -1,20 +1,22 @@
 import React, { type PropsWithChildren } from "react";
 import { View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import ImmowerkSvg from "@assets/immowerk.svg";
+import { useHeaderHeight } from "@react-navigation/elements";
 
 import GradientPatternBackground from "~/components/ui/GradientPatternBackground";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export const RegisterLayout = ({ children }: PropsWithChildren) => {
-  // main return
+  const insets = useSafeAreaInsets();
+  const height = useHeaderHeight();
   return (
     <GradientPatternBackground variant="blue">
-      <SafeAreaView>
-        <View className="w-full flex-row-reverse pl-8">
-          <ImmowerkSvg />
-        </View>
-        {children}
-      </SafeAreaView>
+      <View style={{
+        paddingTop: height,
+        paddingBottom: insets.bottom,
+        paddingLeft: insets.left,
+        paddingRight: insets.right,
+        
+      }}>{children}</View>
     </GradientPatternBackground>
   );
 };

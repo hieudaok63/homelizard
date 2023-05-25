@@ -3,5 +3,10 @@
     "home": "Home",
     "profile": "Profile"
   },
-  "continue": "Continue"
+  "continue": "Continue",
+  "gender": {
+    "male": "Mr",
+    "female": "Mrs",
+    "other": "Other"
+  }
 }

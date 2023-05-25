@@ -59,6 +59,7 @@ export const AppInput = forwardRef<TextInput, AppInputProps & ViewProps>(
       className,
       onFocusCallback,
       onInputPressIn,
+      onBlur,
     } = props;
     const [isFocus, setFocus] = useState(false);
     const innerRef = useRef<TextInput | null>(null);
@@ -88,7 +89,10 @@ export const AppInput = forwardRef<TextInput, AppInputProps & ViewProps>(
                 setFocus(true);
                 if (onFocusCallback) onFocusCallback();
               }}
-              onBlur={() => setFocus(false)}
+              onBlur={(e) => {
+                setFocus(false);
+                if (onBlur) onBlur(e);
+              }}
               value={value}
               onChangeText={onChangeText}
               multiline={multiline || false}

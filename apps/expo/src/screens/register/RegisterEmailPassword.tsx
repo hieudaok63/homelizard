@@ -1,11 +1,10 @@
-import { Text, View } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Controller, type SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 
-import { AppInput, Button } from "~/components/ui";
+import { Button } from "~/components/ui";
+import TextInput from "~/components/ui/input/TextInput";
 import { useZodForm } from "~/hooks/useZodForm";
 import { type RootStackParams } from "~/screens/routes";
 import { RegisterLayout } from "./_layout";
@@ -28,98 +27,61 @@ const formSchema = z
     message: "Passwords do not match",
   });
 
-type FormSchemaType = z.infer<typeof formSchema>;
-
 export const RegisterEmailPassword = ({ navigation }: IProps) => {
-  const {
-    handleSubmit,
-    formState: { errors },
-    control,
-  } = useZodForm<FormSchemaType>({
+  const { handleSubmit, control } = useZodForm({
     schema: formSchema,
-    defaultValues: {
-      email: "",
-      password: "",
-      confirmPassword: "",
-    },
   });
 
   // functions
-  const onSubmit: SubmitHandler<FormSchemaType> = (data) => {
+  const onSubmit = handleSubmit((data) => {
     console.log(data); // for debug
     navigation?.navigate("RegisterNameSex");
-  };
+  });
 
   // main return
   return (
     <RegisterLayout>
-      <KeyboardAwareScrollView>
-        <View className="h-full w-full px-5 pb-14">
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        className="flex h-full justify-between px-6"
+      >
+        <View>
           <Text className="font-nunito-800 text-dark text-lg">
             Login : Registrierung
           </Text>
           <Text className="font-nunito-800 text-dark pl-16 text-lg">
             E-Mail und Passwort
           </Text>
-
-          <Controller
-            control={control}
-            name="email"
-            render={({ field: { onChange, value } }) => (
-              <AppInput
-                value={value}
-                onChangeText={onChange}
-                placeholder="E-Mailadresse"
-                className="mt-32"
-                error={errors?.email?.message}
-              />
-            )}
-          />
-
-          <Controller
-            control={control}
-            name="password"
-            render={({ field: { onChange, value } }) => (
-              <AppInput
-                value={value}
-                onChangeText={onChange}
-                placeholder="Passwort"
-                className="mt-5"
-                error={errors?.password?.message}
-                secureTextEntry={true}
-              />
-            )}
-          />
-
-          <Controller
-            control={control}
-            name="confirmPassword"
-            render={({ field: { onChange, value } }) => (
-              <AppInput
-                value={value}
-                onChangeText={onChange}
-                placeholder="Passwort"
-                className="mt-5"
-                error={errors?.confirmPassword?.message}
-                secureTextEntry={true}
-              />
-            )}
-          />
-
-          <View className="mt-48 w-full">
-            <LinearGradient
-              colors={["#F5F7F9", "#ECEEEF"]}
-              className="h-3 w-full rounded-t-full"
-            />
-
-            <Button
-              title="Weiter"
-              onPress={handleSubmit(onSubmit)}
-              className="rounded-full"
-            />
-          </View>
         </View>
-      </KeyboardAwareScrollView>
+
+        <View className="flex gap-6">
+          <TextInput
+            name="email"
+            control={control}
+            placeholder="E-Mailadresse"
+          />
+          <TextInput
+            name="password"
+            control={control}
+            placeholder="Passwort"
+            secureTextEntry
+          />
+          <TextInput
+            name="confirmPassword"
+            control={control}
+            placeholder="Passwort bestätigen"
+            secureTextEntry
+          />
+        </View>
+        <View>
+          <LinearGradient
+            colors={["#F5F7F9", "#ECEEEF"]}
+            className="mx-6 h-3 rounded-t-full"
+          />
+
+          <Button title="Weiter" onPress={onSubmit} className="rounded-full" />
+        </View>
+      </KeyboardAvoidingView>
     </RegisterLayout>
   );
 };
