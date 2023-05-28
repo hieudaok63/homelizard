@@ -2,28 +2,92 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    // provider = "postgresql"
-    provider = "sqlite"
-    url      = env("DATABASE_URL")
+  // provider = "postgresql"
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 model Post {
-    id      String @id @default(cuid())
-    title   String 
-    content String
+  id      String @id @default(cuid())
+  title   String
+  content String
 }
 
+model RealEstateObject {
+  id           String         @id @default(cuid())
+  title        String
+  Favorite     Favorite[]
+  SearchResult SearchResult[]
+}
+
+
 model User {
-    id         String   @id @default(cuid())
-    externalId String   @unique @map("external_id")
-    email      String   @unique
-    gender     String
-    firstName  String   @map("first_name")
-    lastName   String   @map("last_name")
-    createdAt  DateTime @default(now()) @map("created_at")
-    updatedAt  DateTime @updatedAt @map("updated_at")
+  id            String         @id @default(cuid())
+  externalId    String         @unique @map("user_id")
+  email         String         @unique
+  firstName     String         @map("first_name")
+  lastName      String         @map("last_name")
+  gender        String
+  userFavorites UserFavorite[]
+  customers     Customer[]
+  address       Address?       @relation(fields: [addressId], references: [id])
+  addressId     String?
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @updatedAt @map("updated_at")
+}
+
+model Customer {
+  id    String @id @default(cuid())
+  users User[]
+}
+
+model Address {
+  id      String @id @default(cuid())
+  street  String
+  city    String
+  zipCode String
+  country String
+  User    User[]
+}
+
+model SearchProfile {
+  id           String         @id @default(cuid())
+  favorites    Favorite[]
+  SearchResult SearchResult[]
+}
+
+model Favorite {
+  id String @id @default(cuid())
+
+  realEstate         RealEstateObject @relation(fields: [realEstateObjectId], references: [id])
+  realEstateObjectId String
+
+  searchProfile   SearchProfile  @relation(fields: [searchProfileId], references: [id])
+  searchProfileId String
+  favoriteOf      UserFavorite[]
+}
+
+model UserFavorite {
+  id         String @id @default(cuid())
+  userId     String
+  favoriteId String
+
+  user     User     @relation(fields: [userId], references: [id])
+  favorite Favorite @relation(fields: [favoriteId], references: [id])
+
+  @@unique([userId, favoriteId])
+}
+
+model SearchResult {
+  searchProfileId    String
+  realEstateObjectId String
+
+  searchProfile SearchProfile    @relation(fields: [searchProfileId], references: [id])
+  realEstate    RealEstateObject @relation(fields: [realEstateObjectId], references: [id])
+
+  @@id([searchProfileId, realEstateObjectId])
 }

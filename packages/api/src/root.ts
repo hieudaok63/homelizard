@@ -10,7 +10,7 @@ export const appRouter = createTRPCRouter({
   auth: authRouter,
   example: exampleRouter,
   profile: profileRouter,
-  user : userRouter,
+  user: userRouter,
 });
 
 // export type definition of API
