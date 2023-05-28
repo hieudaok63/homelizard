@@ -1,4 +1,5 @@
 import { Text, View } from "react-native";
+import { useUser } from "@clerk/clerk-expo";
 import { useTranslation } from "react-i18next";
 
 import ImagePicker from "~/components/ImagePicker";
@@ -13,10 +14,12 @@ export const ProfileScreen = ({
   route,
   navigation,
 }: AppNavigationProps<"Profile">) => {
+  const { user } = useUser();
   const { t } = useTranslation(["profile"]);
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>{t("profile:title")}</Text>
+      <Text>{user?.emailAddresses?.[0]?.emailAddress}</Text>
       <Text>Profile Screen {route.params.num}</Text>
       <Button
         title="Profile"

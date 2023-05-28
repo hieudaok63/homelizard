@@ -1,26 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 // icons
 import ArrowLeftIcon from "@assets/icons/ArrowLeftIcon.svg";
-import CameraIcon from "@assets/icons/CameraIcon.svg";
 import PersonIcon_1 from "@assets/icons/PersonIcon_1.svg";
 import PersonIcon_2 from "@assets/icons/PersonIcon_2.svg";
 import PersonIcon_3 from "@assets/icons/PersonIcon_3.svg";
 import QuestionCirleIcon from "@assets/icons/QuestionCircleIcon.svg";
+// libs
+import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
-import { generateBoxShadowStyle } from "~/utils/helpers";
+import ImagePicker from "~/components/ImagePicker";
 import { PopupModal } from "~/components/ui";
-import { ProfilePictureLayout } from "../_layout";
-import { useModel } from "./logic";
+import { type RootStackParams } from "~/screens/routes";
+import { ProfilePictureLayout } from "./_layout";
 
-export const EditProfilePicture = () => {
-  const {
-    isSkipModalVisible,
-    goBack,
-    showSkipModal,
-    hideSkipModal,
-    launchImageLibraryCallback,
-  } = useModel();
+// types
+type IProps = NativeStackScreenProps<RootStackParams, "ProfilePictureEdit">;
+
+export const EditProfilePicture = ({ navigation }: IProps) => {
+  // local states
+  const [isSkipModalVisible, setIsSkipModalVisible] = useState<boolean>(false);
+
+  // functions
+  const goBack = () => navigation?.goBack();
+
+  const showSkipModal = () => setIsSkipModalVisible(true);
+
+  const hideSkipModal = () => setIsSkipModalVisible(false);
+
+  const handleSkip = () => {
+    hideSkipModal();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    navigation?.navigate("AppStack");
+  };
 
   // main return
   return (
@@ -53,23 +66,7 @@ export const EditProfilePicture = () => {
       </View>
 
       <View className="mb-10 mt-6 flex-row items-center justify-center">
-        <TouchableOpacity
-          onPress={launchImageLibraryCallback}
-          style={{
-            ...generateBoxShadowStyle({
-              xOffset: 3,
-              yOffset: 2,
-              shadowColorIos: "#000000",
-              shadowOpacity: 0.16,
-              shadowRadius: 16,
-              elevation: 4,
-              shadowColorAndroid: "#000000",
-            }),
-          }}
-          className="bg-grey_2 h-64 w-64 flex-row items-center justify-center rounded-l-full rounded-t-full"
-        >
-          <CameraIcon />
-        </TouchableOpacity>
+        <ImagePicker />
       </View>
 
       <View className="flex-row pl-10">
@@ -94,7 +91,7 @@ export const EditProfilePicture = () => {
           </Text>
         </View>
         <TouchableOpacity
-          onPress={hideSkipModal}
+          onPress={handleSkip}
           className="border-color_gray w-full flex-row items-center justify-center border-t"
         >
           <Text className="font-weight_200 text-blue_2 text-font-17 py-2.5 italic">

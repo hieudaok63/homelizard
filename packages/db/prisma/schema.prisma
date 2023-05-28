@@ -16,3 +16,14 @@ model Post {
     title   String
     content String
 }
+
+model User {
+    id         String   @id @default(cuid())
+    externalId String   @unique @map("external_id")
+    email      String   @unique
+    gender     String
+    firstName  String   @map("first_name")
+    lastName   String   @map("last_name")
+    createdAt  DateTime @default(now()) @map("created_at")
+    updatedAt  DateTime @updatedAt @map("updated_at")
+}

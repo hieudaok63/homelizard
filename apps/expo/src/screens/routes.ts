@@ -21,7 +21,8 @@ export type RootStackParams = {
   Results: undefined;
   // Register
   RegisterEmailPassword: undefined;
-  RegisterNameSex: undefined;
+  RegisterVerifyEmail: undefined;
+  RegisterNameGender: undefined;
   RegisterAgb: undefined;
   // Profile picture
   ProfilePictureEdit: undefined;

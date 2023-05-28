@@ -1,5 +1,6 @@
 import React, { useEffect, useState, type PropsWithChildren } from "react";
 import { Image, Text, View, type ImageSourcePropType } from "react-native";
+import Toast from "react-native-toast-message";
 import { useAssets } from "expo-asset";
 import * as SplashScreen from "expo-splash-screen";
 import { useAuth } from "@clerk/clerk-expo";
@@ -12,6 +13,9 @@ import {
   Nunito_800ExtraBold_Italic,
   useFonts,
 } from "@expo-google-fonts/nunito";
+
+import { useBoundStore } from "~/zustand/store";
+import { FullScreenLoading } from "./components/ui";
 
 // Instruct SplashScreen not to hide yet, we want to do this manually
 SplashScreen.preventAutoHideAsync().catch(() => {
@@ -47,6 +51,9 @@ const ApplicationLoader: React.FC<PropsWithChildren> = ({ children }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const isApplicationReady = useApplicationLoaded();
 
+  // global states
+  const appLoading = useBoundStore((state) => state?.loading);
+
   useEffect(() => {
     if (imageLoaded) {
       void SplashScreen.hideAsync();
@@ -72,7 +79,15 @@ const ApplicationLoader: React.FC<PropsWithChildren> = ({ children }) => {
       </View>
     );
   }
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      {/* App loading */}
+      <FullScreenLoading status={appLoading} />
+      {/* App toast message */}
+      <Toast />
+    </>
+  );
 };
 
 export default ApplicationLoader;

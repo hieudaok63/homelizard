@@ -1,3 +1,4 @@
-export * from "./RegisterEmailPassword";
-export * from "./RegisterNameSex";
 export * from "./RegisterAgb";
+export * from "./RegisterEmailPassword";
+export * from "./RegisterNameGender";
+export * from "./RegisterVerifyEmail";

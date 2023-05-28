@@ -1,5 +1,7 @@
 import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
+import Toast from "react-native-toast-message";
 import { LinearGradient } from "expo-linear-gradient";
+import { useSignUp } from "@clerk/clerk-expo";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 import { z } from "zod";
 
@@ -7,6 +9,7 @@ import { Button } from "~/components/ui";
 import TextInput from "~/components/ui/input/TextInput";
 import { useZodForm } from "~/hooks/useZodForm";
 import { type RootStackParams } from "~/screens/routes";
+import { useBoundStore } from "~/zustand/store";
 import { RegisterLayout } from "./_layout";
 
 // types
@@ -21,6 +24,11 @@ const formSchema = z
       .min(1, "Password is required")
       .min(8, "Password must have more than 8 characters"),
     confirmPassword: z.string().min(1, "Password confirmation is required"),
+    verifyPassword: z
+      .string()
+      .min(4, "Please enter a valid code")
+      .optional()
+      .or(z.literal("")),
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],
@@ -28,14 +36,52 @@ const formSchema = z
   });
 
 export const RegisterEmailPassword = ({ navigation }: IProps) => {
+  const { isLoaded, signUp } = useSignUp();
+  const setLoadingApp = useBoundStore((state) => state.setLoading);
+
   const { handleSubmit, control } = useZodForm({
     schema: formSchema,
+    defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+      verifyPassword: "",
+    },
   });
 
   // functions
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     console.log(data); // for debug
-    navigation?.navigate("RegisterNameSex");
+
+    if (!isLoaded) {
+      console.log("load failed");
+      return;
+    }
+
+    try {
+      setLoadingApp(true);
+      await signUp.create({
+        emailAddress: data?.email,
+        password: data?.password,
+      });
+
+      // send the email.
+      await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
+
+      navigation?.navigate("RegisterVerifyEmail");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      console.error(JSON.stringify(err, null, 2));
+      console.log(err);
+      Toast?.show({
+        type: "error",
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+        text1: err?.errors?.[0]?.message || "Cannot create your account",
+        visibilityTime: 5000,
+      });
+    } finally {
+      setLoadingApp(false);
+    }
   });
 
   // main return

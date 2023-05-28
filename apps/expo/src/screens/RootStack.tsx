@@ -2,6 +2,8 @@ import React from "react";
 import { useAuth } from "@clerk/clerk-expo";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+// search screens
+import { useCheckNameGender } from "~/hooks/useCheckNameGender";
 import Login from "./Login";
 import LoginOrSignUp from "./LoginOrSignup";
 import AppStack from "./app/AppStack";
@@ -10,10 +12,10 @@ import { EditProfilePicture } from "./profilePicture";
 import {
   RegisterAgb,
   RegisterEmailPassword,
-  RegisterNameSex,
+  RegisterNameGender,
+  RegisterVerifyEmail,
 } from "./register";
 import { type RootStackParams } from "./routes";
-// search screens
 import Availability from "./search/Availability";
 import LivingArea from "./search/LivingArea";
 import Location from "./search/Location";
@@ -28,6 +30,9 @@ const Stack = createNativeStackNavigator<RootStackParams>();
 
 export function RootStack() {
   const { isSignedIn } = useAuth();
+
+  useCheckNameGender(); // handle check user name and gender status
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -37,13 +42,39 @@ export function RootStack() {
       }}
     >
       {isSignedIn ? (
-        <Stack.Screen
-          name="AppStack"
-          component={AppStack}
-          options={{
-            headerShown: false,
-          }}
-        />
+        <>
+          <Stack.Screen
+            name="AppStack"
+            component={AppStack}
+            options={{
+              headerShown: false,
+            }}
+          />
+
+          {/* register basic information */}
+          <Stack.Group>
+            <Stack.Screen
+              name="RegisterNameGender"
+              component={RegisterNameGender}
+              options={{ headerBackVisible: false }}
+            />
+            <Stack.Screen name="RegisterAgb" component={RegisterAgb} />
+          </Stack.Group>
+
+          {/* profile picture */}
+          <Stack.Group>
+            <Stack.Screen
+              name="ProfilePictureEdit"
+              component={EditProfilePicture}
+              options={{
+                headerShown: false,
+                headerStyle: {
+                  backgroundColor: "red",
+                },
+              }}
+            />
+          </Stack.Group>
+        </>
       ) : (
         <>
           <Stack.Screen
@@ -74,27 +105,15 @@ export function RootStack() {
             <Stack.Screen name="Results" component={Results} />
           </Stack.Group>
 
-          {/* register basic information */}
+          {/* register email and password */}
           <Stack.Group>
             <Stack.Screen
               name="RegisterEmailPassword"
               component={RegisterEmailPassword}
             />
-            <Stack.Screen name="RegisterNameSex" component={RegisterNameSex} />
-            <Stack.Screen name="RegisterAgb" component={RegisterAgb} />
-          </Stack.Group>
-
-          {/* profile picture */}
-          <Stack.Group>
             <Stack.Screen
-              name="ProfilePictureEdit"
-              component={EditProfilePicture}
-              options={{
-                headerShown: false,
-                headerStyle: {
-                  backgroundColor: "red",
-                },
-              }}
+              name="RegisterVerifyEmail"
+              component={RegisterVerifyEmail}
             />
           </Stack.Group>
         </>

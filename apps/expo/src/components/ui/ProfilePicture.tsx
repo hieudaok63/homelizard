@@ -5,6 +5,7 @@ import { Image } from "expo-image";
 import CameraIcon from "@assets/icons/CameraIcon.svg";
 
 import { api } from "~/utils/api";
+import { generateBoxShadowStyle } from "~/utils/helpers";
 
 type ProfilePictureProps = {
   onPress?: () => void;
@@ -15,8 +16,21 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ onPress }) => {
   const { data } = api.profile.signedProfileImageUrl.useQuery();
 
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View className="flex h-[265px] w-[265px] items-center justify-center overflow-hidden rounded-l-full rounded-tr-full bg-slate-300">
+    <TouchableOpacity
+      onPress={onPress}
+      style={{
+        ...generateBoxShadowStyle({
+          xOffset: 3,
+          yOffset: 2,
+          shadowColorIos: "#000000",
+          shadowOpacity: 0.16,
+          shadowRadius: 16,
+          elevation: 4,
+          shadowColorAndroid: "#000000",
+        }),
+      }}
+    >
+      <View className="bg-grey_2 flex h-[265px] w-[265px] items-center justify-center overflow-hidden rounded-l-full rounded-tr-full">
         {data?.url && (
           // eslint-disable-next-line jsx-a11y/alt-text
           <Image
