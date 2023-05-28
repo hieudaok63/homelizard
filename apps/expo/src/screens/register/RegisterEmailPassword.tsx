@@ -102,6 +102,7 @@ export const RegisterEmailPassword = ({ navigation }: IProps) => {
 
         <View className="flex gap-6">
           <TextInput
+            autoCapitalize="none"
             name="email"
             control={control}
             placeholder="E-Mailadresse"
