@@ -23,7 +23,7 @@ const formSchema = z.object({
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
-export const RegisterVerifyEmail = ({ navigation }: IProps) => {
+export const RegisterVerifyEmail = ({}: IProps) => {
   const { signUp, setActive, isLoaded } = useSignUp();
   const setLoadingApp = useBoundStore((state) => state.setLoading);
 

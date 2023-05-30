@@ -15,6 +15,8 @@ import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
 
+import { genderOptions, genderSchema } from "@homelizard/schema";
+
 import { api } from "~/utils/api";
 import { Button } from "~/components/ui";
 import { BottomSheet } from "~/components/ui/BottomSheet";
@@ -26,13 +28,11 @@ import { RegisterLayout } from "./_layout";
 // types
 type IProps = NativeStackScreenProps<RootStackParams, "RegisterNameGender">;
 
-const genderOptions = ["female", "male", "other"] as const;
-
 // form schema
 const formSchema = z.object({
   firstName: z.string().min(1, "This field is required"),
   lastName: z.string().min(1, "This field is required"),
-  gender: z.enum(genderOptions),
+  gender: genderSchema,
 });
 
 export const RegisterNameGender = ({ navigation }: IProps) => {

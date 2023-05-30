@@ -125,7 +125,7 @@ const Home: NextPage = () => {
               ) : (
                 <div className="flex h-[40vh] justify-center overflow-y-scroll px-4 text-2xl">
                   <div className="flex w-full flex-col gap-4">
-                    {postQuery.data?.map((p: any) => {
+                    {postQuery.data?.map((p) => {
                       return (
                         <PostCard
                           key={p.id}

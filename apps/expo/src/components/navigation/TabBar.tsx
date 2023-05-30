@@ -64,8 +64,6 @@ const menuLinkData = [
 ];
 
 const TabBar = ({
-  descriptors,
-  insets,
   navigation,
   state,
 }: BottomTabBarProps) => {
@@ -263,7 +261,7 @@ const TabActionButton = ({
 
 const MenuLink = ({ name, Icon, iconGradient }: (typeof menuLinkData)[0]) => {
   return (
-    <TouchableOpacity onPress={() => {}}>
+    <TouchableOpacity onPress={() => {console.log("MenuLink clicked")}}>
       <View className="flex flex-row items-center border-b-[1px] border-[#303040] p-4 py-2">
         <LinearGradient
           className="rounded-bl-full rounded-tl-full rounded-tr-full p-2"

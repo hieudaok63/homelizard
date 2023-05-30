@@ -1,12 +1,12 @@
 import React from "react";
 import {
   Controller,
-  ControllerProps,
-  FieldPath,
-  FieldValues,
+  type ControllerProps,
+  type FieldPath,
+  type FieldValues,
 } from "react-hook-form";
 
-import { AppInput, AppInputProps } from "../AppInput";
+import { AppInput, type AppInputProps } from "../AppInput";
 
 type TextInputProps<
   TFieldValues extends FieldValues,
