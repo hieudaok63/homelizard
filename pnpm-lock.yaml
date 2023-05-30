@@ -134,6 +134,9 @@ importers:
       expo-localization:
         specifier: ~14.1.1
         version: 14.1.1(expo@48.0.15)
+      expo-location:
+        specifier: ~15.1.1
+        version: 15.1.1(expo@48.0.15)
       expo-secure-store:
         specifier: ^12.1.1
         version: 12.1.1(expo@48.0.15)
@@ -7351,6 +7354,14 @@ packages:
     dependencies:
       expo: 48.0.15(@babel/core@7.21.4)
       rtl-detect: 1.0.4
+    dev: false
+
+  /expo-location@15.1.1(expo@48.0.15):
+    resolution: {integrity: sha512-hoKRlmi6Ya+NeZ72Zt385SDcSsIDpJI60TCBVO+Hc9xfKA9Hyminyyo5WiwI8J03igmPTCl8Y37MxBNKY9AWkg==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 48.0.15(@babel/core@7.21.4)
     dev: false
 
   /expo-manifests@0.5.2:
