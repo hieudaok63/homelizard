@@ -25,13 +25,25 @@ export const userRouter = createTRPCRouter({
         throw new Error("No email address found");
       }
 
-      return ctx.prisma.user.create({
+      const newUser = await ctx.prisma.user.create({
         data: {
           externalId: ctx.auth.userId,
           email: email,
           ...input,
         },
       });
+
+      await ctx.prisma.customer.create({
+        data: {
+          users: {
+            connect: {
+              id: newUser.id,
+            },
+          },
+        },
+      });
+
+      return newUser;
     }),
 
   update: protectedProcedure
