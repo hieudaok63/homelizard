@@ -17,14 +17,6 @@ model Post {
   content String
 }
 
-model RealEstateObject {
-  id           String         @id @default(cuid())
-  title        String
-  Favorite     Favorite[]
-  SearchResult SearchResult[]
-}
-
-
 model User {
   id            String         @id @default(cuid())
   externalId    String         @unique @map("user_id")
@@ -46,18 +38,19 @@ model Customer {
 }
 
 model Address {
-  id      String @id @default(cuid())
-  street  String
-  city    String
-  zipCode String
-  country String
-  User    User[]
+  id               String             @id @default(cuid())
+  street           String
+  city             String
+  zipCode          String
+  country          String
+  user             User[]
+  realEstateObject RealEstateObject[]
 }
 
 model SearchProfile {
   id           String         @id @default(cuid())
   favorites    Favorite[]
-  SearchResult SearchResult[]
+  searchResult SearchResult[]
 }
 
 model Favorite {
@@ -90,4 +83,22 @@ model SearchResult {
   realEstate    RealEstateObject @relation(fields: [realEstateObjectId], references: [id])
 
   @@id([searchProfileId, realEstateObjectId])
+}
+
+model RealEstateObject {
+  id               String         @id @default(cuid())
+  title            String
+  objectType       String         @map("object_type")
+  numberOfFloor    Int            @map("number_of_floor")
+  livingAreaSize   Float          @map("living_area_size")
+  plotSize         Float          @map("plot_size")
+  numberOfBedroom  Int            @map("number_of_bedroom")
+  numberOfBathroom Int            @map("number_of_bathroom")
+  roomAmount       Int            @map("room_amount")
+  description      String
+  price            Int
+  address          Address?       @relation(fields: [addressId], references: [id])
+  addressId        String?
+  favorite         Favorite[]
+  searchResult     SearchResult[]
 }
