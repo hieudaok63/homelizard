@@ -125,7 +125,7 @@ test("user.userInfo", async () => {
     firstName: "John",
     lastName: "Wiliam",
     addressId: null,
-    createdAt: new Date("2022/11/11"),
+    createdAt: new Date("2022/11/01"),
     updatedAt: new Date(),
   };
 

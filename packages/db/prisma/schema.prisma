@@ -38,19 +38,33 @@ model Customer {
 }
 
 model Address {
-  id               String             @id @default(cuid())
-  street           String
-  city             String
-  zipCode          String
-  country          String
-  user             User[]
+  id            String          @id @default(cuid())
+  street        String
+  city          String
+  zipCode       String
+  country       String
+  user          User[]
   realEstateObject RealEstateObject[]
+  searchProfile SearchProfile[]
 }
 
 model SearchProfile {
-  id           String         @id @default(cuid())
-  favorites    Favorite[]
-  searchResult SearchResult[]
+  id                      String         @id @default(cuid())
+  objectType              String         @map("object_type")
+  objectStyle             String         @map("object_style")
+  livingAreaSize          Int            @map("living_area_size")
+  latitude                Float
+  longitude               Float
+  radius                  Int
+  plotSize                Float          @map("plot_size")
+  roomAmount              Int            @map("room_amount")
+  startYearOfConstruction Int            @map("start_year_of_construction")
+  endYearOfConstruction   Int            @map("end_year_of_construction")
+  availability            DateTime
+  address                 Address?       @relation(fields: [addressId], references: [id])
+  addressId               String?
+  favorites               Favorite[]
+  searchResult            SearchResult[]
 }
 
 model Favorite {
