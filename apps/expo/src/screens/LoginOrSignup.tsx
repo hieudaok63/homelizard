@@ -18,12 +18,6 @@ const LoginOrSignup = ({ navigation }: Props) => (
     <Button
       title="Create a new account"
       onPress={() => {
-        navigation.navigate("RegisterEmailPassword");
-      }}
-    />
-    <Button
-      title="Search somthing"
-      onPress={() => {
         navigation.navigate("ObjectType");
       }}
     />

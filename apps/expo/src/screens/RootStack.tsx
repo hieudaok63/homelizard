@@ -21,6 +21,7 @@ import LivingArea from "./search/LivingArea";
 import Location from "./search/Location";
 import NumberOfRooms from "./search/NumberOfRooms";
 import ObjectStyle from "./search/ObjectStyle";
+import ObjectStyleResult from "./search/ObjectStyleResult";
 import ObjectType from "./search/ObjectType";
 import PlotSize from "./search/PlotSize";
 import Results from "./search/Results";
@@ -89,6 +90,19 @@ export function RootStack() {
             }}
           />
           <Stack.Screen name="Login" component={Login} />
+
+          {/* register email and password */}
+          <Stack.Group>
+            <Stack.Screen
+              name="RegisterEmailPassword"
+              component={RegisterEmailPassword}
+            />
+            <Stack.Screen
+              name="RegisterVerifyEmail"
+              component={RegisterVerifyEmail}
+            />
+          </Stack.Group>
+
           {/* search */}
           <Stack.Group>
             <Stack.Screen name="ObjectType" component={ObjectType} />
@@ -102,19 +116,11 @@ export function RootStack() {
             />
             <Stack.Screen name="Availability" component={Availability} />
             <Stack.Screen name="ObjectStyle" component={ObjectStyle} />
+            <Stack.Screen
+              name="ObjectStyleResult"
+              component={ObjectStyleResult}
+            />
             <Stack.Screen name="Results" component={Results} />
-          </Stack.Group>
-
-          {/* register email and password */}
-          <Stack.Group>
-            <Stack.Screen
-              name="RegisterEmailPassword"
-              component={RegisterEmailPassword}
-            />
-            <Stack.Screen
-              name="RegisterVerifyEmail"
-              component={RegisterVerifyEmail}
-            />
           </Stack.Group>
         </>
       )}

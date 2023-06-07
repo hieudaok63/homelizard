@@ -15,6 +15,12 @@ export function HomeScreen({ navigation }: AppNavigationProps<"Home">) {
         title="Details"
         onPress={() => navigation.navigate("Profile", { num: 1 })}
       />
+      <Button
+        title="Search somthing"
+        onPress={() => {
+          navigation.navigate("ObjectType");
+        }}
+      />
       <SignOutButton />
     </View>
   );

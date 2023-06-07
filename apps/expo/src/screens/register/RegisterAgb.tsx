@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Switch, Text, View } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import HomeLizardSvg from "@assets/homelizard.svg";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
-import { Button } from "~/components/ui";
+import { Button, StepProgress } from "~/components/ui";
 import { type RootStackParams } from "~/screens/routes";
 import { RegisterLayout } from "./_layout";
 
@@ -31,7 +30,7 @@ export const RegisterAgb = ({ navigation }: IProps) => {
           <HomeLizardSvg />
         </View>
 
-        <View className="absolute bottom-24 left-5 w-full">
+        <View className="absolute bottom-14 left-5 w-full">
           <View className="mb-28 w-full flex-row justify-between">
             <Switch
               value={isEnabled}
@@ -51,16 +50,7 @@ export const RegisterAgb = ({ navigation }: IProps) => {
             </Text>
           </View>
           <View className="relative">
-            <LinearGradient
-              colors={["#F5F7F9", "#ECEEEF"]}
-              className=" h-3 w-full rounded-t-full"
-            />
-            <LinearGradient
-              colors={["#4AB0F7", "#317FEC"]}
-              className={`absolute h-3 ${
-                isEnabled ? "w-9/12" : "w-7/12"
-              } rounded-tl-full`}
-            />
+            <StepProgress width={isEnabled ? "w-9/12" : "w-7/12"} />
           </View>
           <Button
             title="Weiter"

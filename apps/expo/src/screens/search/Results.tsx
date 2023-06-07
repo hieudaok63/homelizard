@@ -15,7 +15,7 @@ const Results = ({ navigation }: Props) => {
       <Button
         title="Weiter"
         onPress={() => {
-          navigation.navigate("Login");
+          navigation.navigate("RegisterEmailPassword");
         }}
       />
     </SearchLayout>

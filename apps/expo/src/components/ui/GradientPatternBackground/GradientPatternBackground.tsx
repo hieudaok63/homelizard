@@ -13,6 +13,10 @@ const variants = {
     backgroundGradient: ["#4AB0F7", "#317FEC"],
     maskGradient: ["#43A3F4", "#3483EB"],
   },
+  white: {
+    backgroundGradient: ["#FFFFFF", "#F4F4F4"],
+    maskGradient: ["#f4f2f2", "#f6f6f6"],
+  },
 };
 
 type GradientPatternBackgroundProps = {

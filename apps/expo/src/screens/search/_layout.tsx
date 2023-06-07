@@ -1,16 +1,23 @@
 import React, { type PropsWithChildren } from "react";
 import { View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useHeaderHeight } from "@react-navigation/elements";
 
 import GradientPatternBackground from "~/components/ui/GradientPatternBackground";
 
 export const SearchLayout = ({ children }: PropsWithChildren) => {
-  const headerHeight = useHeaderHeight();
+  const insets = useSafeAreaInsets();
+  const height = useHeaderHeight();
+
+  // main return
   return (
-    <GradientPatternBackground variant="blue">
+    <GradientPatternBackground variant="white">
       <View
         style={{
-          marginTop: headerHeight,
+          paddingTop: height,
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
         }}
       >
         {children}

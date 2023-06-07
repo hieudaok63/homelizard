@@ -14,7 +14,7 @@ import {
   useFonts,
 } from "@expo-google-fonts/nunito";
 
-import { useBoundStore } from "~/zustand/store";
+import { useApplicationLoadingStore } from "~/zustand/store";
 import { FullScreenLoading } from "./components/ui";
 
 // Instruct SplashScreen not to hide yet, we want to do this manually
@@ -52,7 +52,7 @@ const ApplicationLoader: React.FC<PropsWithChildren> = ({ children }) => {
   const isApplicationReady = useApplicationLoaded();
 
   // global states
-  const appLoading = useBoundStore((state) => state?.loading);
+  const appLoading = useApplicationLoadingStore((state) => state?.loading);
 
   useEffect(() => {
     if (imageLoaded) {

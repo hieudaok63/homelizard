@@ -1,15 +1,14 @@
 import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
 import Toast from "react-native-toast-message";
-import { LinearGradient } from "expo-linear-gradient";
 import { useSignUp } from "@clerk/clerk-expo";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 import { z } from "zod";
 
-import { Button } from "~/components/ui";
+import { Button, StepProgress } from "~/components/ui";
 import TextInput from "~/components/ui/input/TextInput";
 import { useZodForm } from "~/hooks/useZodForm";
 import { type RootStackParams } from "~/screens/routes";
-import { useBoundStore } from "~/zustand/store";
+import { useApplicationLoadingStore } from "~/zustand/store";
 import { RegisterLayout } from "./_layout";
 
 // types
@@ -37,7 +36,7 @@ const formSchema = z
 
 export const RegisterEmailPassword = ({ navigation }: IProps) => {
   const { isLoaded, signUp } = useSignUp();
-  const setLoadingApp = useBoundStore((state) => state.setLoading);
+  const setLoadingApp = useApplicationLoadingStore((state) => state.setLoading);
 
   const { handleSubmit, control } = useZodForm({
     schema: formSchema,
@@ -51,8 +50,6 @@ export const RegisterEmailPassword = ({ navigation }: IProps) => {
 
   // functions
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data); // for debug
-
     if (!isLoaded) {
       console.log("load failed");
       return;
@@ -121,10 +118,7 @@ export const RegisterEmailPassword = ({ navigation }: IProps) => {
           />
         </View>
         <View>
-          <LinearGradient
-            colors={["#F5F7F9", "#ECEEEF"]}
-            className="mx-6 h-3 rounded-t-full"
-          />
+          <StepProgress width="w-1/12" />
 
           <Button title="Weiter" onPress={onSubmit} className="rounded-full" />
         </View>

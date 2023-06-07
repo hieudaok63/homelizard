@@ -18,6 +18,7 @@ export type RootStackParams = {
   YearOfConstruction: undefined;
   Availability: undefined;
   ObjectStyle: undefined;
+  ObjectStyleResult: undefined;
   Results: undefined;
   // Register
   RegisterEmailPassword: undefined;

@@ -9,7 +9,7 @@ import SignInWithOAuth from "~/components/auth/SignInWithOAuth";
 import { Button } from "~/components/ui";
 import TextInput from "~/components/ui/input/TextInput";
 import { useZodForm } from "~/hooks/useZodForm";
-import { useBoundStore } from "~/zustand/store";
+import { useApplicationLoadingStore } from "~/zustand/store";
 
 // form schema
 const formSchema = z.object({
@@ -24,7 +24,7 @@ type FormSchemaType = z.infer<typeof formSchema>;
 
 const Login = () => {
   const { signIn, isLoaded, setActive } = useSignIn();
-  const setLoadingApp = useBoundStore((state) => state.setLoading);
+  const setLoadingApp = useApplicationLoadingStore((state) => state.setLoading);
 
   const { handleSubmit, control } = useZodForm({
     schema: formSchema,
@@ -36,8 +36,6 @@ const Login = () => {
 
   // functions
   const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
-    console.log(data); // for debug
-
     if (!isLoaded) {
       console.log("load failed");
       return;

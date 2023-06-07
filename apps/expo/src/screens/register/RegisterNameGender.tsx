@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
-  BackHandler,
   KeyboardAvoidingView,
   Platform,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import Toast from "react-native-toast-message";
 import ArrowDownIcon from "@assets/icons/ArrowDownIcon.svg";
 import QuestionCircleIcon from "@assets/icons/QuestionCircleIcon.svg";
 import { useUser } from "@clerk/clerk-expo";
@@ -18,11 +17,12 @@ import { z } from "zod";
 import { genderOptions, genderSchema } from "@homelizard/schema";
 
 import { api } from "~/utils/api";
-import { Button } from "~/components/ui";
+import { Button, StepProgress } from "~/components/ui";
 import { BottomSheet } from "~/components/ui/BottomSheet";
 import TextInput from "~/components/ui/input/TextInput";
 import { useZodForm } from "~/hooks/useZodForm";
 import { type RootStackParams } from "~/screens/routes";
+import { useApplicationLoadingStore } from "~/zustand/store";
 import { RegisterLayout } from "./_layout";
 
 // types
@@ -37,6 +37,7 @@ const formSchema = z.object({
 
 export const RegisterNameGender = ({ navigation }: IProps) => {
   const register = api.user.register.useMutation();
+  const setLoadingApp = useApplicationLoadingStore((state) => state.setLoading);
 
   // local states
   const [showBottomSheet, setShowBottomSheet] = useState(false);
@@ -61,16 +62,24 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
 
   // functions
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data); // for debug
-
     if (!isLoaded || !user) return;
 
     try {
+      setLoadingApp(true);
       await register.mutateAsync(data);
-      navigation?.navigate("RegisterAgb");
-    } catch (err: unknown) {
+      // navigation?.navigate("RegisterAgb");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
       console.error(JSON.stringify(err, null, 2));
       console.log(err);
+      Toast.show({
+        type: "error",
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+        text1: err?.message || "Cannot save name and gender",
+      });
+    } finally {
+      setLoadingApp(false);
+      navigation?.navigate("RegisterAgb"); // hard code for now
     }
   });
 
@@ -81,21 +90,6 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
   const hideBottomSheet = () => {
     setShowBottomSheet(false);
   };
-
-  const backBtnHandlerFunc = () => {
-    if (showBottomSheet) hideBottomSheet();
-    return true;
-  };
-
-  // effects
-  // prevent the hardware back button
-  useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", backBtnHandlerFunc);
-    return () => {
-      BackHandler.removeEventListener("hardwareBackPress", backBtnHandlerFunc);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   // main return
   return (
@@ -144,16 +138,8 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
         </View>
 
         <View>
-          <View className="relative">
-            <LinearGradient
-              colors={["#F5F7F9", "#ECEEEF"]}
-              className="h-3 rounded-t-full"
-            />
-            <LinearGradient
-              colors={["#4AB0F7", "#317FEC"]}
-              className="absolute h-3 w-1/3 rounded-tl-full"
-            />
-          </View>
+          <StepProgress width="w-1/12" />
+
           <Button title="Weiter" onPress={onSubmit} className="rounded-full" />
         </View>
       </KeyboardAvoidingView>
@@ -163,6 +149,7 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
         show={showBottomSheet}
         height={428}
         onOuterClick={hideBottomSheet}
+        setShow={setShowBottomSheet}
       >
         <View>
           <View className="border-color_gray flex-row justify-between border-b p-6">

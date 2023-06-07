@@ -1,11 +1,11 @@
 import { Button, View } from "react-native";
 import { useAuth } from "@clerk/clerk-expo";
 
-import { useBoundStore } from "~/zustand/store";
+import { useApplicationLoadingStore } from "~/zustand/store";
 
 export const SignOutButton = () => {
   const { signOut, isLoaded } = useAuth();
-  const setLoadingApp = useBoundStore((state) => state.setLoading);
+  const setLoadingApp = useApplicationLoadingStore((state) => state.setLoading);
   const signOutFunc = async () => {
     if (!isLoaded) return;
 

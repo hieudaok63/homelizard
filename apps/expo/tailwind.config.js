@@ -30,9 +30,14 @@ const config = {
         grey: "#787880",
         blue: "#0080FF",
         blue_2: "#007AFF",
+        blue_3: "#32A6F9",
         grey_2: "#A8B7C6",
+        grey_3: "#F4F4F4",
+        green: "#37E1EC",
       },
       fontSize: {
+        "font-8": "8px",
+        "font-12": "12px",
         "font-13": "13px",
         "font-14": "14px",
         "font-15": "15px",
@@ -40,6 +45,7 @@ const config = {
         "font-18": "18px",
         "font-17": "17px",
         "font-24": "24px",
+        "font-32": "32px",
         "font-45": "45px",
       },
       fontWeight: {
@@ -53,6 +59,8 @@ const config = {
       },
       borderColor: {
         color_gray: "rgba(0, 0, 0, 0.12)",
+        color_black: "rgba(0, 0, 0, 0.2)",
+        color_green: "#37E1EC",
       },
     },
   },

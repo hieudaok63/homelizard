@@ -10,7 +10,7 @@ import { Button } from "~/components/ui";
 import TextInput from "~/components/ui/input/TextInput";
 import { useZodForm } from "~/hooks/useZodForm";
 import { type RootStackParams } from "~/screens/routes";
-import { useBoundStore } from "~/zustand/store";
+import { useApplicationLoadingStore } from "~/zustand/store";
 import { RegisterLayout } from "./_layout";
 
 // types
@@ -25,7 +25,7 @@ type FormSchemaType = z.infer<typeof formSchema>;
 
 export const RegisterVerifyEmail = ({}: IProps) => {
   const { signUp, setActive, isLoaded } = useSignUp();
-  const setLoadingApp = useBoundStore((state) => state.setLoading);
+  const setLoadingApp = useApplicationLoadingStore((state) => state.setLoading);
 
   const { handleSubmit, control } = useZodForm({
     schema: formSchema,
@@ -36,8 +36,6 @@ export const RegisterVerifyEmail = ({}: IProps) => {
 
   // functions
   const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
-    console.log(data); // for debug
-
     if (!isLoaded) {
       console.log("load failed");
       return;
@@ -48,7 +46,6 @@ export const RegisterVerifyEmail = ({}: IProps) => {
       const completeSignUp = await signUp.attemptEmailAddressVerification({
         code: data?.code,
       });
-      console.log("completeSignUp: ", completeSignUp); // for debug
       await setActive({ session: completeSignUp.createdSessionId });
       Toast?.show({
         type: "success",
@@ -58,7 +55,6 @@ export const RegisterVerifyEmail = ({}: IProps) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.error(JSON.stringify(err, null, 2));
-      console.log(err);
       Toast?.show({
         type: "error",
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access

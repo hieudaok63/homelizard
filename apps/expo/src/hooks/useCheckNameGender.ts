@@ -6,28 +6,34 @@ import { useNavigation } from "@react-navigation/native";
 
 import { api } from "~/utils/api";
 import { type RootStackParams } from "~/screens/routes";
+import { useApplicationLoadingStore } from "~/zustand/store";
 
 export const useCheckNameGender = () => {
-  const { user, isSignedIn } = useUser();
+  const { isSignedIn } = useUser();
   const navigation = useNavigation<RootStackParams>();
   const trpc = api.useContext();
+  const setLoadingApp = useApplicationLoadingStore((state) => state.setLoading);
 
   const testTrpc = async () => {
-    const res = await trpc.client.auth.getSecretMessage.query();
-    console.log("res trpc: ", res); // for debug
+    try {
+      if (!isSignedIn) return;
+
+      setLoadingApp(true);
+      const res = await trpc.client.user.userInfo.query();
+      // setUser(res);
+
+      if (isSignedIn && (!res?.firstName || !res?.lastName)) {
+        navigation?.navigate("RegisterNameGender");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingApp(false);
+    }
   };
 
   // check if user has add name and gender (based on clerk for now, will be intergated with trpc later on)
   useEffect(() => {
-    console.log("user: ", user); // for debug
-
-    if (isSignedIn && (!user?.firstName || !user?.lastName)) {
-      navigation?.navigate("RegisterNameGender");
-    }
-
-    // test trpc
-    if (isSignedIn) {
-      void testTrpc();
-    }
-  }, [user, isSignedIn]);
+    void testTrpc();
+  }, []);
 };

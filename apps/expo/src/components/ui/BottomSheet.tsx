@@ -1,6 +1,8 @@
 import * as React from "react";
+import { useEffect, type Dispatch, type SetStateAction } from "react";
 import {
   Animated,
+  BackHandler,
   Easing,
   Pressable,
   View,
@@ -43,6 +45,7 @@ function useAnimatedBottom(show: boolean, height: number = DEFAULT_HEIGHT) {
 interface Props {
   children: React.ReactNode;
   show: boolean;
+  setShow: Dispatch<SetStateAction<boolean>>;
   height?: number;
   onOuterClick?: () => void;
 }
@@ -52,11 +55,33 @@ export const BottomSheet = ({
   show,
   height = DEFAULT_HEIGHT,
   onOuterClick,
+  setShow,
 }: Props) => {
   const { height: screenHeight } = useWindowDimensions();
 
   const bottom = useAnimatedBottom(show, height);
 
+  const hideByBackBtnFuc = () => {
+    setShow(false);
+    return true;
+  };
+
+  // effects
+  // close bottom sheet by back button
+  useEffect(() => {
+    if (show) {
+      BackHandler.addEventListener("hardwareBackPress", hideByBackBtnFuc);
+    } else {
+      BackHandler.removeEventListener("hardwareBackPress", hideByBackBtnFuc);
+    }
+    // unmount
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", hideByBackBtnFuc);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [show]);
+
+  // main return
   return (
     <>
       {show && (
