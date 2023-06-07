@@ -36,4 +36,19 @@ config.resolver.assetExts = config.resolver.assetExts.filter(
   (/** @type {string} */ ext) => ext !== "svg",
 );
 
+// @see https://github.com/facebook/react-native/issues/36794#issuecomment-1500880284
+config.server = {
+  rewriteRequestUrl: (/** @type {string} */ url) => {
+    if (!url.endsWith(".bundle")) {
+      return url;
+    }
+    // https://github.com/facebook/react-native/issues/36794
+    // JavaScriptCore strips query strings, so try to re-add them with a best guess.
+    return (
+      url +
+      "?platform=ios&dev=true&minify=false&modulesOnly=false&runModule=true"
+    );
+  }, 
+};
+
 module.exports = config;
