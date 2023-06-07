@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-
 import React, { useCallback, useEffect } from "react";
 import { Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -19,47 +17,77 @@ const longitudeDeltaConst = 2;
 const minValueRadius = 0;
 const maxValueRadius = 100;
 const minimumAcceptedValueRadius = 5;
+const ONE_DEGREE_OF_LATITUDE_IN_KM = 111.32;
 
 const Location = ({ navigation }: Props) => {
-  const location = useLocation();
+  const mapRef = React.useRef<MapView>(null);
+  const { location: userLocation, locationLoaded } = useLocation();
 
   // zustand
-  const latitude = useSearchWizardStore((state) => state?.latitude);
-  const longitude = useSearchWizardStore((state) => state?.longitude);
+  const location = useSearchWizardStore((state) => state?.location);
   const radius = useSearchWizardStore((state) => state?.radius);
 
-  const setLatLng = useSearchWizardStore((state) => state?.setLatLng);
+  const setLocation = useSearchWizardStore((state) => state?.setLocation);
   const setRadius = useSearchWizardStore((state) => state?.setRadius);
 
   // functions
-  const handlePressNext = useCallback(() => {
+  const handlePressNext = () => {
     navigation.navigate("PlotSize");
-  }, []);
+  };
 
-  const handleTouchEnd = useCallback((lowValue: number) => {
-    if (lowValue < minimumAcceptedValueRadius) {
-      setRadius(minimumAcceptedValueRadius); // minimum 5km for now
-      return;
-    }
-    setRadius(lowValue);
-  }, []);
+  const handleTouchEnd = useCallback(
+    (lowValue: number) => {
+      if (lowValue < minimumAcceptedValueRadius) {
+        setRadius(minimumAcceptedValueRadius); // minimum 5km for now
+        return;
+      }
+      setRadius(lowValue);
+    },
+    [setRadius],
+  );
 
-  const handlePressMap = useCallback((e: MapPressEvent) => {
-    if (!e?.nativeEvent) return;
-
-    setLatLng(
-      e?.nativeEvent?.coordinate?.latitude,
-      e?.nativeEvent?.coordinate?.longitude,
-    );
-  }, []);
+  const handlePressMap = useCallback(
+    (e: MapPressEvent) => {
+      console.log("mapPress", e.nativeEvent);
+      if (!e?.nativeEvent) return;
+      setLocation(e.nativeEvent.coordinate);
+    },
+    [setLocation],
+  );
 
   // effects
   useEffect(() => {
     // only initialize with users location if no LatLng has been set yet.
-    if (location && !latitude && !longitude) {
-      setLatLng(location?.latitude, location?.longitude);
+    if (location || !locationLoaded) return;
+    if (userLocation) {
+      setLocation(userLocation);
+      mapRef.current?.animateToRegion({
+        latitude: userLocation.latitude,
+        longitude: userLocation.longitude,
+        latitudeDelta: latitudeDeltaConst,
+        longitudeDelta: longitudeDeltaConst,
+      });
     }
-  }, [location]);
+  }, [locationLoaded, location, userLocation, setLocation, mapRef]);
+
+  // animates the map to pan to the location of a new marker
+  useEffect(() => {
+    if (!location) return;
+
+    const deltaWithPaddingInKm = (radius * 6) / 2;
+    const latitudeInRadians = location.latitude * (Math.PI / 180);
+
+    const latitudeDelta = deltaWithPaddingInKm / ONE_DEGREE_OF_LATITUDE_IN_KM;
+    const longitudeDelta =
+      deltaWithPaddingInKm /
+      (ONE_DEGREE_OF_LATITUDE_IN_KM * Math.cos(latitudeInRadians));
+
+    mapRef.current?.animateToRegion({
+      ...location,
+      latitudeDelta,
+      longitudeDelta,
+    });
+  }, [location, radius, mapRef]);
 
   // main return
   return (
@@ -100,7 +128,6 @@ const Location = ({ navigation }: Props) => {
               stepNum: 10,
               values: [0, 20, 40, 60, 80, 100],
             }}
-            // handleValueChange={handleValueChange} // avoid this, cause poor performace re-render
           />
         </View>
 
@@ -111,28 +138,17 @@ const Location = ({ navigation }: Props) => {
         <View className="mb-14 px-8">
           <View className="aspect-square overflow-hidden rounded-full">
             <MapView
+              ref={mapRef}
               className="h-full w-full"
-              initialRegion={{
-                latitude: latitude,
-                longitude: longitude,
-                latitudeDelta: latitudeDeltaConst,
-                longitudeDelta: longitudeDeltaConst,
-              }}
               onPress={handlePressMap}
+              rotateEnabled={false}
+              pitchEnabled={false}
             >
-              {latitude && longitude && location && (
+              {location && (
                 <>
-                  <Marker
-                    coordinate={{
-                      latitude: latitude,
-                      longitude: longitude,
-                    }}
-                  />
+                  <Marker coordinate={location} />
                   <Circle
-                    center={{
-                      latitude: latitude,
-                      longitude: longitude,
-                    }}
+                    center={location}
                     radius={radius * 1000}
                     fillColor="rgba(74, 176, 247, 0.5)"
                     strokeColor="rgba(130, 130, 130, 0.5)"

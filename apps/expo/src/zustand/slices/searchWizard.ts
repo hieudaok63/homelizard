@@ -1,3 +1,4 @@
+import { type LatLng } from "react-native-maps";
 import { type StateCreator } from "zustand";
 
 export interface ISearchWizardSlice {
@@ -6,10 +7,9 @@ export interface ISearchWizardSlice {
   setObjectType: (val: string) => void;
 
   // location
-  latitude: number;
-  longitude: number;
+  location: LatLng | null;
   radius: number;
-  setLatLng: (lat: number, lng: number) => void;
+  setLocation: (location: LatLng) => void;
   setRadius: (val: number) => void;
 
   // plotSize
@@ -52,11 +52,10 @@ export const createSearchWizardSlice: StateCreator<
   },
 
   // location
-  latitude: 0,
-  longitude: 0,
+  location: null,
   radius: 10,
-  setLatLng(lat, lng) {
-    set(() => ({ latitude: lat, longitude: lng }));
+  setLocation(location) {
+    set(() => ({ location: location }));
   },
   setRadius(val) {
     set(() => ({ radius: val }));
