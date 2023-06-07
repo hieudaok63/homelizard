@@ -4,6 +4,7 @@ import * as Location from "expo-location";
 
 export const useLocation = () => {
   const [location, setLocation] = useState<LatLng>();
+  const [locationLoaded, setLocationLoaded] = useState(false);
 
   useEffect(() => {
     void (async () => {
@@ -13,14 +14,21 @@ export const useLocation = () => {
         if (!location) {
           location = await Location.getCurrentPositionAsync({});
         }
-        setLocation(location.coords);
+        setLocation({
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+        });
       } else {
-        const location = await Location.geocodeAsync("Germany");
-        if (location.length > 0) {
-          setLocation(location[0]);
+        const location = (await Location.geocodeAsync("Germany"))[0];
+        if (location) {
+          setLocation({
+            latitude: location.latitude,
+            longitude: location.longitude,
+          });
         }
       }
+      setLocationLoaded(true);
     })();
   }, []);
-  return location;
+  return { location, locationLoaded };
 };
