@@ -15,7 +15,7 @@ const variants = {
   },
   white: {
     backgroundGradient: ["#FFFFFF", "#F4F4F4"],
-    maskGradient: ["#f4f2f2", "#f6f6f6"],
+    maskGradient: ["#f5f7f9", "#eceeef"],
   },
 };
 
