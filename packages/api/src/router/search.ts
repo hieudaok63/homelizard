@@ -44,9 +44,22 @@ export const searchRouter = createTRPCRouter({
           : undefined,
       };
 
+      const customer = await ctx.prisma.customer.findFirst({
+        where: { users: { some: { externalId: ctx.auth.userId } } },
+      });
+
+      if (!customer) {
+        throw new Error(`Customer not found`);
+      }
+
       return ctx.prisma.searchProfile.create({
         data: {
           ...newSearchInput,
+          customer: {
+            connect: {
+              id: customer.id,
+            }
+          },
         },
       });
     }),

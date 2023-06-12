@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import { clerkClient, type SignedInAuthObject } from "@clerk/nextjs/api";
 import { type inferProcedureInput } from "@trpc/server";
 import { beforeEach, expect, test, vi } from "vitest";
@@ -66,14 +67,12 @@ test("user.register", async () => {
   });
 
   const result = await caller.user.register(input);
-  expect(prismaMock.user.create).toHaveBeenCalledWith(
-    expect.objectContaining({
-      data: expect.objectContaining({
-        externalId: clerkUserId,
-        email: clerkUserEmail,
-      }),
-    }),
-  );
+
+  expect(prismaMock.user.create.mock.lastCall?.[0].data).toMatchObject({
+    externalId: clerkUserId,
+    email: clerkUserEmail,
+  });
+
   expect(result).toEqual(expectedResult);
 });
 

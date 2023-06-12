@@ -1,5 +1,6 @@
 import { authRouter } from "./router/auth";
 import { exampleRouter } from "./router/example";
+import { favoriteRoute } from "./router/favorite";
 import { postRouter } from "./router/post";
 import { profileRouter } from "./router/profile";
 import { searchRouter } from "./router/search";
@@ -14,6 +15,7 @@ export const appRouter = createTRPCRouter({
   profile: profileRouter,
   user: userRouter,
   search: searchRouter,
+  favorite: favoriteRoute,
   searchResult: searchResultRouter,
 });
 

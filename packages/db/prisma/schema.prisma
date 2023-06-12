@@ -18,34 +18,35 @@ model Post {
 }
 
 model User {
-  id            String         @id @default(cuid())
-  externalId    String         @unique @map("user_id")
-  email         String         @unique
-  firstName     String         @map("first_name")
-  lastName      String         @map("last_name")
-  gender        String
-  userFavorites UserFavorite[]
-  customers     Customer[]
-  address       Address?       @relation(fields: [addressId], references: [id])
-  addressId     String?
-  createdAt     DateTime       @default(now()) @map("created_at")
-  updatedAt     DateTime       @updatedAt @map("updated_at")
+  id         String     @id @default(cuid())
+  externalId String     @unique @map("user_id")
+  email      String     @unique
+  firstName  String     @map("first_name")
+  lastName   String     @map("last_name")
+  gender     String
+  customers  Customer[]
+  favorites  Favorite[]
+  address    Address?   @relation(fields: [addressId], references: [id])
+  addressId  String?
+  createdAt  DateTime   @default(now()) @map("created_at")
+  updatedAt  DateTime   @updatedAt @map("updated_at")
 }
 
 model Customer {
-  id    String @id @default(cuid())
-  users User[]
+  id            String          @id @default(cuid())
+  users         User[]
+  SearchProfile SearchProfile[]
 }
 
 model Address {
-  id            String          @id @default(cuid())
-  street        String
-  city          String
-  zipCode       String
-  country       String
-  user          User[]
+  id               String             @id @default(cuid())
+  street           String
+  city             String
+  zipCode          String
+  country          String
+  user             User[]
   realEstateObject RealEstateObject[]
-  searchProfile SearchProfile[]
+  searchProfile    SearchProfile[]
 }
 
 model SearchProfile {
@@ -63,41 +64,38 @@ model SearchProfile {
   availability            DateTime
   address                 Address?       @relation(fields: [addressId], references: [id])
   addressId               String?
-  favorites               Favorite[]
   searchResult            SearchResult[]
+  customer                Customer       @relation(fields: [customerId], references: [id])
+  customerId              String
 }
 
 model Favorite {
   id String @id @default(cuid())
 
-  realEstate         RealEstateObject @relation(fields: [realEstateObjectId], references: [id])
-  realEstateObjectId String
+  searchResult   SearchResult @relation(fields: [searchResultId], references: [id])
+  searchResultId String
 
-  searchProfile   SearchProfile  @relation(fields: [searchProfileId], references: [id])
-  searchProfileId String
-  favoriteOf      UserFavorite[]
-}
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 
-model UserFavorite {
-  id         String @id @default(cuid())
-  userId     String
-  favoriteId String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  user     User     @relation(fields: [userId], references: [id])
-  favorite Favorite @relation(fields: [favoriteId], references: [id])
-
-  @@unique([userId, favoriteId])
+  @@unique([searchResultId, userId])
 }
 
 model SearchResult {
+  id String @id @default(cuid())
+
   searchProfileId    String
   realEstateObjectId String
 
   searchProfile SearchProfile    @relation(fields: [searchProfileId], references: [id])
   realEstate    RealEstateObject @relation(fields: [realEstateObjectId], references: [id])
-  createdAt     DateTime       @default(now()) @map("created_at")
-  updatedAt     DateTime       @updatedAt @map("updated_at")
-  @@id([searchProfileId, realEstateObjectId])
+
+  favorite Favorite[]
+
+  @@unique([searchProfileId, realEstateObjectId])
 }
 
 model RealEstateObject {
@@ -114,6 +112,5 @@ model RealEstateObject {
   price            Int
   address          Address?       @relation(fields: [addressId], references: [id])
   addressId        String?
-  favorite         Favorite[]
   searchResult     SearchResult[]
 }
