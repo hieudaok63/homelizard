@@ -20,9 +20,14 @@ import { api } from "~/utils/api";
 import { Button, StepProgress } from "~/components/ui";
 import { BottomSheet } from "~/components/ui/BottomSheet";
 import TextInput from "~/components/ui/input/TextInput";
+import { useDisableBackButton } from "~/hooks/useDisableBackButton";
 import { useZodForm } from "~/hooks/useZodForm";
 import { type RootStackParams } from "~/screens/routes";
-import { useApplicationLoadingStore } from "~/zustand/store";
+import {
+  useApplicationLoadingStore,
+  useSearchWizardStore,
+  useUserStore,
+} from "~/zustand/store";
 import { RegisterLayout } from "./_layout";
 
 // types
@@ -36,8 +41,42 @@ const formSchema = z.object({
 });
 
 export const RegisterNameGender = ({ navigation }: IProps) => {
-  const register = api.user.register.useMutation();
+  useDisableBackButton();
+
+  const register = api.user.register.useMutation({
+    onSuccess: async () => {
+      const user = await trpc.client.user.userInfo.query();
+      setUserInfo(user);
+
+      const body = {
+        objectType: searchWizardData?.objectType,
+        objectStyle: searchWizardData?.objectStyles?.[0],
+        livingAreaSize: searchWizardData?.livingArea,
+        roomAmount: searchWizardData?.numberOfRooms,
+        latitude: searchWizardData?.location?.latitude,
+        longitude: searchWizardData?.location?.longitude,
+        radius: searchWizardData?.radius,
+        plotSize: searchWizardData?.plotSize,
+        startYearOfConstruction: searchWizardData?.yearOfConstructionStart,
+        endYearOfConstruction: searchWizardData?.yearOfConstructionEnd,
+        availability: new Date(searchWizardData?.availabilityDate),
+      };
+
+      console.log("body: ", body); // for debug
+
+      // save search profile
+      await searchTrpc?.mutateAsync(body);
+
+      resetSearchWizard();
+    },
+  });
+  const searchTrpc = api?.search?.searchProfile?.useMutation();
   const setLoadingApp = useApplicationLoadingStore((state) => state.setLoading);
+  const searchWizardData = useSearchWizardStore((state) => state);
+  const resetSearchWizard = useSearchWizardStore((state) => state.reset);
+  const setUserInfo = useUserStore((state) => state.setUser);
+
+  const trpc = api.useContext();
 
   // local states
   const [showBottomSheet, setShowBottomSheet] = useState(false);
@@ -67,6 +106,7 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
     try {
       setLoadingApp(true);
       await register.mutateAsync(data);
+
       // navigation?.navigate("RegisterAgb");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {

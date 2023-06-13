@@ -5,3 +5,4 @@ export * from "./loading";
 export * from "./PopupModal";
 export * from "./RangePicker";
 export * from "./StepProgress";
+export * from "./TransparentHeaderSafeView";

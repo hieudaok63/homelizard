@@ -1,11 +1,11 @@
 /* eslint-disable */
 
 import React from "react";
-import { Button, View } from "react-native";
 import { maybeCompleteAuthSession } from "expo-web-browser";
 import { useOAuth, type UseOAuthFlowParams } from "@clerk/clerk-expo";
 
 import { useWarmUpBrowser } from "../../hooks/useWarmUpBrowser";
+import { Button } from "../ui";
 
 maybeCompleteAuthSession();
 
@@ -36,9 +36,11 @@ const OAuthSignInButton = ({ strategy, title }: OAuthSignInButtonProps) => {
   }, []);
 
   return (
-    <View className="rounded-lg border-2 border-gray-500 p-4">
-      <Button title={title} onPress={handleSignInPress} />
-    </View>
+    <Button
+      title={title}
+      onPress={handleSignInPress}
+      className="rounded-full"
+    />
   );
 };
 
@@ -47,11 +49,7 @@ const SignInWithOAuth = () => {
 
   return (
     <>
-      <OAuthSignInButton
-        strategy="oauth_discord"
-        title="Sign in with Discords"
-      />
-      <OAuthSignInButton strategy="oauth_google" title="Sign in with Google" />
+      <OAuthSignInButton strategy="oauth_google" title="Anmeldung mit Google" />
     </>
   );
 };

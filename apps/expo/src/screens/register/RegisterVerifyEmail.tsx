@@ -47,6 +47,7 @@ export const RegisterVerifyEmail = ({}: IProps) => {
         code: data?.code,
       });
       await setActive({ session: completeSignUp.createdSessionId });
+
       Toast?.show({
         type: "success",
         text1: "Account Created",
@@ -58,7 +59,7 @@ export const RegisterVerifyEmail = ({}: IProps) => {
       Toast?.show({
         type: "error",
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-        text1: err?.errors?.[0]?.message || "The code you entered is incorect",
+        text1: err?.errors?.[0]?.message || "Something went wrong",
         visibilityTime: 5000,
       });
     } finally {

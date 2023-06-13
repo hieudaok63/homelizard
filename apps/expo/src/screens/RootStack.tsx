@@ -1,14 +1,15 @@
 import React from "react";
 import { useAuth } from "@clerk/clerk-expo";
+// search screens
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-// search screens
-import { useCheckNameGender } from "~/hooks/useCheckNameGender";
+// register screens
+import { BackButton } from "~/components/navigation/BackButton";
+import { useGetUserInfo } from "~/hooks/useGetUserInfo";
 import Login from "./Login";
 import LoginOrSignUp from "./LoginOrSignup";
 import AppStack from "./app/AppStack";
 import { EditProfilePicture } from "./profilePicture";
-// register screens
 import {
   RegisterAgb,
   RegisterEmailPassword,
@@ -31,8 +32,9 @@ const Stack = createNativeStackNavigator<RootStackParams>();
 
 export function RootStack() {
   const { isSignedIn } = useAuth();
+  // const navigation = useNavigation();
 
-  useCheckNameGender(); // handle check user name and gender status
+  useGetUserInfo(); // handle check user name and gender status
 
   return (
     <Stack.Navigator
@@ -105,22 +107,76 @@ export function RootStack() {
 
           {/* search */}
           <Stack.Group>
-            <Stack.Screen name="ObjectType" component={ObjectType} />
-            <Stack.Screen name="Location" component={Location} />
-            <Stack.Screen name="PlotSize" component={PlotSize} />
-            <Stack.Screen name="LivingArea" component={LivingArea} />
-            <Stack.Screen name="NumberOfRooms" component={NumberOfRooms} />
+            <Stack.Screen
+              name="ObjectType"
+              component={ObjectType}
+              options={{
+                headerLeft: () => <BackButton screen={"LoginOrSignUp"} />,
+              }}
+            />
+            <Stack.Screen
+              name="Location"
+              component={Location}
+              options={{
+                headerLeft: () => <BackButton screen={"ObjectType"} />,
+              }}
+            />
+            <Stack.Screen
+              name="PlotSize"
+              component={PlotSize}
+              options={{
+                headerLeft: () => <BackButton screen={"Location"} />,
+              }}
+            />
+            <Stack.Screen
+              name="LivingArea"
+              component={LivingArea}
+              options={{
+                headerLeft: () => <BackButton screen={"PlotSize"} />,
+              }}
+            />
+            <Stack.Screen
+              name="NumberOfRooms"
+              component={NumberOfRooms}
+              options={{
+                headerLeft: () => <BackButton screen={"LivingArea"} />,
+              }}
+            />
             <Stack.Screen
               name="YearOfConstruction"
               component={YearOfConstruction}
+              options={{
+                headerLeft: () => <BackButton screen={"NumberOfRooms"} />,
+              }}
             />
-            <Stack.Screen name="Availability" component={Availability} />
-            <Stack.Screen name="ObjectStyle" component={ObjectStyle} />
+            <Stack.Screen
+              name="Availability"
+              component={Availability}
+              options={{
+                headerLeft: () => <BackButton screen={"YearOfConstruction"} />,
+              }}
+            />
+            <Stack.Screen
+              name="ObjectStyle"
+              component={ObjectStyle}
+              options={{
+                headerLeft: () => <BackButton screen={"Availability"} />,
+              }}
+            />
             <Stack.Screen
               name="ObjectStyleResult"
               component={ObjectStyleResult}
+              options={{
+                headerLeft: () => <BackButton screen={"ObjectStyle"} />,
+              }}
             />
-            <Stack.Screen name="Results" component={Results} />
+            <Stack.Screen
+              name="Results"
+              component={Results}
+              options={{
+                headerLeft: () => <BackButton screen={"ObjectStyleResult"} />,
+              }}
+            />
           </Stack.Group>
         </>
       )}

@@ -8,11 +8,13 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "cSpell.words": [
     "homelizard",
+    "immer",
     "nextjs",
     "prisma",
     "prodactive",
     "superjson",
-    "trpc"
+    "trpc",
+    "zustand"
   ],
   "tailwindCSS.experimental.classRegex": [
     [

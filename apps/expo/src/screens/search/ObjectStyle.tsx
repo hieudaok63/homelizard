@@ -8,7 +8,6 @@ import {
   View,
   type ImageSourcePropType,
 } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Carousel from "react-native-reanimated-carousel";
 import CheckIcon from "@assets/icons/CheckIcon.svg";
@@ -197,53 +196,51 @@ const ObjectStyle = ({ navigation }: Props) => {
 
   // main return
   return (
-    <GestureHandlerRootView>
-      <SearchLayout>
-        <KeyboardAwareScrollView>
-          <View className="mb-4 px-8">
-            <Text className="font-weight_800 text-font-18 text-black_1">
-              Wir finden für dich
+    <SearchLayout>
+      <KeyboardAwareScrollView>
+        <View className="mb-4 px-8">
+          <Text className="font-weight_800 text-font-18 text-black_1">
+            Wir finden für dich
+          </Text>
+
+          <View className="mt-5">
+            <Text className="text-black_1 text-font-14 font-weight_800 mb-1">
+              Welchen Stil soll das Objekt haben?
             </Text>
-
-            <View className="mt-5">
-              <Text className="text-black_1 text-font-14 font-weight_800 mb-1">
-                Welchen Stil soll das Objekt haben?
-              </Text>
-              <Text className="text-black_1 text-font-12 font-weight_300 opacity-60">
-                Wähle aus der Liste
-              </Text>
-            </View>
+            <Text className="text-black_1 text-font-12 font-weight_300 opacity-60">
+              Wähle aus der Liste
+            </Text>
           </View>
+        </View>
 
-          <View className="mb-32 mt-12 flex-1 flex-row justify-center">
-            <Carousel
-              data={carouselItems}
-              width={300}
-              height={335}
-              renderItem={_renderItem}
-              loop={false}
-              scrollAnimationDuration={1000}
-              mode="parallax"
-              modeConfig={{
-                parallaxScrollingScale: 0.9,
-                parallaxScrollingOffset: 50,
-              }}
-            />
-          </View>
+        <View className="mb-32 mt-12 flex-1 flex-row justify-center">
+          <Carousel
+            data={carouselItems}
+            width={300}
+            height={335}
+            renderItem={_renderItem}
+            loop={false}
+            scrollAnimationDuration={1000}
+            mode="parallax"
+            modeConfig={{
+              parallaxScrollingScale: 0.9,
+              parallaxScrollingOffset: 50,
+            }}
+          />
+        </View>
 
-          <View className="px-12">
-            <StepProgress width="w-10/12" />
+        <View className="px-12">
+          <StepProgress width="w-10/12" />
 
-            <Button
-              title="Continue"
-              onPress={handlePressNext}
-              className="rounded-3xl"
-              disabled={!objectStyles_zutand?.length}
-            />
-          </View>
-        </KeyboardAwareScrollView>
-      </SearchLayout>
-    </GestureHandlerRootView>
+          <Button
+            title="Continue"
+            onPress={handlePressNext}
+            className="rounded-3xl"
+            disabled={!objectStyles_zutand?.length}
+          />
+        </View>
+      </KeyboardAwareScrollView>
+    </SearchLayout>
   );
 };
 export default ObjectStyle;

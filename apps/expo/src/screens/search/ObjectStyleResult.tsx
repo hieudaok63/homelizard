@@ -22,6 +22,11 @@ const ObjectStyleResult = ({ navigation }: Props) => {
   const objectStyles_zutand = useSearchWizardStore(
     (state) => state?.objectStyles,
   );
+
+  const setSearchCompleted = useSearchWizardStore(
+    (state) => state?.setIsCompleted,
+  );
+
   const actualItems = useMemo(
     () =>
       carouselItems?.filter((el) => objectStyles_zutand?.includes(el?.title)),
@@ -53,11 +58,12 @@ const ObjectStyleResult = ({ navigation }: Props) => {
   }, []);
 
   const handlePressNext = () => {
+    setSearchCompleted(true);
     navigation?.navigate("Results");
   };
 
   const handlePressSelectMore = () => {
-    navigation?.goBack();
+    navigation?.navigate("ObjectStyle");
   };
 
   // main return

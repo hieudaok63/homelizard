@@ -1,12 +1,18 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Text, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import MapView, { Circle, Marker, type MapPressEvent } from "react-native-maps";
+import * as LocationExpo from "expo-location";
+import SearchIcon from "@assets/icons/SearchIcon.svg";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { AppInput, Button, RangePicker, StepProgress } from "~/components/ui";
 import { useLocation } from "~/hooks/useLocation";
-import { useSearchWizardStore } from "~/zustand/store";
+import {
+  useApplicationLoadingStore,
+  useSearchWizardStore,
+} from "~/zustand/store";
 import { type RootStackParams } from "../routes";
 import { SearchLayout } from "./_layout";
 
@@ -23,12 +29,16 @@ const Location = ({ navigation }: Props) => {
   const mapRef = React.useRef<MapView>(null);
   const { location: userLocation, locationLoaded } = useLocation();
 
+  // local states
+  const [address, setAddress] = useState<string>();
+
   // zustand
   const location = useSearchWizardStore((state) => state?.location);
   const radius = useSearchWizardStore((state) => state?.radius);
 
   const setLocation = useSearchWizardStore((state) => state?.setLocation);
   const setRadius = useSearchWizardStore((state) => state?.setRadius);
+  const setLoading = useApplicationLoadingStore((state) => state.setLoading);
 
   // functions
   const handlePressNext = () => {
@@ -48,12 +58,29 @@ const Location = ({ navigation }: Props) => {
 
   const handlePressMap = useCallback(
     (e: MapPressEvent) => {
-      console.log("mapPress", e.nativeEvent);
       if (!e?.nativeEvent) return;
-      setLocation(e.nativeEvent.coordinate);
+      setLocation(e?.nativeEvent?.coordinate);
     },
     [setLocation],
   );
+
+  const handlePressSearch = async () => {
+    if (!address) return;
+
+    try {
+      setLoading(true);
+      const result = await LocationExpo?.geocodeAsync(address);
+
+      if (result?.[0]) {
+        const { latitude, longitude } = result[0];
+        setLocation({ latitude, longitude });
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // effects
   useEffect(() => {
@@ -105,10 +132,23 @@ const Location = ({ navigation }: Props) => {
 
         <View className="mb-2 w-full flex-row items-center px-8">
           <Text className=" text-black_1 text-font-12 font-weight_300 basis-1/4 opacity-60">
-            Land
+            Suche
           </Text>
-          <View className="flex-1 pl-2">
-            <AppInput placeholder="Land" />
+          <View className="w-full flex-1 flex-row items-center pl-2">
+            <AppInput
+              placeholder="Suche"
+              className="mr-2 flex-1"
+              value={address}
+              onChangeText={setAddress}
+              onSubmitEditing={handlePressSearch}
+              returnKeyType="search"
+            />
+            <TouchableOpacity
+              className="bg-green rounded-full p-2"
+              onPress={handlePressSearch}
+            >
+              <SearchIcon />
+            </TouchableOpacity>
           </View>
         </View>
 

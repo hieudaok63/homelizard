@@ -6,6 +6,7 @@ import { useApplicationLoadingStore } from "~/zustand/store";
 export const SignOutButton = () => {
   const { signOut, isLoaded } = useAuth();
   const setLoadingApp = useApplicationLoadingStore((state) => state.setLoading);
+
   const signOutFunc = async () => {
     if (!isLoaded) return;
 

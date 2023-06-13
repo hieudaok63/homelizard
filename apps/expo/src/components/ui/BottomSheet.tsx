@@ -48,6 +48,7 @@ interface Props {
   setShow: Dispatch<SetStateAction<boolean>>;
   height?: number;
   onOuterClick?: () => void;
+  closeOnBackBtnAndroid?: boolean;
 }
 
 export const BottomSheet = ({
@@ -56,6 +57,7 @@ export const BottomSheet = ({
   height = DEFAULT_HEIGHT,
   onOuterClick,
   setShow,
+  closeOnBackBtnAndroid,
 }: Props) => {
   const { height: screenHeight } = useWindowDimensions();
 
@@ -69,14 +71,15 @@ export const BottomSheet = ({
   // effects
   // close bottom sheet by back button
   useEffect(() => {
-    if (show) {
+    if (show && closeOnBackBtnAndroid) {
       BackHandler.addEventListener("hardwareBackPress", hideByBackBtnFuc);
     } else {
       BackHandler.removeEventListener("hardwareBackPress", hideByBackBtnFuc);
     }
     // unmount
     return () => {
-      BackHandler.removeEventListener("hardwareBackPress", hideByBackBtnFuc);
+      if (closeOnBackBtnAndroid)
+        BackHandler.removeEventListener("hardwareBackPress", hideByBackBtnFuc);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show]);

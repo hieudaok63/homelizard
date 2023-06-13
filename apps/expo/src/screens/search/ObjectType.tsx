@@ -109,6 +109,7 @@ const ObjectType = ({ navigation }: Props) => {
         </TouchableOpacity>
         <TouchableOpacity
           className={`bg-grey_3 items-center rounded-3xl px-6 py-14 ${
+            objectType &&
             objectType !== "House with garden" &&
             objectType !== "Apartment" &&
             "border-color_green border-4"
@@ -122,7 +123,6 @@ const ObjectType = ({ navigation }: Props) => {
             Mehr
           </Text>
           <Text className="text-font-14 text-black_1 font-weight_800">
-            {" "}
             Optionen
           </Text>
         </TouchableOpacity>
@@ -153,6 +153,7 @@ const ObjectType = ({ navigation }: Props) => {
         height={600}
         onOuterClick={hideBottomSheet}
         setShow={setShowBottomSheet}
+        closeOnBackBtnAndroid
       >
         <View>
           <View className="border-color_gray border-b">
@@ -167,6 +168,9 @@ const ObjectType = ({ navigation }: Props) => {
               onPress={() => {
                 hideBottomSheet();
                 setObjectType(item);
+                setTimeout(() => {
+                  navigation?.navigate("Location");
+                }, 300);
               }}
             >
               <Text className="text-blue text-font-24 font-weight_400">
