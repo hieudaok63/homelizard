@@ -10,6 +10,10 @@ import Animated, {
 } from "react-native-reanimated";
 import { Circle, Defs, Mask, Rect, Svg, type SvgProps } from "react-native-svg";
 import { LinearGradient } from "expo-linear-gradient";
+import { type BottomTabBarProps } from "@react-navigation/bottom-tabs";
+
+import { cn } from "@homelizard/tailwind-config/utils";
+
 import ArrowRightIcon from "@assets/icons/ArrowRightIcon.svg";
 import BookmarkIcon from "@assets/icons/BookmarkIcon.svg";
 import CloseIcon from "@assets/icons/CloseIcon.svg";
@@ -20,8 +24,6 @@ import PeopleIcon from "@assets/icons/PeopleIcon.svg";
 import PersonIcon from "@assets/icons/PersonIcon.svg";
 import PlusIcon from "@assets/icons/PlusIcon.svg";
 import SettingsIcon from "@assets/icons/SettingsIcon.svg";
-import { type BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import clsx from "clsx";
 
 const PADDING_HEIGHT = 28;
 
@@ -63,10 +65,7 @@ const menuLinkData = [
   },
 ];
 
-const TabBar = ({
-  navigation,
-  state,
-}: BottomTabBarProps) => {
+const TabBar = ({ navigation, state }: BottomTabBarProps) => {
   const maxHeight = useSharedValue(0);
   const [open, setOpen] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
@@ -212,7 +211,7 @@ const ActionBar = ({
             active={state.index === 1}
           />
           <TabActionButton
-            label={"Close"}
+            label="Close"
             showLabel={showLabels}
             onPress={onMenuPress}
             Icon={menuOpen ? CloseIcon : MenuIcon}
@@ -241,15 +240,15 @@ const TabActionButton = ({
   return (
     <TouchableOpacity onPress={onPress}>
       <View className="bg-dark flex h-14 w-14 flex-col items-center justify-center rounded-full">
-        <Animated.View layout={Layout}>
-          <Icon className={clsx("fill-white", active && "fill-blue-400")} />
+        <Animated.View>
+          <Icon className={cn("fill-white", active && "fill-blue-400")} />
         </Animated.View>
         {showLabel && (
           <Animated.Text
             entering={FadeIn.duration(400)}
             exiting={FadeOut.duration(200)}
             layout={Layout}
-            className={clsx("text-xs text-white", active && "text-blue-400")}
+            className={cn("text-xs text-white", active && "text-blue-400")}
           >
             {label}
           </Animated.Text>
@@ -261,7 +260,11 @@ const TabActionButton = ({
 
 const MenuLink = ({ name, Icon, iconGradient }: (typeof menuLinkData)[0]) => {
   return (
-    <TouchableOpacity onPress={() => {console.log("MenuLink clicked")}}>
+    <TouchableOpacity
+      onPress={() => {
+        console.log("MenuLink clicked");
+      }}
+    >
       <View className="flex flex-row items-center border-b-[1px] border-[#303040] p-4 py-2">
         <LinearGradient
           className="rounded-bl-full rounded-tl-full rounded-tr-full p-2"
@@ -275,3 +278,5 @@ const MenuLink = ({ name, Icon, iconGradient }: (typeof menuLinkData)[0]) => {
     </TouchableOpacity>
   );
 };
+
+export const BottomNavBarPadding = () => <View className="h-28" />;

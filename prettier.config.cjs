@@ -25,6 +25,8 @@ const config = {
     "",
     "^@homelizard/(.*)$",
     "",
+    "^@assets/(.*)$",
+    "",
     "^~/utils/(.*)$",
     "^~/components/(.*)$",
     "^~/styles/(.*)$",

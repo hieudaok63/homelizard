@@ -1,3 +1,4 @@
+import { StatusBar } from "react-native";
 import { registerRootComponent } from "expo";
 import { NavigationContainer } from "@react-navigation/native";
 
@@ -7,13 +8,16 @@ import { RootStack } from "./src/screens/RootStack";
 
 export function App() {
   return (
-    <RootProvider>
-      <ApplicationLoader>
-        <NavigationContainer>
-          <RootStack />
-        </NavigationContainer>
-      </ApplicationLoader>
-    </RootProvider>
+    <>
+      <StatusBar translucent backgroundColor="transparent" />
+      <RootProvider>
+        <ApplicationLoader>
+          <NavigationContainer>
+            <RootStack />
+          </NavigationContainer>
+        </ApplicationLoader>
+      </RootProvider>
+    </>
   );
 }
 

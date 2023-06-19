@@ -34,6 +34,10 @@ const config = {
         checksVoidReturn: false,
       },
     ],
+    "react/jsx-curly-brace-presence": [
+      "warn",
+      { props: "never", children: "never", propElementValues: "always" },
+    ],
   },
   ignorePatterns: ["**/*.config.js", "**/*.config.cjs", "packages/config/**"],
   reportUnusedDisableDirectives: true,

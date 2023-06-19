@@ -79,7 +79,7 @@ export const EditProfilePicture = ({ navigation }: IProps) => {
       <PopupModal
         modalVisible={isSkipModalVisible}
         hideModal={hideSkipModal}
-        top={"30%"}
+        top="30%"
       >
         <View className="p-4">
           <Text className="font-nunito-italic font-weight_200 text-font-17 mb-1 text-center">
@@ -87,7 +87,7 @@ export const EditProfilePicture = ({ navigation }: IProps) => {
           </Text>
           <Text className="text-black_extra font-weight_400 text-font-13">
             Would you like to jump directly to the homepage? Yo can always
-            continue the personalisation from your profile.
+            continue the personalization from your profile.
           </Text>
         </View>
         <TouchableOpacity
@@ -103,7 +103,7 @@ export const EditProfilePicture = ({ navigation }: IProps) => {
           className="border-color_gray w-full flex-row items-center justify-center border-t pb-1"
         >
           <Text className="font-weight_400 text-blue_2 text-font-17 py-2.5">
-            Continue personalising
+            Continue personalizing
           </Text>
         </TouchableOpacity>
       </PopupModal>

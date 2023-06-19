@@ -1,12 +1,11 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
+import { useTranslation } from "react-i18next";
 
 import TabBar from "~/components/navigation/TabBar";
-import { HomeScreen } from "./Home";
+import { HomeScreen } from "./Home/HomeScreen";
 import { ProfileScreen } from "./Profile";
 import { type TabStackParams } from "./routes";
-import { useTranslation } from "react-i18next";
 
 const Tab = createBottomTabNavigator<TabStackParams>();
 
@@ -19,6 +18,7 @@ const AppStack = () => {
         component={HomeScreen}
         options={{
           tabBarLabel: t("navigation.home"),
+          headerShown: false,
         }}
       />
       <Tab.Screen

@@ -213,7 +213,7 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
                 hideBottomSheet();
               }}
             >
-              <Text className="text-blue text-font-24 font-weight_400">
+              <Text className="text-blue_1 text-font-24 font-weight_400">
                 {t(`gender.${item}`)}
               </Text>
             </TouchableOpacity>

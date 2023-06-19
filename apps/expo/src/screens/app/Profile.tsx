@@ -18,7 +18,7 @@ export const ProfileScreen = ({
   const user = useBackendUser();
 
   // main return
-  return (
+  return ( 
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>{t("profile:title")}</Text>
       <Text>{user?.email}</Text>

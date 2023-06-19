@@ -3,8 +3,8 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { UserButton, useAuth } from "@clerk/nextjs";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { api, type RouterOutputs } from "~/utils/api";
 import nextI18nConfig from "../../next-i18next.config.mjs";

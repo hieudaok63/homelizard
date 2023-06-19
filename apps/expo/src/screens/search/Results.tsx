@@ -38,7 +38,7 @@ const Results = ({ navigation }: Props) => {
             Oder nutzen sie
           </Text>
           <TouchableOpacity onPress={handlePressEmailOption}>
-            <Text className="font-weight_500 text-font-14 text-blue">
+            <Text className="font-weight_500 text-font-14 text-blue_1">
               E-Mail
             </Text>
           </TouchableOpacity>
