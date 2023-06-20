@@ -38,6 +38,7 @@ const config = {
       "warn",
       { props: "never", children: "never", propElementValues: "always" },
     ],
+    "react/no-children-prop": ["error"],
   },
   ignorePatterns: ["**/*.config.js", "**/*.config.cjs", "packages/config/**"],
   reportUnusedDisableDirectives: true,
