@@ -24,11 +24,9 @@ const AppStack = () => {
       <Tab.Screen
         name="Profile"
         component={ProfileScreen}
-        initialParams={{
-          num: 2,
-        }}
         options={{
           tabBarLabel: t("navigation.profile"),
+          headerShown: false,
         }}
       />
     </Tab.Navigator>

@@ -13,17 +13,15 @@ interface IItem {
   id: number;
 }
 
-export const styleBoxShadow = {
-  ...generateBoxShadowStyle({
-    xOffset: 0,
-    yOffset: 0,
-    shadowColorIos: "#000000",
-    shadowOpacity: 0.16,
-    shadowRadius: 5,
-    elevation: 4,
-    shadowColorAndroid: "white",
-  }),
-};
+export const styleBoxShadow = generateBoxShadowStyle({
+  xOffset: 0,
+  yOffset: 0,
+  shadowColorIos: "#000000",
+  shadowOpacity: 0.16,
+  shadowRadius: 10,
+  elevation: 4,
+  shadowColorAndroid: "white",
+});
 
 const itemColorByStatus = (status: string) => {
   switch (status) {

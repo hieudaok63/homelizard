@@ -46,7 +46,7 @@ const TabBar = (
   });
 
   return (
-    <View className="mx-8 h-14 mb-4">
+    <View className="mx-8 mb-4 h-14">
       <View className="flex h-full w-full flex-row items-center justify-between rounded-full bg-black p-1">
         {props.navigationState.routes.map((route, index) => (
           <TouchableOpacity

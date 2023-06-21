@@ -1,10 +1,21 @@
 import React from "react";
-import { Image, View } from "react-native";
+import { Image, View, type StyleProp, type ViewStyle } from "react-native";
 
-export const UserAvatar = () => {
+import { cn } from "@homelizard/tailwind-config/utils";
+
+interface userAvatar {
+  className?: string;
+  style?: StyleProp<ViewStyle>;
+}
+
+export const UserAvatar = ({ className, style }: userAvatar) => {
   return (
     <View
-      className={`bg-grey_2 flex h-[50px] w-[50px] items-center justify-center overflow-hidden rounded-l-full rounded-tr-full`}
+      className={cn(
+        "bg-grey_2 flex h-[50px] w-[50px] items-center justify-center overflow-hidden rounded-l-full rounded-tr-full",
+        className,
+      )}
+      style={style}
     >
       <Image
         style={{ width: "100%", height: "100%" }}
