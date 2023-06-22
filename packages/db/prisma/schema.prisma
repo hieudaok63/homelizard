@@ -18,18 +18,26 @@ model Post {
 }
 
 model User {
-  id         String     @id @default(cuid())
-  externalId String     @unique @map("user_id")
-  email      String     @unique
-  firstName  String     @map("first_name")
-  lastName   String     @map("last_name")
-  gender     String
-  customers  Customer[]
-  favorites  Favorite[]
-  address    Address?   @relation(fields: [addressId], references: [id])
-  addressId  String?
-  createdAt  DateTime   @default(now()) @map("created_at")
-  updatedAt  DateTime   @updatedAt @map("updated_at")
+  id            String       @id @default(cuid())
+  externalId    String       @unique @map("user_id")
+  email         String       @unique
+  firstName     String       @map("first_name")
+  lastName      String       @map("last_name")
+  middleName    String?      @map("middle_name")
+  gender        String
+  suffix        String?
+  title         String?
+  birthday      DateTime?
+  mobilePhone   String?      @map("mobile_phone")
+  website       String?
+  favorites     Favorite[]
+  customers     Customer[]
+  address       Address?     @relation(fields: [addressId], references: [id])
+  addressId     String?
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+  placeOfWork   PlaceOfWork? @relation(fields: [placeOfWorkId], references: [id])
+  placeOfWorkId String?
 }
 
 model Customer {
@@ -47,6 +55,7 @@ model Address {
   user             User[]
   realEstateObject RealEstateObject[]
   searchProfile    SearchProfile[]
+  placeOfWork      PlaceOfWork[]
 }
 
 model SearchProfile {
@@ -92,8 +101,9 @@ model SearchResult {
 
   searchProfile SearchProfile    @relation(fields: [searchProfileId], references: [id])
   realEstate    RealEstateObject @relation(fields: [realEstateObjectId], references: [id])
-
-  favorite Favorite[]
+  createdAt     DateTime         @default(now()) @map("created_at")
+  updatedAt     DateTime         @updatedAt @map("updated_at")
+  favorite      Favorite[]
 
   @@unique([searchProfileId, realEstateObjectId])
 }
@@ -113,4 +123,18 @@ model RealEstateObject {
   address          Address?       @relation(fields: [addressId], references: [id])
   addressId        String?
   searchResult     SearchResult[]
+}
+
+model PlaceOfWork {
+  id        String   @id @default(cuid())
+  position  String
+  company   String
+  since     DateTime
+  phone     String
+  email     String
+  web       String
+  address   Address? @relation(fields: [addressId], references: [id])
+  addressId String?
+
+  User User[]
 }
