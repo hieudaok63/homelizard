@@ -78,4 +78,22 @@ export const searchResultRouter = createTRPCRouter({
         totalItems,
       );
     }),
+  byId: protectedProcedure
+    .input(z.object({ searchResultId: z.string().min(1) }))
+    .query(async ({ ctx, input }) => {
+      const searchResult = await ctx.prisma.searchResult.findUnique({
+        where: {
+          id: input.searchResultId,
+        },
+        include: {
+          searchProfile: true,
+          realEstate: true,
+        },
+      });
+
+      if (!searchResult) {
+        throw new Error("Search result not found");
+      }
+      return searchResult;
+    }),
 });
