@@ -2,7 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useTranslation } from "react-i18next";
 
-import TabBar from "~/components/navigation/TabBar";
+import NavBar from "~/components/navigation/NavBar";
 import { HomeScreen } from "./Home/HomeScreen";
 import { ProfileScreen } from "./Profile";
 import { type TabStackParams } from "./routes";
@@ -12,7 +12,7 @@ const Tab = createBottomTabNavigator<TabStackParams>();
 const AppStack = () => {
   const { t } = useTranslation();
   return (
-    <Tab.Navigator tabBar={(props) => <TabBar {...props} />}>
+    <Tab.Navigator tabBar={(props) => <NavBar {...props} />}>
       <Tab.Screen
         name="Home"
         component={HomeScreen}

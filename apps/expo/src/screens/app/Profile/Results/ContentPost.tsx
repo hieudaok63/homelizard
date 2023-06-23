@@ -7,7 +7,7 @@ import {
 } from "react-native";
 
 import PostComponent from "~/components/PostComponent";
-import { BottomNavBarPadding } from "~/components/navigation/TabBar";
+import { BottomNavBarPadding } from "~/components/navigation/NavBar";
 import { AppText } from "~/components/ui/AppText";
 
 export type IItem = {

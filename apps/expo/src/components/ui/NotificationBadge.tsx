@@ -17,7 +17,7 @@ export const NotificationBadge: FC<NotificationBadgeProps> = ({
   return (
     <View
       className={cn(
-        "bg-blue_4 absolute -right-2 -top-2 h-6 w-6 items-center rounded-full",
+        "bg-blue_4 h-6 w-6 items-center rounded-full",
         className,
       )}
       style={[style]}

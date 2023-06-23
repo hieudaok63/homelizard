@@ -9,7 +9,6 @@ import { RootStack } from "./src/screens/RootStack";
 export function App() {
   return (
     <>
-      <StatusBar translucent backgroundColor="transparent" />
       <RootProvider>
         <ApplicationLoader>
           <NavigationContainer>

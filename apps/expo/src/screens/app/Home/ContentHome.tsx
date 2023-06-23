@@ -27,7 +27,7 @@ const renderScene = SceneMap({
   results: ResultsTab,
 });
 
-const TabBar = (
+export const TabBar = (
   props: SceneRendererProps & {
     navigationState: NavigationState<(typeof tabs)[number]>;
   },

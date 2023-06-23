@@ -1,7 +1,8 @@
 import React from "react";
-import { FlatList, type ImageSourcePropType } from "react-native";
+import { type ImageSourcePropType } from "react-native";
+import { Tabs } from "react-native-collapsible-tab-view";
 
-import { BottomNavBarPadding } from "~/components/navigation/TabBar";
+import { BottomNavBarPadding } from "~/components/navigation/NavBar";
 import { Container } from "./Container";
 import { ContentPost } from "./ContentPost";
 import { HeaderPost } from "./HeaderPost";
@@ -63,7 +64,7 @@ export const PostItems: Array<IItem> = [
 export const ResultsTab = () => {
   return (
     <LayoutResults>
-      <FlatList
+      <Tabs.FlatList
         className="pt-8"
         data={PostItems}
         renderItem={ResultItem}

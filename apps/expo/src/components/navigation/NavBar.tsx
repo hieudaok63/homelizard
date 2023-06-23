@@ -65,7 +65,7 @@ const menuLinkData = [
   },
 ];
 
-const TabBar = ({ navigation, state }: BottomTabBarProps) => {
+const NavBar = ({ navigation, state }: BottomTabBarProps) => {
   const maxHeight = useSharedValue(0);
   const [open, setOpen] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
@@ -132,7 +132,7 @@ const TabBar = ({ navigation, state }: BottomTabBarProps) => {
   );
 };
 
-export default TabBar;
+export default NavBar;
 
 const CenterButton = (props: ComponentProps<typeof TouchableOpacity>) => {
   return (
