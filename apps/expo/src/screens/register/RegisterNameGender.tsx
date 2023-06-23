@@ -7,8 +7,6 @@ import {
   View,
 } from "react-native";
 import Toast from "react-native-toast-message";
-import ArrowDownIcon from "@assets/icons/ArrowDownIcon.svg";
-import QuestionCircleIcon from "@assets/icons/QuestionCircleIcon.svg";
 import { useUser } from "@clerk/clerk-expo";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useTranslation } from "react-i18next";
@@ -16,8 +14,11 @@ import { z } from "zod";
 
 import { genderOptions, genderSchema } from "@homelizard/schema";
 
+import ArrowDownIcon from "@assets/icons/ArrowDownIcon.svg";
+import QuestionCircleIcon from "@assets/icons/QuestionCircleIcon.svg";
+
 import { api } from "~/utils/api";
-import { Button, StepProgress } from "~/components/ui";
+import { StepProgressButton } from "~/components/ui";
 import { BottomSheet } from "~/components/ui/BottomSheet";
 import TextInput from "~/components/ui/input/TextInput";
 import { useDisableBackButton } from "~/hooks/useDisableBackButton";
@@ -178,9 +179,7 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
         </View>
 
         <View>
-          <StepProgress width="w-1/12" />
-
-          <Button title="Weiter" onPress={onSubmit} className="rounded-full" />
+          <StepProgressButton progress={60} title="Weiter" onPress={onSubmit} />
         </View>
       </KeyboardAvoidingView>
 

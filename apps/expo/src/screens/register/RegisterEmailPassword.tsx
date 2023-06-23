@@ -4,7 +4,7 @@ import { useSignUp } from "@clerk/clerk-expo";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 import { z } from "zod";
 
-import { Button, StepProgress } from "~/components/ui";
+import { StepProgressButton } from "~/components/ui";
 import TextInput from "~/components/ui/input/TextInput";
 import { useZodForm } from "~/hooks/useZodForm";
 import { type RootStackParams } from "~/screens/routes";
@@ -118,9 +118,7 @@ export const RegisterEmailPassword = ({ navigation }: IProps) => {
           />
         </View>
         <View>
-          <StepProgress width="w-1/12" />
-
-          <Button title="Weiter" onPress={onSubmit} className="rounded-full" />
+          <StepProgressButton progress={60} title="Weiter" onPress={onSubmit} />
         </View>
       </KeyboardAvoidingView>
     </RegisterLayout>

@@ -4,10 +4,11 @@
 
 import React, { useCallback, useMemo } from "react";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
-import InfoSCircleIcon from "@assets/icons/InfoSCircleIcon.svg";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
-import { Button, StepProgress } from "~/components/ui";
+import InfoSCircleIcon from "@assets/icons/InfoSCircleIcon.svg";
+
+import { StepProgressButton } from "~/components/ui";
 import { useSearchWizardStore } from "~/zustand/store";
 import { type RootStackParams } from "../routes";
 import { carouselItems, type IItem } from "./ObjectStyle";
@@ -105,16 +106,13 @@ const ObjectStyleResult = ({ navigation }: Props) => {
         </Text>
       </TouchableOpacity>
 
-      <View className="px-12">
-        <StepProgress width="w-10/12" />
+      <StepProgressButton
+        title="Continue"
+        progress={99}
+        onPress={handlePressNext}
+        disabled={!objectStyles_zutand?.length}
+      />
 
-        <Button
-          title="Continue"
-          onPress={handlePressNext}
-          className="rounded-3xl"
-          disabled={!objectStyles_zutand?.length}
-        />
-      </View>
       {/* </KeyboardAwareScrollView> */}
     </SearchLayout>
   );

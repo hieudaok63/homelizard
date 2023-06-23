@@ -9,7 +9,7 @@ import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 import dayjs from "dayjs";
 
 import { generateBoxShadowStyle } from "~/utils/helpers";
-import { Button, StepProgress } from "~/components/ui";
+import { StepProgressButton } from "~/components/ui";
 import { useSearchWizardStore } from "~/zustand/store";
 import { type RootStackParams } from "../routes";
 import { SearchLayout } from "./_layout";
@@ -92,16 +92,13 @@ const Availability = ({ navigation }: Props) => {
             <DateTimePicker {...datePickerProps} />
           </View>
         )}
-
-        <View className="px-12">
-          <StepProgress width="w-9/12" />
-          <Button
-            title="Continue"
-            onPress={handlePressNext}
-            className="rounded-3xl"
-          />
-        </View>
       </KeyboardAwareScrollView>
+
+      <StepProgressButton
+        title="Continue"
+        progress={80}
+        onPress={handlePressNext}
+      />
     </SearchLayout>
   );
 };

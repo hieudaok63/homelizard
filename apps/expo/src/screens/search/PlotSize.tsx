@@ -3,12 +3,13 @@
 import React, { useCallback } from "react";
 import { Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { type NativeStackScreenProps } from "@react-navigation/native-stack";
+
 import HouseIcon from "@assets/icons/HouseIcon.svg";
 import HouseMultipleRoomIcon from "@assets/icons/HouseMultipleRoomIcon.svg";
 import LandIcon from "@assets/icons/LandIcon.svg";
-import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
-import { Button, RangePicker, StepProgress } from "~/components/ui";
+import { RangePicker, StepProgressButton } from "~/components/ui";
 import { useSearchWizardStore } from "~/zustand/store";
 import { type RootStackParams } from "../routes";
 import { SearchLayout } from "./_layout";
@@ -117,17 +118,13 @@ const PlotSize = ({ navigation }: Props) => {
             height={handleSizeLand("height")}
           />
         </View>
-
-        <View className="px-12">
-          <StepProgress width="w-4/12" />
-
-          <Button
-            title="Continue"
-            onPress={handlePressNext}
-            className="rounded-3xl"
-          />
-        </View>
       </KeyboardAwareScrollView>
+
+      <StepProgressButton
+        title="Continue"
+        progress={40}
+        onPress={handlePressNext}
+      />
     </SearchLayout>
   );
 };

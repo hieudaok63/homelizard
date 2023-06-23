@@ -2,7 +2,11 @@ import React from "react";
 import { View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
-export const StepProgress = ({ width }: { width?: string }) => {
+import { cn } from "@homelizard/tailwind-config/utils";
+
+export const StepProgress = ({ progress }: { progress: string | number }) => {
+  const progressBarWidth = `${progress}%`;
+
   // main return
   return (
     <View className="relative mx-6">
@@ -12,7 +16,11 @@ export const StepProgress = ({ width }: { width?: string }) => {
       />
       <LinearGradient
         colors={["#37E1EC", "#11BBB0"]}
-        className={`absolute h-3 ${width || "w-full"} rounded-tl-full`}
+        className={cn(
+          "absolute h-3  rounded-tl-full",
+          progress === 100 && "rounded-t-full",
+        )}
+        style={{ width: progressBarWidth }}
       />
     </View>
   );

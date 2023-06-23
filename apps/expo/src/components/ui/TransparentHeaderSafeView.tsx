@@ -1,11 +1,12 @@
 import React, { type PropsWithChildren } from "react";
-import { View } from "react-native";
+import { Dimensions, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useHeaderHeight } from "@react-navigation/elements";
 
 export const TransparentHeaderSafeView = ({ children }: PropsWithChildren) => {
   const insets = useSafeAreaInsets();
   const height = useHeaderHeight();
+  const heightScreen = Dimensions.get("window").height;
 
   // main return
   return (
@@ -15,6 +16,7 @@ export const TransparentHeaderSafeView = ({ children }: PropsWithChildren) => {
         paddingBottom: insets.bottom,
         paddingLeft: insets.left,
         paddingRight: insets.right,
+        height: heightScreen,
       }}
     >
       {children}

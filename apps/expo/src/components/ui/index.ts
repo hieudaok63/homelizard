@@ -6,6 +6,7 @@ export * from "./PopupModal";
 export * from "./RangePicker";
 export * from "./StepProgress";
 export * from "./TransparentHeaderSafeView";
+export * from "./StepProgressButton";
 export * from "./NotificationBadge";
 export * from "./ButtonAddFavorite";
 export * from "./UserAvatar";

@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { type NativeStackScreenProps } from "@react-navigation/native-stack";
+
 import BuildingIcon from "@assets/icons/BuildingIcon.svg";
 import CheckIcon from "@assets/icons/CheckIcon.svg";
 import HouseIcon from "@assets/icons/HouseIcon.svg";
-import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { generateBoxShadowStyle } from "~/utils/helpers";
-import { BottomSheet, Button } from "~/components/ui";
+import { BottomSheet, Button, StepProgressButton } from "~/components/ui";
 import { useSearchWizardStore } from "~/zustand/store";
 import { type RootStackParams } from "../routes";
 import { SearchLayout } from "./_layout";
@@ -127,26 +128,12 @@ const ObjectType = ({ navigation }: Props) => {
           </Text>
         </TouchableOpacity>
       </View>
-
-      <View className="px-12">
-        <View className="relative mx-6">
-          <LinearGradient
-            colors={["#F5F7F9", "#ECEEEF"]}
-            className="h-3 rounded-t-full"
-          />
-          <LinearGradient
-            colors={["#37E1EC", "#11BBB0"]}
-            className="w-0/3 absolute h-3 rounded-tl-full"
-          />
-        </View>
-        <Button
-          title="Continue"
-          onPress={handlePressNext}
-          className="rounded-3xl"
-          disabled={!objectType}
-        />
-      </View>
-
+      <StepProgressButton
+        progress={20}
+        title="Continue"
+        onPress={handlePressNext}
+        disabled={!objectType}
+      />
       {/* bottom menu */}
       <BottomSheet
         show={showBottomSheet}

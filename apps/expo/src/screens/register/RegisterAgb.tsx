@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Switch, Text, View } from "react-native";
-import HomeLizardSvg from "@assets/homelizard.svg";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
-import { Button, StepProgress } from "~/components/ui";
+import HomeLizardSvg from "@assets/homelizard.svg";
+
+import { StepProgressButton } from "~/components/ui";
 import { type RootStackParams } from "~/screens/routes";
 import { RegisterLayout } from "./_layout";
 
@@ -49,14 +50,12 @@ export const RegisterAgb = ({ navigation }: IProps) => {
               Hiermit stimme ich den Homelizard AGB uneingeschränkt zu.
             </Text>
           </View>
-          <View className="relative">
-            <StepProgress width={isEnabled ? "w-9/12" : "w-7/12"} />
-          </View>
-          <Button
+
+          <StepProgressButton
+            disabled={!isEnabled}
+            progress={isEnabled ? 100 : 70}
             title="Weiter"
             onPress={handlePressNext}
-            className="rounded-full"
-            disabled={!isEnabled}
           />
         </View>
       </View>

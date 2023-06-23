@@ -10,12 +10,13 @@ import {
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Carousel from "react-native-reanimated-carousel";
+import { type NativeStackScreenProps } from "@react-navigation/native-stack";
+
 import CheckIcon from "@assets/icons/CheckIcon.svg";
 import InfoSCircleIcon from "@assets/icons/InfoSCircleIcon.svg";
 import PlusIcon from "@assets/icons/PlusIcon.svg";
-import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
-import { Button, StepProgress } from "~/components/ui";
+import { StepProgressButton } from "~/components/ui";
 import { useSearchWizardStore } from "~/zustand/store";
 import { type RootStackParams } from "../routes";
 import { SearchLayout } from "./_layout";
@@ -142,9 +143,7 @@ const Item = (props: IItemProps) => {
 
   // return
   return (
-    <View
-      className={`relative items-center justify-center overflow-hidden px-2`}
-    >
+    <View className="relative items-center justify-center overflow-hidden px-2">
       <View
         className={`w-full overflow-hidden rounded-3xl ${
           !!selected ? "border-color_green border-4" : ""
@@ -228,18 +227,14 @@ const ObjectStyle = ({ navigation }: Props) => {
             }}
           />
         </View>
-
-        <View className="px-12">
-          <StepProgress width="w-10/12" />
-
-          <Button
-            title="Continue"
-            onPress={handlePressNext}
-            className="rounded-3xl"
-            disabled={!objectStyles_zutand?.length}
-          />
-        </View>
       </KeyboardAwareScrollView>
+
+      <StepProgressButton
+        title="Continue"
+        progress={85}
+        onPress={handlePressNext}
+        disabled={!objectStyles_zutand?.length}
+      />
     </SearchLayout>
   );
 };

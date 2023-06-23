@@ -25,6 +25,8 @@ import PersonIcon from "@assets/icons/PersonIcon.svg";
 import PlusIcon from "@assets/icons/PlusIcon.svg";
 import SettingsIcon from "@assets/icons/SettingsIcon.svg";
 
+import { SignOutButton } from "../auth/SignOutButton";
+
 const PADDING_HEIGHT = 28;
 
 const shadowStyle = {
@@ -274,6 +276,7 @@ const MenuLink = ({ name, Icon, iconGradient }: (typeof menuLinkData)[0]) => {
         </LinearGradient>
         <Text className="ml-4 flex-grow text-lg text-white">{name}</Text>
         <ArrowRightIcon />
+        <SignOutButton />
       </View>
     </TouchableOpacity>
   );

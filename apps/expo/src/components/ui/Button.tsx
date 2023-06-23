@@ -7,8 +7,8 @@ import {
 } from "react-native";
 
 type ButtonProps = {
-  title: string;
-  onPress: () => void;
+  title?: string;
+  onPress?: () => void;
   style?: StyleProp<ViewStyle>;
   className?: string;
   disabled?: boolean;

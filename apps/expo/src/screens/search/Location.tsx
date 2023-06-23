@@ -4,10 +4,11 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import MapView, { Circle, Marker, type MapPressEvent } from "react-native-maps";
 import * as LocationExpo from "expo-location";
-import SearchIcon from "@assets/icons/SearchIcon.svg";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
-import { AppInput, Button, RangePicker, StepProgress } from "~/components/ui";
+import SearchIcon from "@assets/icons/SearchIcon.svg";
+
+import { AppInput, RangePicker, StepProgressButton } from "~/components/ui";
 import { useLocation } from "~/hooks/useLocation";
 import {
   useApplicationLoadingStore,
@@ -175,7 +176,7 @@ const Location = ({ navigation }: Props) => {
           {radius === maxValueRadius ? `${radius}km +` : `${radius}km`}
         </Text>
 
-        <View className="mb-14 px-8">
+        <View className="mb-12 px-8">
           <View className="aspect-square overflow-hidden rounded-full">
             <MapView
               ref={mapRef}
@@ -198,16 +199,12 @@ const Location = ({ navigation }: Props) => {
             </MapView>
           </View>
         </View>
-
-        <View className="px-12">
-          <StepProgress width="w-2/12" />
-          <Button
-            title="Continue"
-            onPress={handlePressNext}
-            className="rounded-3xl"
-          />
-        </View>
       </KeyboardAwareScrollView>
+      <StepProgressButton
+        title="Continue"
+        progress={30}
+        onPress={handlePressNext}
+      />
     </SearchLayout>
   );
 };
