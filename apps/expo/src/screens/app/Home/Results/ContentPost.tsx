@@ -69,7 +69,7 @@ export const ContentPost = ({ item }: { item: IItemPost }) => {
   };
 
   return (
-    <View className="rounded-bt-[0] overflow-hidden rounded-[20px] rounded-br-[0] ">
+    <View className="rounded-bt-[0] overflow-hidden rounded-[20px] rounded-br-[0]">
       <HeaderPost />
       <DetailContentPost />
       <FooterPost />

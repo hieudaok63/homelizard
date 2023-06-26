@@ -2,7 +2,7 @@ import React from "react";
 import { Text, type StyleProp, type TextStyle } from "react-native";
 
 interface AppTextProps {
-  text: string;
+  text?: string;
   style?: StyleProp<TextStyle>;
   onPress?: () => void;
   numberOfLines?: number;

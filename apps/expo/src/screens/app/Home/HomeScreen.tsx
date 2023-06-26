@@ -44,7 +44,7 @@ const ResultsLabel = (props: TabItemProps<"results">) => {
   );
   return (
     <View className="flex-row items-center gap-1">
-      <Animated.Text style={textColorStyle}>foo</Animated.Text>
+      <Animated.Text style={textColorStyle}>Ergebnisse</Animated.Text>
       <NotificationBadge number={3} />
     </View>
   );
