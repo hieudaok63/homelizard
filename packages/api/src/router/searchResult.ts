@@ -3,6 +3,7 @@ import { z } from "zod";
 import { type SearchResult } from "@homelizard/db";
 
 import { DEFAULT_LIMIT, DEFAULT_PAGE } from "../constant/paginated.constant";
+import { SearchResultNotFound } from "../exceptions/errors";
 import { getPaginatedItems } from "../helpers/pagination.helper";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
@@ -92,7 +93,7 @@ export const searchResultRouter = createTRPCRouter({
       });
 
       if (!searchResult) {
-        throw new Error("Search result not found");
+        throw new SearchResultNotFound();
       }
       return searchResult;
     }),

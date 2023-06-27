@@ -2,6 +2,7 @@ import { z } from "zod";
 
 import { objectStyleSchema, objectTypeSchema } from "@homelizard/schema";
 
+import { CustomerNotFound } from "../exceptions/errors";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 const MIN_LATITUDE = -90;
@@ -49,7 +50,7 @@ export const searchRouter = createTRPCRouter({
       });
 
       if (!customer) {
-        throw new Error(`Customer not found`);
+        throw new CustomerNotFound();
       }
 
       return ctx.prisma.searchProfile.create({
@@ -58,7 +59,7 @@ export const searchRouter = createTRPCRouter({
           customer: {
             connect: {
               id: customer.id,
-            }
+            },
           },
         },
       });
