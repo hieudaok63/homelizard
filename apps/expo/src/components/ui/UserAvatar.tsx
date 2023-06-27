@@ -1,7 +1,10 @@
 import React from "react";
-import { Image, View, type StyleProp, type ViewStyle } from "react-native";
+import { View, type StyleProp, type ViewStyle } from "react-native";
+import { Image } from "expo-image";
 
 import { cn } from "@homelizard/tailwind-config/utils";
+
+import { api } from "~/utils/api";
 
 interface userAvatar {
   className?: string;
@@ -9,6 +12,7 @@ interface userAvatar {
 }
 
 export const UserAvatar = ({ className, style }: userAvatar) => {
+  const { data } = api.profile.signedProfileImageUrl.useQuery();
   return (
     <View
       className={cn(
@@ -17,12 +21,15 @@ export const UserAvatar = ({ className, style }: userAvatar) => {
       )}
       style={style}
     >
-      <Image
-        style={{ width: "100%", height: "100%" }}
-        source={{
-          uri: "https://picsum.photos/200/300",
-        }}
-      />
+      {data?.url && (
+        // eslint-disable-next-line jsx-a11y/alt-text
+        <Image
+          className="h-full w-full"
+          source={data.url}
+          transition={300}
+          accessibilityLabel="Profile picture"
+        />
+      )}
     </View>
   );
 };

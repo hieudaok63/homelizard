@@ -28,7 +28,7 @@ export const styleBoxShadow = generateBoxShadowStyle({
   shadowColorAndroid: "white",
 });
 
-export function ProfileScreen({ navigation }: AppNavigationProps<"Home">) {
+export function ProfileScreen({ navigation }: AppNavigationProps<"Profile">) {
   return (
     <ProfileLayout>
       <View className="h-full">
