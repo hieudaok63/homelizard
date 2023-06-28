@@ -4,6 +4,7 @@ import { z } from "zod";
 import { genderSchema } from "@homelizard/schema";
 
 import { MOBILE_PHONE_REGEX } from "../constant/base.constant";
+import { EmailNotFound, UserNotFound } from "../exceptions/errors";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
@@ -23,7 +24,7 @@ export const userRouter = createTRPCRouter({
       )?.emailAddress;
 
       if (!email) {
-        throw new Error("No email address found");
+        throw new EmailNotFound();
       }
 
       const newUser = await ctx.prisma.user.create({
@@ -57,12 +58,7 @@ export const userRouter = createTRPCRouter({
         suffix: z.string().min(1).optional(),
         title: z.string().min(1).optional(),
         birthday: z.date().optional(),
-        mobilePhone: z
-          .string()
-          .regex(MOBILE_PHONE_REGEX, {
-            message: "Mobile phone must be a string of numbers",
-          })
-          .optional(),
+        mobilePhone: z.string().regex(MOBILE_PHONE_REGEX).optional(),
         website: z.string().min(1).optional(),
         address: z
           .object({
@@ -97,9 +93,7 @@ export const userRouter = createTRPCRouter({
         position: z.string(),
         company: z.string(),
         since: z.date(),
-        phone: z.string().regex(MOBILE_PHONE_REGEX, {
-          message: "Mobile phone must be a string of numbers",
-        }),
+        phone: z.string().regex(MOBILE_PHONE_REGEX),
         email: z.string().email(),
         web: z.string(),
         address: z.object({
@@ -149,7 +143,7 @@ export const userRouter = createTRPCRouter({
     });
 
     if (!user) {
-      throw new Error("User not found");
+      throw new UserNotFound();
     }
 
     return user;

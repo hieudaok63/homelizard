@@ -3,6 +3,11 @@ import { z } from "zod";
 import { type Favorite } from "@homelizard/db";
 
 import { DEFAULT_LIMIT, DEFAULT_PAGE } from "../constant/paginated.constant";
+import {
+  FavoriteNotFound,
+  SearchResultNotFound,
+  UserNotFound,
+} from "../exceptions/errors";
 import { getPaginatedItems } from "../helpers/pagination.helper";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
@@ -19,7 +24,7 @@ export const favoriteRoute = createTRPCRouter({
       });
 
       if (!user) {
-        throw new Error(`User not found`);
+        throw new UserNotFound();
       }
 
       const searchResult = await ctx.prisma.searchResult.findUnique({
@@ -30,17 +35,20 @@ export const favoriteRoute = createTRPCRouter({
               customer: {
                 select: {
                   users: {
-                    where: { id: user.id }
-                  }
-                }
-              }
-            }
-          }
-        }
+                    where: { id: user.id },
+                  },
+                },
+              },
+            },
+          },
+        },
       });
-      
-      if (!searchResult || !searchResult.searchProfile.customer.users.some((u) => u.id === user.id)) {
-        throw new Error(`The search result not found`);
+
+      if (
+        !searchResult ||
+        !searchResult.searchProfile.customer.users.some((u) => u.id === user.id)
+      ) {
+        throw new SearchResultNotFound();
       }
 
       return ctx.prisma.favorite.create({
@@ -57,13 +65,13 @@ export const favoriteRoute = createTRPCRouter({
         where: { externalId: ctx.auth.userId },
       });
       if (!user) {
-        throw new Error(`User not found`);
+        throw new UserNotFound();
       }
       const userOwnFavorite = await ctx.prisma.favorite.findFirst({
         where: { id: input.favoriteId, userId: user.id },
       });
       if (!userOwnFavorite) {
-        throw new Error(`You can only remove your own favorites`);
+        throw new FavoriteNotFound();
       }
       return ctx.prisma.favorite.delete({
         where: { id: input.favoriteId },
@@ -83,7 +91,7 @@ export const favoriteRoute = createTRPCRouter({
       });
 
       if (!user) {
-        throw new Error(`User not found`);
+        throw new UserNotFound();
       }
       const { page = DEFAULT_PAGE, limit = DEFAULT_LIMIT } = input;
       const [favorite, totalItems] = await Promise.all([
