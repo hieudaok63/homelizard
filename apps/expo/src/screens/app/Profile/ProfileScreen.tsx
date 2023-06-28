@@ -35,7 +35,6 @@ export function ProfileScreen({ navigation }: AppNavigationProps<"Profile">) {
         <CollapsibleHeaderTabs
           renderHeader={ProfileScreenHeader}
           headerHeight={PROFILE_SCREEN_HEADER_HEIGHT}
-          snapThreshold={1}
         >
           <Tabs.Tab name="main_profile" label="Mein Profil">
             <MainProfileTab />

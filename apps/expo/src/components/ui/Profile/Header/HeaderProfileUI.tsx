@@ -39,7 +39,7 @@ export const HeaderProfileUI = () => {
         </TouchableOpacity>
       </View>
       <View className="flex flex-row items-center justify-between px-6">
-        <View className="w-5/6 ">
+        <View className="w-5/6">
           <AppText text="Hello, Veronica" className="mt-[17px]" large />
           <View className="mt-[0px] flex flex-row items-center ">
             <AppText

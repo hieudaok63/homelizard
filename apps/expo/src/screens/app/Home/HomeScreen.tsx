@@ -23,7 +23,7 @@ export function HomeScreen({ navigation }: AppNavigationProps<"Home">) {
         <CollapsibleHeaderTabs
           renderHeader={HomeScreenHeader}
           headerHeight={HOME_SCREEN_HEADER_HEIGHT}
-          snapThreshold={1}
+          snapThreshold={0.5}
         >
           <Tabs.Tab name="dashboard" label="Dashboard">
             <DashboardTab />
@@ -58,7 +58,7 @@ const HomeScreenHeader = () => {
     <View
       pointerEvents="box-none"
       style={{ marginTop: top }}
-      className="flex flex-row items-center justify-between px-8 pt-2"
+      className="flex flex-row items-center justify-between px-8 py-2"
     >
       <View pointerEvents="none">
         <Text className="font-weight_400 text-font-28">Home</Text>

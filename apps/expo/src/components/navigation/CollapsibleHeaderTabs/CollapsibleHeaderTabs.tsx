@@ -1,6 +1,10 @@
-import { type ComponentProps } from "react";
+import { type ComponentProps, type PropsWithChildren } from "react";
 import { TouchableOpacity, View } from "react-native";
-import { Tabs, type TabBarProps } from "react-native-collapsible-tab-view";
+import {
+  Tabs,
+  useHeaderMeasurements,
+  type TabBarProps,
+} from "react-native-collapsible-tab-view";
 import { type TabItemProps } from "react-native-collapsible-tab-view/lib/typescript/src/types";
 import Animated, {
   interpolate,
@@ -14,39 +18,61 @@ type CollapsibleHeaderTabsProps = Omit<
 >;
 
 export const CollapsibleHeaderTabs = (props: CollapsibleHeaderTabsProps) => {
+  const { top } = useSafeAreaInsets();
   return (
     <Tabs.Container
       lazy
       renderTabBar={TabBar}
       tabBarHeight={TABBAR_HEIGHT}
+      minHeaderHeight={top}
       {...props}
+      renderHeader={(p) => (
+        <AnimatedOpacityHeader>{props.renderHeader?.(p)}</AnimatedOpacityHeader>
+      )}
     />
   );
 };
 
-export const TABBAR_HEIGHT = 88;
+const AnimatedOpacityHeader = ({ children }: PropsWithChildren) => {
+  const { top: safeAreaTop } = useSafeAreaInsets();
+  const { top, height } = useHeaderMeasurements();
+  const stylez = useAnimatedStyle(() => {
+    const remainingHeight = top.value + (height.value ?? 0);
+    return {
+      opacity: interpolate(
+        remainingHeight,
+        [safeAreaTop * 2, safeAreaTop],
+        [1, 0],
+      ),
+    };
+  });
+
+  return (
+    <Animated.View style={stylez} pointerEvents="box-none">
+      {children}
+    </Animated.View>
+  );
+};
+
+export const TABBAR_HEIGHT = 64;
 
 const TabBar = (props: TabBarProps<string>) => {
-  const { top } = useSafeAreaInsets();
   const numRoutes = props.tabNames.length;
 
   const indicatorStyle = useAnimatedStyle(() => {
-    const width = (1 / numRoutes) * 100;
+    const tabButtonWidth = (1 / numRoutes) * 100;
     return {
-      width: `${width}%`,
+      width: `${tabButtonWidth}%`,
       left: `${interpolate(
         props.indexDecimal.value,
         props.tabNames.map((_, i) => i), // [0, 1, 2]
-        props.tabNames.map((_, i) => i * width), // [0, 50, 100]
+        props.tabNames.map((_, i) => i * tabButtonWidth), // [0, 50, 100]
       )}%`,
     };
   });
 
   return (
-    <View
-      className="mx-8 mb-2 h-14 rounded-full bg-black"
-      style={{ marginTop: top }}
-    >
+    <View className="mx-8 mb-2 h-14 rounded-full bg-black">
       <View className="h-full w-full justify-center p-1">
         <Animated.View
           style={indicatorStyle}
