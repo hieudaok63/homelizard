@@ -38,6 +38,7 @@ model User {
   updatedAt     DateTime     @updatedAt @map("updated_at")
   placeOfWork   PlaceOfWork? @relation(fields: [placeOfWorkId], references: [id])
   placeOfWorkId String?
+  file          File[]
 }
 
 model Customer {
@@ -123,6 +124,18 @@ model RealEstateObject {
   address          Address?       @relation(fields: [addressId], references: [id])
   addressId        String?
   searchResult     SearchResult[]
+}
+
+model File {
+  id        String   @id @default(cuid())
+  url       String
+  blobName  String?
+  cvType    String   @map("cv_type")
+  fileType  String   @map("file_type")
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 }
 
 model PlaceOfWork {
