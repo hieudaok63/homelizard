@@ -8,6 +8,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import { api, type RouterOutputs } from "~/utils/api";
 import nextI18nConfig from "../../next-i18next.config.mjs";
+import { Button } from "~/components/ui/button";
 
 const PostCard: React.FC<{
   post: RouterOutputs["post"]["all"][number];
@@ -80,6 +81,7 @@ const CreatePostForm: React.FC = () => {
       >
         Create
       </button>
+      <Button>Foo</Button>
     </div>
   );
 };
