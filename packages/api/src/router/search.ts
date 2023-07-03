@@ -1,8 +1,13 @@
 import { z } from "zod";
 
-import { objectStyleSchema, objectTypeSchema } from "@homelizard/schema";
+import {
+  objectStyleSchema,
+  objectTypeSchema,
+  rentBuySchema,
+} from "@homelizard/schema";
 
 import { CustomerNotFound } from "../exceptions/errors";
+import { PriceValidateError } from "../exceptions/errors/priceValidateError.error";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 const MIN_LATITUDE = -90;
@@ -25,6 +30,9 @@ export const searchRouter = createTRPCRouter({
         startYearOfConstruction: z.number().positive(),
         endYearOfConstruction: z.number().positive(),
         availability: z.date(),
+        rentOrBuy: rentBuySchema,
+        minPrice: z.number().positive(),
+        maxPrice: z.number().positive(),
         address: z
           .object({
             street: z.string(),
@@ -36,6 +44,9 @@ export const searchRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      if (input.maxPrice < input.minPrice) {
+        throw new PriceValidateError();
+      }
       const newSearchInput = {
         ...input,
         address: input.address

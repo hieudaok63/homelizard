@@ -28,6 +28,10 @@ export const objectStyleOptions = [
   "Transitional",
 ] as const;
 
+export const rentBuyOptions = ["rent", "buy"] as const;
+
 export const objectTypeSchema = z.enum(objectTypeOptions);
 
 export const objectStyleSchema = z.enum(objectStyleOptions);
+
+export const rentBuySchema = z.enum(rentBuyOptions);
