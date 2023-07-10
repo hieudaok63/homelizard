@@ -4,7 +4,11 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
-import { type ObjectStyleOption, type ObjectType } from "@homelizard/schema";
+import {
+  type ObjectStyleOption,
+  type ObjectType,
+  type PurchaseType,
+} from "@homelizard/schema";
 
 // define types for state values and actions separately
 export type ISearchWizardState = {
@@ -12,6 +16,9 @@ export type ISearchWizardState = {
 
   // objectType
   objectType: ObjectType | null;
+
+  // purchaseType
+  purchaseType: PurchaseType;
 
   // location
   location: LatLng | null;
@@ -42,6 +49,9 @@ export type ISearchWizardActions = {
 
   // objectType
   setObjectType: (val: ObjectType) => void;
+
+  //purchaseType
+  setPurchaseType: (val: PurchaseType) => void;
 
   // location
   setLocation: (location: LatLng) => void;
@@ -77,6 +87,9 @@ const initialState: ISearchWizardState = {
 
   // objectType
   objectType: null,
+
+  //purchaseType
+  purchaseType: "buy",
 
   // location
   location: null,
@@ -117,6 +130,12 @@ export const useSearchWizardStore = create(
       setObjectType: (val) =>
         set((state) => {
           state.objectType = val;
+        }),
+
+      //purchaseType
+      setPurchaseType: (val) =>
+        set((state) => {
+          state.purchaseType = val;
         }),
 
       // location

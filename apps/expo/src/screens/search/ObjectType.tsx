@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import BuildingIcon from "@assets/icons/BuildingIcon.svg";
@@ -8,7 +7,7 @@ import CheckIcon from "@assets/icons/CheckIcon.svg";
 import HouseIcon from "@assets/icons/HouseIcon.svg";
 
 import { generateBoxShadowStyle } from "~/utils/helpers";
-import { BottomSheet, Button, StepProgressButton } from "~/components/ui";
+import { BottomSheet, CustomSwitch, StepProgressButton } from "~/components/ui";
 import { useSearchWizardStore } from "~/zustand/store";
 import { type RootStackParams } from "../routes";
 import { SearchLayout } from "./_layout";
@@ -39,7 +38,11 @@ const shadowProps = {
 const ObjectType = ({ navigation }: Props) => {
   // zustand
   const setObjectType = useSearchWizardStore((state) => state?.setObjectType);
+  const setPurchaseType = useSearchWizardStore(
+    (state) => state?.setPurchaseType,
+  );
   const objectType = useSearchWizardStore((state) => state?.objectType);
+  const purchaseType = useSearchWizardStore((state) => state?.purchaseType);
 
   // local states
   const [showBottomSheet, setShowBottomSheet] = useState(false);
@@ -72,6 +75,16 @@ const ObjectType = ({ navigation }: Props) => {
           <Text className="text-black_1 text-font-12 font-weight_300 opacity-60">
             Wähle die Art der gesuchten Immobilie
           </Text>
+        </View>
+        <View className="mt-6 w-full items-center">
+          <CustomSwitch
+            onValueChange={(isEnabled) =>
+              setPurchaseType(isEnabled ? "buy" : "rent")
+            }
+            defaultValue={purchaseType === "buy"}
+            onLabel="Kaufen"
+            offLabel="Mieten"
+          />
         </View>
       </View>
 

@@ -10,3 +10,4 @@ export * from "./StepProgressButton";
 export * from "./NotificationBadge";
 export * from "./ButtonAddFavorite";
 export * from "./UserAvatar";
+export * from "./CustomSwitch";

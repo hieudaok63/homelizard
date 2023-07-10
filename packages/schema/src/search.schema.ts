@@ -12,15 +12,18 @@ export const objectTypeOptions = [
   "Town house",
   "Villa",
 ] as const;
+
 export type ObjectType = (typeof objectTypeOptions)[number];
 
-export const rentBuyOptions = ["rent", "buy"] as const;
+export const purchaseTypeOptions = ["rent", "buy"] as const;
 
 export const objectTypeSchema = z.enum(objectTypeOptions);
 
 export const objectStyleSchema = z.enum(objectStyleOptions);
 
-export const rentBuySchema = z.enum(rentBuyOptions);
+export const purchaseTypeSchema = z.enum(purchaseTypeOptions);
+
+export type PurchaseType = z.infer<typeof purchaseTypeSchema>;
 
 const MIN_LATITUDE = -90;
 const MAX_LATITUDE = 90;
@@ -39,7 +42,7 @@ export const searchProfileSchema = z.object({
   startYearOfConstruction: z.number().positive(),
   endYearOfConstruction: z.number().positive(),
   availability: z.date(),
-  rentOrBuy: rentBuySchema,
+  purchaseType: purchaseTypeSchema,
   minPrice: z.number().positive(),
   maxPrice: z.number().positive(),
   address: z

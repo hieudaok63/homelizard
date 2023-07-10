@@ -71,7 +71,7 @@ model SearchProfile {
   startYearOfConstruction Int            @map("start_year_of_construction")
   endYearOfConstruction   Int            @map("end_year_of_construction")
   availability            DateTime
-  rentOrBuy               String         @map("rent_or_buy")
+  purchaseType            String         @map("purchase_type")
   minPrice                Float          @map("min_price")
   maxPrice                Float          @map("max_price")
   address                 Address?       @relation(fields: [addressId], references: [id])
