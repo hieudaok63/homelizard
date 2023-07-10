@@ -13,7 +13,7 @@ import {
 import { type AppNavigationProps } from "~/components/navigation/useAppNavigation";
 import { NotificationBadge } from "~/components/ui";
 import { DashboardTab } from "./DashBoard";
-import { ResultsTab } from "./Results";
+import { ResultsTab } from "./Results/ResultsTab";
 import { HomeLayout } from "./_layout";
 
 export function HomeScreen({ navigation }: AppNavigationProps<"Home">) {

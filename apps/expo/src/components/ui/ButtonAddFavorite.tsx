@@ -22,7 +22,7 @@ export const ButtonAddFavorite = ({
   return (
     <View className="w-20">
       <Image
-        source={require<ImageSourcePropType>("../../../assets/objectTypePng/Subtract.png")}
+        source={require<ImageSourcePropType>("../../../assets/objectStyleImage/Subtract.png")}
       />
       <TouchableOpacity
         className="absolute bottom-3 right-2"

@@ -49,29 +49,27 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
       const user = await trpc.client.user.userInfo.query();
       setUserInfo(user);
 
-      const body = {
-        objectType: searchWizardData?.objectType,
-        objectStyle: searchWizardData?.objectStyles?.[0],
+      // TODO: validate search wizard data
+      
+      // save search profile
+      await searchTrpc.mutateAsync({
+        objectType: searchWizardData.objectType!,
+        objectStyles: searchWizardData?.objectStyles,
         livingAreaSize: searchWizardData?.livingArea,
         roomAmount: searchWizardData?.numberOfRooms,
-        latitude: searchWizardData?.location?.latitude,
-        longitude: searchWizardData?.location?.longitude,
+        latitude: (searchWizardData?.location!).latitude,
+        longitude: (searchWizardData?.location!).longitude,
         radius: searchWizardData?.radius,
         plotSize: searchWizardData?.plotSize,
         startYearOfConstruction: searchWizardData?.yearOfConstructionStart,
         endYearOfConstruction: searchWizardData?.yearOfConstructionEnd,
         availability: new Date(searchWizardData?.availabilityDate),
-      };
-
-      console.log("body: ", body); // for debug
-
-      // save search profile
-      await searchTrpc?.mutateAsync(body);
+      });
 
       resetSearchWizard();
     },
   });
-  const searchTrpc = api?.search?.searchProfile?.useMutation();
+  const searchTrpc = api.search.searchProfile.useMutation();
   const setLoadingApp = useApplicationLoadingStore((state) => state.setLoading);
   const searchWizardData = useSearchWizardStore((state) => state);
   const resetSearchWizard = useSearchWizardStore((state) => state.reset);

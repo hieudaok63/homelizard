@@ -62,7 +62,6 @@ model Address {
 model SearchProfile {
   id                      String         @id @default(cuid())
   objectType              String         @map("object_type")
-  objectStyle             String         @map("object_style")
   livingAreaSize          Int            @map("living_area_size")
   latitude                Float
   longitude               Float
@@ -78,8 +77,17 @@ model SearchProfile {
   address                 Address?       @relation(fields: [addressId], references: [id])
   addressId               String?
   searchResult            SearchResult[]
+  objectStyles            ObjectStyle[]
   customer                Customer       @relation(fields: [customerId], references: [id])
   customerId              String
+}
+
+model ObjectStyle {
+  title           String
+  searchProfile   SearchProfile @relation(fields: [searchProfileId], references: [id])
+  searchProfileId String
+
+  @@id([searchProfileId, title])
 }
 
 model Favorite {

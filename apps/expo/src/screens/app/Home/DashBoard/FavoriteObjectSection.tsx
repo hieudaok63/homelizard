@@ -27,72 +27,72 @@ const carouselItems: Array<IItem> = [
   {
     title: "Bohemian",
     desc: "A popular style among those...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectTypePng/Bohemian.png"),
+    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Bohemian.png"),
   },
   {
     title: "Coastal-hamptons",
     desc: "Coastal style, also referred to ...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectTypePng/Coastal-hamptons.png"),
+    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Coastal-hamptons.png"),
   },
   {
     title: "Contemporary",
     desc: "Often used synonymously for ...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectTypePng/Contemporary.png"),
+    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
   },
   {
     title: "French country",
     desc: "It's all about warm, earthy colo...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectTypePng/FrenchCountry.png"),
+    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/FrenchCountry.png"),
   },
   {
     title: "Hollywood glam",
     desc: "A luxurious, over-the-top and...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectTypePng/HollywoodGlam.png"),
+    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/HollywoodGlam.png"),
   },
   {
     title: "Industrial",
     desc: "Inspired by a warehouse or u...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectTypePng/Industrial.png"),
+    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Industrial.png"),
   },
   {
     title: "Mid-century modern",
     desc: "The style gained popularity du...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectTypePng/MidCenturyModern.png"),
+    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/MidCenturyModern.png"),
   },
   {
     title: "Minimalistic",
     desc: "Takes the ideas of modern des...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectTypePng/Minimalistic.png"),
+    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Minimalistic.png"),
   },
   {
     title: "Modern",
     desc: "Takes the ideas of modern des...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectTypePng/Modern.png"),
+    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Modern.png"),
   },
   {
     title: "Rustic",
     desc: "A return to the basics of natur....",
-    imgSrc: require<ImageSourcePropType>("@assets/objectTypePng/Rustic.png"),
+    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Rustic.png"),
   },
   {
     title: "Scandinavian",
     desc: "A return to the basics of natur...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectTypePng/Scandinavian.png"),
+    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Scandinavian.png"),
   },
   {
     title: "Shabby chic",
     desc: "A vintage-inspired style, that ...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectTypePng/ShabbyChic.png"),
+    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/ShabbyChic.png"),
   },
   {
     title: "Traditional",
     desc: "A combination of comfortable...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectTypePng/Traditional.png"),
+    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Traditional.png"),
   },
   {
     title: "Transitional",
     desc: "A much-loved style using el...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectTypePng/Transitional.png"),
+    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Transitional.png"),
   },
 ];
 

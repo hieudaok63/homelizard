@@ -4,12 +4,14 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
+import { type ObjectStyleOption, type ObjectType } from "@homelizard/schema";
+
 // define types for state values and actions separately
 export type ISearchWizardState = {
   isCompleted: boolean;
 
   // objectType
-  objectType: string;
+  objectType: ObjectType | null;
 
   // location
   location: LatLng | null;
@@ -32,14 +34,14 @@ export type ISearchWizardState = {
   availabilityDate: Date;
 
   // objectStyles
-  objectStyles: Array<string>;
+  objectStyles: Array<ObjectStyleOption>;
 };
 
 export type ISearchWizardActions = {
   setIsCompleted: (val: boolean) => void;
 
   // objectType
-  setObjectType: (val: string) => void;
+  setObjectType: (val: ObjectType) => void;
 
   // location
   setLocation: (location: LatLng) => void;
@@ -62,7 +64,8 @@ export type ISearchWizardActions = {
   setAvailabilityDate: (val: Date) => void;
 
   // objectStyles
-  setObjectStyles: (val: Array<string>) => void;
+  toggleObjectStyle: (val: ObjectStyleOption) => void;
+  setObjectStyles: (val: Array<ObjectStyleOption>) => void;
 
   // reset
   reset: () => void;
@@ -73,7 +76,7 @@ const initialState: ISearchWizardState = {
   isCompleted: false,
 
   // objectType
-  objectType: "",
+  objectType: null,
 
   // location
   location: null,
@@ -165,6 +168,17 @@ export const useSearchWizardStore = create(
       },
 
       // objectStyles
+      toggleObjectStyle(val) {
+        set((state) => {
+          if (state.objectStyles.includes(val)) {
+            state.objectStyles = state.objectStyles.filter(
+              (item) => item !== val,
+            );
+          } else {
+            state.objectStyles.push(val);
+          }
+        });
+      },
       setObjectStyles(val) {
         set((state) => {
           state.objectStyles = val;
