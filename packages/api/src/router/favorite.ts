@@ -1,7 +1,5 @@
 import { z } from "zod";
 
-import { type Favorite } from "@homelizard/db";
-
 import { DEFAULT_LIMIT, DEFAULT_PAGE } from "../constant/paginated.constant";
 import {
   FavoriteNotFound,
@@ -58,8 +56,8 @@ export const favoriteRoute = createTRPCRouter({
         },
       });
     }),
-  remove: protectedProcedure
-    .input(z.object({ favoriteId: z.string() }))
+  removeById: protectedProcedure
+    .input(z.string())
     .mutation(async ({ ctx, input }) => {
       const user = await ctx.prisma.user.findUnique({
         where: { externalId: ctx.auth.userId },
@@ -68,13 +66,13 @@ export const favoriteRoute = createTRPCRouter({
         throw new UserNotFound();
       }
       const userOwnFavorite = await ctx.prisma.favorite.findFirst({
-        where: { id: input.favoriteId, userId: user.id },
+        where: { id: input, userId: user.id },
       });
       if (!userOwnFavorite) {
         throw new FavoriteNotFound();
       }
       return ctx.prisma.favorite.delete({
-        where: { id: input.favoriteId },
+        where: { id: input },
       });
     }),
 
@@ -98,7 +96,7 @@ export const favoriteRoute = createTRPCRouter({
         ctx.prisma.favorite.findMany({
           where: { userId: user.id },
           include: {
-            searchResult: true,
+            searchResult: { include: { realEstate: true } },
           },
           orderBy: {
             createdAt: "desc",
@@ -110,6 +108,6 @@ export const favoriteRoute = createTRPCRouter({
           where: { userId: user.id },
         }),
       ]);
-      return getPaginatedItems<Favorite>(favorite, page, limit, totalItems);
+      return getPaginatedItems(favorite, page, limit, totalItems);
     }),
 });

@@ -1,110 +1,23 @@
 import React from "react";
-import {
-  Dimensions,
-  Image,
-  View,
-  type ImageSourcePropType,
-} from "react-native";
+import { Dimensions, Image, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
+import { type CarouselRenderItemInfo } from "react-native-reanimated-carousel/lib/typescript/types";
 
-import { cn } from "@homelizard/tailwind-config/utils";
-
+import { api, type RouterOutputs } from "~/utils/api";
 import { ButtonAddFavorite } from "~/components/ui";
 import { AppText } from "~/components/ui/AppText";
-import { useSearchWizardStore } from "~/zustand/store";
-
-type IItemProps = {
-  item: IItem;
-};
-
-type IItem = {
-  title: string;
-  desc: string;
-  imgSrc: ImageSourcePropType;
-};
-
-const carouselItems: Array<IItem> = [
-  {
-    title: "Bohemian",
-    desc: "A popular style among those...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Bohemian.png"),
-  },
-  {
-    title: "Coastal-hamptons",
-    desc: "Coastal style, also referred to ...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Coastal-hamptons.png"),
-  },
-  {
-    title: "Contemporary",
-    desc: "Often used synonymously for ...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
-  },
-  {
-    title: "French country",
-    desc: "It's all about warm, earthy colo...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/FrenchCountry.png"),
-  },
-  {
-    title: "Hollywood glam",
-    desc: "A luxurious, over-the-top and...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/HollywoodGlam.png"),
-  },
-  {
-    title: "Industrial",
-    desc: "Inspired by a warehouse or u...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Industrial.png"),
-  },
-  {
-    title: "Mid-century modern",
-    desc: "The style gained popularity du...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/MidCenturyModern.png"),
-  },
-  {
-    title: "Minimalistic",
-    desc: "Takes the ideas of modern des...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Minimalistic.png"),
-  },
-  {
-    title: "Modern",
-    desc: "Takes the ideas of modern des...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Modern.png"),
-  },
-  {
-    title: "Rustic",
-    desc: "A return to the basics of natur....",
-    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Rustic.png"),
-  },
-  {
-    title: "Scandinavian",
-    desc: "A return to the basics of natur...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Scandinavian.png"),
-  },
-  {
-    title: "Shabby chic",
-    desc: "A vintage-inspired style, that ...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/ShabbyChic.png"),
-  },
-  {
-    title: "Traditional",
-    desc: "A combination of comfortable...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Traditional.png"),
-  },
-  {
-    title: "Transitional",
-    desc: "A much-loved style using el...",
-    imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Transitional.png"),
-  },
-];
 
 export const FavoriteObjectSection = () => {
   const width = Dimensions.get("window").width;
+
+  const { data } = api.favorite.list.useQuery({ page: 1, limit: 100 });
 
   return (
     <View className="px-8">
       <AppText text="Favorite objects" large className="text-placeholder" />
       <View className="-mx-8">
         <Carousel
-          data={carouselItems}
+          data={data?.data ?? []}
           width={width}
           height={330}
           renderItem={FavoriteObjectItem}
@@ -124,51 +37,29 @@ export const FavoriteObjectSection = () => {
   );
 };
 
-const FavoriteObjectItem = (props: IItemProps) => {
-  const { item } = props;
+type FavoriteItem = RouterOutputs["favorite"]["list"]["data"][number];
 
-  // zustand
-  const objectStyles_zutand = useSearchWizardStore(
-    (state) => state?.objectStyles,
-  );
+const FavoriteObjectItem = ({ item }: CarouselRenderItemInfo<FavoriteItem>) => {
+  const utils = api.useContext();
 
-  const setObjectStyles_zutand = useSearchWizardStore(
-    (state) => state?.setObjectStyles,
-  );
-
-  const selected = objectStyles_zutand?.includes(item?.title);
-
-  //functions
-  const onPressSelect = () => {
-    // setSelected(!selected);
-    try {
-      let cloned = [...objectStyles_zutand];
-
-      // remove
-      if (cloned?.includes(item?.title)) {
-        cloned = cloned?.filter((el) => el !== item?.title);
-        setObjectStyles_zutand(cloned);
-        return;
-      }
-
-      // add
-      cloned.push(item?.title);
-      setObjectStyles_zutand(cloned);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { mutate: removeFavoriteById } = api.favorite.removeById.useMutation({
+    async onSuccess() {
+      await utils.favorite.list.invalidate();
+    },
+  });
 
   return (
-    <View
-      className={cn(
-        "w-full overflow-hidden rounded-3xl",
-        selected && "border-2 border-black",
-      )}
-    >
-      <Image source={item?.imgSrc} alt={item?.title} className="w-full" />
+    <View className="w-full overflow-hidden rounded-3xl">
+      <Image
+        source={{ uri: item.searchResult.realEstate.imageUrl }}
+        alt={item.searchResult.realEstate.title}
+        className="h-full w-full"
+      />
       <View className="absolute bottom-0 right-0">
-        <ButtonAddFavorite selected={selected} onPressSelect={onPressSelect} />
+        <ButtonAddFavorite
+          selected
+          onPressSelect={() => removeFavoriteById(item.id)}
+        />
       </View>
     </View>
   );

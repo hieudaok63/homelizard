@@ -132,6 +132,7 @@ model RealEstateObject {
   roomAmount       Int            @map("room_amount")
   description      String
   price            Int
+  imageUrl         String         @map("image_url")
   address          Address?       @relation(fields: [addressId], references: [id])
   addressId        String?
   searchResult     SearchResult[]
