@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
-import { type RootStackParams } from "../routes";
+import { type RootStackParams } from "../RootStackParams";
 import { SearchLayout } from "./_layout";
 
 type Props = NativeStackScreenProps<RootStackParams, "Results">;

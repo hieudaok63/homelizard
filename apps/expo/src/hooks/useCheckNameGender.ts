@@ -2,15 +2,15 @@
 
 import { useEffect } from "react";
 import { useUser } from "@clerk/clerk-expo";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, type NavigationProp } from "@react-navigation/native";
 
 import { api } from "~/utils/api";
-import { type RootStackParams } from "~/screens/routes";
+import { type RootStackParams } from "~/screens/RootStackParams";
 import { useApplicationLoadingStore } from "~/zustand/store";
 
 export const useCheckNameGender = () => {
   const { isSignedIn } = useUser();
-  const navigation = useNavigation<RootStackParams>();
+  const navigation = useNavigation<NavigationProp<RootStackParams>>();
   const trpc = api.useContext();
   const setLoadingApp = useApplicationLoadingStore((state) => state.setLoading);
 

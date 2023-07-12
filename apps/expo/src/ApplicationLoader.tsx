@@ -5,8 +5,10 @@ import { useAssets } from "expo-asset";
 import * as SplashScreen from "expo-splash-screen";
 import { useAuth } from "@clerk/clerk-expo";
 import {
+  Nunito_300Light,
   Nunito_400Regular,
   Nunito_400Regular_Italic,
+  Nunito_600SemiBold,
   Nunito_700Bold,
   Nunito_700Bold_Italic,
   Nunito_800ExtraBold,
@@ -27,13 +29,13 @@ const useApplicationLoaded = () => {
   const [fontsLoaded] = useFonts({
     // Nunito_200ExtraLight,
     // Nunito_200ExtraLight_Italic,
-    // Nunito_300Light,
+    Nunito_300Light,
     // Nunito_300Light_Italic,
     Nunito_400Regular,
     Nunito_400Regular_Italic,
     // Nunito_500Medium,
     // Nunito_500Medium_Italic,
-    // Nunito_600SemiBold,
+    Nunito_600SemiBold,
     // Nunito_600SemiBold_Italic,
     Nunito_700Bold,
     Nunito_700Bold_Italic,

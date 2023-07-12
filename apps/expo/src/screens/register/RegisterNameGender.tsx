@@ -23,7 +23,7 @@ import { BottomSheet } from "~/components/ui/BottomSheet";
 import TextInput from "~/components/ui/input/TextInput";
 import { useDisableBackButton } from "~/hooks/useDisableBackButton";
 import { useZodForm } from "~/hooks/useZodForm";
-import { type RootStackParams } from "~/screens/routes";
+import { type RootStackParams } from "~/screens/RootStackParams";
 import {
   useApplicationLoadingStore,
   useSearchWizardStore,
@@ -50,15 +50,15 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
       setUserInfo(user);
 
       // TODO: validate search wizard data
-      
+
       // save search profile
       await searchTrpc.mutateAsync({
         objectType: searchWizardData.objectType!,
         objectStyles: searchWizardData?.objectStyles,
         livingAreaSize: searchWizardData?.livingArea,
         roomAmount: searchWizardData?.numberOfRooms,
-        latitude: (searchWizardData?.location!).latitude,
-        longitude: (searchWizardData?.location!).longitude,
+        latitude: (searchWizardData?.location)!.latitude,
+        longitude: (searchWizardData?.location)!.longitude,
         radius: searchWizardData?.radius,
         plotSize: searchWizardData?.plotSize,
         startYearOfConstruction: searchWizardData?.yearOfConstructionStart,
@@ -177,7 +177,12 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
         </View>
 
         <View>
-          <StepProgressButton progress={60} title="Weiter" onPress={onSubmit} />
+          <StepProgressButton
+            variant="turquoise"
+            progress={60}
+            title="Weiter"
+            onPress={onSubmit}
+          />
         </View>
       </KeyboardAvoidingView>
 
@@ -191,7 +196,7 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
         <View>
           <View className="border-color_gray flex-row justify-between border-b p-6">
             <TouchableOpacity onPress={hideBottomSheet}>
-              <ArrowDownIcon />
+              <ArrowDownIcon fill="#000000" />
             </TouchableOpacity>
             <Text className="text-placeholder text-font-24 font-weight_400">
               Anrede

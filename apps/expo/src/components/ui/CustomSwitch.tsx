@@ -3,15 +3,7 @@ import { Animated, TouchableOpacity, View } from "react-native";
 
 import { generateBoxShadowStyle } from "~/utils/helpers";
 
-export const styleBoxShadow = generateBoxShadowStyle({
-  xOffset: 0,
-  yOffset: 0,
-  shadowColorIos: "#000000",
-  shadowOpacity: 0.16,
-  shadowRadius: 10,
-  elevation: 4,
-  shadowColorAndroid: "white",
-});
+export const styleBoxShadowSwitch = generateBoxShadowStyle("shadowBtn");
 
 interface ICustomSwitch {
   onValueChange: (value: boolean) => void;
@@ -27,7 +19,9 @@ export const CustomSwitch = ({
   defaultValue = false,
 }: ICustomSwitch) => {
   const [isEnabled, setIsEnabled] = useState(defaultValue);
-  const toggleAnimation = useRef(new Animated.Value(defaultValue ? 1 : 0)).current;
+  const toggleAnimation = useRef(
+    new Animated.Value(defaultValue ? 1 : 0),
+  ).current;
 
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
@@ -55,7 +49,7 @@ export const CustomSwitch = ({
         activeOpacity={0.8}
         onPress={toggleSwitch}
         className="mr-3 flex w-full flex-row items-center rounded-full bg-white px-6 py-1 pr-7"
-        style={{ ...styleBoxShadow }}
+        style={styleBoxShadowSwitch}
       >
         <Animated.View
           style={[{ transform: [{ translateX: toggleTranslateX }] }]}

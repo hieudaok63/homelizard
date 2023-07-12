@@ -9,6 +9,8 @@ import {
   useWindowDimensions,
 } from "react-native";
 
+import { cn } from "@homelizard/tailwind-config/utils";
+
 const DEFAULT_HEIGHT = 300;
 
 function useAnimatedBottom(show: boolean, height: number = DEFAULT_HEIGHT) {
@@ -49,6 +51,7 @@ interface Props {
   height?: number;
   onOuterClick?: () => void;
   closeOnBackBtnAndroid?: boolean;
+  className?: string;
 }
 
 export const BottomSheet = ({
@@ -58,6 +61,7 @@ export const BottomSheet = ({
   onOuterClick,
   setShow,
   closeOnBackBtnAndroid,
+  className,
 }: Props) => {
   const { height: screenHeight } = useWindowDimensions();
 
@@ -91,7 +95,7 @@ export const BottomSheet = ({
         <Pressable
           onPress={onOuterClick}
           style={{ height: screenHeight }}
-          className="bg-black_1 z-1 absolute w-full opacity-50"
+          className={cn("bg-black_1 z-1 absolute w-full opacity-50", className)}
         >
           <View />
         </Pressable>

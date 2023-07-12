@@ -11,7 +11,7 @@ import LandIcon from "@assets/icons/LandIcon.svg";
 
 import { RangePicker, StepProgressButton } from "~/components/ui";
 import { useSearchWizardStore } from "~/zustand/store";
-import { type RootStackParams } from "../routes";
+import { type RootStackParams } from "../RootStackParams";
 import { SearchLayout } from "./_layout";
 
 type Props = NativeStackScreenProps<RootStackParams, "LivingArea">;
@@ -125,6 +125,7 @@ const LivingArea = ({ navigation }: Props) => {
         title="Continue"
         progress={50}
         onPress={handlePressNext}
+        variant="turquoise"
       />
     </SearchLayout>
   );

@@ -1,13 +1,15 @@
 import React from "react";
+// register screens
 import { useAuth } from "@clerk/clerk-expo";
 // search screens
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-// register screens
 import { BackButton } from "~/components/navigation/BackButton";
 import { useGetUserInfo } from "~/hooks/useGetUserInfo";
 import Login from "./Login";
 import LoginOrSignUp from "./LoginOrSignup";
+import { ObjectDetail } from "./ObjectDetail";
+import { type RootStackParams } from "./RootStackParams";
 import AppStack from "./app/AppStack";
 import { EditProfilePicture } from "./profilePicture";
 import {
@@ -16,7 +18,6 @@ import {
   RegisterNameGender,
   RegisterVerifyEmail,
 } from "./register";
-import { type RootStackParams } from "./routes";
 import Availability from "./search/Availability";
 import LivingArea from "./search/LivingArea";
 import Location from "./search/Location";
@@ -32,7 +33,6 @@ const Stack = createNativeStackNavigator<RootStackParams>();
 
 export function RootStack() {
   const { isSignedIn } = useAuth();
-  // const navigation = useNavigation();
 
   useGetUserInfo(); // handle check user name and gender status
 
@@ -51,6 +51,14 @@ export function RootStack() {
             component={AppStack}
             options={{
               headerShown: false,
+            }}
+          />
+
+          <Stack.Screen
+            name="ObjectDetail"
+            component={ObjectDetail}
+            options={{
+              headerLeft: () => <BackButton />,
             }}
           />
 

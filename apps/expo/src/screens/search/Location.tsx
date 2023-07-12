@@ -14,7 +14,7 @@ import {
   useApplicationLoadingStore,
   useSearchWizardStore,
 } from "~/zustand/store";
-import { type RootStackParams } from "../routes";
+import { type RootStackParams } from "../RootStackParams";
 import { SearchLayout } from "./_layout";
 
 type Props = NativeStackScreenProps<RootStackParams, "Location">;
@@ -204,6 +204,7 @@ const Location = ({ navigation }: Props) => {
         title="Continue"
         progress={30}
         onPress={handlePressNext}
+        variant="turquoise"
       />
     </SearchLayout>
   );

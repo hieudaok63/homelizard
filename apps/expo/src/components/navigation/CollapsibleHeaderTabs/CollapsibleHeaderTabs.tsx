@@ -72,7 +72,7 @@ const TabBar = (props: TabBarProps<string>) => {
   });
 
   return (
-    <View className="mx-8 mb-2 h-14 rounded-full bg-black">
+    <View className="mx-6 mb-2 h-14 rounded-full bg-black">
       <View className="h-full w-full justify-center p-1">
         <Animated.View
           style={indicatorStyle}

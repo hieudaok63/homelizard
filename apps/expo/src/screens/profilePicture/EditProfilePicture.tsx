@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+// libs
+import { type NativeStackScreenProps } from "@react-navigation/native-stack";
+
 // icons
 import ArrowLeftIcon from "@assets/icons/ArrowLeftIcon.svg";
 import PersonIcon_1 from "@assets/icons/PersonIcon_1.svg";
 import PersonIcon_2 from "@assets/icons/PersonIcon_2.svg";
 import PersonIcon_3 from "@assets/icons/PersonIcon_3.svg";
 import QuestionCirleIcon from "@assets/icons/QuestionCircleIcon.svg";
-// libs
-import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import ImagePicker from "~/components/ImagePicker";
 import { PopupModal } from "~/components/ui";
-import { type RootStackParams } from "~/screens/routes";
+import { type RootStackParams } from "~/screens/RootStackParams";
 import { ProfilePictureLayout } from "./_layout";
 
 // types

@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import NavBar from "~/components/navigation/NavBar";
 import { HomeScreen } from "./Home/HomeScreen";
-import { ProfileScreen } from "./Profile";
+import ProfileStack from "./Profile/ProfileStack";
 import { type TabStackParams } from "./routes";
 
 const Tab = createBottomTabNavigator<TabStackParams>();
@@ -23,7 +23,7 @@ const AppStack = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={ProfileStack}
         options={{
           tabBarLabel: t("navigation.profile"),
           headerShown: false,

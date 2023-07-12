@@ -1,23 +1,26 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-
 import React from "react";
+
 import { TouchableOpacity } from "react-native";
+import { useNavigation, type NavigationProp } from "@react-navigation/native";
+
 import ArrowLeftIcon from "@assets/icons/ArrowLeftIcon.svg";
 
-import { type RootStackParams } from "~/screens/routes";
-import { useAppNavigation } from "./useAppNavigation";
+import { type RootStackParams } from "~/screens/RootStackParams";
 
 type IProps = {
-  screen: keyof RootStackParams;
+  screen?: keyof RootStackParams;
 };
 
 export const BackButton = (props: IProps) => {
   const { screen } = props;
-  const navigation = useAppNavigation();
-  //   const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParams>>();
 
   const onPress = () => {
-    navigation?.navigate(screen);
+    if (screen) {
+      navigation.navigate(screen);
+    } else {
+      navigation.goBack();
+    }
   };
 
   return (

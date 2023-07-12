@@ -11,8 +11,10 @@ import dayjs from "dayjs";
 import { generateBoxShadowStyle } from "~/utils/helpers";
 import { StepProgressButton } from "~/components/ui";
 import { useSearchWizardStore } from "~/zustand/store";
-import { type RootStackParams } from "../routes";
+import { type RootStackParams } from "../RootStackParams";
 import { SearchLayout } from "./_layout";
+
+export const styleBoxShadow = generateBoxShadowStyle("shadowDate");
 
 type Props = NativeStackScreenProps<RootStackParams, "Availability">;
 
@@ -70,17 +72,7 @@ const Availability = ({ navigation }: Props) => {
                 DateTimePickerAndroid?.open({ ...datePickerProps });
               }}
               className="rounded-md bg-white p-4"
-              style={{
-                ...generateBoxShadowStyle({
-                  xOffset: 3,
-                  yOffset: 2,
-                  shadowColorIos: "#000000",
-                  shadowOpacity: 0.16,
-                  shadowRadius: 16,
-                  elevation: 4,
-                  shadowColorAndroid: "#000000",
-                }),
-              }}
+              style={styleBoxShadow}
             >
               <Text className="font-weight_400 text-5xl text-black">
                 {dayjs(availabilityDate_zutand).format("DD | MM | YYYY")}
@@ -98,6 +90,7 @@ const Availability = ({ navigation }: Props) => {
         title="Continue"
         progress={80}
         onPress={handlePressNext}
+        variant="turquoise"
       />
     </SearchLayout>
   );

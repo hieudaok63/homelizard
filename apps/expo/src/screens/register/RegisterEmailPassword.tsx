@@ -7,7 +7,7 @@ import { z } from "zod";
 import { StepProgressButton } from "~/components/ui";
 import TextInput from "~/components/ui/input/TextInput";
 import { useZodForm } from "~/hooks/useZodForm";
-import { type RootStackParams } from "~/screens/routes";
+import { type RootStackParams } from "~/screens/RootStackParams";
 import { useApplicationLoadingStore } from "~/zustand/store";
 import { RegisterLayout } from "./_layout";
 
@@ -118,7 +118,12 @@ export const RegisterEmailPassword = ({ navigation }: IProps) => {
           />
         </View>
         <View>
-          <StepProgressButton progress={60} title="Weiter" onPress={onSubmit} />
+          <StepProgressButton
+            progress={60}
+            title="Weiter"
+            onPress={onSubmit}
+            variant="turquoise"
+          />
         </View>
       </KeyboardAvoidingView>
     </RegisterLayout>

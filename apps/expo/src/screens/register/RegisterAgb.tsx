@@ -5,7 +5,7 @@ import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 import HomeLizardSvg from "@assets/homelizard.svg";
 
 import { StepProgressButton } from "~/components/ui";
-import { type RootStackParams } from "~/screens/routes";
+import { type RootStackParams } from "~/screens/RootStackParams";
 import { RegisterLayout } from "./_layout";
 
 type IProps = NativeStackScreenProps<RootStackParams, "RegisterAgb">;
@@ -56,6 +56,7 @@ export const RegisterAgb = ({ navigation }: IProps) => {
             progress={isEnabled ? 100 : 70}
             title="Weiter"
             onPress={handlePressNext}
+            variant="turquoise"
           />
         </View>
       </View>

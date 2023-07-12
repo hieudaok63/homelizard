@@ -19,7 +19,7 @@ import { api, type RouterOutputs } from "~/utils/api";
 import { genImageUrl } from "~/utils/imageUrl";
 import { StepProgressButton } from "~/components/ui";
 import { useSearchWizardStore } from "~/zustand/store";
-import { type RootStackParams } from "../routes";
+import { type RootStackParams } from "../RootStackParams";
 import { SearchLayout } from "./_layout";
 
 type Props = NativeStackScreenProps<RootStackParams, "ObjectStyleResult">;
@@ -129,9 +129,8 @@ const ObjectStyleResult = ({ navigation }: Props) => {
         progress={99}
         onPress={handlePressNext}
         disabled={!objectStyles_zutand?.length}
+        variant="turquoise"
       />
-
-      {/* </KeyboardAwareScrollView> */}
     </SearchLayout>
   );
 };

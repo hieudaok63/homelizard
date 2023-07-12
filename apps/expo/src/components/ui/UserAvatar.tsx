@@ -6,20 +6,20 @@ import { cn } from "@homelizard/tailwind-config/utils";
 
 import { api } from "~/utils/api";
 
-interface userAvatar {
+interface UserAvatarProps {
   className?: string;
   style?: StyleProp<ViewStyle>;
 }
 
-export const UserAvatar = ({ className, style }: userAvatar) => {
+export const UserAvatar = ({ className, style }: UserAvatarProps) => {
   const { data } = api.profile.signedProfileImageUrl.useQuery();
   return (
     <View
+      style={style}
       className={cn(
-        "bg-grey_2 flex h-[50px] w-[50px] items-center justify-center overflow-hidden rounded-l-full rounded-tr-full",
+        "bg-grey_2 flex h-[50px] w-[50px] overflow-hidden rounded-l-full rounded-tr-full",
         className,
       )}
-      style={style}
     >
       {data?.url && (
         // eslint-disable-next-line jsx-a11y/alt-text

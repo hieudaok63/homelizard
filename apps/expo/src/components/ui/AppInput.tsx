@@ -8,7 +8,6 @@ import {
   type ReturnKeyTypeOptions,
   type StyleProp,
   type TextInputProps,
-  type TextStyle,
   type ViewProps,
   type ViewStyle,
 } from "react-native";
@@ -25,9 +24,6 @@ export interface AppInputProps extends TextInputProps {
   touched?: boolean;
   returnKeyType?: ReturnKeyTypeOptions | undefined;
   containerStyle?: StyleProp<ViewStyle>;
-  labelStyle?: StyleProp<TextStyle>;
-  inputStyle?: StyleProp<ViewStyle>;
-  inputContainerStyle?: StyleProp<ViewStyle>;
   style?: StyleProp<ViewStyle>;
   autoCapitalize?: "none" | "sentences" | "words" | "characters" | undefined;
   multiline?: boolean;
@@ -47,15 +43,10 @@ export const AppInput = forwardRef<TextInput, AppInputProps & ViewProps>(
       maxLength,
       keyboardType,
       error,
-      touched,
       returnKeyType,
-      containerStyle,
       style,
       autoCapitalize,
-      inputStyle,
-      labelStyle,
       multiline,
-      inputContainerStyle,
       className,
       onFocusCallback,
       onInputPressIn,
@@ -67,12 +58,13 @@ export const AppInput = forwardRef<TextInput, AppInputProps & ViewProps>(
     return (
       <TouchableWithoutFeedback onPress={() => innerRef.current?.focus()}>
         <View style={style} className={className}>
-          <View className="rounded-l-2xl rounded-tr-2xl bg-white p-4">
-            {(isFocus || value) && (
-              <Text className="text-placeholder -mt-2 text-xs">
+          <View className={`rounded-l-2xl rounded-tr-2xl bg-white p-4 `}>
+            {(isFocus || value) && !label && (
+              <Text className={`text-placeholder -mt-2 text-xs `}>
                 {placeholder}
               </Text>
             )}
+
             <TextInput
               ref={(node) => {
                 innerRef.current = node;
@@ -105,7 +97,7 @@ export const AppInput = forwardRef<TextInput, AppInputProps & ViewProps>(
             />
           </View>
           {error && (
-            <Text className="mt-1 pl-2 text-red-700">{error?.toString()}</Text>
+            <Text className="text-red_1 mt-1 pl-2">{error?.toString()}</Text>
           )}
         </View>
       </TouchableWithoutFeedback>

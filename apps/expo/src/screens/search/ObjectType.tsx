@@ -9,7 +9,7 @@ import HouseIcon from "@assets/icons/HouseIcon.svg";
 import { generateBoxShadowStyle } from "~/utils/helpers";
 import { BottomSheet, CustomSwitch, StepProgressButton } from "~/components/ui";
 import { useSearchWizardStore } from "~/zustand/store";
-import { type RootStackParams } from "../routes";
+import { type RootStackParams } from "../RootStackParams";
 import { SearchLayout } from "./_layout";
 
 type Props = NativeStackScreenProps<RootStackParams, "ObjectType">;
@@ -25,15 +25,7 @@ const realEstateOptions: Array<string> = [
   "Villa",
 ];
 
-const shadowProps = {
-  xOffset: 3,
-  yOffset: 2,
-  shadowColorIos: "#000000",
-  shadowOpacity: 0.16,
-  shadowRadius: 5,
-  elevation: 3,
-  shadowColorAndroid: "#000000",
-};
+export const styleBoxShadow = generateBoxShadowStyle("shadowObjectType");
 
 const ObjectType = ({ navigation }: Props) => {
   // zustand
@@ -96,9 +88,7 @@ const ObjectType = ({ navigation }: Props) => {
           onPress={() => {
             setObjectType("House with garden");
           }}
-          style={{
-            ...generateBoxShadowStyle(shadowProps),
-          }}
+          style={styleBoxShadow}
         >
           <HouseIcon />
           <Text className="text-font-14 text-black_1 font-weight_800 mt-3">
@@ -112,9 +102,7 @@ const ObjectType = ({ navigation }: Props) => {
           onPress={() => {
             setObjectType("Apartment");
           }}
-          style={{
-            ...generateBoxShadowStyle(shadowProps),
-          }}
+          style={styleBoxShadow}
         >
           <BuildingIcon />
           <Text className="text-font-14 text-black_1 font-weight_800 mt-3">
@@ -129,9 +117,7 @@ const ObjectType = ({ navigation }: Props) => {
             "border-color_green border-4"
           }`}
           onPress={openBottomSheet}
-          style={{
-            ...generateBoxShadowStyle(shadowProps),
-          }}
+          style={styleBoxShadow}
         >
           <Text className="text-font-14 text-black_1 font-weight_800">
             Mehr
@@ -142,10 +128,11 @@ const ObjectType = ({ navigation }: Props) => {
         </TouchableOpacity>
       </View>
       <StepProgressButton
-        progress={20}
+        progress={(objectType && 20) || 0}
         title="Continue"
         onPress={handlePressNext}
         disabled={!objectType}
+        variant="turquoise"
       />
       {/* bottom menu */}
       <BottomSheet

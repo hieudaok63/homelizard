@@ -15,6 +15,8 @@ const config = {
       fontFamily: {
         nunito: ["Nunito_400Regular"],
         "nunito-italic": ["Nunito_400Regular_Italic"],
+        "nunito-light": ["Nunito_300Light"],
+        "nunito-semibold": ["Nunito_600SemiBold"],
         "nunito-bold": ["Nunito_700Bold"],
         "nunito-800": ["Nunito_800ExtraBold"],
         "nunito-bold-italic": ["Nunito_700Bold_Italic"],
@@ -42,6 +44,9 @@ const config = {
         purple: "#A079EB",
         text_yellow: "#F4B512",
         white: "#FFFFFF",
+        grey_4: "#2626361F",
+        red_1: "#F33131",
+        purply_blue: "#6C63FF",
       },
       fontSize: {
         "font-8": "8px",
@@ -53,6 +58,7 @@ const config = {
         "font-18": "18px",
         "font-17": "17px",
         "font-24": "24px",
+        "font-26": "26px",
         "font-28": "28px",
         "font-32": "32px",
         "font-45": "45px",

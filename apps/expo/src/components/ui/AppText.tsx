@@ -1,8 +1,10 @@
 import React from "react";
 import { Text, type StyleProp, type TextStyle } from "react-native";
 
+import { cn } from "@homelizard/tailwind-config/utils";
+
 interface AppTextProps {
-  text?: string;
+  text: string;
   style?: StyleProp<TextStyle>;
   onPress?: () => void;
   numberOfLines?: number;
@@ -16,9 +18,11 @@ export const AppText = (props: AppTextProps) => {
 
   return (
     <Text
-      className={`text-font-14 font-weight_400 text-black ${className} ${
-        large && "text-font-28"
-      }`}
+      className={cn(
+        "font-nunito text-sm text-black",
+        className,
+        large && "text-4xl",
+      )}
       style={style}
       onPress={onPress}
       numberOfLines={numberOfLines}

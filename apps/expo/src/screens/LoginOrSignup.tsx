@@ -6,7 +6,7 @@ import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { TransparentHeaderSafeView } from "~/components/ui";
 import { useSearchWizardStore } from "~/zustand/store";
-import { type RootStackParams } from "./routes";
+import { type RootStackParams } from "./RootStackParams";
 
 type Props = NativeStackScreenProps<RootStackParams, "LoginOrSignUp">;
 

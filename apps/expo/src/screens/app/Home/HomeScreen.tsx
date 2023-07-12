@@ -10,10 +10,11 @@ import {
   CollapsibleHeaderTabs,
   useAnimatedTabLabelColor,
 } from "~/components/navigation/CollapsibleHeaderTabs/CollapsibleHeaderTabs";
+import { ScrollingTabBackground } from "~/components/navigation/CollapsibleHeaderTabs/ScrollingTabBackground";
 import { type AppNavigationProps } from "~/components/navigation/useAppNavigation";
 import { NotificationBadge } from "~/components/ui";
-import { DashboardTab } from "./DashBoard";
-import { ResultsTab } from "./Results/ResultsTab";
+import { DashboardTab } from "./DashBoardTab";
+import { ResultsTab } from "./ResultsTab/ResultsTab";
 import { HomeLayout } from "./_layout";
 
 export function HomeScreen({ navigation }: AppNavigationProps<"Home">) {
@@ -28,8 +29,13 @@ export function HomeScreen({ navigation }: AppNavigationProps<"Home">) {
           <Tabs.Tab name="dashboard" label="Dashboard">
             <DashboardTab />
           </Tabs.Tab>
-          <Tabs.Tab name="results" label={ResultsLabel}>
-            <ResultsTab />
+          <Tabs.Tab name="results" label={ResultsTabLabel}>
+            <ScrollingTabBackground
+              variant="blue"
+              headerHeight={HOME_SCREEN_HEADER_HEIGHT}
+            >
+              <ResultsTab />
+            </ScrollingTabBackground>
           </Tabs.Tab>
         </CollapsibleHeaderTabs>
       </View>
@@ -37,7 +43,7 @@ export function HomeScreen({ navigation }: AppNavigationProps<"Home">) {
   );
 }
 
-const ResultsLabel = (props: TabItemProps<"results">) => {
+const ResultsTabLabel = (props: TabItemProps<"results">) => {
   const textColorStyle = useAnimatedTabLabelColor(
     props.index,
     props.indexDecimal,

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
 import Animated, { FadeOut } from "react-native-reanimated";
 import { Image } from "expo-image";
+
 import CameraIcon from "@assets/icons/CameraIcon.svg";
 
 import { api } from "~/utils/api";
@@ -11,6 +12,8 @@ type ProfilePictureProps = {
   onPress?: () => void;
 };
 
+export const styleBoxShadow = generateBoxShadowStyle("shadowPicture");
+
 const ProfilePicture: React.FC<ProfilePictureProps> = ({ onPress }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const { data } = api.profile.signedProfileImageUrl.useQuery();
@@ -18,17 +21,7 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ onPress }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={{
-        ...generateBoxShadowStyle({
-          xOffset: 3,
-          yOffset: 2,
-          shadowColorIos: "#000000",
-          shadowOpacity: 0.16,
-          shadowRadius: 16,
-          elevation: 4,
-          shadowColorAndroid: "#000000",
-        }),
-      }}
+      style={styleBoxShadow}
     >
       <View className="bg-grey_2 flex h-[265px] w-[265px] items-center justify-center overflow-hidden rounded-l-full rounded-tr-full">
         {data?.url && (

@@ -1,54 +1,50 @@
 import React from "react";
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { Tabs, type TabItemProps } from "react-native-collapsible-tab-view";
 import Animated from "react-native-reanimated";
+
+import DotIcon from "@assets/icons/DotIcon.svg";
+import EditIcon from "@assets/icons/EditIcon.svg";
+import EyeIcon from "@assets/icons/EyeIcon.svg";
 
 import { generateBoxShadowStyle } from "~/utils/helpers";
 import {
   CollapsibleHeaderTabs,
   useAnimatedTabLabelColor,
 } from "~/components/navigation/CollapsibleHeaderTabs/CollapsibleHeaderTabs";
-import { type AppNavigationProps } from "~/components/navigation/useAppNavigation";
-import { NotificationBadge } from "~/components/ui";
-import {
-  HeaderProfileUI,
-  PROFILE_SCREEN_HEADER_HEIGHT,
-} from "~/components/ui/Profile";
-import { MainProfileTab } from "./MainProfile";
-import { ResultsTab } from "./Results";
-import { ProfileLayout } from "./_layout";
+import { ScrollingTabBackground } from "~/components/navigation/CollapsibleHeaderTabs/ScrollingTabBackground";
+import { NotificationBadge, UserAvatar } from "~/components/ui";
+import { AppText } from "~/components/ui/AppText";
+import { MyProfileTab } from "./MyProfileTab";
+import { ResultsTab } from "./ResultsTab";
 
-export const styleBoxShadow = generateBoxShadowStyle({
-  xOffset: 0,
-  yOffset: 0,
-  shadowColorIos: "#000000",
-  shadowOpacity: 0.16,
-  shadowRadius: 10,
-  elevation: 4,
-  shadowColorAndroid: "white",
-});
-
-export function ProfileScreen({ navigation }: AppNavigationProps<"Profile">) {
+export function ProfileScreen() {
   return (
-    <ProfileLayout>
-      <View className="h-full">
-        <CollapsibleHeaderTabs
-          renderHeader={ProfileScreenHeader}
+    <CollapsibleHeaderTabs
+      renderHeader={ProfileScreenHeader}
+      headerHeight={PROFILE_SCREEN_HEADER_HEIGHT}
+    >
+      <Tabs.Tab name="my_profile" label="Mein Profil">
+        <ScrollingTabBackground
+          variant="yellow"
           headerHeight={PROFILE_SCREEN_HEADER_HEIGHT}
         >
-          <Tabs.Tab name="main_profile" label="Mein Profil">
-            <MainProfileTab />
-          </Tabs.Tab>
-          <Tabs.Tab name="results" label={ResultsLabel}>
-            <ResultsTab />
-          </Tabs.Tab>
-        </CollapsibleHeaderTabs>
-      </View>
-    </ProfileLayout>
+          <MyProfileTab />
+        </ScrollingTabBackground>
+      </Tabs.Tab>
+      <Tabs.Tab name="results" label={ResultsTabLabel}>
+        <ScrollingTabBackground
+          variant="yellow"
+          headerHeight={PROFILE_SCREEN_HEADER_HEIGHT}
+        >
+          <ResultsTab />
+        </ScrollingTabBackground>
+      </Tabs.Tab>
+    </CollapsibleHeaderTabs>
   );
 }
 
-const ResultsLabel = (props: TabItemProps<"results">) => {
+const ResultsTabLabel = (props: TabItemProps<"results">) => {
   const textColorStyle = useAnimatedTabLabelColor(
     props.index,
     props.indexDecimal,
@@ -61,6 +57,49 @@ const ResultsLabel = (props: TabItemProps<"results">) => {
   );
 };
 
+const smallBoxShadow = generateBoxShadowStyle("small");
+
+const PROFILE_SCREEN_HEADER_HEIGHT = 484;
 const ProfileScreenHeader = () => {
-  return <HeaderProfileUI />;
+  return (
+    <>
+      <View className="relative h-[375px]" pointerEvents="box-none">
+        <View pointerEvents="none">
+          <UserAvatar className="h-full w-full rounded-none rounded-br-[188px]" />
+        </View>
+        <TouchableOpacity
+          className="absolute bottom-6 right-10 items-center justify-center rounded-full bg-white p-3"
+          activeOpacity={0.5}
+          style={smallBoxShadow}
+        >
+          <EyeIcon />
+        </TouchableOpacity>
+      </View>
+      <View
+        className="my-6 flex flex-row items-start justify-between px-6"
+        pointerEvents="box-none"
+      >
+        <View pointerEvents="box-none">
+          <View pointerEvents="none">
+            <AppText text="Hello, Veronica" large />
+          </View>
+          <TouchableOpacity>
+            <View className="mt-[0px] flex flex-row items-center">
+              <AppText
+                text="Teile uns etwas über dich mit..."
+                numberOfLines={1}
+              />
+              <EditIcon />
+            </View>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity
+          className="items-center justify-center rounded-full bg-white p-3"
+          style={smallBoxShadow}
+        >
+          <DotIcon />
+        </TouchableOpacity>
+      </View>
+    </>
+  );
 };
