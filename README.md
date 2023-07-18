@@ -6,6 +6,7 @@
 
 1. Install node v18.16.0
 2. Install pnpm
+3. Install Docker
 
 ```
 npm i -g pnpm
@@ -26,8 +27,14 @@ pnpm i
 # use it to populate all required environment variables
 cp .env.example .env
 
+# start the database using docker
+docker-compose up -d
+
 # Push the Prisma schema to your database
 pnpm db:push
+
+# Seed the database
+pnpm db:seed
 ```
 
 > **TIP:** It might be easier to run each app in separate terminal windows so you get the logs from each app separately. This is also required if you want your terminals to be interactive, e.g. to access the Expo QR code. You can run `pnpm --filter expo dev` and `pnpm --filter nextjs dev` to run each app in a separate terminal window.

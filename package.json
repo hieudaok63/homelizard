@@ -11,7 +11,7 @@
     "clean:workspaces": "turbo clean",
     "db:generate": "turbo db:generate",
     "db:push": "turbo db:push db:generate",
-    "db:seed": "cd packages/db/prisma && ts-node --compiler-options '{\"module\":\"CommonJS\"}' seed.ts",
+    "db:seed": "pnpm --filter=db seed",
     "dev": "turbo dev --parallel",
     "dev:expo": "cd apps/expo && pnpm dev",
     "dev:next": "turbo dev --filter nextjs",

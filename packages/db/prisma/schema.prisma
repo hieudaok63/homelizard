@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  // provider = "postgresql"
-  provider = "sqlite"
+  // provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -77,17 +77,9 @@ model SearchProfile {
   address                 Address?       @relation(fields: [addressId], references: [id])
   addressId               String?
   searchResult            SearchResult[]
-  objectStyles            ObjectStyle[]
+  objectStyles            String[]
   customer                Customer       @relation(fields: [customerId], references: [id])
   customerId              String
-}
-
-model ObjectStyle {
-  title           String
-  searchProfile   SearchProfile @relation(fields: [searchProfileId], references: [id])
-  searchProfileId String
-
-  @@id([searchProfileId, title])
 }
 
 model Favorite {

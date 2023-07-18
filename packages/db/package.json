@@ -9,14 +9,19 @@
     "db:generate": "pnpm with-env prisma generate",
     "db:push": "pnpm with-env prisma db push --skip-generate",
     "dev": "pnpm with-env prisma studio --port 5556",
+    "seed": "pnpm with-env tsx prisma/seed.ts",
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "@prisma/client": "^4.13.0"
+    "@prisma/client": "^5.0.0"
   },
   "devDependencies": {
+    "@clerk/clerk-sdk-node": "^4.10.15",
+    "@types/prompt-sync": "^4.2.0",
     "dotenv-cli": "^7.2.1",
-    "prisma": "^4.13.0",
+    "prisma": "^5.0.0",
+    "prompt-sync": "^4.2.0",
+    "tsx": "^3.12.7",
     "typescript": "^5.0.4"
   }
 }

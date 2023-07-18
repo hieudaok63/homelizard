@@ -32,7 +32,7 @@ const MAX_LONGTITUDE = 180;
 
 export const searchProfileSchema = z.object({
   objectType: objectTypeSchema,
-  objectStyles: z.array(z.string()).min(1),
+  objectStyles: z.array(objectStyleSchema).min(1),
   livingAreaSize: z.number().positive(),
   roomAmount: z.number().positive(),
   latitude: z.number().min(MIN_LATITUDE).max(MAX_LATITUDE),
