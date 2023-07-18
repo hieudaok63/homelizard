@@ -20,7 +20,8 @@
     "lint:fix": "turbo lint:fix && manypkg fix",
     "type-check": "turbo type-check",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "db:studio": "pnpm --filter=db studio"
   },
   "dependencies": {
     "@homelizard/eslint-config": "^0.1.0",
