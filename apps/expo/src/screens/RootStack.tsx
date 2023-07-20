@@ -26,6 +26,7 @@ import ObjectStyle from "./search/ObjectStyle";
 import ObjectStyleResult from "./search/ObjectStyleResult";
 import ObjectType from "./search/ObjectType";
 import PlotSize from "./search/PlotSize";
+import PriceRange from "./search/PriceRange";
 import Results from "./search/Results";
 import YearOfConstruction from "./search/YearOfConstruction";
 
@@ -158,10 +159,17 @@ export function RootStack() {
               }}
             />
             <Stack.Screen
+              name="PriceRange"
+              component={PriceRange}
+              options={{
+                headerLeft: () => <BackButton screen="YearOfConstruction" />,
+              }}
+            />
+            <Stack.Screen
               name="Availability"
               component={Availability}
               options={{
-                headerLeft: () => <BackButton screen="YearOfConstruction" />,
+                headerLeft: () => <BackButton screen="PriceRange" />,
               }}
             />
             <Stack.Screen

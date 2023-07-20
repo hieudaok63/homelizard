@@ -14,7 +14,7 @@ const BottomMetric = (props: IBottomMetricProps) => {
   // main return
   return (
     <View className="mt-1 w-full px-2">
-      <View className="h-4 flex-row ">
+      <View className="h-4 flex-row">
         {arrEl?.map((item, index) => (
           <View
             key={item}

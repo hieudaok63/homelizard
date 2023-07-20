@@ -44,7 +44,7 @@ const YearOfConstruction = ({ navigation }: Props) => {
   }, []);
 
   const handlePressNext = () => {
-    navigation.navigate("Availability");
+    navigation.navigate("PriceRange");
   };
 
   // main return

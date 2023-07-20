@@ -37,6 +37,9 @@ export type ISearchWizardState = {
   yearOfConstructionStart: number;
   yearOfConstructionEnd: number;
 
+  //maxPrice
+  maxPrice: number;
+
   // availabilityDate
   availabilityDate: Date;
 
@@ -69,6 +72,9 @@ export type ISearchWizardActions = {
   // yearOfConstruction
   setYearOfConstructionStart: (val: number) => void;
   setYearOfConstructionEnd: (val: number) => void;
+
+  //priceRange
+  setMaxPrice: (val: number) => void;
 
   // availabilityDate
   setAvailabilityDate: (val: Date) => void;
@@ -107,6 +113,9 @@ const initialState: ISearchWizardState = {
   // yearOfConstruction
   yearOfConstructionStart: 1950,
   yearOfConstructionEnd: new Date()?.getFullYear(),
+
+  //priceRange
+  maxPrice: 100000,
 
   // availabilityDate
   availabilityDate: new Date(),
@@ -173,9 +182,17 @@ export const useSearchWizardStore = create(
           state.yearOfConstructionStart = val;
         });
       },
+
       setYearOfConstructionEnd(val) {
         set((state) => {
           state.yearOfConstructionEnd = val;
+        });
+      },
+
+      //priceRange
+      setMaxPrice(val) {
+        set((state) => {
+          state.maxPrice = val;
         });
       },
 

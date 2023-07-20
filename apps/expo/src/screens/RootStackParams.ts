@@ -18,6 +18,7 @@ export type RootStackParams = {
   ObjectStyle: undefined;
   ObjectStyleResult: undefined;
   Results: undefined;
+  PriceRange: undefined;
   // Register
   RegisterEmailPassword: undefined;
   RegisterVerifyEmail: undefined;
