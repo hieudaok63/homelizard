@@ -21,13 +21,12 @@ const defineConfig = (): ExpoConfig => ({
     fallbackToCacheTimeout: 0,
   },
   assetBundlePatterns: ["**/*"],
-  jsEngine: "hermes",
   ios: {
-    jsEngine: "jsc",
     supportsTablet: true,
     bundleIdentifier: "de.prodactive.homelizard",
   },
   android: {
+    package: "de.prodactive.homelizard",
     adaptiveIcon: {
       foregroundImage: "./assets/icon.png",
       backgroundColor: "#1F104A",
@@ -38,18 +37,19 @@ const defineConfig = (): ExpoConfig => ({
       projectId: "6f4956c9-276e-4e96-99b0-85bb178e252f",
     },
     CLERK_PUBLISHABLE_KEY,
+    EXPO_PUBLIC_API_URL: process.env.EXPO_PUBLIC_API_URL,
   },
   plugins: [
     "./expo-plugins/with-modify-gradle.js",
-    [
-      "expo-build-properties",
-      {
-        ios: {
-          flipper: true,
-        },
-      },
-    ],
     ["expo-image-picker"],
+    // [
+    //   "expo-build-properties",
+    //   {
+    //     ios: {
+    //       flipper: true,
+    //     },
+    //   },
+    // ],
   ],
 });
 

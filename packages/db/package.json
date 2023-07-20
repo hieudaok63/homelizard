@@ -23,6 +23,6 @@
     "prisma": "^5.0.0",
     "prompt-sync": "^4.2.0",
     "tsx": "^3.12.7",
-    "typescript": "^5.0.4"
+    "typescript": "^5.1.6"
   }
 }

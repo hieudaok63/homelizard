@@ -1,14 +1,9 @@
-// import { type Config } from "tailwindcss";
+import { type Config } from "tailwindcss";
 
 // import baseConfig from "@homelizard/tailwind-config";
 
-// export default {
-//   presets: [baseConfig],
-//   content: ["./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
-// } satisfies Config;
-
-/** @type {import('tailwindcss').Config} */
-const config = {
+export default {
+  // presets: [baseConfig],
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
@@ -79,6 +74,4 @@ const config = {
       },
     },
   },
-};
-
-module.exports = config;
+} satisfies Config;

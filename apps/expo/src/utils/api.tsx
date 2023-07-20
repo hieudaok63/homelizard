@@ -1,11 +1,12 @@
 import React from "react";
 import Constants from "expo-constants";
 import { useAuth } from "@clerk/clerk-expo";
-import { type AppRouter } from "@homelizard/api";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
 import superjson from "superjson";
+
+import { type AppRouter } from "@homelizard/api";
 
 /**
  * A set of typesafe hooks for consuming your API.
@@ -28,10 +29,10 @@ export const getBaseUrl = () => {
    */
   const localhost = Constants.manifest?.debuggerHost?.split(":")[0];
   if (!localhost) {
-    // return "https://your-production-url.com";
-    throw new Error(
-      "Failed to get localhost. Please point to your production server.",
-    );
+    return Constants.expoConfig?.extra?.EXPO_PUBLIC_API_URL as string;
+    // throw new Error(
+    //   "Failed to get localhost. Please point to your production server.",
+    // );
   }
   return `http://${localhost}:3000`;
 };
