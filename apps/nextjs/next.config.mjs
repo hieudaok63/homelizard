@@ -6,6 +6,7 @@
 
 import i18nConfig from "./next-i18next.config.mjs";
 
+
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
@@ -16,6 +17,17 @@ const config = {
   eslint: { ignoreDuringBuilds: !!process.env.CI },
   typescript: { ignoreBuildErrors: !!process.env.CI },
   i18n: i18nConfig.i18n,
+  images: {
+    // domains: ["*"],
+    // loader: "default",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*",
+        port: "",
+      },
+    ],
+  },
 };
 
 export default config;

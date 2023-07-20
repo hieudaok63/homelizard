@@ -2,19 +2,33 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
+
+
+import { TSearchWizardStyle } from "~/types";
+
+interface Range {
+  max: number;
+  min: number;
+}
+type LatLng = {
+  latitude: number;
+  longitude: number;
+};
 // define types for state values and actions separately
 export type ISearchWizardState = {
   isCompleted: boolean;
 
   // objectType
   objectType: string;
+  typeSearch: string;
+  toggleType: string;
 
   // location
-  location: null;
+  location: LatLng | null;
   radius: number;
 
   // plotSize
-  plotSize: number;
+  plotSize: Range | number;
 
   // livingArea
   livingArea: number;
@@ -26,25 +40,32 @@ export type ISearchWizardState = {
   yearOfConstructionStart: number;
   yearOfConstructionEnd: number;
 
+  //puchasePrice
+  puchasePrice: number;
+
+  // rentalPrice
+  rentalPrice: number;
+
   // availabilityDate
   availabilityDate: Date;
 
   // objectStyles
-  objectStyles: Array<string>;
+  objectStyles: TSearchWizardStyle[];
 };
 
 export type ISearchWizardActions = {
   setIsCompleted: (val: boolean) => void;
 
   // objectType
-  setObjectType: (val: string) => void;
+  setTypeSearch: (val: string) => void;
+  setToggleType: (val: string) => void;
 
   // location
-  setLocation: (location: null) => void;
+  setLocation: (location: LatLng) => void;
   setRadius: (val: number) => void;
 
   // plotSize
-  setPlotSize: (val: number) => void;
+  setPlotSize: (val: number | Range) => void;
 
   // livingArea
   setLivingArea: (val: number) => void;
@@ -56,11 +77,17 @@ export type ISearchWizardActions = {
   setYearOfConstructionStart: (val: number) => void;
   setYearOfConstructionEnd: (val: number) => void;
 
+  //puchasePrice
+  setPuchasePrice: (val: number) => void;
+
+  //rentalPrice
+  setRentalPrice: (val: number) => void;
+
   // availabilityDate
   setAvailabilityDate: (val: Date) => void;
 
   // objectStyles
-  setObjectStyles: (val: Array<string>) => void;
+  setObjectStyles: (val: TSearchWizardStyle[]) => void;
 
   // reset
   reset: () => void;
@@ -72,6 +99,8 @@ const initialState: ISearchWizardState = {
 
   // objectType
   objectType: "",
+  typeSearch: "",
+  toggleType: "Mieten",
 
   // location
   location: null,
@@ -89,6 +118,12 @@ const initialState: ISearchWizardState = {
   // yearOfConstruction
   yearOfConstructionStart: 1950,
   yearOfConstructionEnd: new Date()?.getFullYear(),
+
+  // puchasePrice
+  puchasePrice: 100000,
+
+  // RentalPrice
+  rentalPrice: 1000,
 
   // availabilityDate
   availabilityDate: new Date(),
@@ -109,9 +144,14 @@ export const useSearchWizardStore = create(
         }),
 
       // objectType
-      setObjectType: (val) =>
+      setTypeSearch: (val) =>
         set((state) => {
-          state.objectType = val;
+          state.typeSearch = val;
+        }),
+
+      setToggleType: (val) =>
+        set((state) => {
+          state.toggleType = val;
         }),
 
       // location
@@ -155,6 +195,20 @@ export const useSearchWizardStore = create(
         });
       },
 
+      // puchasePrice
+      setPuchasePrice(val) {
+        set((state) => {
+          state.puchasePrice = val;
+        });
+      },
+
+      // rentalPrice
+      setRentalPrice(val) {
+        set((state) => {
+          state.rentalPrice = val;
+        });
+      },
+
       // availabilityDate
       setAvailabilityDate(val) {
         set((state) => {
@@ -176,7 +230,15 @@ export const useSearchWizardStore = create(
     })),
     {
       name: "searchWizard-store",
-      storage: createJSONStorage(() => sessionStorage),
+      storage: createJSONStorage(() => localStorage),
+      onRehydrateStorage: () => {
+        // optional
+        return (state, error) => {
+          if (error) {
+            console.log(error);
+          }
+        };
+      },
     },
   ),
 );
