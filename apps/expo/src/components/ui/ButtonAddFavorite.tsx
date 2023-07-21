@@ -10,7 +10,6 @@ import CheckIcon from "@assets/icons/CheckIcon.svg";
 import PlusIcon from "@assets/icons/PlusIcon.svg";
 
 type ButtonAddFavorite = {
-  contentView?: any;
   onPressSelect?: () => void;
   selected?: boolean;
 };
@@ -21,6 +20,7 @@ export const ButtonAddFavorite = ({
 }: ButtonAddFavorite) => {
   return (
     <View className="w-20">
+      {/* TODO: replace image with a corner made in css */}
       <Image
         source={require<ImageSourcePropType>("../../../assets/objectStyleImage/Subtract.png")}
       />

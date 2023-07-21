@@ -1,7 +1,5 @@
 import { z } from "zod";
 
-import { type SearchResult } from "@homelizard/db";
-
 import { DEFAULT_LIMIT, DEFAULT_PAGE } from "../constant/paginated.constant";
 import { SearchResultNotFound } from "../exceptions/errors";
 import { getPaginatedItems } from "../helpers/pagination.helper";
@@ -11,33 +9,34 @@ export const searchResultRouter = createTRPCRouter({
   list: protectedProcedure
     .input(
       z.object({
-        page: z.number().positive().optional(),
-        limit: z.number().positive().optional(),
+        limit: z.number().min(1).max(100).nullish(),
+        cursor: z.string().nullish(),
       }),
     )
     .query(async ({ ctx, input }) => {
-      const { page = DEFAULT_PAGE, limit = DEFAULT_LIMIT } = input;
-      const [searchResults, totalItems] = await Promise.all([
-        ctx.prisma.searchResult.findMany({
-          include: {
-            searchProfile: true,
-            realEstate: true,
-          },
-          orderBy: {
-            createdAt: "desc",
-          },
-          skip: (page - 1) * limit,
-          take: limit,
-        }),
-        ctx.prisma.searchResult.count(),
-      ]);
+      const limit = input.limit ?? 50;
+      const cursor = input.cursor;
 
-      return getPaginatedItems<SearchResult>(
-        searchResults,
-        page,
-        limit,
-        totalItems,
-      );
+      const items = await ctx.prisma.searchResult.findMany({
+        take: limit + 1,
+        cursor: cursor ? { id: cursor } : undefined,
+        include: {
+          searchProfile: true,
+          realEstate: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+      let nextCursor: typeof cursor | undefined = undefined;
+      if (items.length > limit) {
+        const nextItem = items.pop();
+        nextCursor = nextItem!.id;
+      }
+      return {
+        items,
+        nextCursor,
+      };
     }),
 
   bySearchProfileId: protectedProcedure
@@ -72,12 +71,7 @@ export const searchResultRouter = createTRPCRouter({
         ctx.prisma.searchResult.count({ where: { searchProfileId } }),
       ]);
 
-      return getPaginatedItems<SearchResult>(
-        searchResults,
-        page,
-        limit,
-        totalItems,
-      );
+      return getPaginatedItems(searchResults, page, limit, totalItems);
     }),
   byId: protectedProcedure
     .input(z.object({ searchResultId: z.string().min(1) }))

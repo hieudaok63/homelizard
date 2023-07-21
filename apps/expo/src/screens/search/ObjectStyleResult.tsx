@@ -47,21 +47,21 @@ const ObjectStyleResult = ({ navigation }: Props) => {
     ({
       item,
     }: ListRenderItemInfo<RouterOutputs["objectStyle"]["all"][number]>) => {
-      // const imageSource = item.imageUrl as string;
       return (
         <View className="mb-3 w-72 overflow-hidden rounded-3xl p-0">
           <View className="relative h-24 w-full items-center justify-center overflow-hidden">
             <Image
               source={genImageUrl(item.imageUrl)}
-              alt={item?.title}
+              alt={item.title}
               className="h-full w-full"
             />
             <TouchableOpacity className="absolute flex-row items-center justify-between rounded-full bg-white px-6 py-2">
               <View className="mr-1">
                 <Text className="text-black_xtra font-weight_700 text-font-15 mb-1">
-                  {item?.title}
+                  {item.title}
                 </Text>
-                <Text className="text-placeholder opacity-85 font-weight_400 text-font-12">{`${item?.description?.substring(
+                {/* TODO: replace with text-ellipsis  */}
+                <Text className="text-placeholder opacity-85 font-weight_400 text-font-12">{`${item.description.substring(
                   0,
                   30,
                 )}...`}</Text>

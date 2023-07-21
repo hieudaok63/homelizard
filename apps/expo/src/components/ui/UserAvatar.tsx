@@ -17,7 +17,7 @@ export const UserAvatar = ({ className, style }: UserAvatarProps) => {
     <View
       style={style}
       className={cn(
-        "bg-grey_2 flex h-[50px] w-[50px] overflow-hidden rounded-l-full rounded-tr-full",
+        "flex h-[50px] w-[50px] overflow-hidden rounded-l-full rounded-tr-full bg-grey_2",
         className,
       )}
     >

@@ -4,7 +4,6 @@ import Carousel from "react-native-reanimated-carousel";
 import { type CarouselRenderItemInfo } from "react-native-reanimated-carousel/lib/typescript/types";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
-// import { type ObjectStyle } from "@homelizard/schema";
 import { cn } from "@homelizard/tailwind-config/utils";
 
 import CheckIcon from "@assets/icons/CheckIcon.svg";
@@ -79,9 +78,7 @@ const ObjectStyleCarousalCard = ({
 
 const ObjectStyle = ({ navigation }: Props) => {
   // zustand
-  const objectStyles_zutand = useSearchWizardStore(
-    (state) => state?.objectStyles,
-  );
+  const objectStyles = useSearchWizardStore((state) => state?.objectStyles);
 
   // functions
   const handlePressNext = () => {
@@ -138,7 +135,7 @@ const ObjectStyle = ({ navigation }: Props) => {
         title="Continue"
         progress={85}
         onPress={handlePressNext}
-        disabled={!objectStyles_zutand?.length}
+        disabled={!objectStyles?.length}
         variant="turquoise"
       />
     </SearchLayout>
