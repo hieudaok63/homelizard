@@ -1,6 +1,5 @@
 import React, { useState, type PropsWithChildren } from "react";
 import { Dimensions, FlatList, ScrollView, View } from "react-native";
-import { useTranslation } from "react-i18next";
 
 import CartIcon from "@assets/icons/CartIcon.svg";
 
@@ -54,8 +53,6 @@ export const RenderBanner = () => {
 };
 
 export const ListFinanceSection = () => {
-  const { t } = useTranslation();
-
   const [showOptionCreditStatus, setShowOptionCreditStatus] = useState(false);
   const [showOptionCreditInformation, setShowOptionCreditInformation] =
     useState(false);
@@ -76,7 +73,7 @@ export const ListFinanceSection = () => {
           horizontal
           className="pb-5"
         />
-        <View className="rounded-[45px] px-8  ">
+        <View className="rounded-[45px] px-8">
           <CreditStatusSection
             isShowModal={showOptionCreditStatus}
             setShowListOption={setShowOptionCreditStatus}

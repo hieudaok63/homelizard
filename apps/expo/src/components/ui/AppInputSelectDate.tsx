@@ -19,7 +19,7 @@ export interface AppInputSelectDateProps extends TextInputProps {
 export const AppInputSelectDate = forwardRef<
   TextInput,
   AppInputSelectDateProps & ViewProps
->(function AppInputSelectDate(props, ref) {
+>(function AppInputSelectDate(props) {
   const { placeholder, error } = props;
 
   const innerRef = useRef<TextInput | null>(null);
@@ -30,7 +30,7 @@ export const AppInputSelectDate = forwardRef<
       <View>
         <View className={`rounded-l-2xl rounded-tr-2xl bg-white p-4 `}>
           <View className="flex w-full flex-row items-center ">
-            <Text className="text-placeholder  text-font-16 -mt-0  w-4/12 ">
+            <Text className="-mt-0  w-4/12 text-font-16  text-placeholder ">
               {placeholder}
             </Text>
             <View className="flex flex-row items-center ">
@@ -39,17 +39,17 @@ export const AppInputSelectDate = forwardRef<
                   <View className="flex w-10/12 flex-row items-center ">
                     <AppText
                       text="02 Jun"
-                      className="font-weight_500 text-[16px] text-black"
+                      className="text-[16px] font-weight_500 text-black"
                     />
                     <AppText
                       text="1973"
-                      className="font-weight_500 text-grey ml-3 text-[18px]"
+                      className="ml-3 text-[18px] font-weight_500 text-grey"
                     />
                   </View>
                 </TouchableOpacity>
                 <AppText
                   text="Birth year is Private "
-                  className="font-weight_300 text-grey mt-1 text-[14px]"
+                  className="mt-1 text-[14px] font-weight_300 text-grey"
                 />
               </View>
               <Switch

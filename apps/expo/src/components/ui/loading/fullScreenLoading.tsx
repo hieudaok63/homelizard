@@ -15,7 +15,7 @@ export const FullScreenLoading = (props: IFullScreenloading) => {
           elevation: 999,
         }}
       >
-        <ActivityIndicator size="large" color={"#262636"} />
+        <ActivityIndicator size="large" color="#262636" />
       </View>
     );
   } else {

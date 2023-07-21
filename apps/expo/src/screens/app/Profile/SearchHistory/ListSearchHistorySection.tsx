@@ -1,6 +1,5 @@
 import React from "react";
 import { ScrollView, View } from "react-native";
-import { useTranslation } from "react-i18next";
 
 import { ButtonProfile } from "~/components/Profile";
 import { BottomNavBarPadding } from "~/components/navigation/NavBar";
@@ -8,7 +7,6 @@ import { useAppNavigation } from "~/components/navigation/useAppNavigation";
 import { LayoutSearchHistory } from "./_layoutSearchHistory";
 
 export const ListSearchHistorySection = () => {
-  const { t } = useTranslation();
   const navigation = useAppNavigation();
 
   return (

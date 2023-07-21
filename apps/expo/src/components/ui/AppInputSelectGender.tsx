@@ -18,7 +18,7 @@ export interface AppInputSelectGenderProps extends TextInputProps {
 export const AppInputSelectGender = forwardRef<
   TextInput,
   AppInputSelectGenderProps & ViewProps
->(function AppInputSelectGender(props, ref) {
+>(function AppInputSelectGender(props) {
   const { placeholder, error } = props;
 
   const innerRef = useRef<TextInput | null>(null);

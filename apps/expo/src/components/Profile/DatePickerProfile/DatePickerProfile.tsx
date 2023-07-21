@@ -1,10 +1,9 @@
-import React, { useMemo, useState } from "react";
-import { Modal, Platform, Text, TouchableOpacity, View } from "react-native";
+import React, { useMemo } from "react";
+import { Platform, Text, TouchableOpacity, View } from "react-native";
 import DateTimePicker, {
   DateTimePickerAndroid,
   type AndroidNativeProps,
 } from "@react-native-community/datetimepicker";
-import dayjs from "dayjs";
 
 import { generateBoxShadowStyle } from "~/utils/helpers";
 import { PopupModal } from "~/components/ui";
@@ -49,7 +48,7 @@ export const DatePickerProfile = ({
             className="rounded-md bg-white p-4"
             style={styleBoxShadow}
           >
-            <Text className="font-weight_400 text-5xl text-black">
+            <Text className="text-5xl font-weight_400 text-black">
               {/* {dayjs("01|02|2000").format("DD | MM | YYYY")} */}
             </Text>
           </TouchableOpacity>

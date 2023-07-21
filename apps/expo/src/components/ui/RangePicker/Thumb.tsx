@@ -5,6 +5,7 @@ import { generateBoxShadowStyle } from "~/utils/helpers";
 
 export const shadowStyle = generateBoxShadowStyle("shadowThumb");
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Thumb = ({ name }: { name: "high" | "low" }) => {
   return (
     <View

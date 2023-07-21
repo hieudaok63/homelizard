@@ -50,14 +50,15 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
       setUserInfo(user);
 
       // TODO: validate search wizard data
-
       // save search profile
       await searchTrpc.mutateAsync({
         objectType: searchWizardData.objectType!,
         objectStyles: searchWizardData?.objectStyles,
         livingAreaSize: searchWizardData?.livingArea,
         roomAmount: searchWizardData?.numberOfRooms,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
         latitude: (searchWizardData?.location)!.latitude,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
         longitude: (searchWizardData?.location)!.longitude,
         radius: searchWizardData?.radius,
         plotSize: searchWizardData?.plotSize,
@@ -141,7 +142,7 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
           <Text className="font-nunito-800 text-font-18 text-dark">
             Login : Registrierung
           </Text>
-          <Text className="font-nunito-800 text-font-18 text-dark pl-16">
+          <Text className="pl-16 font-nunito-800 text-font-18 text-dark">
             Anrede und Name
           </Text>
         </View>
@@ -154,13 +155,13 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
             >
               {watch("gender") ? (
                 <>
-                  <Text className="text-placeholder  text-xs">Anrede</Text>
-                  <Text className="font-weight_600  text-base text-black">
+                  <Text className="text-xs  text-placeholder">Anrede</Text>
+                  <Text className="text-base  font-weight_600 text-black">
                     {t(`gender.${watch("gender")}`)}
                   </Text>
                 </>
               ) : (
-                <Text className="font-weight_600  text-placeholder text-base">
+                <Text className="text-base  font-weight_600 text-placeholder">
                   Anrede
                 </Text>
               )}
@@ -194,11 +195,11 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
         setShow={setShowBottomSheet}
       >
         <View>
-          <View className="border-color_gray flex-row justify-between border-b p-6">
+          <View className="flex-row justify-between border-b border-color_gray p-6">
             <TouchableOpacity onPress={hideBottomSheet}>
               <ArrowDownIcon fill="#000000" />
             </TouchableOpacity>
-            <Text className="text-placeholder text-font-24 font-weight_400">
+            <Text className="text-font-24 font-weight_400 text-placeholder">
               Anrede
             </Text>
             <TouchableOpacity>
@@ -209,13 +210,13 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
           {genderOptions?.map((item) => (
             <TouchableOpacity
               key={item}
-              className="border-color_gray flex-row justify-center border-b py-4"
+              className="flex-row justify-center border-b border-color_gray py-4"
               onPress={() => {
                 setValue("gender", item, { shouldValidate: true });
                 hideBottomSheet();
               }}
             >
-              <Text className="text-blue_1 text-font-24 font-weight_400">
+              <Text className="text-font-24 font-weight_400 text-blue_1">
                 {t(`gender.${item}`)}
               </Text>
             </TouchableOpacity>

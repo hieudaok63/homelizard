@@ -9,7 +9,6 @@ import ArrowUpIcon from "@assets/icons/ArrowUpIcon.svg";
 
 import { ButtonProfile } from "~/components/Profile";
 import { BottomNavBarPadding } from "~/components/navigation/NavBar";
-import { useAppNavigation } from "~/components/navigation/useAppNavigation";
 import { ButtonActionMain } from "~/components/ui";
 import InputProfile from "~/components/ui/input/InputProfile";
 import { useZodForm } from "~/hooks/useZodForm";
@@ -29,7 +28,7 @@ export const HausSearchOption = () => {
     standard: z.string(),
     availability: z.string(),
   });
-  const { handleSubmit, control } = useZodForm({
+  const { control } = useZodForm({
     schema: formSchema,
     defaultValues: {
       category: "Haus",
@@ -44,7 +43,6 @@ export const HausSearchOption = () => {
       availability: "12.12.2023",
     },
   });
-  const navigation = useAppNavigation();
 
   return (
     <LayoutSearchHistory>
