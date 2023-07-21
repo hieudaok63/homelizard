@@ -1,4 +1,3 @@
-import { StatusBar } from "react-native";
 import { registerRootComponent } from "expo";
 import { NavigationContainer } from "@react-navigation/native";
 
