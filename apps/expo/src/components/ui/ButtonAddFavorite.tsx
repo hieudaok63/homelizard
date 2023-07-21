@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Image,
-  TouchableOpacity,
-  View,
-  type ImageSourcePropType,
-} from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
 import CheckIcon from "@assets/icons/CheckIcon.svg";
 import PlusIcon from "@assets/icons/PlusIcon.svg";
@@ -20,16 +15,18 @@ export const ButtonAddFavorite = ({
 }: ButtonAddFavorite) => {
   return (
     <View className="w-20">
-      {/* TODO: replace image with a corner made in css */}
-      <Image
-        source={require<ImageSourcePropType>("../../../assets/objectStyleImage/Subtract.png")}
-      />
+      <TriangleCorner />
       <TouchableOpacity
-        className="absolute bottom-3 right-2"
+        className="absolute bottom-4 right-4"
         onPress={onPressSelect}
       >
         {selected ? <CheckIcon /> : <PlusIcon />}
       </TouchableOpacity>
     </View>
+  );
+};
+const TriangleCorner = () => {
+  return (
+    <View className="border-b-[100px] border-l-[100px] border-b-blue_1 border-l-transparent" />
   );
 };
