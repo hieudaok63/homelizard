@@ -10,7 +10,6 @@ import { ButtonActionMain, type Percentage } from "~/components/ui";
 
 interface IButtonProfile {
   onPress: () => void;
-  onPressIconRight: () => void;
   title: string;
   description: string;
   progress: Percentage;
@@ -18,13 +17,12 @@ interface IButtonProfile {
   styleBoxShadowBtn?: boolean;
   IconLeftProps?: React.ReactNode;
   IconRightProps?: React.ReactNode;
-  lastItemButton?: boolean;
-  firstItemButton?: boolean;
+  isLastItem?: boolean;
+  isFirstItem?: boolean;
 }
 
 export const ButtonProfile = ({
   onPress,
-  onPressIconRight,
   title,
   description,
   progress,
@@ -32,8 +30,8 @@ export const ButtonProfile = ({
   styleBoxShadowBtn,
   IconLeftProps = <DefaultYellowIcon />,
   IconRightProps = <ArrowRightIcon fill="#000000" />,
-  lastItemButton,
-  firstItemButton,
+  isLastItem,
+  isFirstItem,
 }: IButtonProfile) => {
   return (
     <ButtonActionMain
@@ -42,11 +40,10 @@ export const ButtonProfile = ({
       IconLeftProps={IconLeftProps || <DefaultYellowIcon />}
       IconRightProps={IconRightProps}
       isProgressbar
-      onPressIconRight={onPressIconRight}
       classButton={cn(
         "rounded-none border-y border-color_gray",
-        lastItemButton && "rounded-b-[40px]",
-        firstItemButton && "rounded-t-[40px]",
+        isLastItem && "rounded-b-[40px]",
+        isFirstItem && "rounded-t-[40px]",
       )}
       description={description}
       classTitleButton="font-weight_400"

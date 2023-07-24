@@ -39,9 +39,7 @@ export const CreditInformationSection = ({
   const navigation = useAppNavigation();
 
   return (
-    <KeyboardAwareScrollView
-      className="pb-5 pt-3"
-    >
+    <KeyboardAwareScrollView className="pb-5 pt-3">
       <ButtonActionMain
         onPress={() => setShowListOption((pre) => !pre)}
         title={title}

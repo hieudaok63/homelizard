@@ -1,51 +1,57 @@
-import React from "react";
-import { ScrollView, View } from "react-native";
+import React, { useCallback, useState } from "react";
+import { FlatList, View, type ListRenderItem } from "react-native";
 
-import { ButtonProfile } from "~/components/Profile";
-import { BottomNavBarPadding } from "~/components/navigation/NavBar";
-import { useAppNavigation } from "~/components/navigation/useAppNavigation";
+import { api, type RouterOutputs } from "~/utils/api";
+import { ItemSearchProfile } from "./ItemSearchHistory";
 import { LayoutSearchHistory } from "./_layoutSearchHistory";
 
+type SearchProfileItem = RouterOutputs["search"]["list"][number];
+
+export type TypeSearchHistoryProfile = SearchProfileItem & { status: boolean };
+
 export const ListSearchHistorySection = () => {
-  const navigation = useAppNavigation();
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  const { data } = api.search.list.useQuery(undefined, {
+    select: (data) => data.map((elem) => ({ ...elem, status: false })),
+  });
+
+  const onSelectItem = useCallback(
+    (index: number) => {
+      if (selectedIndex === 0 || selectedIndex) {
+        setSelectedIndex(null);
+        return;
+      }
+      setSelectedIndex(index);
+    },
+    [selectedIndex],
+  );
+
+  const renderItem: ListRenderItem<TypeSearchHistoryProfile> = ({
+    item,
+    index,
+  }) => {
+    return (
+      <ItemSearchProfile
+        onPress={() => {
+          onSelectItem(index);
+        }}
+        item={item}
+        selected={selectedIndex === index}
+      />
+    );
+  };
 
   return (
     <LayoutSearchHistory>
-      <ScrollView className="h-full" showsVerticalScrollIndicator={false}>
-        <View className="rounded-[45px] pt-9 ">
-          <ButtonProfile
-            variant="turquoise"
-            title="Haus"
-            description="Einfamilienhaus, München"
-            onPress={() => navigation.navigate("HausSearchOption")}
-            onPressIconRight={() => navigation.navigate("HausSearchOption")}
-            progress={20}
-            IconLeftProps
-            firstItemButton
-          />
-          <ButtonProfile
-            variant="turquoise"
-            title="Mehrfamilienhaus"
-            description="Mehrfamilienhaus, Rosenheim"
-            onPress={() => alert(1)}
-            onPressIconRight={() => alert(1)}
-            progress={40}
-            IconLeftProps
-          />
-          <ButtonProfile
-            variant="turquoise"
-            title="Wohnung"
-            description="Loft, München"
-            onPress={() => alert(1)}
-            onPressIconRight={() => alert(1)}
-            progress={60}
-            IconLeftProps
-            lastItemButton
-          />
-        </View>
-
-        <BottomNavBarPadding />
-      </ScrollView>
+      <View className="mt-3 overflow-hidden rounded-2xl">
+        <FlatList
+          data={data ?? []}
+          renderItem={renderItem}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      </View>
     </LayoutSearchHistory>
   );
 };

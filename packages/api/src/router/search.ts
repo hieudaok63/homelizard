@@ -13,7 +13,9 @@ export const searchRouter = createTRPCRouter({
       }
 
       const customer = await ctx.prisma.customer.findFirst({
-        where: { users: { some: { externalId: ctx.auth.userId } } },
+        where: {
+          users: { some: { externalId: ctx.auth.userId } },
+        },
       });
 
       if (!customer) {
@@ -28,11 +30,6 @@ export const searchRouter = createTRPCRouter({
                 create: input.address,
               }
             : undefined,
-          objectStyles: {
-            create: input.objectStyles.map((objectStyle) => ({
-              title: objectStyle,
-            })),
-          },
           customer: {
             connect: {
               id: customer.id,
@@ -41,4 +38,18 @@ export const searchRouter = createTRPCRouter({
         },
       });
     }),
+  list: protectedProcedure.query(async ({ ctx }) => {
+    const customer = await ctx.prisma.customer.findFirst({
+      where: { users: { some: { externalId: ctx.auth.userId } } },
+    });
+
+    if (!customer) {
+      throw new CustomerNotFound();
+    }
+
+    return ctx.prisma.searchProfile.findMany({
+      where: { customerId: customer.id },
+      include: { address: true },
+    });
+  }),
 });

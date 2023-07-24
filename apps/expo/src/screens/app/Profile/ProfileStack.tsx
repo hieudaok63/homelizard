@@ -13,7 +13,6 @@ import { ListFavoriteSection } from "./Favourite";
 import { ListFinanceSection } from "./Finance";
 import { ProfileScreen } from "./ProfileScreen";
 import { ListSearchHistorySection } from "./SearchHistory";
-import { HausSearchOption } from "./SearchHistory/HausSearchOption";
 
 const Stack = createNativeStackNavigator();
 
@@ -88,13 +87,6 @@ const ProfileStack = () => {
         <Stack.Screen
           name="ListSearchHistorySection"
           component={ListSearchHistorySection}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="HausSearchOption"
-          component={HausSearchOption}
           options={{
             headerShown: false,
           }}

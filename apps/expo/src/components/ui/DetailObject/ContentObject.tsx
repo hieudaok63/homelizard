@@ -5,10 +5,10 @@ import { AppText } from "../AppText";
 
 interface IContentObject {
   type: string;
-  content: string;
+  content?: string;
 }
 
-export const ContentObject = ({ type, content }: IContentObject) => {
+export const ContentObject = ({ type, content = "" }: IContentObject) => {
   return (
     <View className="flex w-full flex-col">
       <AppText text={type} className="font-nunito-light text-grey" />

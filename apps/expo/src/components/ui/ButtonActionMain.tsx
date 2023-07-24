@@ -1,6 +1,8 @@
 import React from "react";
 import { TouchableOpacity, View } from "react-native";
 
+import { cn } from "@homelizard/tailwind-config/utils";
+
 import { type ColorGradientVariant } from "~/utils/colorGradients";
 import { generateBoxShadowStyle } from "~/utils/helpers";
 import { AppText } from "./AppText";
@@ -12,7 +14,7 @@ export const styleBoxShadow = generateBoxShadowStyle("shadowBtn");
 interface ButtonActionProps {
   title: string;
   progress: Percentage;
-  variant: ColorGradientVariant;
+  variant?: ColorGradientVariant;
   isFill?: boolean;
   isProgressbar?: boolean;
   IconRightProps?: React.ReactNode;
@@ -34,7 +36,7 @@ export const ButtonActionMain = ({
   description,
   IconLeftProps,
   progress,
-  variant,
+  variant = "blue",
   styleBoxShadowBtn = false,
   classButton,
   classTitleButton,
@@ -58,11 +60,11 @@ export const ButtonActionMain = ({
         <View className="w-full pb-2 pl-4">
           <AppText
             text={title}
-            className={`font-weight_700 text-font-18 ${classTitleButton}`}
+            className={cn("font-nunito-bold text-lg", classTitleButton)}
           />
           {isFill && (
             <View className="flex flex-row">
-              <AppText text="Filled" className="text-grey mr-1" />
+              <AppText text="Filled" className="mr-1 text-grey" />
               <AppText text={`${progress}%`} className="text-blue_1" />
             </View>
           )}
@@ -75,7 +77,7 @@ export const ButtonActionMain = ({
 
         {IconRightProps && (
           <TouchableOpacity
-            onPress={onPressIconRight}
+            onPress={onPressIconRight ?? onPress}
             className="absolute right-1 top-1 p-2"
           >
             {IconRightProps}

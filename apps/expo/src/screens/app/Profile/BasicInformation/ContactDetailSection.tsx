@@ -1,8 +1,6 @@
 import React, { type Dispatch, type SetStateAction } from "react";
 import { View } from "react-native";
 
-import { cn } from "@homelizard/tailwind-config/utils";
-
 import ArrowDownIcon from "@assets/icons/ArrowDownIcon.svg";
 import ArrowUpIcon from "@assets/icons/ArrowUpIcon.svg";
 import DefaultYellowIcon from "@assets/icons/DefaultYellowIcon.svg";
@@ -25,12 +23,8 @@ export const ContactDetailSection = ({
 }: ContactDetailSection) => {
   const navigation = useAppNavigation();
 
-  const navigateScreen = (screen: string) => {
-    return navigation.navigate(screen);
-  };
-
   return (
-    <>
+    <View className="mt-8 overflow-hidden rounded-[40px]">
       <ButtonActionMain
         onPress={() => setShowListOption((pre) => !pre)}
         title={title}
@@ -48,10 +42,7 @@ export const ContactDetailSection = ({
         }
         onPressIconRight={() => setShowListOption((pre) => !pre)}
         styleBoxShadowBtn={true}
-        classButton={cn(
-          "rounded-none mb-3",
-          isShowModal ? "rounded-t-[40px]" : "rounded-full",
-        )}
+        classButton="rounded-none mb-3"
         activeOpacity={0.8}
       />
 
@@ -60,42 +51,38 @@ export const ContactDetailSection = ({
           {isShowModal && (
             <>
               <ButtonProfile
-                onPress={() => navigateScreen("BasicInfoSection")}
-                onPressIconRight={() => navigateScreen("BasicInfoSection")}
+                onPress={() => navigation.navigate("BasicInfoSection")}
                 variant="yellow"
                 progress={20}
                 title="Basisdaten"
                 description="Titel, Namen, Beruf, Geburtsdaten"
               />
               <ButtonProfile
-                onPress={() => navigateScreen("MobilePhoneSection")}
-                onPressIconRight={() => navigateScreen("MobilePhoneSection")}
+                onPress={() => navigation.navigate("MobilePhoneSection")}
                 variant="yellow"
                 progress={20}
                 title="Mobile phone"
                 description="Telefonische Erreichbarkeit"
               />
               <ButtonProfile
-                onPress={() => navigateScreen("EmailAndWebSection")}
-                onPressIconRight={() => navigateScreen("EmailAndWebSection")}
+                onPress={() => navigation.navigate("EmailAndWebSection")}
                 variant="yellow"
                 progress={20}
                 description="Email- und Web-Adressen"
                 title="Email & web"
               />
               <ButtonProfile
-                onPress={() => navigateScreen("AddressSection")}
-                onPressIconRight={() => navigateScreen("AddressSection")}
+                onPress={() => navigation.navigate("AddressSection")}
                 variant="yellow"
                 progress={20}
                 title="Adressen"
                 description="Wo und wie arbeiten Sie?"
-                lastItemButton
+                isLastItem
               />
             </>
           )}
         </View>
       </View>
-    </>
+    </View>
   );
 };

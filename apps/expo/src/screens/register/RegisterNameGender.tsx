@@ -9,6 +9,7 @@ import {
 import Toast from "react-native-toast-message";
 import { useUser } from "@clerk/clerk-expo";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
+import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
 
@@ -64,7 +65,8 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
         plotSize: searchWizardData?.plotSize,
         startYearOfConstruction: searchWizardData?.yearOfConstructionStart,
         endYearOfConstruction: searchWizardData?.yearOfConstructionEnd,
-        availability: new Date(searchWizardData?.availabilityDate),
+        // TODO: check why dayjs is needed here
+        availability: dayjs(searchWizardData.availabilityDate).toDate(),
       });
 
       resetSearchWizard();

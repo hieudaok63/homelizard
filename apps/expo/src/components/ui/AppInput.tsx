@@ -58,9 +58,9 @@ export const AppInput = forwardRef<TextInput, AppInputProps & ViewProps>(
     return (
       <TouchableWithoutFeedback onPress={() => innerRef.current?.focus()}>
         <View style={style} className={className}>
-          <View className={`rounded-l-2xl rounded-tr-2xl bg-white p-4 `}>
+          <View className="rounded-l-2xl rounded-tr-2xl bg-white p-4">
             {(isFocus || value) && !label && (
-              <Text className={`text-placeholder -mt-2 text-xs `}>
+              <Text className="-mt-2 text-xs text-placeholder">
                 {placeholder}
               </Text>
             )}
@@ -75,7 +75,7 @@ export const AppInput = forwardRef<TextInput, AppInputProps & ViewProps>(
                 }
               }}
               placeholder={!isFocus ? placeholder : undefined}
-              className="font-weight_600 text-font-16 text-black"
+              className="text-font-16 font-weight_600 text-black"
               placeholderTextColor="#828282"
               onFocus={() => {
                 setFocus(true);

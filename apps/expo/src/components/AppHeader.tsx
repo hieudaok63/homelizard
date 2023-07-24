@@ -11,7 +11,7 @@ export interface HeaderProps {
   onPressBack?: () => void;
 }
 
-export const AppHeader = ({ title, onPressBack }: HeaderProps) => {
+export const AppHeader = ({ title = "", onPressBack }: HeaderProps) => {
   const navigation = useAppNavigation();
 
   const goBack = () => {
@@ -25,9 +25,9 @@ export const AppHeader = ({ title, onPressBack }: HeaderProps) => {
   return (
     <View className="flex w-full flex-row items-center">
       <TouchableOpacity className="mr-5 p-3" onPress={goBack}>
-        <ArrowLeftIcon fill="black"/>
+        <ArrowLeftIcon fill="black" />
       </TouchableOpacity>
-      <AppText text={title ?? ""} className="text-2xl" />
+      <AppText text={title} className="text-2xl" />
     </View>
   );
 };

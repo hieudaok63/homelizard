@@ -19,3 +19,11 @@ export const generateBoxShadowStyle = (variant: keyof typeof shaDowStyles) => {
     };
   }
 };
+
+// TODO: replace with text-overflow: ellipsis
+export const handleLongContent = (content: string, length = 20) => {
+  if (content.length > 20) {
+    return `${content.substring(0, length)}...`;
+  }
+  return content;
+};

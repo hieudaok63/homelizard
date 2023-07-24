@@ -82,7 +82,7 @@ export const searchResultRouter = createTRPCRouter({
         },
         include: {
           searchProfile: true,
-          realEstate: true,
+          realEstate: { include: { address: true } },
         },
       });
 

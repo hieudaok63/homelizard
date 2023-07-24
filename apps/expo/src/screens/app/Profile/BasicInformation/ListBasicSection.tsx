@@ -11,20 +11,22 @@ export const ListBasicSection = () => {
 
   return (
     <LayoutBasicInfo>
-      <View className="rounded-[45px] py-5">
-        <ContactDetailSection
-          isShowModal={showOptionContact}
-          setShowListOption={setShowOptionContact}
-          title="Kontaktdetails"
-        />
-      </View>
-      <View className="rounded-[45px] ">
-        <ProfessionSection
-          setShowListOption={setShowOptionProfession}
-          isShowModal={showOptionProfession}
-          title="Beruf"
-          description="Ihr Arbeitsplatz und Lebenslauf"
-        />
+      <View className="flex flex-col space-y-2">
+        <View>
+          <ContactDetailSection
+            isShowModal={showOptionContact}
+            setShowListOption={setShowOptionContact}
+            title="Kontaktdetails"
+          />
+        </View>
+        <View>
+          <ProfessionSection
+            setShowListOption={setShowOptionProfession}
+            isShowModal={showOptionProfession}
+            title="Beruf"
+            description="Ihr Arbeitsplatz und Lebenslauf"
+          />
+        </View>
       </View>
     </LayoutBasicInfo>
   );

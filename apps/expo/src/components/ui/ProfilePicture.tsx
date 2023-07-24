@@ -19,11 +19,8 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ onPress }) => {
   const { data } = api.profile.signedProfileImageUrl.useQuery();
 
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={styleBoxShadow}
-    >
-      <View className="bg-grey_2 flex h-[265px] w-[265px] items-center justify-center overflow-hidden rounded-l-full rounded-tr-full">
+    <TouchableOpacity onPress={onPress} style={styleBoxShadow}>
+      <View className="flex h-[265px] w-[265px] items-center justify-center overflow-hidden rounded-l-full rounded-tr-full bg-grey_2">
         {data?.url && (
           // eslint-disable-next-line jsx-a11y/alt-text
           <Image

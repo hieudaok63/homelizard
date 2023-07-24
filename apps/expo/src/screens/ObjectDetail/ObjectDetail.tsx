@@ -1,3 +1,4 @@
+import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { Image, ScrollView, TouchableOpacity, View } from "react-native";
 
@@ -9,16 +10,23 @@ import BedRoomIcon from "@assets/icons/BedRoomIcon.svg";
 import LoveIcon from "@assets/icons/LoveIcon.svg";
 import PhoneIcon from "@assets/icons/PhoneIcon.svg";
 
-import { genImageUrl } from "~/utils/imageUrl";
 import { BottomNavBarPadding } from "~/components/navigation/NavBar";
 import { ContentObject, DetailObject } from "~/components/ui";
 import { AppText } from "~/components/ui/AppText";
+import { api } from "~/utils/api";
+import { genImageUrl } from "~/utils/imageUrl";
+import { type RootStackParams } from "../RootStackParams";
 import { ObjectDetailLayout } from "./_layout";
 
-export const ObjectDetail = () => {
+type Props = NativeStackScreenProps<RootStackParams, "ObjectDetail">;
+
+export const ObjectDetail = ({ route }: Props) => {
   const [showMoreBasicRoom, setShowMoreBasicRoom] = useState(false);
   const [showMoreContentRoom, setShowMoreContentRoom] = useState(false);
   const [showBtnshowMore, setShowBtnshowMore] = useState(false);
+  const { itemId } = route.params;
+
+  const { data } = api.searchResult.byId.useQuery({ searchResultId: itemId });
 
   return (
     <ObjectDetailLayout>
@@ -26,7 +34,7 @@ export const ObjectDetail = () => {
         <View className="h-[375px]">
           <Image
             className="h-full w-full rounded-br-[190px]"
-            source={genImageUrl("/image/retail-object/RetailObject1.jpg")}
+            source={genImageUrl(data?.realEstate?.imageUrl)}
             alt="House"
           />
 
@@ -35,10 +43,10 @@ export const ObjectDetail = () => {
             activeOpacity={0.9}
           >
             <Image
-              className=" h-full w-full rounded-full"
-              source={{
-                uri: "https://fastly.picsum.photos/id/197/200/300.jpg?hmac=p4Xo0YBZC4uaAtKFs7gx7d5446a8gUo7X6bEI9mgkpg",
-              }}
+              className="h-full w-full rounded-full"
+              source={genImageUrl(
+                "https://fastly.picsum.photos/id/197/200/300.jpg?hmac=p4Xo0YBZC4uaAtKFs7gx7d5446a8gUo7X6bEI9mgkpg",
+              )}
               alt="Contact"
             />
             <View className="bg-purply_blue absolute -bottom-2 -left-2 items-center justify-center rounded-full p-1">
@@ -48,14 +56,17 @@ export const ObjectDetail = () => {
         </View>
         <View>
           <AppText
-            text="Memmingerberg, Oberallgäu"
-            className="font-weight_800 text-grey ml-auto mr-4 mt-2"
+            text={[
+              data?.realEstate?.address?.street,
+              data?.realEstate?.address?.city,
+            ].join(", ")}
+            className="ml-auto mr-4 mt-2 font-weight_800 text-grey"
           />
         </View>
         <View className="mx-6 mt-2">
           <AppText
-            text="Architektonisches Highlight - tolles Einfamilienhaus mit großem Garten in Fellheim"
-            className=" font-weight_700 text-font-24 leading-8 "
+            text={data?.realEstate?.title as string}
+            className="text-font-24 font-weight_700 leading-8 "
           />
         </View>
         <ScrollView
@@ -64,50 +75,76 @@ export const ObjectDetail = () => {
         >
           <View className="ml-3 mt-1">
             <AppText
-              text="659.000 €"
-              className=" font-weight_800 text-font-18 "
+              text={`${data?.realEstate.price} €`}
+              className="text-lg font-nunito-800"
             />
-            <View className=" flex w-6/12 flex-row items-center justify-between pt-5">
-              <DetailObject text="4" Icon={<BedRoomIcon fill="#262332" />} />
-              <DetailObject text="5" Icon={<BathRoomIcon fill="#262332" />} />
-              <DetailObject text="6" Icon={<AreaRoomIcon fill="#262332" />} />
+            <View className="flex w-6/12 flex-row items-center justify-between pt-5">
+              <DetailObject
+                text={data?.realEstate.numberOfBedroom as number}
+                Icon={<BedRoomIcon fill="#262332" />}
+              />
+              <DetailObject
+                text={data?.realEstate.numberOfBathroom as number}
+                Icon={<BathRoomIcon fill="#262332" />}
+              />
+              <DetailObject
+                text={data?.realEstate.livingAreaSize as number}
+                Icon={<AreaRoomIcon fill="#262332" />}
+              />
             </View>
           </View>
           <ScrollView
             className={cn(
-              "border-l-purply_blue w-12/12 mt-3  rounded-[20px] border-l-[5px] bg-white p-1",
-              showMoreBasicRoom ? "h-[100%]" : "h-[300px]",
+              "border-l-purply_blue w-12/12 mt-3 rounded-[20px] border-l-[5px] bg-white p-1",
+              showMoreBasicRoom ? "h-full" : "h-[300px]",
             )}
             showsVerticalScrollIndicator={false}
           >
             <View className="ml-2 mt-2 pb-10">
               <AppText
                 text="Daten"
-                className=" font-weight_800 text-font-14 mb-2"
+                className=" mb-2 text-sm font-nunito-800"
               />
               <ContentObject
                 type="Typ"
-                content="Einfamilienhaus (freistehend)"
+                content={data?.realEstate.objectType as string}
               />
-              <ContentObject type="Etagenanzahl" content="2" />
-              <ContentObject type="Wohnfläche ca." content="172,5 m²" />
-              <ContentObject type="Nutzfläche ca." content="80 m²" />
-              <ContentObject type="Grundstück ca." content="1.592 m²" />
-              <ContentObject type="Zimmer" content="7" />
-              <ContentObject type="Schlafzimmer" content="3" />
-              <ContentObject type="Badezimmer" content="2" />
+              <ContentObject
+                type="Etagenanzahl"
+                content={data?.realEstate?.numberOfFloor.toString()}
+              />
+              <ContentObject
+                type="Wohnfläche ca."
+                content={`${data?.realEstate.livingAreaSize} m²`}
+              />
+              <ContentObject
+                type="Grundstück ca."
+                content={`${data?.realEstate.plotSize} m²`}
+              />
+              <ContentObject
+                type="Zimmer"
+                content={data?.realEstate.roomAmount.toString()}
+              />
+              <ContentObject
+                type="Schlafzimmer"
+                content={data?.realEstate.numberOfBedroom.toString()}
+              />
+              <ContentObject
+                type="Badezimmer"
+                content={data?.realEstate.numberOfBathroom.toString()}
+              />
             </View>
           </ScrollView>
           {!showBtnshowMore && (
             <View>
               <TouchableOpacity
                 onPress={() => setShowMoreBasicRoom((pre) => !pre)}
-                className=" -mt-7 ml-auto mr-2 w-4/12"
+                className="-mt-7 ml-auto mr-2 w-4/12"
               >
                 {!showMoreBasicRoom && (
                   <AppText
                     text="mehr ..."
-                    className="text-purply_blue font-weight_700 text-right"
+                    className="text-purply_blue text-right font-nunito-bold"
                   />
                 )}
               </TouchableOpacity>
@@ -123,7 +160,7 @@ export const ObjectDetail = () => {
             <View className="ml-2 mt-2 pb-10">
               <AppText
                 text="Beschreibung"
-                className=" font-weight_800 text-font-14 mb-2"
+                className=" mb-2 text-sm font-nunito-800"
               />
               <AppText
                 className=" font-weight_300 text-grey"
@@ -146,24 +183,24 @@ export const ObjectDetail = () => {
                 setShowMoreBasicRoom(false);
                 setShowBtnshowMore(false);
               }}
-              className=" -mt-7 ml-auto mr-2 w-4/12"
+              className="-mt-7 ml-auto mr-2 w-4/12"
             >
               <AppText
                 text="mehr ..."
-                className="text-purply_blue font-weight_700 text-right"
+                className="text-purply_blue text-right font-nunito-bold"
               />
             </TouchableOpacity>
           </View>
-          <View className="mx-2 mt-5 flex  flex-row items-center justify-around ">
+          <View className="mx-2 mt-5 flex flex-row items-center justify-around ">
             <View className="">
-              <TouchableOpacity className="bg-black_1  h-12 w-12  items-center justify-center rounded-full ">
+              <TouchableOpacity className="h-12 w-12 items-center justify-center rounded-full bg-black_1">
                 <LoveIcon />
               </TouchableOpacity>
             </View>
-            <TouchableOpacity className="bg-black_1 my-auto rounded-[24px]">
+            <TouchableOpacity className="my-auto rounded-3xl bg-black_1">
               <AppText
                 text="Jetzt kontaktieren"
-                className="font-weight_300 text-font-16  mt-auto px-20 py-4 text-center text-white"
+                className="mt-auto px-20 py-4 text-center font-nunito-light text-white"
               />
             </TouchableOpacity>
           </View>

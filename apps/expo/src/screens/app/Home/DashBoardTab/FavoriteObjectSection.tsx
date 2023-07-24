@@ -1,23 +1,25 @@
 import React from "react";
-import { Dimensions, Image, View } from "react-native";
+import { Dimensions, Image, TouchableOpacity, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import { type CarouselRenderItemInfo } from "react-native-reanimated-carousel/lib/typescript/types";
 
 import { api, type RouterOutputs } from "~/utils/api";
+import { genImageUrl } from "~/utils/imageUrl";
+import { useAppNavigation } from "~/components/navigation/useAppNavigation";
 import { ButtonAddFavorite } from "~/components/ui";
 import { AppText } from "~/components/ui/AppText";
 
 export const FavoriteObjectSection = () => {
   const width = Dimensions.get("window").width;
 
-  const { data } = api.favorite.list.useQuery({ page: 1, limit: 100 });
+  const { data } = api.favorite.list.useQuery();
 
   return (
     <View className="px-8">
       <AppText text="Favorite objects" large className="text-placeholder" />
       <View className="-mx-8">
         <Carousel
-          data={data?.data ?? []}
+          data={data ?? []}
           width={width}
           height={330}
           renderItem={FavoriteObjectItem}
@@ -37,11 +39,11 @@ export const FavoriteObjectSection = () => {
   );
 };
 
-type FavoriteItem = RouterOutputs["favorite"]["list"]["data"][number];
+type FavoriteItem = RouterOutputs["favorite"]["list"][number];
 
 const FavoriteObjectItem = ({ item }: CarouselRenderItemInfo<FavoriteItem>) => {
   const utils = api.useContext();
-
+  const navigation = useAppNavigation();
   const { mutate: removeFavoriteById } = api.favorite.removeById.useMutation({
     async onSuccess() {
       await utils.favorite.list.invalidate();
@@ -49,9 +51,16 @@ const FavoriteObjectItem = ({ item }: CarouselRenderItemInfo<FavoriteItem>) => {
   });
 
   return (
-    <View className="w-full overflow-hidden rounded-3xl">
+    <TouchableOpacity
+      className="w-full overflow-hidden rounded-3xl"
+      onPress={() =>
+        navigation.push("ObjectDetail", {
+          itemId: item.searchResult.id,
+        })
+      }
+    >
       <Image
-        source={{ uri: item.searchResult.realEstate.imageUrl }}
+        source={genImageUrl(item.searchResult.realEstate.imageUrl)}
         alt={item.searchResult.realEstate.title}
         className="h-full w-full"
       />
@@ -61,6 +70,6 @@ const FavoriteObjectItem = ({ item }: CarouselRenderItemInfo<FavoriteItem>) => {
           onPressSelect={() => removeFavoriteById(item.id)}
         />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
