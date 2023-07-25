@@ -36,6 +36,8 @@ config.resolver.assetExts = config.resolver.assetExts.filter(
   (/** @type {string} */ ext) => ext !== "svg",
 );
 
+config.resolver.resolverMainFields.unshift("sbmodern");
+
 // @see https://github.com/facebook/react-native/issues/36794#issuecomment-1500880284
 config.server = {
   rewriteRequestUrl: (/** @type {string} */ url) => {
@@ -48,7 +50,7 @@ config.server = {
       url +
       "?platform=ios&dev=true&minify=false&modulesOnly=false&runModule=true"
     );
-  }, 
+  },
 };
 
 module.exports = config;

@@ -51,3 +51,5 @@ yarn-error.log*
 apps/expo/src/@generated/*.ts
 
 .build
+
+storybook.requires.js

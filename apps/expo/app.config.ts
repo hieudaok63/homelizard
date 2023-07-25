@@ -38,6 +38,7 @@ const defineConfig = (): ExpoConfig => ({
     },
     CLERK_PUBLISHABLE_KEY,
     EXPO_PUBLIC_API_URL: process.env.EXPO_PUBLIC_API_URL,
+    EXPO_PUBLIC_STORYBOOK_ENABLED: process.env.EXPO_PUBLIC_STORYBOOK_ENABLED,
   },
   plugins: [
     "./expo-plugins/with-modify-gradle.js",
