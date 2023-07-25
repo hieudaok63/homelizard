@@ -5,13 +5,19 @@ import { Image } from "expo-image";
 import { cn } from "@homelizard/tailwind-config/utils";
 
 import { api } from "~/utils/api";
+import { AppHeader } from "../AppHeader";
 
 interface UserAvatarProps {
   className?: string;
   style?: StyleProp<ViewStyle>;
+  backButton?: boolean;
 }
 
-export const UserAvatar = ({ className, style }: UserAvatarProps) => {
+export const UserAvatar = ({
+  className,
+  style,
+  backButton,
+}: UserAvatarProps) => {
   const { data } = api.profile.signedProfileImageUrl.useQuery();
   return (
     <View
@@ -21,6 +27,8 @@ export const UserAvatar = ({ className, style }: UserAvatarProps) => {
         className,
       )}
     >
+      {backButton && <AppHeader />}
+
       {data?.url && (
         // eslint-disable-next-line jsx-a11y/alt-text
         <Image

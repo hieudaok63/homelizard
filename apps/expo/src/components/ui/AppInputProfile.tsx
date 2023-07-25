@@ -29,6 +29,7 @@ export interface AppInputProfileProps extends TextInputProps {
   maxLength?: number;
   keyboardType?: KeyboardTypeOptions;
   error?: string;
+  touched?: boolean;
   returnKeyType?: ReturnKeyTypeOptions | undefined;
   containerStyle?: StyleProp<ViewStyle>;
   style?: StyleProp<ViewStyle>;
@@ -40,6 +41,7 @@ export interface AppInputProfileProps extends TextInputProps {
   rightIconProps?: React.ReactNode;
   classIconRight?: string;
   inputPhoneNumber?: boolean;
+  onPressRightInput?: () => void;
 }
 
 export const AppInputProfile = forwardRef<
@@ -64,6 +66,7 @@ export const AppInputProfile = forwardRef<
     onFocusCallback,
     onInputPressIn,
     onBlur,
+    onPressRightInput,
 
     classIconRight,
     rightIconProps,
@@ -140,7 +143,12 @@ export const AppInputProfile = forwardRef<
           />
 
           {rightIconProps && (
-            <View className={cn("pl-2", classIconRight)}>{rightIconProps}</View>
+            <TouchableOpacity
+              onPress={onPressRightInput}
+              className={cn("pl-2", classIconRight)}
+            >
+              {rightIconProps}
+            </TouchableOpacity>
           )}
         </View>
         {error && (

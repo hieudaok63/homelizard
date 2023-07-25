@@ -4,6 +4,7 @@ import DateTimePicker, {
   DateTimePickerAndroid,
   type AndroidNativeProps,
 } from "@react-native-community/datetimepicker";
+import dayjs from "dayjs";
 
 import { generateBoxShadowStyle } from "~/utils/helpers";
 import { PopupModal } from "~/components/ui";
@@ -11,20 +12,23 @@ import { PopupModal } from "~/components/ui";
 export const styleBoxShadow = generateBoxShadowStyle("shadowDate");
 
 interface IDatePickerProfile {
-  isShowModalVisible: boolean;
-  setIsHideModalVisible: () => boolean;
+  showDatePicker: boolean;
+  setShowDatePicker: (value: React.SetStateAction<boolean>) => void;
+  setValueDate?: any;
 }
 
 export const DatePickerProfile = ({
-  isShowModalVisible,
-  setIsHideModalVisible,
+  showDatePicker,
+  setShowDatePicker,
+  setValueDate,
 }: IDatePickerProfile) => {
   const datePickerProps: AndroidNativeProps = useMemo(
     () => ({
       value: new Date(),
+
       onChange: (e) => {
         if (e?.nativeEvent?.timestamp) {
-          console.log({ e: e?.nativeEvent?.timestamp });
+          setValueDate(new Date(e?.nativeEvent?.timestamp));
         }
       },
       mode: "date",
@@ -35,8 +39,10 @@ export const DatePickerProfile = ({
 
   return (
     <PopupModal
-      modalVisible={isShowModalVisible}
-      hideModal={setIsHideModalVisible}
+      modalVisible={showDatePicker}
+      hideModal={() => {
+        setShowDatePicker(false);
+      }}
       top="30%"
     >
       {Platform?.OS === "android" ? (
@@ -49,7 +55,7 @@ export const DatePickerProfile = ({
             style={styleBoxShadow}
           >
             <Text className="text-5xl font-weight_400 text-black">
-              {/* {dayjs("01|02|2000").format("DD | MM | YYYY")} */}
+              {dayjs("01|02|2000").format("DD | MM | YYYY")}
             </Text>
           </TouchableOpacity>
         </View>

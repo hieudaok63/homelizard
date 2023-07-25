@@ -1,95 +1,239 @@
-import React, { useState } from "react";
-import { TouchableOpacity, View } from "react-native";
+import React, { useRef, useState } from "react";
+import { FlatList, Linking, View } from "react-native";
+import Toast from "react-native-toast-message";
+import * as DocumentPicker from "expo-document-picker";
 import { useTranslation } from "react-i18next";
 
-import CvIcon from "@assets/icons/CvIcon.svg";
 import DefaultYellowIcon from "@assets/icons/DefaultYellowIcon.svg";
 import GoogleDriveIcon from "@assets/icons/GoogleDriveIcon.svg";
 import IconPlus from "@assets/icons/IconPlus.svg";
 
-import { BottomSheet, ButtonActionMain } from "~/components/ui";
-import { AppText } from "~/components/ui/AppText";
+import { api } from "~/utils/api";
+import ModalAddFile from "~/components/Profile/Modal/ModalAddFile";
+import ModalOpenFile from "~/components/Profile/Modal/ModalOpenFile";
+import ModalUpdateInfoFile from "~/components/Profile/Modal/ModalUpdateInfoFile";
+import { ButtonActionMain } from "~/components/ui";
 import { HeaderForm, LayoutForm } from "~/components/ui/Profile";
 import { UploadFile } from "~/components/ui/UploadFile";
+import { useApplicationLoadingStore } from "~/zustand/store";
 import { LayoutBasicInfo } from "./_layout";
 
-export const listAction = ["Upload File", "Add link"];
-
+type ItemListProfileCVType = {
+  id: string;
+  url: string;
+  blobName: any;
+  cvType: string;
+  fileType: string;
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
+};
 export const CurriculumVitaeSection = () => {
   const { t } = useTranslation();
-  const [showModalAdd, setShowModalAdd] = useState(false);
+  const trpc = api.useContext();
+  const [showModalAdd, setShowModalAdd] = useState<boolean>(false);
+  const [showModalOpen, setShowModalOpen] = useState<boolean>(false);
+  const [selectFile, setSelectFile] = useState<ItemListProfileCVType>();
+  const [isAddLink, setIsAddLink] = useState<boolean>(false);
+  const [singleFile, setSingleFile] = useState(null);
+  const refList = useRef<any>(null);
+  const setLoading = useApplicationLoadingStore((state) => state.setLoading);
+  const { data, isLoading } = api.profile.listProfileCV.useQuery({
+    page: 1,
+    limit: 50,
+  });
+  console.log({ data });
 
+  //upload link
+  const addLinkCV = api.profile.addCVByLink.useMutation({
+    onSuccess: async () => {
+      setIsAddLink(false);
+      setLoading(false);
+      Toast?.show({
+        type: "success",
+        text1: "Link upload successful!",
+        visibilityTime: 5000,
+      });
+      await trpc.profile.listProfileCV.invalidate();
+    },
+  });
+
+  const handleActionAddLink = async (params: {
+    blobName: string;
+    link: string;
+  }) => {
+    await setIsAddLink(false);
+    setLoading(true);
+
+    await addLinkCV.mutateAsync(params);
+  };
+
+  //upload file
+  const handleUploadFile = async (params: any) => {
+    try {
+      const result = await DocumentPicker.getDocumentAsync({
+        copyToCacheDirectory: true,
+        type: "*/*",
+      });
+
+      if (result.type === "success") {
+        // Printing the log realted to the file
+        callApiUploadFile(result);
+        // Setting the state to show single file attributes
+        // setSingleFile(result);
+      }
+    } catch (err) {
+      setSingleFile(null);
+      console.warn(err);
+      return false;
+    }
+  };
+  const getBlob = async (fileUri: string) => {
+    const resp = await fetch(fileUri);
+    const imageBody = await resp.blob();
+    return imageBody;
+  };
+  const callApiUploadFile = async (image: any) => {
+    if (!image) {
+      return;
+    }
+    setLoading(true);
+    const imageBlob = await getBlob(image.uri);
+
+    const { url } = await trpc.client.profile.signUploadFileUrl.query({
+      fileSize: imageBlob.size,
+      blobName: image?.name,
+      fileType: imageBlob?.type,
+    });
+    const { url: urlImageOnline } =
+      await trpc.client.profile.signedFileUrl.query({
+        blobName: image?.name,
+        fileType: "curriculumVitae",
+      });
+
+    await fetch(url, {
+      method: "PUT",
+      body: imageBlob,
+    });
+
+    Toast?.show({
+      type: "success",
+      text1: "File upload successful!",
+      visibilityTime: 5000,
+    });
+    await trpc.profile.listProfileCV.invalidate();
+    setLoading(false);
+  };
+  //delete item
+  const { mutate: removeFileCV } = api.profile.removeFile.useMutation({
+    onSuccess: async (value) => {
+      console.log({ value });
+
+      Toast?.show({
+        type: "success",
+        text1: "File deletion successful!",
+        visibilityTime: 5000,
+      });
+      await trpc.profile.listProfileCV.invalidate();
+    },
+  });
+  const deleteFile = (id?: string) => {
+    console.log({ id }, { selectFile });
+    if (id) {
+      removeFileCV({ fileId: id });
+    }
+  };
+  //
+  const openFile = async (value?: ItemListProfileCVType) => {
+    if (value?.cvType === "link") {
+      Linking.openURL(value.url || "");
+    } else {
+      const { url: urlImageOnline } =
+        await trpc.client.profile.signedFileUrl.query({
+          blobName: value?.blobName,
+          fileType: "curriculumVitae",
+        });
+      console.log({ urlImageOnline });
+      Linking.openURL(urlImageOnline || "");
+    }
+  };
+  //ui
+  const renderItem = ({ item, index }) => {
+    const { blobName, cvType, updatedAt } = item;
+    return (
+      <UploadFile
+        titleFile={blobName}
+        typeFileUpload={cvType}
+        onPress={() => {
+          setShowModalOpen(true);
+          setSelectFile(item);
+        }}
+        iconLeft={<GoogleDriveIcon />}
+        dateCreate={updatedAt}
+      />
+    );
+  };
+  if (!data) return null;
   return (
-    <LayoutBasicInfo>
-      <LayoutForm>
-        <View className="mt-5 h-[80%] rounded-[45px] bg-white">
-          <HeaderForm
-            iconLeft={<DefaultYellowIcon />}
-            title="Curriculum vitae"
-            progress={90}
-            variant="yellow"
-          />
-          <View>
-            <UploadFile
-              titleFile="2021_CV.pdf"
-              typeFileUpload="cv"
-              onPress={() => alert(1)}
-              iconLeft={<CvIcon />}
-              dateCreate="10 Oct 2021"
+    <>
+      <LayoutBasicInfo>
+        <LayoutForm>
+          <View className="mt-5 h-[80%] rounded-[45px] bg-white">
+            <HeaderForm
+              iconLeft={<DefaultYellowIcon />}
+              title="Curriculum vitae"
+              progress={
+                data.data?.length < 11
+                  ? Number(data.data?.length / 10) * 100
+                  : 100
+              }
+              variant="yellow"
             />
-            <UploadFile
-              titleFile="CV_Updated.pdf"
-              typeFileUpload="drive"
-              onPress={() => alert(1)}
-              iconLeft={<GoogleDriveIcon />}
-              dateCreate="10 Oct 2021"
+            <FlatList
+              style={{ flex: 1 }}
+              data={data?.data}
+              showsVerticalScrollIndicator={false}
+              renderItem={renderItem}
+              ListFooterComponent={() => {
+                return (
+                  <ButtonActionMain
+                    title="Add"
+                    isProgressbar={false}
+                    onPress={() => setShowModalAdd(true)}
+                    progress={0}
+                    styleBoxShadowBtn={false}
+                    IconRightProps={<IconPlus />}
+                    classTitleButton="text-grey text-font-25"
+                    activeOpacity={0.5}
+                    classButton="border-b border-r-0 border-placeholder mb-16 rounded-none w-11/12"
+                    variant="yellow"
+                  />
+                );
+              }}
             />
           </View>
-          <ButtonActionMain
-            title="Add"
-            isProgressbar={false}
-            onPress={() => setShowModalAdd(true)}
-            progress={0}
-            styleBoxShadowBtn={false}
-            IconRightProps={<IconPlus />}
-            classTitleButton="text-grey text-font-25"
-            activeOpacity={0.5}
-            classButton="w-full border-b border-placeholder"
-          />
-        </View>
-
-        <BottomSheet
-          show={showModalAdd}
-          height={500}
-          onOuterClick={() => setShowModalAdd(false)}
-          setShow={() => setShowModalAdd(false)}
-          className="opacity-0"
-        >
-          <View>
-            <View className="border-color_gray  border-b p-6">
-              <AppText
-                text="Add CV"
-                className="text-placeholder text-font-24 font-weight_400 text-center"
-              />
-            </View>
-
-            {listAction?.map((item) => (
-              <TouchableOpacity
-                key={item}
-                className="border-color_gray flex-row justify-center border-b py-4"
-                onPress={() => {
-                  setShowModalAdd(false);
-                }}
-              >
-                <AppText
-                  text={item}
-                  className="text-blue_1 text-font-24 font-weight_400"
-                />
-              </TouchableOpacity>
-            ))}
-          </View>
-        </BottomSheet>
-      </LayoutForm>
-    </LayoutBasicInfo>
+        </LayoutForm>
+      </LayoutBasicInfo>
+      <ModalAddFile
+        setShowModal={setShowModalAdd}
+        showModal={showModalAdd}
+        handleActionUploadFile={handleUploadFile}
+        handleActionAddLink={() => setIsAddLink(true)}
+      />
+      <ModalOpenFile
+        setShowModal={setShowModalOpen}
+        showModal={showModalOpen}
+        title={selectFile?.blobName}
+        openFile={() => {
+          openFile(selectFile);
+        }}
+        handleActionRemove={() => deleteFile(selectFile?.id)}
+      />
+      <ModalUpdateInfoFile
+        isShow={isAddLink}
+        onSave={(value) => handleActionAddLink(value)}
+        setIsShow={() => setIsAddLink(false)}
+      />
+    </>
   );
 };

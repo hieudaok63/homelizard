@@ -1,7 +1,7 @@
 import { clerkClient } from "@clerk/nextjs/api";
 import { z } from "zod";
 
-import { genderSchema } from "@homelizard/schema";
+import { genderSchema, type Gender } from "@homelizard/schema";
 
 import { MOBILE_PHONE_REGEX } from "../constant/base.constant";
 import { EmailNotFound, UserNotFound } from "../exceptions/errors";
@@ -124,13 +124,16 @@ export const userRouter = createTRPCRouter({
 
         return newPlaceOfWork;
       }
-      return ctx.prisma.placeOfWork.update({
+      const newUser = ctx.prisma.placeOfWork.update({
         where: { id: user?.placeOfWorkId },
         data: {
           ...input,
           address: { update: input.address },
         },
       });
+      return newUser as typeof newUser & {
+        gender: Gender;
+      };
     }),
 
   userInfo: protectedProcedure.query(async ({ ctx }) => {
@@ -146,6 +149,8 @@ export const userRouter = createTRPCRouter({
       throw new UserNotFound();
     }
 
-    return user;
+    return user as typeof user & {
+      gender: Gender;
+    };
   }),
 });

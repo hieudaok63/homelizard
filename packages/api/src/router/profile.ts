@@ -157,7 +157,7 @@ export const profileRouter = createTRPCRouter({
       if (!userOwnFile) {
         throw new Error(`You can only remove your own file`);
       }
-      const fileDeleted = ctx.prisma.file.delete({
+      const fileDeleted = await ctx.prisma.file.delete({
         where: { id: input.fileId },
       });
 
@@ -184,6 +184,7 @@ export const profileRouter = createTRPCRouter({
     .input(
       z.object({
         link: z.string().url(),
+        blobName: z.string().min(1),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -194,6 +195,7 @@ export const profileRouter = createTRPCRouter({
         data: {
           cvType: "link",
           url: input.link,
+          blobName: input.blobName,
           fileType: fileTypeOptions[0],
           user: { connect: { id: user?.id } },
         },

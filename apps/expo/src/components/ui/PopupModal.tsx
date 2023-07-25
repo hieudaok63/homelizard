@@ -4,6 +4,8 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   View,
+  type StyleProp,
+  type ViewStyle,
 } from "react-native";
 
 interface IProps {
@@ -11,10 +13,11 @@ interface IProps {
   hideModal: () => void;
   children: React.ReactNode;
   top?: string | number;
+  style?: StyleProp<ViewStyle>;
 }
 
 export const PopupModal = (props: IProps) => {
-  const { modalVisible, hideModal, children, top } = props;
+  const { modalVisible, hideModal, children, top, style } = props;
   return (
     <View>
       <Modal
@@ -27,7 +30,7 @@ export const PopupModal = (props: IProps) => {
           <View style={styles.modalOverlay} />
         </TouchableWithoutFeedback>
 
-        <View style={[styles.modalContent, { top: top || "40%" }]}>
+        <View style={[styles.modalContent, { top: top || "40%" }, style]}>
           {children}
         </View>
       </Modal>

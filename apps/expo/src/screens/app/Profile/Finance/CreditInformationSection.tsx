@@ -55,7 +55,6 @@ export const CreditInformationSection = ({
             <ArrowDownIcon fill="#000000" />
           )
         }
-        onPressIconRight={() => setShowListOption((pre) => !pre)}
         styleBoxShadowBtn={true}
         classButton={cn(
           "rounded-none",
@@ -74,7 +73,6 @@ export const CreditInformationSection = ({
           />
           <ButtonProfile
             onPress={() => alert(1)}
-            onPressIconRight={() => alert(1)}
             variant="blue"
             progress={20}
             title="Bonitätsangaben"
@@ -83,7 +81,6 @@ export const CreditInformationSection = ({
           />
           <ButtonProfile
             onPress={() => alert(1)}
-            onPressIconRight={() => alert(1)}
             variant="blue"
             progress={20}
             title="Wohnorte"
@@ -92,7 +89,6 @@ export const CreditInformationSection = ({
           />
           <ButtonProfile
             onPress={() => alert(1)}
-            onPressIconRight={() => alert(1)}
             variant="blue"
             progress={20}
             title="Familienstand"
@@ -101,7 +97,6 @@ export const CreditInformationSection = ({
           />
           <ButtonProfile
             onPress={() => alert(1)}
-            onPressIconRight={() => alert(1)}
             variant="blue"
             progress={20}
             title="Laufende Kredite"
@@ -110,7 +105,6 @@ export const CreditInformationSection = ({
           />
           <ButtonProfile
             onPress={() => alert(1)}
-            onPressIconRight={() => alert(1)}
             variant="blue"
             progress={20}
             title="Eigentum"
@@ -119,13 +113,12 @@ export const CreditInformationSection = ({
           />
           <ButtonProfile
             onPress={() => alert(1)}
-            onPressIconRight={() => alert(1)}
             variant="blue"
             progress={20}
             title="Investments"
             description="Unternehmensbeteiligungen"
             IconLeftProps
-            lastItemButton
+            isLastItem
           />
         </View>
       )}

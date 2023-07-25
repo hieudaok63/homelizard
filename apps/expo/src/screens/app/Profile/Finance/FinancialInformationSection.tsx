@@ -57,7 +57,6 @@ export const FinancialInformationSection = ({
             <ArrowDownIcon fill="#000000" />
           )
         }
-        onPressIconRight={() => setShowListOption((pre) => !pre)}
         styleBoxShadowBtn={true}
         classButton={cn(
           "rounded-none",
@@ -76,7 +75,6 @@ export const FinancialInformationSection = ({
           />
           <ButtonProfile
             onPress={() => alert(1)}
-            onPressIconRight={() => alert(1)}
             variant="blue"
             progress={20}
             title="Basisdaten"
@@ -85,7 +83,6 @@ export const FinancialInformationSection = ({
           />
           <ButtonProfile
             onPress={() => alert(1)}
-            onPressIconRight={() => alert(1)}
             variant="blue"
             progress={20}
             title="Basisdaten"
@@ -94,13 +91,12 @@ export const FinancialInformationSection = ({
           />
           <ButtonProfile
             onPress={() => alert(1)}
-            onPressIconRight={() => alert(1)}
             variant="blue"
             progress={20}
             title="Basisdaten"
             description="Titel, Namen, Beruf, Geburtsdaten"
             IconLeftProps
-            lastItemButton
+            isLastItem
           />
         </View>
       )}

@@ -42,14 +42,12 @@ const defineConfig = (): ExpoConfig => ({
   plugins: [
     "./expo-plugins/with-modify-gradle.js",
     ["expo-image-picker"],
-    // [
-    //   "expo-build-properties",
-    //   {
-    //     ios: {
-    //       flipper: true,
-    //     },
-    //   },
-    // ],
+    [
+      "expo-document-picker",
+      {
+        iCloudContainerEnvironment: "Development",
+      },
+    ],
   ],
 });
 

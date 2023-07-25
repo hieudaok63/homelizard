@@ -8,6 +8,7 @@ import DefaultYellowIcon from "@assets/icons/DefaultYellowIcon.svg";
 import { ButtonProfile } from "~/components/Profile";
 import { useAppNavigation } from "~/components/navigation/useAppNavigation";
 import { ButtonActionMain } from "~/components/ui";
+import { progressSlice } from "~/zustand/store";
 
 interface ContactDetailSection {
   isShowModal: boolean;
@@ -23,6 +24,14 @@ export const ContactDetailSection = ({
 }: ContactDetailSection) => {
   const navigation = useAppNavigation();
 
+  const {
+    addressProgress,
+    basicInformationProgress,
+    contactDetailProgress,
+    emailAndWebProgress,
+    mobilePhoneProgress,
+  } = progressSlice((state) => state);
+
   return (
     <View className="mt-8 overflow-hidden rounded-[40px]">
       <ButtonActionMain
@@ -30,7 +39,7 @@ export const ContactDetailSection = ({
         title={title}
         IconLeftProps={<DefaultYellowIcon />}
         variant="yellow"
-        progress={41}
+        progress={contactDetailProgress}
         isProgressbar
         isFill
         IconRightProps={
@@ -40,7 +49,6 @@ export const ContactDetailSection = ({
             <ArrowDownIcon fill="#000000" />
           )
         }
-        onPressIconRight={() => setShowListOption((pre) => !pre)}
         styleBoxShadowBtn={true}
         classButton="rounded-none mb-3"
         activeOpacity={0.8}
@@ -53,28 +61,28 @@ export const ContactDetailSection = ({
               <ButtonProfile
                 onPress={() => navigation.navigate("BasicInfoSection")}
                 variant="yellow"
-                progress={20}
+                progress={basicInformationProgress}
                 title="Basisdaten"
                 description="Titel, Namen, Beruf, Geburtsdaten"
               />
               <ButtonProfile
                 onPress={() => navigation.navigate("MobilePhoneSection")}
                 variant="yellow"
-                progress={20}
+                progress={mobilePhoneProgress}
                 title="Mobile phone"
                 description="Telefonische Erreichbarkeit"
               />
               <ButtonProfile
                 onPress={() => navigation.navigate("EmailAndWebSection")}
                 variant="yellow"
-                progress={20}
+                progress={emailAndWebProgress}
                 description="Email- und Web-Adressen"
                 title="Email & web"
               />
               <ButtonProfile
                 onPress={() => navigation.navigate("AddressSection")}
                 variant="yellow"
-                progress={20}
+                progress={addressProgress}
                 title="Adressen"
                 description="Wo und wie arbeiten Sie?"
                 isLastItem

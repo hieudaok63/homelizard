@@ -12,6 +12,7 @@ export type TabStackParams = {
   ListBasicSection: undefined;
   MobilePhoneSection: undefined;
   PlaceOfWorkSection: undefined;
+  LocationSection: undefined;
   ProfileScreen: undefined;
 
   //Finance

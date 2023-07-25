@@ -6,6 +6,7 @@ import {
   CurriculumVitaeSection,
   EmailAndWebSection,
   ListBasicSection,
+  LocationSection,
   MobilePhoneSection,
   PlaceOfWorkSection,
 } from "./BasicInformation";
@@ -94,6 +95,13 @@ const ProfileStack = () => {
         <Stack.Screen
           name="ListFavoriteSection"
           component={ListFavoriteSection}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="LocationSection"
+          component={LocationSection}
           options={{
             headerShown: false,
           }}

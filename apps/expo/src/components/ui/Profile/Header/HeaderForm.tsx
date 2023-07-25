@@ -19,10 +19,10 @@ export const HeaderForm = ({
   variant,
 }: HeaderForm) => {
   return (
-    <View className=" flex w-full flex-row overflow-hidden p-2 ">
+    <View className="mt-2 flex w-full flex-row overflow-hidden p-2">
       <View className="w-2/12">{iconLeft}</View>
       <View className="w-9/12">
-        <AppText text={title} className="text-font-24" />
+        <AppText text={title} className="text-font-24 pt-2" />
         <View className="mb-2 flex w-3/5 flex-row items-center">
           <View className="bg-text_yellow mr-2 rounded-full">
             <Text className="font-weight_500 p-1">Private</Text>

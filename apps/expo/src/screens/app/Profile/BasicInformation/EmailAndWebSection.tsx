@@ -1,27 +1,117 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
+import Toast from "react-native-toast-message";
 import { z } from "zod";
 
-import CloseIcon from "@assets/icons/CloseIcon.svg";
 import DefaultYellowIcon from "@assets/icons/DefaultYellowIcon.svg";
+import IconPlus from "@assets/icons/IconPlus.svg";
 
+import { api } from "~/utils/api";
+import { type Percentage } from "~/components/ui";
 import { HeaderForm, LayoutForm } from "~/components/ui/Profile";
 import InputProfile from "~/components/ui/input/InputProfile";
 import { useZodForm } from "~/hooks/useZodForm";
+import { progressSlice } from "~/zustand/store";
 import { LayoutBasicInfo } from "./_layout";
 
 export const EmailAndWebSection = () => {
+  const utils = api.useContext();
+
+  const { data } = api.user.userInfo.useQuery();
+
+  const setEmailAndWebProgress = progressSlice(
+    (state) => state?.setEmailAndWebProgress,
+  );
+
+  const [progress, setProgress] = useState<Percentage>(0);
+
+  const TOTAL_FIELD = 2;
+
+  const DATA_FIELD = {
+    email: data?.email,
+    website: data?.website,
+  };
+
   const formSchema = z.object({
     email: z.string(),
-    web: z.string(),
+    website: z.string(),
   });
-  const { handleSubmit, control } = useZodForm({
+
+  const { handleSubmit, control, reset, setValue } = useZodForm({
     schema: formSchema,
     defaultValues: {
       email: "",
-      web: "",
+      website: "",
     },
   });
+
+  useEffect(() => {
+    if (data) {
+      reset({
+        email: data.email,
+        website: data.website as string,
+      });
+    }
+  }, [data]);
+
+  const { mutate } = api.user.update.useMutation({
+    async onSuccess() {
+      await utils.user.invalidate();
+      Toast?.show({
+        type: "success",
+        text1: "Success",
+        visibilityTime: 2000,
+      });
+    },
+    onError(err) {
+      console.log({ err: err.message });
+      Toast?.show({
+        type: "error",
+        text1: err.message,
+        visibilityTime: 2000,
+      });
+    },
+  });
+
+  const onSubmit = handleSubmit(async (data) => {
+    mutate({
+      email: data.email,
+      website: data.website,
+    });
+
+    try {
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  const elementCheck = (objarray: any) => {
+    const listArray = Object.keys(objarray);
+    let count = 0;
+
+    for (const key of listArray) {
+      const item = objarray[key];
+
+      if (item === undefined || item === "" || item === null) {
+        count++;
+      }
+    }
+
+    if (count === 0) {
+      setProgress(100);
+      setEmailAndWebProgress(100);
+    } else if (count) {
+      const numberProgress = Math.round(
+        ((TOTAL_FIELD - count) / TOTAL_FIELD) * 100,
+      ) as Percentage;
+      setProgress(numberProgress);
+      setEmailAndWebProgress(numberProgress);
+    }
+  };
+
+  useEffect(() => {
+    elementCheck(DATA_FIELD);
+  }, []);
 
   return (
     <LayoutBasicInfo>
@@ -30,7 +120,7 @@ export const EmailAndWebSection = () => {
           <HeaderForm
             iconLeft={<DefaultYellowIcon />}
             title="Email & web"
-            progress={40}
+            progress={progress}
             variant="yellow"
           />
           <InputProfile
@@ -38,14 +128,16 @@ export const EmailAndWebSection = () => {
             control={control}
             placeholder="Add Email"
             label="Email"
-            rightIconProps={<CloseIcon />}
-            classIconRight="bg-red_1 w-10 rounded-full p-2 "
+            rightIconProps={<IconPlus />}
+            onPressRightInput={onSubmit}
           />
           <InputProfile
-            name="web"
+            name="website"
             control={control}
             placeholder="Add Web"
             label="Web"
+            rightIconProps={<IconPlus />}
+            onPressRightInput={onSubmit}
           />
         </View>
       </LayoutForm>

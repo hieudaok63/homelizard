@@ -120,6 +120,9 @@ importers:
       expo-constants:
         specifier: ~14.2.1
         version: 14.2.1(expo@48.0.19)
+      expo-document-picker:
+        specifier: ^11.5.3
+        version: 11.5.3(expo@48.0.19)
       expo-font:
         specifier: ~11.1.1
         version: 11.1.1(expo@48.0.19)
@@ -3652,24 +3655,6 @@ packages:
 
   /@expo/config-types@48.0.0:
     resolution: {integrity: sha512-DwyV4jTy/+cLzXGAo1xftS6mVlSiLIWZjl9DjTCLPFVgNYQxnh7htPilRv4rBhiNs7KaznWqKU70+4zQoKVT9A==}
-
-  /@expo/config@8.0.1:
-    resolution: {integrity: sha512-mwz2vmOnwbSJfLpAx3HaaQDtItnDuC3MNFsi1j8ld8y7yBFhipa73t8qkJ4g4FG5mqgC35+kv0ejwnh7v1gROQ==}
-    dependencies:
-      '@babel/code-frame': 7.10.4
-      '@expo/config-plugins': 6.0.2
-      '@expo/config-types': 48.0.0
-      '@expo/json-file': 8.2.37
-      getenv: 1.0.0
-      glob: 7.1.6
-      require-from-string: 2.0.2
-      resolve-from: 5.0.0
-      semver: 7.3.2
-      slugify: 1.6.5
-      sucrase: 3.33.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
 
   /@expo/config@8.0.2:
     resolution: {integrity: sha512-WubrzTNNdAXy1FU8TdyQ7D9YtDj2tN3fWXDq+C8In+nB7Qc08zwH9cVdaGZ+rBVmjFZBh5ACfObKq/m9cm4QQA==}
@@ -8235,7 +8220,7 @@ packages:
     peerDependencies:
       expo: '*'
     dependencies:
-      '@expo/config': 8.0.1
+      '@expo/config': 8.0.2
       expo: 48.0.19(@babel/core@7.21.8)
       uuid: 3.4.0
     transitivePeerDependencies:
@@ -8248,6 +8233,14 @@ packages:
       expo: '*'
     dependencies:
       base64-js: 1.5.1
+      expo: 48.0.19(@babel/core@7.21.8)
+    dev: false
+
+  /expo-document-picker@11.5.3(expo@48.0.19):
+    resolution: {integrity: sha512-nneIdDIKGtU6DQfcF5YJPQdIF2CYug5LapOkktE/0Lc7nXs1O+ejQ8zHLzgbdm2VFymL8d6I6x86sNt8VheBXw==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
       expo: 48.0.19(@babel/core@7.21.8)
     dev: false
 

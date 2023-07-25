@@ -57,7 +57,6 @@ export const CreditStatusSection = ({
             <ArrowDownIcon fill="#000000" />
           )
         }
-        onPressIconRight={() => setShowListOption((pre) => !pre)}
         styleBoxShadowBtn={true}
         classButton={cn(
           "rounded-none",

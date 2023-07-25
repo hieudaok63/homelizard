@@ -42,7 +42,6 @@ export const ButtonActionMain = ({
   classTitleButton,
   activeOpacity,
   onPress,
-  onPressIconRight,
 }: ButtonActionProps) => {
   return (
     <View className="items-center justify-center">
@@ -75,9 +74,10 @@ export const ButtonActionMain = ({
           )}
         </View>
 
+        {/* TODO: get rid of embedded touchableOpacity  */}
         {IconRightProps && (
           <TouchableOpacity
-            onPress={onPressIconRight ?? onPress}
+            onPress={onPress}
             className="absolute right-1 top-1 p-2"
           >
             {IconRightProps}

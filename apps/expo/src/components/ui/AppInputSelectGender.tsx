@@ -13,13 +13,15 @@ import { AppText } from "./AppText";
 
 export interface AppInputSelectGenderProps extends TextInputProps {
   error?: string;
+  value: string;
+  onPressGender?: () => void;
 }
 
 export const AppInputSelectGender = forwardRef<
   TextInput,
   AppInputSelectGenderProps & ViewProps
->(function AppInputSelectGender(props) {
-  const { placeholder, error } = props;
+>(function AppInputSelectGender(props, ref) {
+  const { placeholder, error, value, onPressGender } = props;
 
   const innerRef = useRef<TextInput | null>(null);
 
@@ -31,17 +33,15 @@ export const AppInputSelectGender = forwardRef<
             <Text className="text-placeholder  text-font-16 -mt-0  w-4/12">
               {placeholder}
             </Text>
-            <TouchableOpacity className="w-10/12 pl-1" onPress={() => {}}>
+            <TouchableOpacity className="w-10/12 pl-1" onPress={onPressGender}>
               <AppText
-                text="Male"
+                text={value}
                 className="font-weight_500 w-10/12 text-[18px] text-black"
               />
             </TouchableOpacity>
           </View>
         </View>
-        {error && (
-          <Text className="text-red_1 pl-32  ">{error?.toString()}</Text>
-        )}
+        {error && <Text className="text-red_1 pl-32  ">{error?.toString()}</Text>}
       </View>
     </TouchableWithoutFeedback>
   );

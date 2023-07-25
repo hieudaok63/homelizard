@@ -46,7 +46,6 @@ export const ProfessionSection = ({
             <ArrowDownIcon fill="#000000" />
           )
         }
-        onPressIconRight={() => setShowListOption((pre) => !pre)}
         styleBoxShadowBtn={true}
         classButton={cn(
           "rounded-none mb-3",
@@ -61,7 +60,6 @@ export const ProfessionSection = ({
             <>
               <ButtonProfile
                 onPress={() => navigateScreen("PlaceOfWorkSection")}
-                onPressIconRight={() => navigateScreen("PlaceOfWorkSection")}
                 variant="yellow"
                 progress={20}
                 title="Arbeitsplatz"
@@ -69,14 +67,11 @@ export const ProfessionSection = ({
               />
               <ButtonProfile
                 onPress={() => navigateScreen("CurriculumVitaeSection")}
-                onPressIconRight={() =>
-                  navigateScreen("CurriculumVitaeSection")
-                }
                 variant="yellow"
                 progress={20}
                 title="Curriculum vitae"
                 description="Ausbildung, Qualifikation"
-                lastItemButton
+                isLastItem
               />
             </>
           )}

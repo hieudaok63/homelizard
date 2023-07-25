@@ -30,7 +30,6 @@ export const MyProfileTab = () => {
             IconLeftProps={<PeopleIcon />}
             IconRightProps={<ArrowRightIcon fill="#000000" />}
             progress={10}
-            onPressIconRight={() => navigation.navigate("ListBasicSection")}
             styleBoxShadowBtn
             variant="yellow"
           />
@@ -46,7 +45,6 @@ export const MyProfileTab = () => {
             IconLeftProps
             IconRightProps={<ArrowRightIcon fill="#000000" />}
             progress={10}
-            onPressIconRight={() => navigation.navigate("ListFinanceSection")}
             styleBoxShadowBtn
             variant="blue"
           />
@@ -62,9 +60,6 @@ export const MyProfileTab = () => {
             IconLeftProps
             IconRightProps={<ArrowRightIcon fill="#000000" />}
             progress={30}
-            onPressIconRight={() =>
-              navigation?.navigate("ListSearchHistorySection")
-            }
             styleBoxShadowBtn
             variant="turquoise"
           />
@@ -79,7 +74,6 @@ export const MyProfileTab = () => {
             IconLeftProps={<LoveIcon />}
             IconRightProps={<ArrowRightIcon fill="#000000" />}
             progress={30}
-            onPressIconRight={() => navigation.navigate("ListFavoriteSection")}
             styleBoxShadowBtn
             variant="pink"
           />

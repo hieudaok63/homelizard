@@ -5,3 +5,4 @@ export * from "./CurriculumVitaeSection";
 export * from "./EmailAndWebSection";
 export * from "./MobilePhoneSection";
 export * from "./PlaceOfWorkSection";
+export * from "./LocationSection";
