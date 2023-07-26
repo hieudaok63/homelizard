@@ -6,11 +6,10 @@ import { z } from "zod";
 
 import { MOBILE_PHONE_REGEX } from "@homelizard/api/src/constant/base.constant";
 
-import DefaultYellowIcon from "@assets/icons/DefaultYellowIcon.svg";
 import IconPlus from "@assets/icons/IconPlus.svg";
 
 import { api } from "~/utils/api";
-import { type Percentage } from "~/components/ui";
+import { SpeechBubbleIcon, type Percentage } from "~/components/ui";
 import { HeaderForm, LayoutForm } from "~/components/ui/Profile";
 import InputProfile from "~/components/ui/input/InputProfile";
 import { useZodForm } from "~/hooks/useZodForm";
@@ -107,7 +106,7 @@ export const MobilePhoneSection = () => {
       <LayoutForm>
         <View className="mt-5 h-[70%] rounded-[45px] bg-white">
           <HeaderForm
-            iconLeft={<DefaultYellowIcon />}
+            iconLeft={<SpeechBubbleIcon color="yellow" />}
             title="Mobile phone"
             progress={progress}
             variant="yellow"

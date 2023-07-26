@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { z } from "zod";
 
-import DefaultYellowIcon from "@assets/icons/DefaultYellowIcon.svg";
 import SearchIcon from "@assets/icons/SearchIcon.svg";
 
 import { useAppNavigation } from "~/components/navigation/useAppNavigation";
@@ -11,6 +10,7 @@ import InputProfile from "~/components/ui/input/InputProfile";
 import { useZodForm } from "~/hooks/useZodForm";
 import { locationSlice } from "~/zustand/store";
 import { LayoutBasicInfo } from "./_layout";
+import { SpeechBubbleIcon } from "~/components/ui";
 
 export const AddressSection = () => {
   const navigation = useAppNavigation();
@@ -40,7 +40,7 @@ export const AddressSection = () => {
       <LayoutForm>
         <View className="mt-5 h-[80%] rounded-[45px] bg-white">
           <HeaderForm
-            iconLeft={<DefaultYellowIcon />}
+            iconLeft={<SpeechBubbleIcon color="yellow" />}
             title="Address"
             progress={50}
             variant="yellow"

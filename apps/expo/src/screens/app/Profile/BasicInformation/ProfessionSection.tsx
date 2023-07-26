@@ -5,11 +5,10 @@ import { cn } from "@homelizard/tailwind-config/utils";
 
 import ArrowDownIcon from "@assets/icons/ArrowDownIcon.svg";
 import ArrowUpIcon from "@assets/icons/ArrowUpIcon.svg";
-import DefaultYellowIcon from "@assets/icons/DefaultYellowIcon.svg";
 
 import { ButtonProfile } from "~/components/Profile";
 import { useAppNavigation } from "~/components/navigation/useAppNavigation";
-import { ButtonActionMain } from "~/components/ui";
+import { ButtonActionMain, SpeechBubbleIcon } from "~/components/ui";
 
 interface ProfessionSectionProps {
   isShowModal: boolean;
@@ -26,16 +25,12 @@ export const ProfessionSection = ({
 }: ProfessionSectionProps) => {
   const navigation = useAppNavigation();
 
-  const navigateScreen = (screen: string) => {
-    return navigation.navigate(screen);
-  };
-
   return (
     <>
       <ButtonActionMain
         onPress={() => setShowListOption((pre) => !pre)}
         title={title}
-        IconLeftProps={<DefaultYellowIcon />}
+        IconLeftProps={<SpeechBubbleIcon color="yellow" />}
         variant="yellow"
         progress={14}
         isProgressbar
@@ -59,14 +54,14 @@ export const ProfessionSection = ({
           {isShowModal && (
             <>
               <ButtonProfile
-                onPress={() => navigateScreen("PlaceOfWorkSection")}
+                onPress={() => navigation.navigate("PlaceOfWorkSection")}
                 variant="yellow"
                 progress={20}
                 title="Arbeitsplatz"
                 description="Wo und wie arbeiten Sie?"
               />
               <ButtonProfile
-                onPress={() => navigateScreen("CurriculumVitaeSection")}
+                onPress={() => navigation.navigate("CurriculumVitaeSection")}
                 variant="yellow"
                 progress={20}
                 title="Curriculum vitae"

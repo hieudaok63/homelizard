@@ -3,11 +3,10 @@ import { View } from "react-native";
 import Toast from "react-native-toast-message";
 import { z } from "zod";
 
-import DefaultYellowIcon from "@assets/icons/DefaultYellowIcon.svg";
 import IconPlus from "@assets/icons/IconPlus.svg";
 
 import { api } from "~/utils/api";
-import { type Percentage } from "~/components/ui";
+import { SpeechBubbleIcon, type Percentage } from "~/components/ui";
 import { HeaderForm, LayoutForm } from "~/components/ui/Profile";
 import InputProfile from "~/components/ui/input/InputProfile";
 import { useZodForm } from "~/hooks/useZodForm";
@@ -118,7 +117,7 @@ export const EmailAndWebSection = () => {
       <LayoutForm>
         <View className="mt-5 h-[80%] rounded-[45px] bg-white">
           <HeaderForm
-            iconLeft={<DefaultYellowIcon />}
+            iconLeft={<SpeechBubbleIcon color="yellow" />}
             title="Email & web"
             progress={progress}
             variant="yellow"

@@ -4,7 +4,6 @@ import Toast from "react-native-toast-message";
 import * as DocumentPicker from "expo-document-picker";
 import { useTranslation } from "react-i18next";
 
-import DefaultYellowIcon from "@assets/icons/DefaultYellowIcon.svg";
 import GoogleDriveIcon from "@assets/icons/GoogleDriveIcon.svg";
 import IconPlus from "@assets/icons/IconPlus.svg";
 
@@ -12,7 +11,11 @@ import { api } from "~/utils/api";
 import ModalAddFile from "~/components/Profile/Modal/ModalAddFile";
 import ModalOpenFile from "~/components/Profile/Modal/ModalOpenFile";
 import ModalUpdateInfoFile from "~/components/Profile/Modal/ModalUpdateInfoFile";
-import { ButtonActionMain } from "~/components/ui";
+import {
+  ButtonActionMain,
+  SpeechBubbleIcon,
+  type Percentage,
+} from "~/components/ui";
 import { HeaderForm, LayoutForm } from "~/components/ui/Profile";
 import { UploadFile } from "~/components/ui/UploadFile";
 import { useApplicationLoadingStore } from "~/zustand/store";
@@ -180,12 +183,12 @@ export const CurriculumVitaeSection = () => {
         <LayoutForm>
           <View className="mt-5 h-[80%] rounded-[45px] bg-white">
             <HeaderForm
-              iconLeft={<DefaultYellowIcon />}
+              iconLeft={<SpeechBubbleIcon color="yellow" />}
               title="Curriculum vitae"
               progress={
-                data.data?.length < 11
+                (data.data?.length < 11
                   ? Number(data.data?.length / 10) * 100
-                  : 100
+                  : 100) as Percentage
               }
               variant="yellow"
             />

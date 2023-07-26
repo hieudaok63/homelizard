@@ -8,12 +8,12 @@ import { z } from "zod";
 
 import { genderSchema } from "@homelizard/schema";
 
-import DefaultYellowIcon from "@assets/icons/DefaultYellowIcon.svg";
 import IconPlus from "@assets/icons/IconPlus.svg";
 
 import { api } from "~/utils/api";
 import { DatePickerProfile } from "~/components/Profile";
 import { ModalSelectGender } from "~/components/Profile/Modal";
+import { SpeechBubbleIcon } from "~/components/ui";
 import { HeaderForm, LayoutForm } from "~/components/ui/Profile";
 import { type Percentage } from "~/components/ui/StepProgress";
 import InputProfile from "~/components/ui/input/InputProfile";
@@ -155,7 +155,7 @@ export const BasicInfoSection = () => {
           <KeyboardAwareScrollView>
             <View className="mt-5 h-[120%] rounded-[45px] bg-white">
               <HeaderForm
-                iconLeft={<DefaultYellowIcon />}
+                iconLeft={<SpeechBubbleIcon color="yellow" />}
                 title="Basisdaten"
                 progress={progress}
                 variant="yellow"

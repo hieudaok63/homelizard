@@ -259,6 +259,9 @@ importers:
       '@storybook/addon-ondevice-actions':
         specifier: ^6.5.4
         version: 6.5.4(@storybook/addon-actions@6.5.16)(react-dom@18.2.0)(react-native@0.71.8)(react@18.2.0)
+      '@storybook/addon-ondevice-backgrounds':
+        specifier: ^6.5.4
+        version: 6.5.4(react-dom@18.2.0)(react-native@0.71.8)(react@18.2.0)
       '@storybook/addon-ondevice-controls':
         specifier: ^6.5.4
         version: 6.5.4(@emotion/core@10.3.1)(@react-native-community/datetimepicker@6.7.3)(@react-native-community/slider@4.4.2)(@storybook/addon-controls@6.5.16)(react-dom@18.2.0)(react-native@0.71.8)(react@18.2.0)
@@ -5495,6 +5498,23 @@ packages:
       '@storybook/addons': 6.5.16(react-dom@18.2.0)(react@18.2.0)
       '@storybook/core-events': 6.5.16
       fast-deep-equal: 2.0.1
+      react: 18.2.0
+      react-native: 0.71.8(@babel/core@7.21.8)(@babel/preset-env@7.21.5)(react@18.2.0)
+    transitivePeerDependencies:
+      - react-dom
+    dev: true
+
+  /@storybook/addon-ondevice-backgrounds@6.5.4(react-dom@18.2.0)(react-native@0.71.8)(react@18.2.0):
+    resolution: {integrity: sha512-HAd5RJHZbD2bKCTu3sivFIlmZ+WmAQ1aRBb2qR/fACbQHJhDGNC6ack2INOmrtx9UIlrPxOe3P8n6+0TL8xwRg==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+    dependencies:
+      '@storybook/addons': 6.5.16(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/api': 6.5.16(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/client-api': 6.5.16(react-dom@18.2.0)(react@18.2.0)
+      core-js: 3.26.1
+      prop-types: 15.8.1
       react: 18.2.0
       react-native: 0.71.8(@babel/core@7.21.8)(@babel/preset-env@7.21.5)(react@18.2.0)
     transitivePeerDependencies:

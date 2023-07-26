@@ -3,10 +3,9 @@ import React from "react";
 import { cn } from "@homelizard/tailwind-config/utils";
 
 import ArrowRightIcon from "@assets/icons/ArrowRightIcon.svg";
-import DefaultYellowIcon from "@assets/icons/DefaultYellowIcon.svg";
 
 import { type ColorGradientVariant } from "~/utils/colorGradients";
-import { ButtonActionMain, type Percentage } from "~/components/ui";
+import { ButtonActionMain, SpeechBubbleIcon, type Percentage } from "~/components/ui";
 
 interface IButtonProfile {
   onPress: () => void;
@@ -28,7 +27,7 @@ export const ButtonProfile = ({
   progress,
   variant,
   styleBoxShadowBtn,
-  IconLeftProps = <DefaultYellowIcon />,
+  IconLeftProps = <SpeechBubbleIcon color="yellow" />,
   IconRightProps = <ArrowRightIcon fill="#000000" />,
   isLastItem,
   isFirstItem,
@@ -37,7 +36,7 @@ export const ButtonProfile = ({
     <ButtonActionMain
       onPress={onPress}
       title={title}
-      IconLeftProps={IconLeftProps || <DefaultYellowIcon />}
+      IconLeftProps={IconLeftProps}
       IconRightProps={IconRightProps}
       isProgressbar
       classButton={cn(

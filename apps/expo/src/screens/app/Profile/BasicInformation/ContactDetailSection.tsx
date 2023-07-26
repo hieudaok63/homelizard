@@ -3,11 +3,10 @@ import { View } from "react-native";
 
 import ArrowDownIcon from "@assets/icons/ArrowDownIcon.svg";
 import ArrowUpIcon from "@assets/icons/ArrowUpIcon.svg";
-import DefaultYellowIcon from "@assets/icons/DefaultYellowIcon.svg";
 
 import { ButtonProfile } from "~/components/Profile";
 import { useAppNavigation } from "~/components/navigation/useAppNavigation";
-import { ButtonActionMain } from "~/components/ui";
+import { ButtonActionMain, SpeechBubbleIcon } from "~/components/ui";
 import { progressSlice } from "~/zustand/store";
 
 interface ContactDetailSection {
@@ -37,7 +36,7 @@ export const ContactDetailSection = ({
       <ButtonActionMain
         onPress={() => setShowListOption((pre) => !pre)}
         title={title}
-        IconLeftProps={<DefaultYellowIcon />}
+        IconLeftProps={<SpeechBubbleIcon color="yellow" />}
         variant="yellow"
         progress={contactDetailProgress}
         isProgressbar

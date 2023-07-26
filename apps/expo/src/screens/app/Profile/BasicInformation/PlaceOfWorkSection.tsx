@@ -8,13 +8,12 @@ import { z } from "zod";
 
 import { MOBILE_PHONE_REGEX } from "@homelizard/api/src/constant/base.constant";
 
-import DefaultYellowIcon from "@assets/icons/DefaultYellowIcon.svg";
 import SearchIcon from "@assets/icons/SearchIcon.svg";
 
 import { api } from "~/utils/api";
 import { DatePickerProfile } from "~/components/Profile";
 import { useAppNavigation } from "~/components/navigation/useAppNavigation";
-import { Button } from "~/components/ui";
+import { Button, SpeechBubbleIcon } from "~/components/ui";
 import { HeaderForm, LayoutForm } from "~/components/ui/Profile";
 import InputProfile from "~/components/ui/input/InputProfile";
 import InputSelectDate from "~/components/ui/input/InputSelectDate";
@@ -130,7 +129,7 @@ export const PlaceOfWorkSection = () => {
           <KeyboardAwareScrollView>
             <View className="mt-5 h-[105%] rounded-[45px] bg-white">
               <HeaderForm
-                iconLeft={<DefaultYellowIcon />}
+                iconLeft={<SpeechBubbleIcon color="yellow" />}
                 title="Place of work"
                 progress={50}
                 variant="yellow"
