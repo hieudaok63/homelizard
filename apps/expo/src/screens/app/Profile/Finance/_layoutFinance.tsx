@@ -1,5 +1,6 @@
 import React, { type PropsWithChildren } from "react";
-import { SafeAreaView, View } from "react-native";
+import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { AppHeader } from "~/components/AppHeader";
 import GradientPatternBackground from "~/components/ui/GradientPatternBackground";
@@ -7,13 +8,11 @@ import GradientPatternBackground from "~/components/ui/GradientPatternBackground
 export const LayoutFinance = ({ children }: PropsWithChildren) => {
   return (
     <GradientPatternBackground variant="yellow">
-      <SafeAreaView className="h-full ">
-        <View className=" pb-[33px]">
-          <View className="px-8 ">
-            <AppHeader title="Persönliche Daten" />
-          </View>
-          {children}
+      <SafeAreaView className="h-full">
+        <View className="px-8">
+          <AppHeader title="Finanzen" />
         </View>
+        {children}
       </SafeAreaView>
     </GradientPatternBackground>
   );

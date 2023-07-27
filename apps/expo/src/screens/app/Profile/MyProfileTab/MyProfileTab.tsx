@@ -2,7 +2,6 @@ import React from "react";
 import { View } from "react-native";
 import { Tabs } from "react-native-collapsible-tab-view";
 
-import ArrowRightIcon from "@assets/icons/ArrowRightIcon.svg";
 import LoveIcon from "@assets/icons/LoveIcon.svg";
 import PeopleIcon from "@assets/icons/PeopleIcon.svg";
 
@@ -16,68 +15,50 @@ export const MyProfileTab = () => {
 
   return (
     <Tabs.ScrollView>
-      <View className="mt-6 px-6">
-        <View className="pb-4">
-          <AppText text="Mein Profil" large />
-        </View>
+      <View className="p-6">
+        <AppText text="Mein Profil" large />
+      </View>
+      <View className="flex-column gap-y-2 px-6">
         {/* Personal Detail */}
-        <View className="mb-3">
-          <ButtonActionMain
-            title="Persönliche Daten"
-            description="Address,etc..."
-            onPress={() => navigation.navigate("ListBasicSection")}
-            isProgressbar
-            IconLeftProps={<PeopleIcon />}
-            IconRightProps={<ArrowRightIcon fill="#000000" />}
-            progress={10}
-            styleBoxShadowBtn
-            variant="yellow"
-          />
-        </View>
+        <ButtonActionMain
+          title="Persönliche Daten"
+          description="Address,etc..."
+          onPress={() => navigation.navigate("ListBasicSection")}
+          IconLeftProps={<PeopleIcon />}
+          progress={10}
+          isButton
+          variant="yellow"
+        />
 
         {/* Finanzen */}
-        <View className="mb-3">
-          <ButtonActionMain
-            title="Finanzen"
-            description="Finanzierung, Bank etc..."
-            onPress={() => navigation.navigate("ListFinanceSection")}
-            isProgressbar
-            IconLeftProps
-            IconRightProps={<ArrowRightIcon fill="#000000" />}
-            progress={10}
-            styleBoxShadowBtn
-            variant="blue"
-          />
-        </View>
+        <ButtonActionMain
+          title="Finanzen"
+          description="Finanzierung, Bank etc..."
+          onPress={() => navigation.navigate("ListFinanceSection")}
+          progress={10}
+          isButton
+          variant="blue"
+        />
 
         {/* Search History  */}
-        <View className="mb-3">
-          <ButtonActionMain
-            title="Suchen"
-            description="Suchen und Filter"
-            onPress={() => navigation.navigate("ListSearchHistorySection")}
-            isProgressbar
-            IconLeftProps
-            IconRightProps={<ArrowRightIcon fill="#000000" />}
-            progress={30}
-            styleBoxShadowBtn
-            variant="turquoise"
-          />
-        </View>
+        <ButtonActionMain
+          title="Suchen"
+          description="Suchen und Filter"
+          onPress={() => navigation.navigate("ListSearchHistorySection")}
+          progress={30}
+          isButton
+          variant="turquoise"
+        />
 
-        <View className="mb-3">
-          <ButtonActionMain
-            title="Objekte"
-            description="Such-Ergebnisse"
-            onPress={() => navigation.navigate("ListFavoriteSection")}
-            isProgressbar
-            IconLeftProps={<LoveIcon />}
-            IconRightProps={<ArrowRightIcon fill="#000000" />}
-            progress={30}
-            styleBoxShadowBtn
-            variant="pink"
-          />
-        </View>
+        <ButtonActionMain
+          title="Objekte"
+          description="Such-Ergebnisse"
+          onPress={() => navigation.navigate("ListFavoriteSection")}
+          IconLeftProps={<LoveIcon />}
+          progress={30}
+          isButton
+          variant="pink"
+        />
         <SignOutButton />
       </View>
     </Tabs.ScrollView>

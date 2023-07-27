@@ -1,11 +1,14 @@
 import React from "react";
-
-import { cn } from "@homelizard/tailwind-config/utils";
+import { type StyleProp, type ViewStyle } from "react-native";
 
 import ArrowRightIcon from "@assets/icons/ArrowRightIcon.svg";
 
 import { type ColorGradientVariant } from "~/utils/colorGradients";
-import { ButtonActionMain, SpeechBubbleIcon, type Percentage } from "~/components/ui";
+import {
+  ButtonActionMain,
+  SpeechBubbleIcon,
+  type Percentage,
+} from "~/components/ui";
 
 interface IButtonProfile {
   onPress: () => void;
@@ -18,6 +21,7 @@ interface IButtonProfile {
   IconRightProps?: React.ReactNode;
   isLastItem?: boolean;
   isFirstItem?: boolean;
+  style?: StyleProp<ViewStyle>;
 }
 
 export const ButtonProfile = ({
@@ -29,8 +33,7 @@ export const ButtonProfile = ({
   styleBoxShadowBtn,
   IconLeftProps = <SpeechBubbleIcon color="yellow" />,
   IconRightProps = <ArrowRightIcon fill="#000000" />,
-  isLastItem,
-  isFirstItem,
+  style,
 }: IButtonProfile) => {
   return (
     <ButtonActionMain
@@ -38,18 +41,12 @@ export const ButtonProfile = ({
       title={title}
       IconLeftProps={IconLeftProps}
       IconRightProps={IconRightProps}
-      isProgressbar
-      classButton={cn(
-        "rounded-none border-y border-color_gray",
-        isLastItem && "rounded-b-[40px]",
-        isFirstItem && "rounded-t-[40px]",
-      )}
       description={description}
-      classTitleButton="font-weight_400"
-      activeOpacity={0.8}
+      classButton="border-gray-200 border-t"
       progress={progress}
       variant={variant}
-      styleBoxShadowBtn={styleBoxShadowBtn}
+      isButton={styleBoxShadowBtn}
+      style={style}
     />
   );
 };

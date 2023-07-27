@@ -7,7 +7,7 @@ export const shaDowStyles = {
       shadowOpacity: 0.16,
       shadowRadius: 10,
       elevation: 4,
-      shadowColorAndroid: "white",
+      shadowColorAndroid: "#000000",
     },
   },
   shadowDate: {
@@ -29,7 +29,7 @@ export const shaDowStyles = {
       shadowOpacity: 0.16,
       shadowRadius: 5,
       elevation: 4,
-      shadowColorAndroid: "#ffffff",
+      shadowColorAndroid: "#000000",
     },
   },
   shadowThumb: {

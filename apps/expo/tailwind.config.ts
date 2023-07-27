@@ -4,7 +4,7 @@ import { type Config } from "tailwindcss";
 
 export default {
   // presets: [baseConfig],
-  content: ["./src/**/*.{ts,tsx}"],
+  content: ["./src/**/*.{ts,tsx}", "./.storybook/**/*.{ts,tsx}"],
   theme: {
     extend: {
       fontFamily: {

@@ -2,8 +2,6 @@ import React from "react";
 import { View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
-import { cn } from "@homelizard/tailwind-config/utils";
-
 import {
   colorGradients,
   type ColorGradientVariant,
@@ -33,20 +31,20 @@ export const StepProgress = ({
   const { maskGradient } = colorGradients[variant];
   // main return
   return (
-    <View className={cn("relative mx-6")}>
-      <LinearGradient
+    <View className="relative">
+      {/* <LinearGradient
         colors={["#F5F7F9", "#ECEEEF"]}
-        className="h-3 rounded-t-full"
-      />
+        className="h-[6px] rounded-t-full"
+      /> */}
+      <View className="h-[6px] rounded-t-full bg-slate-200" />
 
-      <LinearGradient
-        colors={maskGradient}
-        className={cn(
-          "absolute h-3  rounded-tl-full",
-          progress === 100 && "rounded-t-full",
-        )}
-        style={{ width: `${progress}%` }}
-      />
+      <View className="absolute bottom-0 w-full overflow-hidden rounded-t-full">
+        <LinearGradient
+          colors={maskGradient}
+          className="h-2 rounded-sm"
+          style={{ width: `${progress}%` }}
+        />
+      </View>
     </View>
   );
 };

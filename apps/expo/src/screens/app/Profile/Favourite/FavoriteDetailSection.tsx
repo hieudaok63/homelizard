@@ -26,11 +26,9 @@ export const FavoriteDetailSection = () => {
         <ButtonActionMain
           onPress={() => setShowListOption((pre) => !pre)}
           title="Haus"
-          IconLeftProps
           variant="turquoise"
           progress={54}
           description="Einfamilienhaus, München"
-          isProgressbar
           IconRightProps={
             showListOption ? (
               <ArrowUpIcon color="white" width={24} height={24} />
@@ -38,12 +36,11 @@ export const FavoriteDetailSection = () => {
               <ArrowDownIcon fill="#000000" />
             )
           }
-          styleBoxShadowBtn={true}
+          isButton
           classButton={cn(
             "rounded-none",
             showListOption ? "rounded-t-[40px]" : "rounded-full",
           )}
-          activeOpacity={0.8}
         />
 
         <BottomNavBarPadding />

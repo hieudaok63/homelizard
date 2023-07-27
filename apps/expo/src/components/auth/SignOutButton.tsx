@@ -1,9 +1,9 @@
-import { Button, View } from "react-native";
+import { Button, View, type StyleProp, type ViewStyle } from "react-native";
 import { useAuth } from "@clerk/clerk-expo";
 
 import { useApplicationLoadingStore } from "~/zustand/store";
 
-export const SignOutButton = () => {
+export const SignOutButton = ({ style }: { style?: StyleProp<ViewStyle> }) => {
   const { signOut, isLoaded } = useAuth();
   const setLoadingApp = useApplicationLoadingStore((state) => state.setLoading);
 
@@ -20,7 +20,7 @@ export const SignOutButton = () => {
     }
   };
   return (
-    <View className="rounded-lg border-2 border-gray-500 p-4">
+    <View className="rounded-lg border-2 border-gray-500 p-4" style={style}>
       <Button title="Sign Out" onPress={signOutFunc} />
     </View>
   );

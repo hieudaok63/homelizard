@@ -15,12 +15,10 @@ const meta: Meta<Props> = {
   argTypes: {
     color: {
       control: "radio",
-      defaultValue: "yellow",
       options: Object.keys(colorGradients),
     },
     children: {
       control: "select",
-      defaultValue: "Empty",
       options: ["Empty", "LoveIcon"],
       mapping: {
         Empty: null,
@@ -30,6 +28,7 @@ const meta: Meta<Props> = {
   },
   args: {
     color: "blue",
+    children: "Empty"
   },
   decorators: [
     (Story) => (

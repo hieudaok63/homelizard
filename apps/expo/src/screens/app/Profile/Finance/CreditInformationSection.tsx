@@ -43,11 +43,8 @@ export const CreditInformationSection = ({
       <ButtonActionMain
         onPress={() => setShowListOption((pre) => !pre)}
         title={title}
-        IconLeftProps
         variant="blue"
         progress={41}
-        isProgressbar
-        isFill
         IconRightProps={
           isShowModal ? (
             <ArrowUpIcon color="white" width={24} height={24} />
@@ -55,12 +52,11 @@ export const CreditInformationSection = ({
             <ArrowDownIcon fill="#000000" />
           )
         }
-        styleBoxShadowBtn={true}
+        isButton
         classButton={cn(
           "rounded-none",
           isShowModal ? "rounded-t-[40px]" : "rounded-full",
         )}
-        activeOpacity={0.8}
       />
       {isShowModal && (
         <View className="">

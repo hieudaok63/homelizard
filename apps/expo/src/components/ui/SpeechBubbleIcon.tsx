@@ -20,12 +20,12 @@ export const SpeechBubbleIcon = ({ color, children }: SpeechBubbleIcon) => {
 
   return (
     <View
-      style={{ ...styleBoxShadowBlockIcon }}
-      className="rounded-l-full  rounded-tr-full border-[6px] border-white"
+      style={styleBoxShadowBlockIcon}
+      className="rounded-l-full rounded-tr-full bg-white p-[7px]"
     >
       <LinearGradient
         colors={maskGradient}
-        className="h-10 w-10 items-center justify-center overflow-hidden rounded-l-full rounded-tr-full"
+        className="h-[34px] w-[34px] items-center justify-center overflow-hidden rounded-l-full rounded-tr-full"
       >
         {children}
       </LinearGradient>

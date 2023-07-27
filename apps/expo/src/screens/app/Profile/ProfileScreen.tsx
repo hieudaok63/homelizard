@@ -17,6 +17,7 @@ import { NotificationBadge, UserAvatar } from "~/components/ui";
 import { AppText } from "~/components/ui/AppText";
 import { MyProfileTab } from "./MyProfileTab";
 import { ResultsTab } from "./ResultsTab";
+import { useBackendUser } from "~/hooks/useBackendUser";
 
 export function ProfileScreen() {
   return (
@@ -61,6 +62,7 @@ const smallBoxShadow = generateBoxShadowStyle("small");
 
 const PROFILE_SCREEN_HEADER_HEIGHT = 484;
 const ProfileScreenHeader = () => {
+  const user = useBackendUser();
   return (
     <>
       <View className="relative h-[375px]" pointerEvents="box-none">
@@ -81,7 +83,7 @@ const ProfileScreenHeader = () => {
       >
         <View pointerEvents="box-none">
           <View pointerEvents="none">
-            <AppText text="Hello, Veronica" large />
+            <AppText text={`Hello, ${user?.firstName}`} large />
           </View>
           <TouchableOpacity>
             <View className="mt-[0px] flex flex-row items-center">

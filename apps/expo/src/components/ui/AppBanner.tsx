@@ -35,13 +35,13 @@ export const AppBanner = ({
   return (
     <LinearGradient
       colors={maskGradient}
-      className="h-[245px] w-10/12 rounded-[25px] "
+      className="h-[245px] w-10/12 rounded-3xl"
     >
       <View className="flex h-full w-full flex-col justify-around p-6">
         <View className="flex flex-row justify-between">
           <AppText
             text={title}
-            className=" text-font-24 font-weight_400 text-white"
+            className="text-2xl text-white"
           />
           <TouchableOpacity
             activeOpacity={0.5}
@@ -54,18 +54,15 @@ export const AppBanner = ({
         <View className="pt-2">
           <AppText
             text={description}
-            className=" text-font-14 font-weight_400 text-white"
+            className="text-sm text-white"
           />
         </View>
         <View className="pt-5">
           <ButtonActionMain
             title={titleBtn}
-            progress={0}
             IconLeftProps={IconLeftProps}
-            styleBoxShadowBtn
+            isButton
             onPress={onPress}
-            classButton="py-1"
-            classTitleButton="pt-2"
             variant={variant}
           />
         </View>

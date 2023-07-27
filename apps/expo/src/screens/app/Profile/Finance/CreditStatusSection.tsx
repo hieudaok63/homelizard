@@ -48,8 +48,6 @@ export const CreditStatusSection = ({
         IconLeftProps
         variant="blue"
         progress={41}
-        isProgressbar
-        isFill
         IconRightProps={
           isShowModal ? (
             <ArrowUpIcon color="white" width={24} height={24} />
@@ -57,12 +55,11 @@ export const CreditStatusSection = ({
             <ArrowDownIcon fill="#000000" />
           )
         }
-        styleBoxShadowBtn={true}
+        isButton
         classButton={cn(
           "rounded-none",
           isShowModal ? "rounded-t-[40px]" : "rounded-full",
         )}
-        activeOpacity={0.8}
       />
       {isShowModal && (
         <View className="rounded-b-[40px] bg-white pb-8">

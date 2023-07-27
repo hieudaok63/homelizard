@@ -1,7 +1,14 @@
 import React from "react";
-import { TouchableOpacity, View } from "react-native";
+import {
+  TouchableOpacity,
+  View,
+  type StyleProp,
+  type ViewStyle,
+} from "react-native";
 
 import { cn } from "@homelizard/tailwind-config/utils";
+
+import { ArrowRightIcon } from "@assets/icons";
 
 import { type ColorGradientVariant } from "~/utils/colorGradients";
 import { generateBoxShadowStyle } from "~/utils/helpers";
@@ -13,82 +20,110 @@ export const styleBoxShadow = generateBoxShadowStyle("shadowBtn");
 
 interface ButtonActionProps {
   title: string;
-  progress: Percentage;
-  variant?: ColorGradientVariant;
-  isFill?: boolean;
-  isProgressbar?: boolean;
-  IconRightProps?: React.ReactNode;
-  IconLeftProps?: React.ReactNode;
   description?: string;
-  styleBoxShadowBtn?: boolean;
+  isButton?: boolean;
+  variant?: ColorGradientVariant;
+  noSpeechBubbleIcon?: boolean;
+  IconLeftProps?: React.ReactNode;
+  progress?: Percentage;
+  IconRightProps?: React.ReactNode;
   classButton?: string;
   classTitleButton?: string;
   activeOpacity?: number;
   onPress: () => void;
-  onPressIconRight?: () => void;
+  // required to allow nativewind gap/spacing to work
+  style?: StyleProp<ViewStyle>;
 }
 
 export const ButtonActionMain = ({
   title,
-  isFill,
-  isProgressbar,
-  IconRightProps,
   description,
-  IconLeftProps,
+  isButton,
   progress,
+  noSpeechBubbleIcon,
+  IconLeftProps,
+  IconRightProps = <ArrowRightIcon fill="#000000" />,
   variant = "blue",
-  styleBoxShadowBtn = false,
   classButton,
   classTitleButton,
-  activeOpacity,
   onPress,
+  style,
 }: ButtonActionProps) => {
   return (
-    <View className="items-center justify-center">
-      <TouchableOpacity
-        className={`flex w-full flex-row items-center rounded-full bg-white px-2 py-[8px] ${classButton}`}
-        style={styleBoxShadowBtn && [styleBoxShadow]}
-        onPress={onPress}
-        activeOpacity={activeOpacity}
-      >
-        {IconLeftProps && (
-          <SpeechBubbleIcon color={variant}>{IconLeftProps}</SpeechBubbleIcon>
-        )}
+    <TouchableOpacity
+      className={cn(
+        "flex w-full flex-row items-center justify-between bg-white",
+        isButton && "rounded-full",
+        classButton,
+      )}
+      style={[style, isButton && styleBoxShadow]}
+      onPress={onPress}
+      activeOpacity={0.8}
+    >
+      <OverridableSpeechBubbleIcon
+        noSpeechBubbleIcon={noSpeechBubbleIcon}
+        IconLeftProps={IconLeftProps}
+        variant={variant}
+      />
 
-        {/* <SpeechBubbleIcon /> */}
-        <View className="w-full pb-2 pl-4">
-          <AppText
-            text={title}
-            className={cn("font-nunito-bold text-lg", classTitleButton)}
-          />
-          {isFill && (
-            <View className="flex flex-row">
-              <AppText text="Filled" className="mr-1 text-grey" />
-              <AppText text={`${progress}%`} className="text-blue_1" />
-            </View>
+      <View className="flex-1 px-2">
+        <AppText
+          text={title}
+          className={cn(
+            "text-[18px]",
+            // if there is no second row of text change line height to center text properly
+            !description && progress === undefined && "leading-7",
+            isButton && "font-nunito-bold",
+            classTitleButton,
           )}
-          {description && (
-            <View className="mt-1 flex flex-row">
-              <AppText text={description} className="text-grey" />
-            </View>
-          )}
-        </View>
-
-        {/* TODO: get rid of embedded touchableOpacity  */}
-        {IconRightProps && (
-          <TouchableOpacity
-            onPress={onPress}
-            className="absolute right-1 top-1 p-2"
-          >
-            {IconRightProps}
-          </TouchableOpacity>
-        )}
-        {progress !== null && isProgressbar && (
-          <View className="absolute bottom-0 left-12 right-0 w-5/6">
-            <StepProgress progress={progress} variant={variant} />
+        />
+        {!description && progress !== undefined && (
+          <View className="flex flex-row">
+            <AppText
+              text="Filled"
+              className="mr-1 text-xs leading-4 text-grey"
+            />
+            <AppText
+              text={`${progress}%`}
+              className="text-xs leading-4 text-blue_1"
+            />
           </View>
         )}
-      </TouchableOpacity>
-    </View>
+        {description && (
+          <AppText text={description} className="leading-4 text-grey" />
+        )}
+      </View>
+
+      <View className="p-5">{IconRightProps}</View>
+      {progress !== undefined && (
+        <View className="absolute bottom-0 w-full px-[72px]">
+          <StepProgress progress={progress} variant={variant} />
+        </View>
+      )}
+    </TouchableOpacity>
+  );
+};
+
+type OverridableSpeechBubbleIconProps = {
+  variant: ColorGradientVariant;
+  noSpeechBubbleIcon?: boolean;
+  IconLeftProps?: React.ReactNode;
+};
+
+const OverridableSpeechBubbleIcon = ({
+  noSpeechBubbleIcon,
+  variant,
+  IconLeftProps,
+}: OverridableSpeechBubbleIconProps) => {
+  return (
+    <>
+      {noSpeechBubbleIcon ? (
+        IconLeftProps && <View className="p-2">{IconLeftProps}</View>
+      ) : (
+        <View className="p-2">
+          <SpeechBubbleIcon color={variant}>{IconLeftProps}</SpeechBubbleIcon>
+        </View>
+      )}
+    </>
   );
 };

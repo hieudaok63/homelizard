@@ -201,13 +201,9 @@ export const CurriculumVitaeSection = () => {
                 return (
                   <ButtonActionMain
                     title="Add"
-                    isProgressbar={false}
                     onPress={() => setShowModalAdd(true)}
-                    progress={0}
-                    styleBoxShadowBtn={false}
                     IconRightProps={<IconPlus />}
                     classTitleButton="text-grey text-font-25"
-                    activeOpacity={0.5}
                     classButton="border-b border-r-0 border-placeholder mb-16 rounded-none w-11/12"
                     variant="yellow"
                   />
