@@ -14,7 +14,8 @@
     "prodactive",
     "superjson",
     "trpc",
-    "zustand"
+    "zustand",
+    "moti"
   ],
   "tailwindCSS.experimental.classRegex": [
     [
@@ -27,7 +28,7 @@
   "i18n-ally.localesPaths": ["apps/nextjs/public/locales"],
   "i18n-ally.enabledFrameworks": ["react-i18next"],
   "i18n-ally.namespace": true,
-  "i18n-ally.defaultNamespace": "base",
+  "i18n-ally.defaultNamespace": "common",
   "i18n-ally.keystyle": "nested",
   "vitest.commandLine": "pnpm vitest",
   "explorer.fileNesting.enabled": true,
