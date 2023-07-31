@@ -10,7 +10,10 @@
       }
     },
     "production": {
-      "extends": "base"
+      "extends": "base",
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://homelizard.projct.net"
+      }
     },
     "preview": {
       "extends": "base",
