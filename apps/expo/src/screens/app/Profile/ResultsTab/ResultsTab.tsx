@@ -88,14 +88,10 @@ export const ResultsTab = () => {
       sections={PostItems}
       renderItem={ResultItem}
       renderSectionHeader={SectionHeader}
-      ListHeaderComponent={
-        <View className="px-6 pb-4 pt-6">
-          <AppText text="Objekte" large />
-        </View>
-      }
       ListFooterComponent={BottomNavBarPadding}
       showsVerticalScrollIndicator={false}
       stickySectionHeadersEnabled={false}
+      className="pt-4"
     />
   );
 };

@@ -8,17 +8,13 @@ import PeopleIcon from "@assets/icons/PeopleIcon.svg";
 import { SignOutButton } from "~/components/auth/SignOutButton";
 import { useAppNavigation } from "~/components/navigation/useAppNavigation";
 import { ButtonActionMain } from "~/components/ui";
-import { AppText } from "~/components/ui/AppText";
 
 export const MyProfileTab = () => {
   const navigation = useAppNavigation();
 
   return (
     <Tabs.ScrollView>
-      <View className="p-6">
-        <AppText text="Mein Profil" large />
-      </View>
-      <View className="flex-column gap-y-2 px-6">
+      <View className="flex-column gap-y-2 px-6 py-4">
         {/* Personal Detail */}
         <ButtonActionMain
           title="Persönliche Daten"
