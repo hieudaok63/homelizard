@@ -31,7 +31,7 @@ export const ProfileSectionAccordion = ({
   const [showList, toggleShowList] = useToggle();
   return (
     <View
-      className="mt-8 flex-col overflow-hidden rounded-[32px] bg-white"
+      className="flex-col overflow-hidden rounded-[32px] bg-white"
       style={[styleBoxShadow, style]}
     >
       <ButtonActionMain

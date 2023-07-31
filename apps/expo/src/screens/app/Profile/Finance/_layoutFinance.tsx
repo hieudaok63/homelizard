@@ -8,7 +8,7 @@ import GradientPatternBackground from "~/components/ui/GradientPatternBackground
 export const LayoutFinance = ({ children }: PropsWithChildren) => {
   return (
     <GradientPatternBackground variant="yellow">
-      <SafeAreaView className="h-full">
+      <SafeAreaView className="h-full" edges={["top"]} >
         <View className="px-8">
           <AppHeader title="Finanzen" />
         </View>

@@ -1,4 +1,4 @@
-import React, { useState, type PropsWithChildren } from "react";
+import React, { type PropsWithChildren } from "react";
 import { Dimensions, FlatList, ScrollView, View } from "react-native";
 
 import CartIcon from "@assets/icons/CartIcon.svg";
@@ -7,6 +7,7 @@ import { BottomNavBarPadding } from "~/components/navigation/NavBar";
 import { AppBanner } from "~/components/ui";
 import { CreditInformationSection } from "./CreditInformationSection";
 import { CreditStatusSection } from "./CreditStatusSection";
+import { FinancialInformationSection } from "./FinancialInformationSection";
 import { LayoutFinance } from "./_layoutFinance";
 
 export const LayoutListBanner = ({ children }: PropsWithChildren) => {
@@ -53,12 +54,6 @@ export const RenderBanner = () => {
 };
 
 export const ListFinanceSection = () => {
-  const [showOptionCreditStatus, setShowOptionCreditStatus] = useState(false);
-  const [showOptionCreditInformation, setShowOptionCreditInformation] =
-    useState(false);
-  const [showFinancialInformation, setShowFinancialInformation] =
-    useState(false);
-
   return (
     <LayoutFinance>
       <ScrollView className="h-full pt-5" showsVerticalScrollIndicator={false}>
@@ -73,22 +68,10 @@ export const ListFinanceSection = () => {
           horizontal
           className="pb-5"
         />
-        <View className="rounded-[45px] px-8">
-          <CreditStatusSection
-            isShowModal={showOptionCreditStatus}
-            setShowListOption={setShowOptionCreditStatus}
-            title="Zusagen"
-          />
-          <CreditInformationSection
-            isShowModal={showOptionCreditInformation}
-            setShowListOption={setShowOptionCreditInformation}
-            title="Bonität"
-          />
-          <CreditInformationSection
-            isShowModal={showFinancialInformation}
-            setShowListOption={setShowFinancialInformation}
-            title="Finanzierung"
-          />
+        <View className="space-y-2 px-8">
+          <CreditStatusSection />
+          <CreditInformationSection />
+          <FinancialInformationSection />
         </View>
         <BottomNavBarPadding />
       </ScrollView>

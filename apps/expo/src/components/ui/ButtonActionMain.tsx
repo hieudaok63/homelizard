@@ -69,6 +69,7 @@ export const ButtonActionMain = ({
       <View className="flex-1 px-2">
         <AppText
           text={title}
+          numberOfLines={1}
           className={cn(
             "text-[18px]",
             // if there is no second row of text change line height to center text properly
@@ -90,7 +91,11 @@ export const ButtonActionMain = ({
           </View>
         )}
         {description && (
-          <AppText text={description} className="leading-4 text-grey" />
+          <AppText
+            text={description}
+            className="leading-4 text-grey"
+            numberOfLines={1}
+          />
         )}
       </View>
 
