@@ -1,4 +1,9 @@
-import { Button, View, type StyleProp, type ViewStyle } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  type StyleProp,
+  type ViewStyle,
+} from "react-native";
 import { useAuth } from "@clerk/clerk-expo";
 
 import { useApplicationLoadingStore } from "~/zustand/store";
@@ -20,8 +25,8 @@ export const SignOutButton = ({ style }: { style?: StyleProp<ViewStyle> }) => {
     }
   };
   return (
-    <View className="rounded-lg border-2 border-gray-500 p-4" style={style}>
-      <Button title="Sign Out" onPress={signOutFunc} />
-    </View>
+    <TouchableOpacity className="p-4" style={style} onPress={signOutFunc}>
+      <Text className=" w-full text-center text-lg text-white">Sign Out</Text>
+    </TouchableOpacity>
   );
 };

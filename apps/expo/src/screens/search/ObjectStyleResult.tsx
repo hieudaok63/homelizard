@@ -23,6 +23,7 @@ import { type RootStackParams } from "../RootStackParams";
 import { SearchLayout } from "./_layout";
 
 type Props = NativeStackScreenProps<RootStackParams, "ObjectStyleResult">;
+type IObjectStyleItem = RouterOutputs["objectStyle"]["all"][number];
 
 const ContemporaryImage = require("@assets/objectStyleImage/Contemporary.png");
 
@@ -44,9 +45,7 @@ const ObjectStyleResult = ({ navigation }: Props) => {
 
   // functions
   const renderItem = useCallback(
-    ({
-      item,
-    }: ListRenderItemInfo<RouterOutputs["objectStyle"]["all"][number]>) => {
+    ({ item }: ListRenderItemInfo<IObjectStyleItem>) => {
       return (
         <View className="mb-3 w-72 overflow-hidden rounded-3xl p-0">
           <View className="relative h-24 w-full items-center justify-center overflow-hidden">
@@ -55,16 +54,18 @@ const ObjectStyleResult = ({ navigation }: Props) => {
               alt={item.title}
               className="h-full w-full"
             />
-            <TouchableOpacity className="absolute flex-row items-center justify-between rounded-full bg-white px-6 py-2">
-              <View className="mr-1">
-                <Text className="text-black_xtra font-weight_700 text-font-15 mb-1">
+            <TouchableOpacity className="absolute w-11/12 flex-row items-center justify-between rounded-full bg-white px-6 py-2">
+              <View className="mr-1 flex-1">
+                <Text
+                  className="mb-1 text-font-15 font-weight_700 text-black_xtra"
+                  numberOfLines={1}
+                >
                   {item.title}
                 </Text>
-                {/* TODO: replace with text-ellipsis  */}
-                <Text className="text-placeholder opacity-85 font-weight_400 text-font-12">{`${item.description.substring(
-                  0,
-                  30,
-                )}...`}</Text>
+                <Text
+                  numberOfLines={1}
+                  className="opacity-85 text-font-12 font-weight_400 text-placeholder"
+                >{`${item.description}...`}</Text>
               </View>
 
               <InfoSCircleIcon />
@@ -89,15 +90,15 @@ const ObjectStyleResult = ({ navigation }: Props) => {
   return (
     <SearchLayout>
       <View className="mb-4 px-8">
-        <Text className="font-weight_800 text-font-18 text-black_1">
+        <Text className="text-font-18 font-weight_800 text-black_1">
           Wir finden für dich
         </Text>
 
         <View className="mt-5">
-          <Text className="text-black_1 text-font-14 font-weight_800 mb-1">
+          <Text className="mb-1 text-font-14 font-weight_800 text-black_1">
             Welchen Stil soll das Objekt haben?
           </Text>
-          <Text className="text-black_1 text-font-12 font-weight_300 opacity-60">
+          <Text className="text-font-12 font-weight_300 text-black_1 opacity-60">
             Wähle aus der Liste
           </Text>
         </View>
@@ -119,7 +120,7 @@ const ObjectStyleResult = ({ navigation }: Props) => {
         <View className="h-24 w-24 items-center justify-center overflow-hidden rounded-full">
           <Image source={ContemporaryImage} alt="ContemporaryImage" />
         </View>
-        <Text className="text-black_xtra opacity-85 font-weight_400 text-font-14 w-20 text-center">
+        <Text className="opacity-85 w-20 text-center text-font-14 font-weight_400 text-black_xtra">
           weiteren Stil auswählen
         </Text>
       </TouchableOpacity>
