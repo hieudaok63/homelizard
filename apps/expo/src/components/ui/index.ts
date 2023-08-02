@@ -19,3 +19,4 @@ export * from "./AppInputProfile";
 export * from "./SpeechBubbleIcon";
 export * from "./DetailObject";
 export * from "./CustomSwitch";
+export * from "./ResultCard";

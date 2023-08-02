@@ -1,4 +1,5 @@
-import { View, TouchableOpacity, FlatList } from "react-native";
+import { FlatList, TouchableOpacity, View } from "react-native";
+
 import { AppText } from "~/components/ui/AppText";
 import { splitArrayIntoChunks } from "~/utils";
 import { ContentDashBoard } from "./ContentDashBoard";
@@ -154,13 +155,10 @@ export const DATA = [
 export const DEFAULT_RENDER_ITEM = 4;
 
 export const LinkedProfilesSection = () => {
-  const chunkedData = splitArrayIntoChunks<DataItem>(
-    DATA,
-    DEFAULT_RENDER_ITEM,
-  );
+  const chunkedData = splitArrayIntoChunks<DataItem>(DATA, DEFAULT_RENDER_ITEM);
 
   return (
-    <View className="mb-4 px-8">
+    <View className="my-4 px-8">
       <View className="flex flex-row items-center justify-between pb-4">
         <AppText text="Linked profiles" large className="text-pink" />
         <TouchableOpacity activeOpacity={0.5}>
