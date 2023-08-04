@@ -57,11 +57,11 @@ const ObjectStyleResult = ({ navigation }: Props) => {
             />
             <TouchableOpacity className="absolute flex-row items-center justify-between rounded-full bg-white px-6 py-2">
               <View className="mr-1">
-                <Text className="text-black_xtra font-weight_700 text-font-15 mb-1">
+                <Text className="mb-1 text-font-15 font-weight_700 text-black_xtra">
                   {item.title}
                 </Text>
                 {/* TODO: replace with text-ellipsis  */}
-                <Text className="text-placeholder opacity-85 font-weight_400 text-font-12">{`${item.description.substring(
+                <Text className="opacity-85 text-font-12 font-weight_400 text-placeholder">{`${item.description.substring(
                   0,
                   30,
                 )}...`}</Text>
@@ -89,15 +89,15 @@ const ObjectStyleResult = ({ navigation }: Props) => {
   return (
     <SearchLayout>
       <View className="mb-4 px-8">
-        <Text className="font-weight_800 text-font-18 text-black_1">
+        <Text className="text-font-18 font-weight_800 text-black_1">
           Wir finden für dich
         </Text>
 
         <View className="mt-5">
-          <Text className="text-black_1 text-font-14 font-weight_800 mb-1">
+          <Text className="mb-1 text-font-14 font-weight_800 text-black_1">
             Welchen Stil soll das Objekt haben?
           </Text>
-          <Text className="text-black_1 text-font-12 font-weight_300 opacity-60">
+          <Text className="text-font-12 font-weight_300 text-black_1 opacity-60">
             Wähle aus der Liste
           </Text>
         </View>
@@ -119,14 +119,14 @@ const ObjectStyleResult = ({ navigation }: Props) => {
         <View className="h-24 w-24 items-center justify-center overflow-hidden rounded-full">
           <Image source={ContemporaryImage} alt="ContemporaryImage" />
         </View>
-        <Text className="text-black_xtra opacity-85 font-weight_400 text-font-14 w-20 text-center">
+        <Text className="opacity-85 w-20 text-center text-font-14 font-weight_400 text-black_xtra">
           weiteren Stil auswählen
         </Text>
       </TouchableOpacity>
 
       <StepProgressButton
         title="Continue"
-        progress={99}
+        progress={100}
         onPress={handlePressNext}
         disabled={!objectStyles_zutand?.length}
         variant="turquoise"
