@@ -9,6 +9,7 @@ import { generateBoxShadowStyle } from "~/utils/helpers";
 import { AnimateHeight } from "~/components/AnimateHeight";
 import { ButtonActionMain, type Percentage } from "~/components/ui";
 import { useToggle } from "~/hooks/useToggle";
+import { cn } from "@homelizard/tailwind-config/utils";
 
 const styleBoxShadow = generateBoxShadowStyle("shadowBtn");
 
@@ -18,6 +19,7 @@ type ProfileSectionProps = PropsWithChildren<{
   progress: Percentage;
   variant: ColorGradientVariant;
   style?: StyleProp<ViewStyle>;
+  className?: string;
 }>;
 
 export const ProfileSectionAccordion = ({
@@ -27,11 +29,12 @@ export const ProfileSectionAccordion = ({
   variant,
   style,
   children,
+  className,
 }: ProfileSectionProps) => {
   const [showList, toggleShowList] = useToggle();
   return (
     <View
-      className="flex-col overflow-hidden rounded-[32px] bg-white"
+      className={cn("flex-col overflow-hidden rounded-[32px] bg-white", className)}
       style={[styleBoxShadow, style]}
     >
       <ButtonActionMain
