@@ -1,52 +1,65 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import { FlatList, View, type ListRenderItem } from "react-native";
 
+import LoveIcon from "@assets/icons/LoveIcon.svg";
+
 import { api, type RouterOutputs } from "~/utils/api";
+import { AppText } from "~/components/ui/AppText";
+import { ProfileSectionAccordion } from "~/components/ui/Profile";
 import { ItemFavorite } from "./ItemFavorite";
 import { LayoutFavorite } from "./_layoutFavorite";
 
-type FavoriteItem = RouterOutputs["favorite"]["list"][number];
-export type TypeFavoriteProfile = FavoriteItem & { status: boolean };
+export type FavoriteItem = RouterOutputs["favorite"]["list"][number];
+
+// helper functions
+const handleItemClassName = (index: number, length?: number) => {
+  if (!length) return "";
+  if (index === 0) return "rounded-b-none";
+  if (index === length - 1) return "rounded-t-none";
+  return "rounded-none";
+};
 
 export const ListFavoriteSection = () => {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const { data, isLoading } = api.favorite.list.useQuery();
 
-  const { data } = api.favorite.list.useQuery(undefined, {
-    select: (data) => data.map((elem) => ({ ...elem, status: false })),
-  });
-
-  const onSelectItem = useCallback(
-    (index: number) => {
-      if ((selectedIndex === 0 || selectedIndex) && selectedIndex === index) {
-        setSelectedIndex(null);
-        return;
-      }
-      setSelectedIndex(index);
-    },
-    [selectedIndex],
-  );
-
-  const renderItem: ListRenderItem<TypeFavoriteProfile> = ({ item, index }) => {
+  const renderItem: ListRenderItem<FavoriteItem> = ({ item, index }) => {
     return (
-      <ItemFavorite
-        onPress={() => {
-          onSelectItem(index);
-        }}
-        item={item}
-        selected={selectedIndex === index}
-      />
+      <ProfileSectionAccordion
+        title={item?.searchResult?.realEstate?.title}
+        description={item?.searchResult?.realEstate?.objectType}
+        variant="pink"
+        progress={100}
+        className={handleItemClassName(index, data?.length)}
+        iconLeft={<LoveIcon />}
+      >
+        <ItemFavorite item={item} />
+      </ProfileSectionAccordion>
     );
   };
 
+  if (isLoading) {
+    return (
+      <LayoutFavorite>
+        <View className="mt-3">
+          <AppText text="Loading..." className="w-full text-center" />
+        </View>
+      </LayoutFavorite>
+    );
+  }
+
   return (
     <LayoutFavorite>
-      <View className="mt-3 overflow-hidden rounded-2xl ">
-        <FlatList
-          data={data ?? []}
-          renderItem={renderItem}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={(item) => item.id.toString()}
-        />
+      <View className="mt-3">
+        {data?.length ? (
+          <FlatList
+            data={data ?? []}
+            renderItem={renderItem}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(item) => item.id.toString()}
+          />
+        ) : (
+          <AppText text="Nothing here yet." className="w-full text-center" />
+        )}
       </View>
     </LayoutFavorite>
   );

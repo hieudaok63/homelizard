@@ -1,15 +1,20 @@
-import React, { type PropsWithChildren } from "react";
-import { View, type StyleProp, type ViewStyle } from "react-native";
 import { MotiView } from "moti";
+import React, { type PropsWithChildren, type ReactNode } from "react";
+import { View, type StyleProp, type ViewStyle } from "react-native";
+
+
 
 import ArrowUpIcon from "@assets/icons/ArrowUpIcon.svg";
 
-import { type ColorGradientVariant } from "~/utils/colorGradients";
-import { generateBoxShadowStyle } from "~/utils/helpers";
+
+
 import { AnimateHeight } from "~/components/AnimateHeight";
 import { ButtonActionMain, type Percentage } from "~/components/ui";
 import { useToggle } from "~/hooks/useToggle";
 import { cn } from "@homelizard/tailwind-config/utils";
+import { type ColorGradientVariant } from "~/utils/colorGradients";
+import { generateBoxShadowStyle } from "~/utils/helpers";
+
 
 const styleBoxShadow = generateBoxShadowStyle("shadowBtn");
 
@@ -20,6 +25,7 @@ type ProfileSectionProps = PropsWithChildren<{
   variant: ColorGradientVariant;
   style?: StyleProp<ViewStyle>;
   className?: string;
+  iconLeft?: ReactNode;
 }>;
 
 export const ProfileSectionAccordion = ({
@@ -30,6 +36,7 @@ export const ProfileSectionAccordion = ({
   style,
   children,
   className,
+  iconLeft,
 }: ProfileSectionProps) => {
   const [showList, toggleShowList] = useToggle();
   return (
@@ -43,6 +50,7 @@ export const ProfileSectionAccordion = ({
         variant={variant}
         progress={progress}
         description={description}
+        IconLeftProps={iconLeft}
         IconRightProps={
           <MotiView
             animate={{

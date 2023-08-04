@@ -5,7 +5,6 @@ import { Tabs } from "react-native-collapsible-tab-view";
 import LoveIcon from "@assets/icons/LoveIcon.svg";
 import PeopleIcon from "@assets/icons/PeopleIcon.svg";
 
-import { SignOutButton } from "~/components/auth/SignOutButton";
 import { useAppNavigation } from "~/components/navigation/useAppNavigation";
 import { ButtonActionMain } from "~/components/ui";
 
@@ -55,7 +54,6 @@ export const MyProfileTab = () => {
           isButton
           variant="pink"
         />
-        <SignOutButton />
       </View>
     </Tabs.ScrollView>
   );

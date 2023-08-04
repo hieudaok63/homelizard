@@ -95,11 +95,11 @@ const NavBar = ({ navigation, state }: BottomTabBarProps) => {
         <TopBackground />
         <Animated.View
           style={animatedContentStyle}
-          className="flex-between bg-dark flex overflow-hidden"
+          className="flex-between flex overflow-hidden bg-dark"
         >
           <View
             // basis-[1px] is used to allow RN to calculate the height of the view
-            className="bg-dark flex-grow basis-[1px]"
+            className="flex-grow basis-[1px] bg-dark"
           >
             <View
               onLayout={(e) => {
@@ -109,13 +109,15 @@ const NavBar = ({ navigation, state }: BottomTabBarProps) => {
               {menuLinkData.map((item) => (
                 <MenuLink key={item.name} {...item} />
               ))}
+
+              <SignOutButton />
             </View>
           </View>
           <View
             style={{
               height: PADDING_HEIGHT,
             }}
-            className="bg-dark flex-none"
+            className="flex-none bg-dark"
           />
         </Animated.View>
         <BottomBackground />
@@ -143,7 +145,7 @@ const CenterButton = (props: ComponentProps<typeof TouchableOpacity>) => {
       className="absolute -top-7 flex w-full items-center"
     >
       <TouchableOpacity {...props}>
-        <View className="bg-dark rounded-full p-4">
+        <View className="rounded-full bg-dark p-4">
           <PlusIcon />
         </View>
       </TouchableOpacity>
@@ -241,7 +243,7 @@ const TabActionButton = ({
 }: TabActionButtonProps) => {
   return (
     <TouchableOpacity onPress={onPress}>
-      <View className="bg-dark flex h-14 w-14 flex-col items-center justify-center rounded-full">
+      <View className="flex h-14 w-14 flex-col items-center justify-center rounded-full bg-dark">
         <Animated.View>
           <Icon className={cn("fill-white", active && "fill-blue-400")} />
         </Animated.View>
@@ -276,7 +278,6 @@ const MenuLink = ({ name, Icon, iconGradient }: (typeof menuLinkData)[0]) => {
         </LinearGradient>
         <Text className="ml-4 flex-grow text-lg text-white">{name}</Text>
         <ArrowRightIcon />
-        <SignOutButton />
       </View>
     </TouchableOpacity>
   );
