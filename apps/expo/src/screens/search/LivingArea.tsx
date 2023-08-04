@@ -21,7 +21,7 @@ const minHeightLiving = 61;
 const maxWidthLiving = 300;
 const maxHeightLiving = 300;
 
-const maxValueLiving = 1000;
+const maxValueLiving = 500;
 const minValueLiving = 0;
 const minimumAcceptedValueLiving = 50;
 
@@ -62,15 +62,15 @@ const LivingArea = ({ navigation }: Props) => {
     <SearchLayout>
       <KeyboardAwareScrollView>
         <View className="mb-4 px-8">
-          <Text className="font-weight_800 text-font-18 text-black_1">
+          <Text className="text-font-18 font-weight_800 text-black_1">
             Wir finden für dich
           </Text>
 
           <View className="mt-5">
-            <Text className="text-black_1 text-font-14 font-weight_800 mb-1">
+            <Text className="mb-1 text-font-14 font-weight_800 text-black_1">
               Wohnfläche
             </Text>
-            <Text className="text-black_1 text-font-12 font-weight_300 opacity-60">
+            <Text className="text-font-12 font-weight_300 text-black_1 opacity-60">
               Wieviel qm Wohnfläche benötigst du?
             </Text>
           </View>
@@ -86,13 +86,13 @@ const LivingArea = ({ navigation }: Props) => {
             showBottomMetric
             bottomMetricProps={{
               stepNum: 10,
-              values: [0, 200, 400, 600, 800, "1000+"],
+              values: [0, 100, 200, 300, 400, "500+"],
             }}
             // handleValueChange={handleValueChange} // avoid this, cause poor performace re-render
           />
         </View>
 
-        <Text className="text-font-12 font-weight_300 px-4 text-right text-black opacity-60">
+        <Text className="px-4 text-right text-font-12 font-weight_300 text-black opacity-60">
           {livingArea === maxValueLiving
             ? `${livingArea}+ m²`
             : `${livingArea} m²`}
