@@ -1,6 +1,6 @@
-import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { Image, ScrollView, TouchableOpacity, View } from "react-native";
+import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { cn } from "@homelizard/tailwind-config/utils";
 
@@ -10,11 +10,11 @@ import BedRoomIcon from "@assets/icons/BedRoomIcon.svg";
 import LoveIcon from "@assets/icons/LoveIcon.svg";
 import PhoneIcon from "@assets/icons/PhoneIcon.svg";
 
+import { api } from "~/utils/api";
+import { genImageUrl } from "~/utils/imageUrl";
 import { BottomNavBarPadding } from "~/components/navigation/NavBar";
 import { ContentObject, DetailObject } from "~/components/ui";
 import { AppText } from "~/components/ui/AppText";
-import { api } from "~/utils/api";
-import { genImageUrl } from "~/utils/imageUrl";
 import { type RootStackParams } from "../RootStackParams";
 import { ObjectDetailLayout } from "./_layout";
 
@@ -76,7 +76,7 @@ export const ObjectDetail = ({ route }: Props) => {
           <View className="ml-3 mt-1">
             <AppText
               text={`${data?.realEstate.price} €`}
-              className="text-lg font-nunito-800"
+              className="font-nunito-800 text-lg"
             />
             <View className="flex w-6/12 flex-row items-center justify-between pt-5">
               <DetailObject
@@ -101,10 +101,7 @@ export const ObjectDetail = ({ route }: Props) => {
             showsVerticalScrollIndicator={false}
           >
             <View className="ml-2 mt-2 pb-10">
-              <AppText
-                text="Daten"
-                className=" mb-2 text-sm font-nunito-800"
-              />
+              <AppText text="Daten" className=" mb-2 font-nunito-800 text-sm" />
               <ContentObject
                 type="Typ"
                 content={data?.realEstate.objectType as string}
@@ -160,7 +157,7 @@ export const ObjectDetail = ({ route }: Props) => {
             <View className="ml-2 mt-2 pb-10">
               <AppText
                 text="Beschreibung"
-                className=" mb-2 text-sm font-nunito-800"
+                className=" mb-2 font-nunito-800 text-sm"
               />
               <AppText
                 className=" font-weight_300 text-grey"
@@ -200,7 +197,7 @@ export const ObjectDetail = ({ route }: Props) => {
             <TouchableOpacity className="my-auto rounded-3xl bg-black_1">
               <AppText
                 text="Jetzt kontaktieren"
-                className="mt-auto px-20 py-4 text-center font-nunito-light text-white"
+                className="font-nunito-light mt-auto px-20 py-4 text-center text-white"
               />
             </TouchableOpacity>
           </View>

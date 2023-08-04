@@ -22,7 +22,9 @@ export const StepProgressButton = ({
 }: IPropsStepProgressButton) => {
   return (
     <View className="absolute bottom-[25px] left-0 right-0 px-12 ">
-      <StepProgress progress={progress} variant={variant} />
+      <View className="mx-6">
+        <StepProgress progress={progress} variant={variant} />
+      </View>
       <Button
         title={title}
         onPress={onPress}

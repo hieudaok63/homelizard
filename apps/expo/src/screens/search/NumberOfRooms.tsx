@@ -2,7 +2,6 @@
 
 import React, { useCallback } from "react";
 import { Text, View } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import HouseIcon from "@assets/icons/HouseIcon.svg";
@@ -40,17 +39,17 @@ const NumberOfRooms = ({ navigation }: Props) => {
   // main return
   return (
     <SearchLayout>
-      <KeyboardAwareScrollView>
+      <View>
         <View className="mb-4 px-8">
-          <Text className="font-weight_800 text-font-18 text-black_1">
+          <Text className="text-font-18 font-weight_800 text-black_1">
             Wir finden für dich
           </Text>
 
           <View className="mt-5">
-            <Text className="text-black_1 text-font-14 font-weight_800 mb-1">
+            <Text className="mb-1 text-font-14 font-weight_800 text-black_1">
               Anzahl Räume
             </Text>
-            <Text className="text-black_1 text-font-12 font-weight_300 opacity-60">
+            <Text className="text-font-12 font-weight_300 text-black_1 opacity-60">
               Wieviel Räume sollten es sein?
             </Text>
           </View>
@@ -72,7 +71,7 @@ const NumberOfRooms = ({ navigation }: Props) => {
           />
         </View>
 
-        <Text className="text-font-12 font-weight_300 px-4 text-right text-black opacity-60">
+        <Text className="px-4 text-right text-font-12 font-weight_300 text-black opacity-60">
           {numberOfRoom === maxValueRoomNum
             ? `${numberOfRoom}+ Räume`
             : `${numberOfRoom} Räume`}
@@ -99,7 +98,7 @@ const NumberOfRooms = ({ navigation }: Props) => {
             />
           )}
         </View>
-      </KeyboardAwareScrollView>
+      </View>
 
       <StepProgressButton
         title="Continue"

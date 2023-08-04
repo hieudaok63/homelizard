@@ -127,7 +127,7 @@ const ObjectStyleResult = ({ navigation }: Props) => {
 
       <StepProgressButton
         title="Continue"
-        progress={99}
+        progress={100}
         onPress={handlePressNext}
         disabled={!objectStyles_zutand?.length}
         variant="turquoise"

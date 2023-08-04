@@ -1,56 +1,65 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import { FlatList, View, type ListRenderItem } from "react-native";
 
 import { api, type RouterOutputs } from "~/utils/api";
+import { BottomNavBarPadding } from "~/components/navigation/NavBar";
+import { AppText } from "~/components/ui/AppText";
+import { ProfileSectionAccordion } from "~/components/ui/Profile";
 import { ItemSearchProfile } from "./ItemSearchHistory";
 import { LayoutSearchHistory } from "./_layoutSearchHistory";
 
-type SearchProfileItem = RouterOutputs["search"]["list"][number];
+export type SearchProfileItem = RouterOutputs["search"]["list"][number];
 
-export type TypeSearchHistoryProfile = SearchProfileItem & { status: boolean };
+// helper functions
+const handleItemClassName = (index: number, length?: number) => {
+  if (!length) return "";
+  if (index === 0) return "rounded-b-none";
+  if (index === length - 1) return "rounded-t-none";
+  return "rounded-none";
+};
 
+// component
 export const ListSearchHistorySection = () => {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const { data, isLoading } = api.search.list.useQuery();
 
-  const { data } = api.search.list.useQuery(undefined, {
-    select: (data) => data.map((elem) => ({ ...elem, status: false })),
-  });
-
-  const onSelectItem = useCallback(
-    (index: number) => {
-      if (selectedIndex === 0 || selectedIndex) {
-        setSelectedIndex(null);
-        return;
-      }
-      setSelectedIndex(index);
-    },
-    [selectedIndex],
-  );
-
-  const renderItem: ListRenderItem<TypeSearchHistoryProfile> = ({
-    item,
-    index,
-  }) => {
+  const renderItem: ListRenderItem<SearchProfileItem> = ({ item, index }) => {
     return (
-      <ItemSearchProfile
-        onPress={() => {
-          onSelectItem(index);
-        }}
-        item={item}
-        selected={selectedIndex === index}
-      />
+      <ProfileSectionAccordion
+        title={item?.objectType}
+        description={item?.objectStyles?.join(", ")}
+        variant="turquoise"
+        progress={100}
+        className={handleItemClassName(index, data?.length)}
+      >
+        <ItemSearchProfile item={item} />
+      </ProfileSectionAccordion>
     );
   };
 
+  if (isLoading) {
+    return (
+      <LayoutSearchHistory>
+        <View className="mt-3">
+          <AppText text="Loading..." className="w-full text-center" />
+        </View>
+      </LayoutSearchHistory>
+    );
+  }
+
   return (
     <LayoutSearchHistory>
-      <View className="mt-3 overflow-hidden rounded-2xl">
-        <FlatList
-          data={data ?? []}
-          renderItem={renderItem}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={(item) => item.id.toString()}
-        />
+      <View className="mt-3">
+        {data?.length ? (
+          <FlatList
+            data={data}
+            renderItem={renderItem}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(item) => item.id.toString()}
+            ListFooterComponent={<BottomNavBarPadding />}
+          />
+        ) : (
+          <AppText text="Nothing here yet." className="w-full text-center" />
+        )}
       </View>
     </LayoutSearchHistory>
   );

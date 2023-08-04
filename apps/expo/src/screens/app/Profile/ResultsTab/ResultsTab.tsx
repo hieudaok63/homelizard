@@ -1,10 +1,16 @@
-import React from "react";
-import { View, type ImageSourcePropType } from "react-native";
+import React, { useMemo } from "react";
+import {
+  RefreshControl,
+  type ImageSourcePropType,
+  type ListRenderItemInfo,
+} from "react-native";
 import { Tabs } from "react-native-collapsible-tab-view";
 
+import { api, type RouterOutputs } from "~/utils/api";
 import { BottomNavBarPadding } from "~/components/navigation/NavBar";
+import { useAppNavigation } from "~/components/navigation/useAppNavigation";
+import { ResultCard } from "~/components/ui";
 import { AppText } from "~/components/ui/AppText";
-import { ContentPost } from "./ContentPost";
 
 export type IItem = {
   title: string;
@@ -14,99 +20,69 @@ export type IItem = {
   id: number;
 };
 
-type ISection = {
-  key?: string;
-  data: readonly IItem[];
-};
-
-export const PostItems: ISection[] = [
-  {
-    key: "Heute",
-    data: [
-      {
-        title: "Bohemian",
-        desc: "A popular style among those...",
-        imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Bohemian.png"),
-        timeCreate: "8 Hours ago",
-        id: 1,
-      },
-      {
-        title: "Coastal-hamptons",
-        desc: "Coastal style, also referred to ...",
-        imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Coastal-hamptons.png"),
-        timeCreate: "8 Hours ago",
-        id: 2,
-      },
-    ],
-  },
-  {
-    key: "Gestern",
-    data: [
-      {
-        title: "Contemporary",
-        desc: "Often used synonymously for ...",
-        imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
-        timeCreate: "8 Hours ago",
-        id: 3,
-      },
-      {
-        title: "French country",
-        desc: "It's all about warm, earthy colo...",
-        imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/FrenchCountry.png"),
-
-        timeCreate: "8 Hours ago",
-        id: 4,
-      },
-      {
-        title: "Hollywood glam",
-        desc: "A luxurious, over-the-top and...",
-        imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/HollywoodGlam.png"),
-        timeCreate: "8 Hours ago",
-        id: 5,
-      },
-      {
-        title: "Industrial",
-        desc: "Inspired by a warehouse or u...",
-        imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Industrial.png"),
-        timeCreate: "8 Hours ago",
-        id: 6,
-      },
-      {
-        title: "Mid-century modern",
-        desc: "The style gained popularity du...",
-        imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/MidCenturyModern.png"),
-        timeCreate: "8 Hours ago",
-        id: 7,
-      },
-    ],
-  },
-];
-
 export const ResultsTab = () => {
+  const { items, fetchNextPage, isRefetching, refetch } =
+    useInfiniteSearchResults();
+
   return (
-    <Tabs.SectionList
-      sections={PostItems}
+    <Tabs.FlatList
+      data={items}
       renderItem={ResultItem}
-      renderSectionHeader={SectionHeader}
+      refreshControl={
+        <RefreshControl refreshing={isRefetching} onRefresh={refetch} />
+      }
+      ListHeaderComponent={HeaderPost}
       ListFooterComponent={BottomNavBarPadding}
       showsVerticalScrollIndicator={false}
-      stickySectionHeadersEnabled={false}
-      className="pt-4"
+      onEndReached={() => fetchNextPage()}
     />
   );
 };
 
-const ResultItem = ({ item }: { item: IItem }) => {
+const HeaderPost = () => {
   return (
-    <View className="mx-3 mb-5 rounded-full rounded-br-none">
-      <ContentPost item={item} />
-    </View>
+    <AppText
+      text="Heute"
+      className="px-6 pb-1 pt-4 font-nunito-bold text-2xl text-white"
+    />
   );
 };
 
-const SectionHeader = (info: { section: ISection }) => (
-  <AppText
-    text={info.section.key!}
-    className="font-nunito-semibold px-4 pb-2 text-2xl"
-  />
-);
+const ResultItem = ({
+  item,
+}: ListRenderItemInfo<
+  RouterOutputs["searchResult"]["bySearchProfileId"]["data"][number]
+>) => {
+  const navigation = useAppNavigation();
+  return (
+    <ResultCard
+      title={item?.realEstate.title}
+      description={item?.realEstate.description}
+      imageUrl={item?.realEstate.imageUrl}
+      createdAt={item?.createdAt}
+      onPress={() => {
+        navigation.push("ObjectDetail", {
+          itemId: item.id,
+        });
+      }}
+    />
+  );
+};
+
+const useInfiniteSearchResults = () => {
+  const { data, ...useQueryReturn } = api.searchResult.list.useInfiniteQuery(
+    {
+      limit: 10,
+    },
+    {
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
+    },
+  );
+
+  const items = useMemo(
+    () => data?.pages.flatMap((page) => page.items),
+    [data],
+  );
+
+  return { items, ...useQueryReturn };
+};

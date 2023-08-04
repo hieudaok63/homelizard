@@ -17,8 +17,8 @@ import { LayoutBasicInfo } from "./_layout";
 const latitudeDeltaConst = 2;
 const longitudeDeltaConst = 2;
 const minValueRadius = 0;
-const maxValueRadius = 100;
-const minimumAcceptedValueRadius = 5;
+const maxValueRadius = 30;
+const minimumAcceptedValueRadius = 0;
 const ONE_DEGREE_OF_LATITUDE_IN_KM = 111.32;
 
 export const LocationSection = () => {
@@ -162,7 +162,7 @@ export const LocationSection = () => {
   return (
     <LayoutBasicInfo>
       <View className="mb-2 w-full flex-row items-center ">
-        <Text className=" text-black_1 text-font-12 font-weight_300 basis-1/4 opacity-60">
+        <Text className=" basis-1/4 text-font-12 font-weight_300 text-black_1 opacity-60">
           Suche
         </Text>
         <View className="w-full flex-1 flex-row items-center pl-2">
@@ -175,7 +175,7 @@ export const LocationSection = () => {
             returnKeyType="search"
           />
           <TouchableOpacity
-            className="bg-green rounded-full p-2"
+            className="rounded-full bg-green p-2"
             onPress={handlePressSearch}
           >
             <SearchIcon />
@@ -192,12 +192,12 @@ export const LocationSection = () => {
           showBottomMetric
           bottomMetricProps={{
             stepNum: 10,
-            values: [0, 20, 40, 60, 80, 100],
+            values: [0, 6, 12, 18, 24, 30],
           }}
         />
       </View>
 
-      <Text className="text-font-12 font-weight_300 px-4 text-right text-black ">
+      <Text className="px-4 text-right text-font-12 font-weight_300 text-black ">
         {radius === maxValueRadius ? `${radius}km +` : `${radius}km`}
       </Text>
 

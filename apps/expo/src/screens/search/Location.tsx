@@ -22,8 +22,8 @@ type Props = NativeStackScreenProps<RootStackParams, "Location">;
 const latitudeDeltaConst = 2;
 const longitudeDeltaConst = 2;
 const minValueRadius = 0;
-const maxValueRadius = 100;
-const minimumAcceptedValueRadius = 5;
+const maxValueRadius = 30;
+const minimumAcceptedValueRadius = 0;
 const ONE_DEGREE_OF_LATITUDE_IN_KM = 111.32;
 
 const Location = ({ navigation }: Props) => {
@@ -122,17 +122,17 @@ const Location = ({ navigation }: Props) => {
     <SearchLayout>
       <KeyboardAwareScrollView>
         <View className="mb-2 px-8">
-          <Text className="font-weight_800 text-font-18 text-black_1">
+          <Text className="text-font-18 font-weight_800 text-black_1">
             Wir finden für dich
           </Text>
 
-          <Text className="text-black_1 text-font-14 font-weight_800 mb-1 mt-2">
+          <Text className="mb-1 mt-2 text-font-14 font-weight_800 text-black_1">
             Wo suchst du?
           </Text>
         </View>
 
         <View className="mb-2 w-full flex-row items-center px-8">
-          <Text className=" text-black_1 text-font-12 font-weight_300 basis-1/4 opacity-60">
+          <Text className=" basis-1/4 text-font-12 font-weight_300 text-black_1 opacity-60">
             Suche
           </Text>
           <View className="w-full flex-1 flex-row items-center pl-2">
@@ -145,7 +145,7 @@ const Location = ({ navigation }: Props) => {
               returnKeyType="search"
             />
             <TouchableOpacity
-              className="bg-green rounded-full p-2"
+              className="rounded-full bg-green p-2"
               onPress={handlePressSearch}
             >
               <SearchIcon />
@@ -153,7 +153,7 @@ const Location = ({ navigation }: Props) => {
           </View>
         </View>
 
-        <Text className="text-black_1 font-weight_800 text-font-14 mb-1 pl-8">
+        <Text className="mb-1 pl-8 text-font-14 font-weight_800 text-black_1">
           Umkreis
         </Text>
 
@@ -167,12 +167,12 @@ const Location = ({ navigation }: Props) => {
             showBottomMetric
             bottomMetricProps={{
               stepNum: 10,
-              values: [0, 20, 40, 60, 80, 100],
+              values: [0, 6, 12, 18, 24, 30],
             }}
           />
         </View>
 
-        <Text className="text-font-12 font-weight_300 px-4 text-right text-black opacity-60">
+        <Text className="px-4 text-right text-font-12 font-weight_300 text-black opacity-60">
           {radius === maxValueRadius ? `${radius}km +` : `${radius}km`}
         </Text>
 
