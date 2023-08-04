@@ -82,7 +82,7 @@ const ObjectType = ({ navigation }: Props) => {
 
       <View className="mb-64 flex flex-row flex-wrap items-center justify-between px-4">
         <TouchableOpacity
-          className={`items-center rounded-3xl bg-grey_3 px-6 py-7 ${
+          className={`w-[30%] items-center rounded-3xl bg-grey_3 py-7 ${
             objectType === "House with garden" && "border-4 border-color_green"
           }`}
           onPress={() => {
@@ -96,7 +96,7 @@ const ObjectType = ({ navigation }: Props) => {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          className={`items-center rounded-3xl bg-grey_3 px-6 py-7 ${
+          className={`w-[30%] items-center rounded-3xl bg-grey_3 py-7 ${
             objectType === "Apartment" && "border-4 border-color_green"
           }`}
           onPress={() => {
@@ -110,7 +110,7 @@ const ObjectType = ({ navigation }: Props) => {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          className={`items-center rounded-3xl bg-grey_3 px-6 py-14 ${
+          className={`w-[30%] items-center rounded-3xl bg-grey_3 py-14 ${
             objectType &&
             objectType !== "House with garden" &&
             objectType !== "Apartment" &&
