@@ -2,7 +2,6 @@
 
 import React, { useCallback } from "react";
 import { Text, View } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import EvolutionIcon from "@assets/icons/EvolutionIcon.svg";
@@ -50,17 +49,17 @@ const YearOfConstruction = ({ navigation }: Props) => {
   // main return
   return (
     <SearchLayout>
-      <KeyboardAwareScrollView>
+      <View>
         <View className="mb-4 px-8">
-          <Text className="font-weight_800 text-font-18 text-black_1">
+          <Text className="text-font-18 font-weight_800 text-black_1">
             Wir finden für dich
           </Text>
 
           <View className="mt-5">
-            <Text className="text-black_1 text-font-14 font-weight_800 mb-1">
+            <Text className="mb-1 text-font-14 font-weight_800 text-black_1">
               Baujahr
             </Text>
-            <Text className="text-black_1 text-font-12 font-weight_300 opacity-60">
+            <Text className="text-font-12 font-weight_300 text-black_1 opacity-60">
               Welches Baujahr soll deine Immobilie haben?
             </Text>
           </View>
@@ -83,7 +82,7 @@ const YearOfConstruction = ({ navigation }: Props) => {
           />
         </View>
 
-        <Text className="text-font-12 font-weight_300 mb-8 px-4 text-right text-black opacity-60">
+        <Text className="mb-8 px-4 text-right text-font-12 font-weight_300 text-black opacity-60">
           {yearOfConstructionStart_zutand === minValueYOC
             ? `<${yearOfConstructionStart_zutand}`
             : yearOfConstructionStart_zutand}{" "}
@@ -96,7 +95,7 @@ const YearOfConstruction = ({ navigation }: Props) => {
         <View className="mb-72 items-center">
           <EvolutionIcon />
         </View>
-      </KeyboardAwareScrollView>
+      </View>
 
       <StepProgressButton
         title="Continue"

@@ -2,7 +2,6 @@
 
 import React, { useCallback } from "react";
 import { Text, View } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import EuroIcon from "@assets/icons/EuroIcon.svg";
@@ -35,7 +34,7 @@ const PriceRange = ({ navigation }: Props) => {
   // main return
   return (
     <SearchLayout>
-      <KeyboardAwareScrollView>
+      <View>
         <View className="mb-4 px-8">
           <Text className="text-font-18 font-weight_800 text-black_1">
             Wir finden für dich
@@ -61,7 +60,7 @@ const PriceRange = ({ navigation }: Props) => {
             showBottomMetric
             bottomMetricProps={{
               stepNum: 10,
-              values: [0, 200000, 400000, 600000, 800000, "1.000.000+"],
+              values: [0, "200k", "400k", "600k", "800k", "1M+"],
             }}
           />
         </View>
@@ -78,7 +77,7 @@ const PriceRange = ({ navigation }: Props) => {
         </View>
 
         {/* <View className="mt-10">{renderPercentageViews()}</View> */}
-      </KeyboardAwareScrollView>
+      </View>
 
       <StepProgressButton
         title="Continue"

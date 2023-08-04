@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import { Platform, Text, TouchableOpacity, View } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import DateTimePicker, {
   DateTimePickerAndroid,
   type AndroidNativeProps,
@@ -49,17 +48,17 @@ const Availability = ({ navigation }: Props) => {
   // main return
   return (
     <SearchLayout>
-      <KeyboardAwareScrollView>
+      <View>
         <View className="mb-4 px-8">
-          <Text className="font-weight_800 text-font-18 text-black_1">
+          <Text className="text-font-18 font-weight_800 text-black_1">
             Wir finden für dich
           </Text>
 
           <View className="mt-5">
-            <Text className="text-black_1 text-font-14 font-weight_800 mb-1">
+            <Text className="mb-1 text-font-14 font-weight_800 text-black_1">
               Verfügbarkeit
             </Text>
-            <Text className="text-black_1 text-font-12 font-weight_300 opacity-60">
+            <Text className="text-font-12 font-weight_300 text-black_1 opacity-60">
               Wann sollte die Immobilie verfügbar sein?
             </Text>
           </View>
@@ -74,7 +73,7 @@ const Availability = ({ navigation }: Props) => {
               className="rounded-md bg-white p-4"
               style={styleBoxShadow}
             >
-              <Text className="font-weight_400 text-5xl text-black">
+              <Text className="text-5xl font-weight_400 text-black">
                 {dayjs(availabilityDate_zutand).format("DD | MM | YYYY")}
               </Text>
             </TouchableOpacity>
@@ -84,7 +83,7 @@ const Availability = ({ navigation }: Props) => {
             <DateTimePicker {...datePickerProps} />
           </View>
         )}
-      </KeyboardAwareScrollView>
+      </View>
 
       <StepProgressButton
         title="Continue"
