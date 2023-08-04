@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
+import { type ObjectType as IObjectType } from "@homelizard/schema";
+
 import BuildingIcon from "@assets/icons/BuildingIcon.svg";
 import CheckIcon from "@assets/icons/CheckIcon.svg";
 import HouseIcon from "@assets/icons/HouseIcon.svg";
@@ -14,7 +16,7 @@ import { SearchLayout } from "./_layout";
 
 type Props = NativeStackScreenProps<RootStackParams, "ObjectType">;
 
-const realEstateOptions: Array<string> = [
+const realEstateOptions: IObjectType[] = [
   "Apartment",
   "Country house",
   "Dormitory on campus",

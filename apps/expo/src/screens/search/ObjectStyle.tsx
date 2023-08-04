@@ -13,15 +13,20 @@ import PlusIcon from "@assets/icons/PlusIcon.svg";
 import { api, type RouterOutputs } from "~/utils/api";
 import { genImageUrl } from "~/utils/imageUrl";
 import { StepProgressButton } from "~/components/ui";
+import { AppText } from "~/components/ui/AppText";
 import { useSearchWizardStore } from "~/zustand/store";
 import { type RootStackParams } from "../RootStackParams";
 import { SearchLayout } from "./_layout";
 
 type Props = NativeStackScreenProps<RootStackParams, "ObjectStyle">;
+type IObjectStyleItem = RouterOutputs["objectStyle"]["all"][number];
+
+const screenWidth = Dimensions.get("window").width;
+const itemWidth = screenWidth * 0.8;
 
 const ObjectStyleCarousalCard = ({
   item,
-}: CarouselRenderItemInfo<RouterOutputs["objectStyle"]["all"][number]>) => {
+}: CarouselRenderItemInfo<IObjectStyleItem>) => {
   const { id, title, description, imageUrl } = item;
   const objectStyles = useSearchWizardStore((state) => state?.objectStyles);
   const toggleObjectStyle = useSearchWizardStore(
@@ -41,7 +46,7 @@ const ObjectStyleCarousalCard = ({
       <View
         className={cn(
           "w-full overflow-hidden rounded-3xl",
-          selected && "border-color_green border-4",
+          selected && "border-4 border-color_green",
         )}
       >
         <Image
@@ -52,7 +57,7 @@ const ObjectStyleCarousalCard = ({
       </View>
 
       <TouchableOpacity
-        className="bg-green absolute right-5 top-5 rounded-full p-3"
+        className="absolute right-5 top-5 rounded-full bg-green p-3"
         onPress={handleToggleObjectStyle}
       >
         {selected ? <CheckIcon /> : <PlusIcon />}
@@ -60,12 +65,12 @@ const ObjectStyleCarousalCard = ({
 
       <TouchableOpacity className="absolute bottom-6 w-64 flex-row items-center justify-between rounded-full bg-white px-6 py-4">
         <View>
-          <Text className="font-weight_700 text-font-15 text-black">
+          <Text className="text-font-15 font-weight_700 text-black">
             {title}
           </Text>
           <Text
             numberOfLines={1}
-            className="font-weight_400 text-font-12 text-placeholder opacity-85 text-ellipsis"
+            className="opacity-85 text-ellipsis text-font-12 font-weight_400 text-placeholder"
           >
             {description}
           </Text>
@@ -79,46 +84,43 @@ const ObjectStyleCarousalCard = ({
 const ObjectStyle = ({ navigation }: Props) => {
   // zustand
   const objectStyles = useSearchWizardStore((state) => state?.objectStyles);
+  // TRPC
+  const { data, isLoading } = api.objectStyle.all.useQuery();
 
   // functions
   const handlePressNext = () => {
     navigation?.navigate("ObjectStyleResult");
   };
 
-  const { data: availableObjectStyles } = api.objectStyle.all.useQuery();
-
-  const screenWidth = Dimensions.get("window").width;
-  const itemWidth = screenWidth * 0.8;
-
   // main return
   return (
     <SearchLayout>
       <View className="mb-4 px-8">
-        <Text className="font-weight_800 text-font-18 text-black_1">
+        <Text className="text-font-18 font-weight_800 text-black_1">
           Wir finden für dich
         </Text>
 
         <View className="mt-5">
-          <Text className="text-black_1 text-font-14 font-weight_800 mb-1">
+          <Text className="mb-1 text-font-14 font-weight_800 text-black_1">
             Welchen Stil soll das Objekt haben?
           </Text>
-          <Text className="text-black_1 text-font-12 font-weight_300 opacity-60">
+          <Text className="text-font-12 font-weight_300 text-black_1 opacity-60">
             Wähle aus der Liste
           </Text>
         </View>
       </View>
 
       <View className="mt-12">
-        {availableObjectStyles && (
+        {data?.length ? (
           <Carousel
             style={{
               width: screenWidth,
               justifyContent: "center",
               alignItems: "center",
             }}
-            data={availableObjectStyles}
+            data={data}
             width={itemWidth}
-            height={400}
+            height={310}
             renderItem={ObjectStyleCarousalCard}
             loop={false}
             scrollAnimationDuration={1000}
@@ -128,6 +130,8 @@ const ObjectStyle = ({ navigation }: Props) => {
               parallaxScrollingOffset: 30,
             }}
           />
+        ) : (
+          <AppText text="Loading..." className="w-full text-center" />
         )}
       </View>
 

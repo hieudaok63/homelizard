@@ -86,33 +86,6 @@ export function RootStack() {
               }}
             />
           </Stack.Group>
-        </>
-      ) : (
-        <>
-          <Stack.Screen
-            name="LoginOrSignUp"
-            component={LoginOrSignUp}
-            options={{
-              headerTitle: "Login",
-              headerShown: false,
-              contentStyle: {
-                backgroundColor: "white",
-              },
-            }}
-          />
-          <Stack.Screen name="Login" component={Login} />
-
-          {/* register email and password */}
-          <Stack.Group>
-            <Stack.Screen
-              name="RegisterEmailPassword"
-              component={RegisterEmailPassword}
-            />
-            <Stack.Screen
-              name="RegisterVerifyEmail"
-              component={RegisterVerifyEmail}
-            />
-          </Stack.Group>
 
           {/* search */}
           <Stack.Group>
@@ -120,7 +93,11 @@ export function RootStack() {
               name="ObjectType"
               component={ObjectType}
               options={{
-                headerLeft: () => <BackButton screen="LoginOrSignUp" />,
+                headerLeft: () => (
+                  <BackButton
+                    screen={isSignedIn ? undefined : "LoginOrSignUp"}
+                  />
+                ),
               }}
             />
             <Stack.Screen
@@ -192,6 +169,33 @@ export function RootStack() {
               options={{
                 headerLeft: () => <BackButton screen="ObjectStyleResult" />,
               }}
+            />
+          </Stack.Group>
+        </>
+      ) : (
+        <>
+          <Stack.Screen
+            name="LoginOrSignUp"
+            component={LoginOrSignUp}
+            options={{
+              headerTitle: "Login",
+              headerShown: false,
+              contentStyle: {
+                backgroundColor: "white",
+              },
+            }}
+          />
+          <Stack.Screen name="Login" component={Login} />
+
+          {/* register email and password */}
+          <Stack.Group>
+            <Stack.Screen
+              name="RegisterEmailPassword"
+              component={RegisterEmailPassword}
+            />
+            <Stack.Screen
+              name="RegisterVerifyEmail"
+              component={RegisterVerifyEmail}
             />
           </Stack.Group>
         </>

@@ -15,17 +15,21 @@ import { type BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { cn } from "@homelizard/tailwind-config/utils";
 
 import ArrowRightIcon from "@assets/icons/ArrowRightIcon.svg";
-import BookmarkIcon from "@assets/icons/BookmarkIcon.svg";
 import CloseIcon from "@assets/icons/CloseIcon.svg";
 import HomeIcon from "@assets/icons/HomeIcon.svg";
+import LoveIcon from "@assets/icons/LoveIcon.svg";
 import MenuIcon from "@assets/icons/MenuIcon.svg";
-import MessageIcon from "@assets/icons/MessageIcon.svg";
+import NotepadIcon from "@assets/icons/NotepadIcon.svg";
 import PeopleIcon from "@assets/icons/PeopleIcon.svg";
 import PersonIcon from "@assets/icons/PersonIcon.svg";
 import PlusIcon from "@assets/icons/PlusIcon.svg";
 import SettingsIcon from "@assets/icons/SettingsIcon.svg";
 
+import { type RootStackParams } from "~/screens/RootStackParams";
+import { type TabStackParams } from "~/screens/app/routes";
+import { useNavbarStore } from "~/zustand/slices/navbar";
 import { SignOutButton } from "../auth/SignOutButton";
+import { useAppNavigation } from "./useAppNavigation";
 
 const PADDING_HEIGHT = 28;
 
@@ -40,7 +44,17 @@ const shadowStyle = {
   elevation: 5,
 };
 
-const menuLinkData = [
+type IMenuLinkData = {
+  screen?: keyof RootStackParams;
+  name: string;
+  Icon: React.FC<SvgProps>;
+  iconGradient: {
+    from: string;
+    to: string;
+  };
+};
+
+const menuLinkData: IMenuLinkData[] = [
   {
     name: "Settings",
     Icon: SettingsIcon,
@@ -50,26 +64,30 @@ const menuLinkData = [
     },
   },
   {
-    name: "Messages",
-    Icon: MessageIcon,
+    name: "Create new search",
+    Icon: NotepadIcon,
     iconGradient: {
-      from: "#4AB0F7",
-      to: "#317FEC",
+      from: "#A079EB",
+      to: "#6E4AE5",
     },
+    screen: "ObjectType",
   },
   {
-    name: "Bookmarks",
-    Icon: BookmarkIcon,
+    name: "Favorite",
+    Icon: LoveIcon,
     iconGradient: {
-      from: "#FADA25",
-      to: "#F4B512",
+      from: "#EF8FAF",
+      to: "#E75E7B",
     },
+    screen: "ListFavoriteSection",
   },
 ];
 
 const NavBar = ({ navigation, state }: BottomTabBarProps) => {
+  // zustand
+  const { open, setOpen } = useNavbarStore((slice) => slice);
+  // local states
   const maxHeight = useSharedValue(0);
-  const [open, setOpen] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
 
   useEffect(() => {
@@ -262,13 +280,22 @@ const TabActionButton = ({
   );
 };
 
-const MenuLink = ({ name, Icon, iconGradient }: (typeof menuLinkData)[0]) => {
+const MenuLink = ({
+  name,
+  Icon,
+  iconGradient,
+  screen,
+}: (typeof menuLinkData)[0]) => {
+  const setOpenMenu = useNavbarStore((slice) => slice.setOpen);
+  const navigation = useAppNavigation<keyof TabStackParams>();
+
+  const handleClickItemMenu = () => {
+    setOpenMenu(false);
+    if (screen) navigation?.push(screen);
+  };
+
   return (
-    <TouchableOpacity
-      onPress={() => {
-        console.log("MenuLink clicked");
-      }}
-    >
+    <TouchableOpacity onPress={handleClickItemMenu}>
       <View className="flex flex-row items-center border-b-[1px] border-[#303040] p-4 py-2">
         <LinearGradient
           className="rounded-bl-full rounded-tl-full rounded-tr-full p-2"

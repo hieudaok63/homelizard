@@ -211,7 +211,8 @@ export const useSearchWizardStore = create(
               (item) => item !== val,
             );
           } else {
-            state.objectStyles.push(val);
+            // @ts-ignore
+            state.objectStyles.push(val?.toLocaleLowerCase());
           }
         });
       },

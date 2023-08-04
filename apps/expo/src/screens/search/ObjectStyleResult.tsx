@@ -23,6 +23,7 @@ import { type RootStackParams } from "../RootStackParams";
 import { SearchLayout } from "./_layout";
 
 type Props = NativeStackScreenProps<RootStackParams, "ObjectStyleResult">;
+type IObjectStyleItem = RouterOutputs["objectStyle"]["all"][number];
 
 const ContemporaryImage = require("@assets/objectStyleImage/Contemporary.png");
 
@@ -44,9 +45,7 @@ const ObjectStyleResult = ({ navigation }: Props) => {
 
   // functions
   const renderItem = useCallback(
-    ({
-      item,
-    }: ListRenderItemInfo<RouterOutputs["objectStyle"]["all"][number]>) => {
+    ({ item }: ListRenderItemInfo<IObjectStyleItem>) => {
       return (
         <View className="mb-3 w-72 overflow-hidden rounded-3xl p-0">
           <View className="relative h-24 w-full items-center justify-center overflow-hidden">
@@ -55,16 +54,18 @@ const ObjectStyleResult = ({ navigation }: Props) => {
               alt={item.title}
               className="h-full w-full"
             />
-            <TouchableOpacity className="absolute flex-row items-center justify-between rounded-full bg-white px-6 py-2">
-              <View className="mr-1">
-                <Text className="mb-1 text-font-15 font-weight_700 text-black_xtra">
+            <TouchableOpacity className="absolute w-11/12 flex-row items-center justify-between rounded-full bg-white px-6 py-2">
+              <View className="mr-1 flex-1">
+                <Text
+                  className="mb-1 text-font-15 font-weight_700 text-black_xtra"
+                  numberOfLines={1}
+                >
                   {item.title}
                 </Text>
-                {/* TODO: replace with text-ellipsis  */}
-                <Text className="opacity-85 text-font-12 font-weight_400 text-placeholder">{`${item.description.substring(
-                  0,
-                  30,
-                )}...`}</Text>
+                <Text
+                  numberOfLines={1}
+                  className="opacity-85 text-font-12 font-weight_400 text-placeholder"
+                >{`${item.description}...`}</Text>
               </View>
 
               <InfoSCircleIcon />

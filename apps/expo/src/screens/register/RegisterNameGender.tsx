@@ -67,6 +67,9 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
         endYearOfConstruction: searchWizardData?.yearOfConstructionEnd,
         // TODO: check why dayjs is needed here
         availability: dayjs(searchWizardData.availabilityDate).toDate(),
+        purchaseType: searchWizardData?.purchaseType,
+        minPrice: 1, // hard code for now
+        maxPrice: searchWizardData?.maxPrice,
       });
 
       resetSearchWizard();
