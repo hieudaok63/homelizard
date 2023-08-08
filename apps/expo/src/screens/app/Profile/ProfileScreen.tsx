@@ -7,6 +7,7 @@ import DotIcon from "@assets/icons/DotIcon.svg";
 import EditIcon from "@assets/icons/EditIcon.svg";
 import EyeIcon from "@assets/icons/EyeIcon.svg";
 
+import { api } from "~/utils/api";
 import { generateBoxShadowStyle } from "~/utils/helpers";
 import {
   CollapsibleHeaderTabs,
@@ -17,7 +18,6 @@ import { NotificationBadge, UserAvatar } from "~/components/ui";
 import { AppText } from "~/components/ui/AppText";
 import { MyProfileTab } from "./MyProfileTab";
 import { ResultsTab } from "./ResultsTab";
-import { useBackendUser } from "~/hooks/useBackendUser";
 
 export function ProfileScreen() {
   return (
@@ -59,10 +59,11 @@ const ResultsTabLabel = (props: TabItemProps<"results">) => {
 };
 
 const smallBoxShadow = generateBoxShadowStyle("small");
-
 const PROFILE_SCREEN_HEADER_HEIGHT = 484;
+
 const ProfileScreenHeader = () => {
-  const user = useBackendUser();
+  const { data: userData } = api.user.userInfo.useQuery();
+
   return (
     <>
       <View className="relative h-[375px]" pointerEvents="box-none">
@@ -83,7 +84,7 @@ const ProfileScreenHeader = () => {
       >
         <View pointerEvents="box-none">
           <View pointerEvents="none">
-            <AppText text={`Hello, ${user?.firstName}`} large />
+            <AppText text={`Hello, ${userData?.lastName || ""}`} large />
           </View>
           <TouchableOpacity>
             <View className="mt-[0px] flex flex-row items-center">
