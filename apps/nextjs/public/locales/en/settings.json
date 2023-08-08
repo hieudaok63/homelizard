@@ -1,0 +1,19 @@
+{
+  "setting": "Settings",
+  "settingAndHelp": "Einstellungen und Hilfe",
+  "return": "Zurück",
+  "generalSettings": "General settings",
+  "einstellungen": "Einstellungen",
+  "Support": "Support",
+  "desSupport": "Hilfe, FAQ und Kontakt",
+  "delete": "Delete",
+  "deleteAccount": "Account löschen",
+  "desDeleteAccount": "Wenn Du Dein Account löschst, werden kleine Kätzchen sterben.Von der Löschung bleiben jedoch jene Daten unberührt, zu deren Speicherung wir verpflichtet oder berechtigt sind.Alle geschlossenen Verträge und getroffenen Vereinbarungen bleiben auch nach der Löschung wirksam.",
+  "contact": "Kontakt",
+  "desContact": "Dürfen wir Dich bezüglich deiner Kontolöschung kontaktieren?",
+  "continue": "Continue",
+  "verifyDeleteAccount": "Accountlöschung bestätigen",
+  "desVerifyDeleteAccount": "Bitte bestätige, dass Du wirklich in vollem Bewusstsein diesen tollen Account löschen möchtest",
+  "email": "E-Mailadresse",
+  "confirm": "Bestätigen"
+}

@@ -31,4 +31,7 @@ export type RootStackParams = {
   ObjectDetail: {
     itemId: string;
   };
+  //setting
+  Setting: undefined;
+  DeleteAccount: undefined;
 };
