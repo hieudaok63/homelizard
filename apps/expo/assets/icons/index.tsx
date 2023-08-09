@@ -25,6 +25,7 @@ import GoogleDriveIcon from "./GoogleDriveIcon.svg";
 import HomeIcon from "./HomeIcon.svg";
 import HouseIcon from "./HouseIcon.svg";
 import HouseMultipleRoomIcon from "./HouseMultipleRoomIcon.svg";
+import IconBack from "./IconBack.svg";
 import IconPlus from "./IconPlus.svg";
 import InfoSCircleIcon from "./InfoSCircleIcon.svg";
 import KeyMessageIcon from "./KeyMessageIcon.svg";
@@ -96,4 +97,5 @@ export {
   SettingsIcon,
   ShareIcon,
   SharePostIcon,
+  IconBack,
 };

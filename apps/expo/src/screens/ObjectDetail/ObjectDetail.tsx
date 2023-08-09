@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Image, ScrollView, TouchableOpacity, View } from "react-native";
+import React, { useEffect } from "react";
+import { Image, TouchableOpacity, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { cn } from "@homelizard/tailwind-config/utils";
@@ -13,66 +14,66 @@ import PhoneIcon from "@assets/icons/PhoneIcon.svg";
 import { api } from "~/utils/api";
 import { genImageUrl } from "~/utils/imageUrl";
 import { BottomNavBarPadding } from "~/components/navigation/NavBar";
-import { ContentObject, DetailObject } from "~/components/ui";
+import { ContentObject, DetailObject, HeaderScroll } from "~/components/ui";
 import { AppText } from "~/components/ui/AppText";
+import ReadMoreText from "~/components/ui/ReadMoreText";
+import { useApplicationLoadingStore } from "~/zustand/store";
 import { type RootStackParams } from "../RootStackParams";
 import { ObjectDetailLayout } from "./_layout";
 
 type Props = NativeStackScreenProps<RootStackParams, "ObjectDetail">;
-
 export const ObjectDetail = ({ route }: Props) => {
-  const [showMoreBasicRoom, setShowMoreBasicRoom] = useState(false);
-  const [showMoreContentRoom, setShowMoreContentRoom] = useState(false);
-  const [showBtnshowMore, setShowBtnshowMore] = useState(false);
   const { itemId } = route.params;
+  const { bottom } = useSafeAreaInsets();
+  const setLoading = useApplicationLoadingStore((state) => state.setLoading);
 
-  const { data } = api.searchResult.byId.useQuery({ searchResultId: itemId });
+  const { data, isLoading } = api.searchResult.byId.useQuery({
+    searchResultId: itemId,
+  });
+  useEffect(() => {
+    setLoading(isLoading);
+  }, [setLoading, isLoading]);
 
   return (
     <ObjectDetailLayout>
-      <ScrollView nestedScrollEnabled showsVerticalScrollIndicator={false}>
+      <HeaderScroll>
+        {/* show image */}
         <View className="h-[375px]">
           <Image
-            className="h-full w-full rounded-br-[190px]"
+            className="h-[375px] w-full rounded-br-[188px]"
             source={genImageUrl(data?.realEstate?.imageUrl)}
             alt="House"
           />
-
           <TouchableOpacity
-            className="absolute bottom-8 right-8 h-12 w-12 items-center justify-center rounded-full"
+            className="bg-purply_blue absolute bottom-5 right-11 h-10 w-10 items-center justify-center rounded-full"
             activeOpacity={0.9}
           >
-            <Image
-              className="h-full w-full rounded-full"
-              source={genImageUrl(
-                "https://fastly.picsum.photos/id/197/200/300.jpg?hmac=p4Xo0YBZC4uaAtKFs7gx7d5446a8gUo7X6bEI9mgkpg",
-              )}
-              alt="Contact"
-            />
-            <View className="bg-purply_blue absolute -bottom-2 -left-2 items-center justify-center rounded-full p-1">
-              <PhoneIcon width={20} height={20} />
-            </View>
+            <PhoneIcon width={20} height={20} />
           </TouchableOpacity>
         </View>
-        <View>
-          <AppText
-            text={[
-              data?.realEstate?.address?.street,
-              data?.realEstate?.address?.city,
-            ].join(", ")}
-            className="ml-auto mr-4 mt-2 font-weight_800 text-grey"
-          />
-        </View>
-        <View className="mx-6 mt-2">
+        {/* show address */}
+        {(data?.realEstate?.address?.street ||
+          data?.realEstate?.address?.city) && (
+          <View className="bg-black">
+            <AppText
+              text={[
+                data?.realEstate?.address?.street,
+                data?.realEstate?.address?.city,
+              ].join(", ")}
+              className="ml-auto mr-4 mt-2 font-weight_800 text-grey"
+            />
+          </View>
+        )}
+
+        <View className="mx-4 mt-2">
           <AppText
             text={data?.realEstate?.title as string}
             className="text-font-24 font-weight_700 leading-8 "
           />
         </View>
-        <ScrollView
-          className="mx-3 h-full  rounded-[16px] bg-white p-2"
-          showsVerticalScrollIndicator={false}
-        >
+
+        <View className="mx-3 mt-1 rounded-[16px] bg-white px-2 pb-4">
+          {/* show statistics */}
           <View className="ml-3 mt-1">
             <AppText
               text={`${data?.realEstate.price} €`}
@@ -93,118 +94,77 @@ export const ObjectDetail = ({ route }: Props) => {
               />
             </View>
           </View>
-          <ScrollView
+          {/*  */}
+
+          <View className="border-l-purply_blue w-12/12 ml-2 mt-4 rounded-[20px] border-l-[6px] pl-4 ">
+            <AppText text="Daten" className=" mb-2  font-nunito-800 text-sm" />
+            <ContentObject
+              type="Typ"
+              content={data?.realEstate.objectType as string}
+            />
+            <ContentObject
+              type="Etagenanzahl"
+              content={data?.realEstate?.numberOfFloor.toString()}
+            />
+            <ContentObject
+              type="Wohnfläche ca."
+              content={`${data?.realEstate.livingAreaSize} m²`}
+            />
+            <ContentObject
+              type="Grundstück ca."
+              content={`${data?.realEstate.plotSize} m²`}
+            />
+            <ContentObject
+              type="Zimmer"
+              content={data?.realEstate.roomAmount.toString()}
+            />
+            <ContentObject
+              type="Schlafzimmer"
+              content={data?.realEstate.numberOfBedroom.toString()}
+            />
+            <ContentObject
+              type="Badezimmer"
+              content={data?.realEstate.numberOfBathroom.toString()}
+            />
+          </View>
+          <View
             className={cn(
-              "border-l-purply_blue w-12/12 mt-3 rounded-[20px] border-l-[5px] bg-white p-1",
-              showMoreBasicRoom ? "h-full" : "h-[300px]",
+              "border-l-purply_blue w-12/12 ml-2 mt-4 rounded-[20px] border-l-[5px] px-4",
             )}
-            showsVerticalScrollIndicator={false}
           >
-            <View className="ml-2 mt-2 pb-10">
-              <AppText text="Daten" className=" mb-2 font-nunito-800 text-sm" />
-              <ContentObject
-                type="Typ"
-                content={data?.realEstate.objectType as string}
-              />
-              <ContentObject
-                type="Etagenanzahl"
-                content={data?.realEstate?.numberOfFloor.toString()}
-              />
-              <ContentObject
-                type="Wohnfläche ca."
-                content={`${data?.realEstate.livingAreaSize} m²`}
-              />
-              <ContentObject
-                type="Grundstück ca."
-                content={`${data?.realEstate.plotSize} m²`}
-              />
-              <ContentObject
-                type="Zimmer"
-                content={data?.realEstate.roomAmount.toString()}
-              />
-              <ContentObject
-                type="Schlafzimmer"
-                content={data?.realEstate.numberOfBedroom.toString()}
-              />
-              <ContentObject
-                type="Badezimmer"
-                content={data?.realEstate.numberOfBathroom.toString()}
-              />
-            </View>
-          </ScrollView>
-          {!showBtnshowMore && (
-            <View>
-              <TouchableOpacity
-                onPress={() => setShowMoreBasicRoom((pre) => !pre)}
-                className="-mt-7 ml-auto mr-2 w-4/12"
-              >
-                {!showMoreBasicRoom && (
-                  <AppText
-                    text="mehr ..."
-                    className="text-purply_blue text-right font-nunito-bold"
-                  />
-                )}
-              </TouchableOpacity>
-            </View>
-          )}
-          <ScrollView
-            className={cn(
-              "border-l-purply_blue w-12/12 mt-8  rounded-[20px] border-l-[5px] bg-white p-1",
-              showMoreContentRoom ? "h-full" : "h-[300px]",
-            )}
-            showsVerticalScrollIndicator={false}
-          >
-            <View className="ml-2 mt-2 pb-10">
+            <View className="my-2">
               <AppText
                 text="Beschreibung"
                 className=" mb-2 font-nunito-800 text-sm"
               />
-              <AppText
-                className=" font-weight_300 text-grey"
-                text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. "
-              />
-              <AppText
-                className=" font-weight_300 text-grey"
-                text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. "
-              />
-              <AppText
-                className=" font-weight_300 text-grey"
-                text="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. "
+              <ReadMoreText
+                text={data?.realEstate.description || ""}
+                initialNumberOfLines={11}
               />
             </View>
-          </ScrollView>
-          <View>
-            <TouchableOpacity
-              onPress={() => {
-                setShowMoreContentRoom((pre) => !pre);
-                setShowMoreBasicRoom(false);
-                setShowBtnshowMore(false);
-              }}
-              className="-mt-7 ml-auto mr-2 w-4/12"
-            >
-              <AppText
-                text="mehr ..."
-                className="text-purply_blue text-right font-nunito-bold"
-              />
-            </TouchableOpacity>
           </View>
-          <View className="mx-2 mt-5 flex flex-row items-center justify-around ">
-            <View className="">
-              <TouchableOpacity className="h-12 w-12 items-center justify-center rounded-full bg-black_1">
-                <LoveIcon />
-              </TouchableOpacity>
-            </View>
-            <TouchableOpacity className="my-auto rounded-3xl bg-black_1">
-              <AppText
-                text="Jetzt kontaktieren"
-                className="font-nunito-light mt-auto px-20 py-4 text-center text-white"
-              />
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
+        </View>
 
         <BottomNavBarPadding />
-      </ScrollView>
+      </HeaderScroll>
+      <View
+        style={{ paddingBottom: bottom }}
+        className={cn(
+          "absolute bottom-0 left-6 right-6 mx-2 mt-5 flex flex-row items-center justify-around",
+        )}
+      >
+        <View className="">
+          <TouchableOpacity className="h-12 w-12 items-center justify-center rounded-full bg-black_1">
+            <LoveIcon />
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity className="ml-6 rounded-3xl bg-black_1">
+          <AppText
+            text="Besichtigung vereinbaren"
+            className="font-nunito-light mt-auto px-20 py-4 text-center text-white"
+          />
+        </TouchableOpacity>
+      </View>
     </ObjectDetailLayout>
   );
 };

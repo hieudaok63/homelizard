@@ -20,7 +20,7 @@ export const DetailObject = ({ Icon, text }: IDetailObject) => {
       {Icon && Icon}
       <Text
         className={cn(
-          " font-weight_800 ml-1",
+          " ml-2 font-weight_800",
           Icon ? "text-font-14" : "text-font-18 ",
         )}
       >

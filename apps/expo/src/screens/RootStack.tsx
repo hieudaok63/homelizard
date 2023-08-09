@@ -59,6 +59,7 @@ export function RootStack() {
             name="ObjectDetail"
             component={ObjectDetail}
             options={{
+              headerShown: false,
               headerLeft: () => <BackButton />,
             }}
           />
