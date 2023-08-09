@@ -1,124 +1,118 @@
-import React, { useEffect, useState } from "react";
-import { View } from "react-native";
+import React, { useEffect } from "react";
+import { TouchableOpacity, View } from "react-native";
 import Toast from "react-native-toast-message";
-import { useTranslation } from "react-i18next";
+import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 import { z } from "zod";
 
 import { MOBILE_PHONE_REGEX } from "@homelizard/api/src/constant/base.constant";
 
-import IconPlus from "@assets/icons/IconPlus.svg";
+import ArrowUpIcon from "@assets/icons/ArrowUpIcon.svg";
+import CloseIcon from "@assets/icons/CloseIcon.svg";
 
 import { api } from "~/utils/api";
-import { SpeechBubbleIcon, type Percentage } from "~/components/ui";
+import { Button, SpeechBubbleIcon } from "~/components/ui";
+import { AppText } from "~/components/ui/AppText";
 import { HeaderForm, LayoutForm } from "~/components/ui/Profile";
 import InputProfile from "~/components/ui/input/InputProfile";
 import { useZodForm } from "~/hooks/useZodForm";
-import { progressSlice } from "~/zustand/store";
+import { useApplicationLoadingStore } from "~/zustand/store";
+import { type TabStackParams } from "../../routes";
 import { LayoutBasicInfo } from "./_layout";
+
+type IProps = NativeStackScreenProps<TabStackParams, "MobilePhoneSection">;
 
 export const formSchema = z.object({
   phone: z.string().regex(MOBILE_PHONE_REGEX),
 });
 
-export const MobilePhoneSection = () => {
+const defaultValues = {
+  phone: "",
+};
+
+export const MobilePhoneSection = ({ navigation }: IProps) => {
   const utils = api.useContext();
-
   const { data } = api.user.userInfo.useQuery();
-
-  const setMobilePhoneProgress = progressSlice(
-    (state) => state?.setMobilePhoneProgress,
-  );
-
-  const { t } = useTranslation();
-
-  const [progress, setProgress] = useState<Percentage>(0);
-
-  const DATA_FIELD = {
-    phone: data?.mobilePhone,
-  };
+  const setLoading = useApplicationLoadingStore((state) => state?.setLoading);
 
   const { handleSubmit, control, reset } = useZodForm({
     schema: formSchema,
-    defaultValues: {
-      phone: "",
-    },
+    defaultValues,
   });
 
   useEffect(() => {
-    if (data) {
+    if (data?.mobilePhone) {
       reset({
-        phone: data.mobilePhone as string,
+        phone: data.mobilePhone,
       });
     }
-  }, [data]);
+  }, [data?.mobilePhone, reset]);
 
-  const { mutate } = api.user.update.useMutation({
+  const { mutateAsync } = api.user.update.useMutation({
     async onSuccess() {
       await utils.user.invalidate();
+      navigation.goBack();
+      setLoading(false);
       Toast?.show({
         type: "success",
         text1: "Success",
-        visibilityTime: 2000,
+        text2: "Phone number saved!",
       });
     },
     onError(err) {
       console.log({ err });
+      setLoading(false);
+      Toast?.show({
+        type: "error",
+        text1: "Error!",
+        text2: err.message,
+      });
     },
   });
 
   const onSubmit = handleSubmit(async (data) => {
-    mutate({
+    setLoading(true);
+    await mutateAsync({
       mobilePhone: data.phone,
     });
-
-    try {
-    } catch (error) {
-      console.log(error);
-    }
   });
-
-  const elementCheck = (objarray: any) => {
-    const listArray = Object.keys(objarray);
-    let count = 0;
-
-    for (const key of listArray) {
-      const item = objarray[key];
-
-      if (item === undefined || item === "" || item === null) {
-        count++;
-      }
-    }
-
-    if (count === 0) {
-      setMobilePhoneProgress(100);
-      setProgress(100);
-    } else {
-      setMobilePhoneProgress(0);
-    }
-  };
-
-  useEffect(() => {
-    elementCheck(DATA_FIELD);
-  }, [data]);
 
   return (
     <LayoutBasicInfo>
       <LayoutForm>
-        <View className="mt-5 h-[70%] rounded-[45px] bg-white">
+        <View className="mt-5 min-h-[50%] rounded-3xl bg-white pb-8">
           <HeaderForm
             iconLeft={<SpeechBubbleIcon color="yellow" />}
             title="Mobile phone"
-            progress={progress}
+            progress={100}
             variant="yellow"
           />
+
+          <View className="flex w-full flex-row items-center px-4">
+            <TouchableOpacity className="bg-grey_4 mr-2 rounded-full p-1">
+              <CloseIcon />
+            </TouchableOpacity>
+
+            <TouchableOpacity className="flex flex-row items-center">
+              <AppText text="Mobile" className="text-font-16 text-blue_2" />
+              <ArrowUpIcon
+                width={25}
+                height={25}
+                className=" rotate-90 text-blue_2"
+              />
+            </TouchableOpacity>
+          </View>
+
           <InputProfile
             name="phone"
             control={control}
-            label="Add a number"
             keyboardType="number-pad"
-            rightIconProps={<IconPlus />}
-            inputPhoneNumber
-            onPressRightInput={onSubmit}
+            placeholder="Add a number"
+          />
+
+          <Button
+            title="Save"
+            onPress={onSubmit}
+            className="mx-4 rounded-full"
           />
         </View>
       </LayoutForm>

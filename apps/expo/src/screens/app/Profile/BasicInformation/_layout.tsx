@@ -7,7 +7,7 @@ import GradientPatternBackground from "~/components/ui/GradientPatternBackground
 export const LayoutBasicInfo = ({ children }: PropsWithChildren) => {
   return (
     <GradientPatternBackground variant="yellow">
-      <SafeAreaView className="h-full px-8">
+      <SafeAreaView className="h-full px-8" edges={["top"]}>
         <AppHeader title="Persönliche Daten" />
         {children}
       </SafeAreaView>

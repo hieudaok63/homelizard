@@ -15,11 +15,6 @@ import {
 
 import { cn } from "@homelizard/tailwind-config/utils";
 
-import ArrowRightIcon from "@assets/icons/ArrowRightIcon.svg";
-import CloseIcon from "@assets/icons/CloseIcon.svg";
-
-import { AppText } from "./AppText";
-
 export interface AppInputProfileProps extends TextInputProps {
   label?: string;
   value?: string;
@@ -40,7 +35,6 @@ export interface AppInputProfileProps extends TextInputProps {
   onInputPressIn?: () => void;
   rightIconProps?: React.ReactNode;
   classIconRight?: string;
-  inputPhoneNumber?: boolean;
   onPressRightInput?: () => void;
 }
 
@@ -58,19 +52,14 @@ export const AppInputProfile = forwardRef<
     keyboardType,
     error,
     returnKeyType,
-
     autoCapitalize,
-
     multiline,
-
     onFocusCallback,
     onInputPressIn,
     onBlur,
     onPressRightInput,
-
     classIconRight,
     rightIconProps,
-    inputPhoneNumber,
     inputGrey,
   } = props;
   const [isFocus, setFocus] = useState(false);
@@ -79,18 +68,6 @@ export const AppInputProfile = forwardRef<
   return (
     <TouchableWithoutFeedback onPress={() => innerRef.current?.focus()}>
       <>
-        {inputPhoneNumber && (
-          <View className=" ml-5 flex  w-4/12  flex-row items-center  justify-between ">
-            <TouchableOpacity className="bg-grey_4 w-10 rounded-full p-2">
-              <CloseIcon />
-            </TouchableOpacity>
-
-            <TouchableOpacity className=" flex  w-6/12  flex-row items-center  justify-between">
-              <AppText text="Mobile" className=" text-blue_2 text-font-18" />
-              <ArrowRightIcon width={30} height={30} fill="#007AFF" />
-            </TouchableOpacity>
-          </View>
-        )}
         <View
           className={cn(
             "flex w-full flex-row items-center bg-white p-4 ",
@@ -100,7 +77,7 @@ export const AppInputProfile = forwardRef<
           {label && (
             <Text
               className={cn(
-                "text-font-16 text-grey -mt-0 w-4/12",
+                "w-4/12 text-font-16 text-grey",
                 inputGrey && "w-5/12",
               )}
             >
@@ -119,8 +96,9 @@ export const AppInputProfile = forwardRef<
             }}
             placeholder={!isFocus ? placeholder : undefined}
             className={cn(
-              "font-weight_600 text-font-16 border-color_gray ml-1  border-b p-2",
+              "ml-1 border-b border-color_gray p-2 text-font-16 font-weight_600",
               rightIconProps ? "w-6/12" : "w-7/12",
+              !label ? "w-full" : "",
             )}
             placeholderTextColor="#828282"
             onFocus={() => {

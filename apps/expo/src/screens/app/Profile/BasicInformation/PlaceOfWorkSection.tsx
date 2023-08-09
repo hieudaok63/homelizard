@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { TouchableOpacity, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Toast from "react-native-toast-message";
 import dayjs from "dayjs";
-import { useTranslation } from "react-i18next";
 import { z } from "zod";
 
 import { MOBILE_PHONE_REGEX } from "@homelizard/api/src/constant/base.constant";
@@ -11,77 +10,62 @@ import { MOBILE_PHONE_REGEX } from "@homelizard/api/src/constant/base.constant";
 import SearchIcon from "@assets/icons/SearchIcon.svg";
 
 import { api } from "~/utils/api";
-import { DatePickerProfile } from "~/components/Profile";
+import { TriggerDatePicker } from "~/components/DatePicker/TriggerDatePicker";
 import { useAppNavigation } from "~/components/navigation/useAppNavigation";
 import { Button, SpeechBubbleIcon } from "~/components/ui";
+import { AppText } from "~/components/ui/AppText";
 import { HeaderForm, LayoutForm } from "~/components/ui/Profile";
 import InputProfile from "~/components/ui/input/InputProfile";
-import InputSelectDate from "~/components/ui/input/InputSelectDate";
 import { useZodForm } from "~/hooks/useZodForm";
 import { locationSlice } from "~/zustand/store";
 import { LayoutBasicInfo } from "./_layout";
 
+const schema = z.object({
+  position: z.string(),
+  company: z.string(),
+  since: z.date(),
+  company_address: z.string(),
+  phone_company: z.string().regex(MOBILE_PHONE_REGEX),
+  email_company: z.string(),
+  web_company: z.string(),
+});
+
+type IPlaceOfWork = z.infer<typeof schema>;
+
+const defaultValues: IPlaceOfWork = {
+  position: "",
+  company: "",
+  since: new Date(),
+  company_address: "",
+  phone_company: "",
+  email_company: "",
+  web_company: "",
+};
+
 export const PlaceOfWorkSection = () => {
-  const utils = api.useContext();
-
   const navigation = useAppNavigation();
-
-  const [valueDate, setValueDate] = useState("");
-  const [showDatePicker, setShowDatePicker] = useState(false);
-
+  const utils = api.useContext();
   const { data } = api.user.userInfo.useQuery();
-
   const { addressParam, address } = locationSlice((state) => state);
 
-  const TOTAL_FIELD = 7;
-
-  const DATA_FIELD = {
-    position: data?.placeOfWork?.position,
-    company: data?.placeOfWork?.company,
-    since: data?.placeOfWork?.since,
-    company_address: data?.placeOfWork?.addressId,
-    phone_company: data?.placeOfWork?.phone,
-    email_company: data?.placeOfWork?.email,
-    web_company: data?.placeOfWork?.web,
-  };
-
-  const formSchema = z.object({
-    position: z.string(),
-    company: z.string(),
-    since: z.string(),
-    company_address: z.string(),
-    phone_company: z.string().regex(MOBILE_PHONE_REGEX),
-    email_company: z.string(),
-    web_company: z.string(),
+  const { handleSubmit, control, reset, watch, setValue } = useZodForm({
+    schema,
+    defaultValues,
   });
-
-  const { handleSubmit, control, reset, setValue } = useZodForm({
-    schema: formSchema,
-    defaultValues: {
-      position: "",
-      company: "",
-      since: "",
-      company_address: "",
-      phone_company: "",
-      email_company: "",
-      web_company: "",
-    },
-  });
-  const { t } = useTranslation();
 
   useEffect(() => {
     if (data) {
       reset({
         position: data?.placeOfWork?.position,
         company: data?.placeOfWork?.company,
-        since: data?.placeOfWork?.since,
-        company_address: address.name,
+        since: data?.placeOfWork?.since || new Date(),
+        company_address: address.name || "",
         phone_company: data?.placeOfWork?.phone,
         email_company: data?.placeOfWork?.email,
         web_company: data?.placeOfWork?.web,
       });
     }
-  }, [data, address]);
+  }, [data, address, reset]);
 
   const { mutate } = api.user.editPlaceOfWork.useMutation({
     async onSuccess() {
@@ -126,8 +110,8 @@ export const PlaceOfWorkSection = () => {
     <>
       <LayoutBasicInfo>
         <LayoutForm>
-          <KeyboardAwareScrollView>
-            <View className="mt-5 h-[105%] rounded-[45px] bg-white">
+          <View className="mt-5 max-h-[75%] overflow-hidden rounded-3xl bg-white">
+            <KeyboardAwareScrollView>
               <HeaderForm
                 iconLeft={<SpeechBubbleIcon color="yellow" />}
                 title="Place of work"
@@ -146,13 +130,31 @@ export const PlaceOfWorkSection = () => {
                 placeholder="Enter name"
                 label="Company"
               />
-              <InputSelectDate
-                control={control}
-                name="since"
-                placeholder="Company Since"
-                onPressSelectDate={() => setShowDatePicker(true)}
-                onSwitch={false}
-              />
+
+              <TriggerDatePicker
+                value={watch("since")}
+                onChange={(e) => {
+                  const { timestamp } = e?.nativeEvent;
+                  if (timestamp) {
+                    setValue("since", new Date(timestamp), {
+                      shouldValidate: true,
+                    });
+                  }
+                }}
+              >
+                <View className="flex w-full flex-row items-center py-4 pl-4 pr-10">
+                  <AppText
+                    text="Company since"
+                    className="w-4/12 text-font-16 text-grey"
+                  />
+                  <View className="flex flex-1 flex-row justify-center border-b border-color_gray pb-2">
+                    <AppText
+                      text={dayjs(watch("since"))?.format("DD | MM | YYYY")}
+                    />
+                  </View>
+                </View>
+              </TriggerDatePicker>
+
               <View className="w-full">
                 <TouchableOpacity
                   className=" absolute bottom-0 left-0 right-0 top-0 z-20 w-full    "
@@ -187,26 +189,17 @@ export const PlaceOfWorkSection = () => {
                 label="Web"
                 name="web_company"
               />
-              <View className="px-4 pt-4">
+              <View className="px-4 py-4">
                 <Button
                   title="Update"
-                  className="mt-4 rounded"
+                  className="rounded-full"
                   onPress={onSubmit}
                 />
               </View>
-            </View>
-          </KeyboardAwareScrollView>
+            </KeyboardAwareScrollView>
+          </View>
         </LayoutForm>
       </LayoutBasicInfo>
-
-      <DatePickerProfile
-        showDatePicker={showDatePicker}
-        setShowDatePicker={() => {
-          setShowDatePicker(false);
-          setValue("since", valueDate, { shouldValidate: true });
-        }}
-        setValueDate={setValueDate}
-      />
     </>
   );
 };
