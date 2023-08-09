@@ -22,7 +22,6 @@ export * from "./ButtonActionMain";
 export * from "./AppBanner";
 export * from "./SpeechBubbleIcon";
 export * from "./AppInputSelectGender";
-export * from "./AppInputSelectDate";
 export * from "./AppInputProfile";
 export * from "./SpeechBubbleIcon";
 export * from "./DetailObject";
