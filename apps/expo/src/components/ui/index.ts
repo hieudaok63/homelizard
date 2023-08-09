@@ -20,3 +20,4 @@ export * from "./SpeechBubbleIcon";
 export * from "./DetailObject";
 export * from "./CustomSwitch";
 export * from "./ResultCard";
+export * from "./HouseMultipRoom";
