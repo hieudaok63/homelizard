@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 
 import { api } from "~/utils/api";
 import { StepProgressButton } from "~/components/ui";
+import { getCountScreen } from "~/utils";
 import {
   useApplicationLoadingStore,
   useSearchWizardStore,
@@ -37,7 +38,9 @@ const Results = ({ navigation }: Props) => {
     await searchProfileMutation.mutateAsync(
       {
         objectType: searchWizardData.objectType!,
-        objectStyles: searchWizardData?.objectStyles,
+        // objectStyles:searchWizardData.objectStyles,
+        //hidden for now - WD-138
+        objectStyles: ["bohemian"],
         livingAreaSize: searchWizardData?.livingArea,
         roomAmount: searchWizardData?.numberOfRooms,
         // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
@@ -94,7 +97,7 @@ const Results = ({ navigation }: Props) => {
 
           <StepProgressButton
             title="Get objects"
-            progress={100}
+            progress={getCountScreen("Results")}
             onPress={handleClickGetObjects}
             variant="turquoise"
           />

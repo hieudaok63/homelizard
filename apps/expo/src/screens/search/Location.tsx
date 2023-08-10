@@ -10,6 +10,7 @@ import SearchIcon from "@assets/icons/SearchIcon.svg";
 
 import { InputDefault, RangePicker, StepProgressButton } from "~/components/ui";
 import { useLocation } from "~/hooks/useLocation";
+import { getCountScreen } from "~/utils";
 import {
   useApplicationLoadingStore,
   useSearchWizardStore,
@@ -198,7 +199,7 @@ const Location = ({ navigation }: Props) => {
       </KeyboardAwareScrollView>
       <StepProgressButton
         title="Continue"
-        progress={30}
+        progress={getCountScreen("Location")}
         onPress={handlePressNext}
         variant="turquoise"
       />

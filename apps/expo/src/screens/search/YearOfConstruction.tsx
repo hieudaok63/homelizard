@@ -7,6 +7,7 @@ import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 import EvolutionIcon from "@assets/icons/EvolutionIcon.svg";
 
 import { RangePicker, StepProgressButton } from "~/components/ui";
+import { getCountScreen } from "~/utils";
 import { useSearchWizardStore } from "~/zustand/store";
 import { type RootStackParams } from "../RootStackParams";
 import { SearchLayout } from "./_layout";
@@ -99,7 +100,7 @@ const YearOfConstruction = ({ navigation }: Props) => {
 
       <StepProgressButton
         title="Continue"
-        progress={70}
+        progress={getCountScreen("YearOfConstruction")}
         onPress={handlePressNext}
         variant="turquoise"
       />

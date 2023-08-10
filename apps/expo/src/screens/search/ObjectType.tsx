@@ -10,6 +10,7 @@ import HouseIcon from "@assets/icons/HouseIcon.svg";
 
 import { generateBoxShadowStyle } from "~/utils/helpers";
 import { BottomSheet, CustomSwitch, StepProgressButton } from "~/components/ui";
+import { getCountScreen } from "~/utils";
 import { useSearchWizardStore } from "~/zustand/store";
 import { type RootStackParams } from "../RootStackParams";
 import { SearchLayout } from "./_layout";
@@ -130,7 +131,7 @@ const ObjectType = ({ navigation }: Props) => {
         </TouchableOpacity>
       </View>
       <StepProgressButton
-        progress={(objectType && 20) || 0}
+        progress={(objectType && getCountScreen("ObjectType")) || 0}
         title="Continue"
         onPress={handlePressNext}
         disabled={!objectType}
