@@ -27,7 +27,6 @@ export const useGetUserInfo = () => {
       }
     } catch (error) {
       console.log(error);
-      // navigation?.navigate("RegisterNameGender");
       resetUser();
     } finally {
       setLoadingApp(false);

@@ -1,58 +1,25 @@
-import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/router";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-
-
 import "swiper/css";
-import { Button } from "~/components/ui/button";
-import { ArrowBack } from "~/components";
+import { api } from "~/utils/api";
+import { ArrowBack, ButtonSearchWizard, Loading } from "~/components";
 import { PATH_CALENDAR, PATH_CHOOSE_IMAGE } from "~/constants/navigation";
-import { searchWizardMock } from "~/mocks";
 import LayoutSearch from "~/pages/search-wizard/_layout";
-import { type TSearchWizardStyle } from "~/types";
 import { useSearchWizardStore } from "~/zustand/store";
 import { ObjectStyleCard } from "./components";
 
-
 export default function ListStyles() {
-  const router = useRouter();
-
-  const setObjectStyles_zustand = useSearchWizardStore(
-    (state) => state?.setObjectStyles,
-  );
   const objectStyles = useSearchWizardStore((state) => state?.objectStyles);
-  const objectStylesRef = useRef(objectStyles);
 
-  const [data, setData] = useState<TSearchWizardStyle[]>(() =>
-    searchWizardMock?.map((val) => ({ ...val, is_check: false })),
-  );
-  useEffect(() => {
-    const dataSelected =
-      data?.map((val, index) => {
-        if (val?.id === objectStylesRef.current[index]?.id)
-          return { ...val, is_check: objectStylesRef.current[index]?.is_check };
-        return val;
-      }) || [];
-    setData([...(dataSelected || [])]);
-  }, []);
-  useEffect(() => {
-    const dataSelected = data?.filter((val) => val?.is_check);
-    setObjectStyles_zustand([...dataSelected]);
-  }, [data]);
+  // api
+  const { data, isLoading } = api.objectStyle.all.useQuery();
 
-  const handleClickChooseStyle = (value: any) => {
-    setData((pre) =>
-      pre?.map((val) => {
-        if (val?.id === value?.id)
-          return {
-            ...value,
-            is_check: !val?.is_check,
-          };
-        return val;
-      }),
+  if (isLoading)
+    return (
+      <LayoutSearch>
+        <Loading />
+      </LayoutSearch>
     );
-  };
 
   return (
     <LayoutSearch>
@@ -63,17 +30,18 @@ export default function ListStyles() {
         path={PATH_CALENDAR}
       />
 
-      <div className="mt-10 flex w-full justify-center">
-        <div className="w-[70%] pb-4">
+      <div className="mt-20 flex w-full justify-center">
+        <div className="w-[90%] pb-4">
           <Swiper
+            // @ts-ignore
             spaceBetween={30}
-            slidesPerView={3.5}
+            slidesPerView={4.5}
             className="w-full"
           >
-            {data?.map((val, index) => (
-              <SwiperSlide className="w-full" key={index}>
+            {data?.map((val) => (
+              <SwiperSlide className="w-full" key={val?.id}>
                 <ObjectStyleCard
-                  chooseStyle={() => handleClickChooseStyle(val)}
+                  selected={objectStyles?.includes(val?.id)}
                   data={val}
                 />
               </SwiperSlide>
@@ -82,13 +50,12 @@ export default function ListStyles() {
         </div>
       </div>
 
-      <div className=" mt-20 flex w-full justify-center ">
-        <Button
-          className="h-12 w-60 rounded-3xl"
-          onClick={() => router.push(PATH_CHOOSE_IMAGE)}
-        >
-          Weiter
-        </Button>
+      <div className="mt-36 flex w-full justify-center ">
+        <ButtonSearchWizard
+          title="Weiter"
+          path={PATH_CHOOSE_IMAGE}
+          disabled={objectStyles.length > 0 ? false : true}
+        />
       </div>
     </LayoutSearch>
   );

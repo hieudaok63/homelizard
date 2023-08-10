@@ -18,6 +18,10 @@ import { createTRPCRouter, protectedProcedure } from "../trpc";
 const MAX_UPLOAD_SIZE = 5 * 1024 * 1024;
 
 const client = new S3Client({
+  credentials: {
+    accessKeyId: `${process.env.AWS_ACCESS_KEY_ID}`,
+    secretAccessKey: `${process.env.AWS_SECRET_ACCESS_KEY}`,
+  },
   region: "eu-central-1",
 });
 

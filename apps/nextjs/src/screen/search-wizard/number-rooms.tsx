@@ -1,6 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import Image from "next/image";
 
-import House from "~/assets/icons/House.svg";
+import {
+  number_room1,
+  number_room2,
+  number_room3,
+  number_room4,
+  number_room5,
+  number_room6,
+  number_room7,
+  number_room8,
+  number_room9,
+  number_room10,
+} from "~/assets";
 import LandIcon from "~/assets/icons/LandIcon.svg";
 import { ArrowBack, ButtonSearchWizard, CustomInputRange } from "~/components";
 import LayoutSearch from "~/pages/search-wizard/_layout";
@@ -25,7 +37,7 @@ export default function NumberRooms() {
   const plotArea = Number(plotSize) / 2;
 
   const livingArea = useSearchWizardStore((state) => state?.livingArea);
-  const livingM2 = Number(livingArea) / 2;
+  const livingM2 = Number(livingArea) / 3;
 
   const numberRooms = useSearchWizardStore((state) => state.numberOfRooms);
   const setNumberOfRoom = useSearchWizardStore(
@@ -34,6 +46,32 @@ export default function NumberRooms() {
 
   const handleChange = (newValue: number) => {
     setNumberOfRoom(newValue);
+  };
+
+  const NumberRoom = () => {
+    if (numberRooms === 1) {
+      return number_room1;
+    } else if (numberRooms === 2) {
+      return number_room2;
+    } else if (numberRooms === 3) {
+      return number_room3;
+    } else if (numberRooms === 4) {
+      return number_room4;
+    } else if (numberRooms === 5) {
+      return number_room5;
+    } else if (numberRooms === 6) {
+      return number_room6;
+    } else if (numberRooms === 7) {
+      return number_room7;
+    } else if (numberRooms === 8) {
+      return number_room8;
+    } else if (numberRooms === 9) {
+      return number_room9;
+    } else if (numberRooms === 0) {
+      return number_room1;
+    } else {
+      return number_room10;
+    }
   };
 
   return (
@@ -62,14 +100,12 @@ export default function NumberRooms() {
           src={LandIcon}
           alt="land-icon"
           style={{
-            width: `${
-              plotArea < 100 ? 100 : plotArea > 400 ? 400 : plotArea
-            }px`,
+            width: `${plotArea < 100 ? 100 : plotArea}px`,
           }}
         />
-        <div className="absolute ">
+        <div className="absolute">
           <Image
-            src={House}
+            src={NumberRoom()}
             alt="land-icon"
             style={{
               width: `${
@@ -78,12 +114,9 @@ export default function NumberRooms() {
             }}
           />
         </div>
-        <span className="absolute text-xs text-[#26233299] ">
-          {livingArea} m²
-        </span>
-        <span className="absolute right-[40%] top-[-20px] text-xs text-[#26233299]">
-          {plotSize} m²
-        </span>
+        <p className="absolute top-[-26px] text-sm text-grey">
+          {numberRooms} Räume
+        </p>
       </div>
       <div className="flex w-full justify-center">
         <ButtonSearchWizard

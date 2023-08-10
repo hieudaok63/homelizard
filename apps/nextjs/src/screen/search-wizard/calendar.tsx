@@ -2,7 +2,11 @@ import Calendar from "react-calendar";
 
 import "react-calendar/dist/Calendar.css";
 import { ArrowBack, ButtonSearchWizard } from "~/components";
-import { PATH_IMAGE, PATH_RENTALPRICE } from "~/constants/navigation";
+import {
+  PATH_IMAGE,
+  PATH_REGISTER,
+  PATH_RENTALPRICE,
+} from "~/constants/navigation";
 import LayoutSearch from "~/pages/search-wizard/_layout";
 import { useSearchWizardStore } from "~/zustand/store";
 
@@ -24,7 +28,10 @@ export default function CalendarSearch() {
         <Calendar onChange={setDate} value={date} />
       </div>
       <div className=" flex justify-center">
-        <ButtonSearchWizard title="Continue" path={PATH_IMAGE} />
+        {/* <ButtonSearchWizard title="Continue" path={PATH_IMAGE} /> */}
+
+        {/* Hide object style */}
+        <ButtonSearchWizard title="Continue" path={PATH_REGISTER} />
       </div>
     </LayoutSearch>
   );

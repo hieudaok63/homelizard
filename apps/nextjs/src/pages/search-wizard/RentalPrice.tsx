@@ -1,13 +1,11 @@
 import dynamic from "next/dynamic";
 
-
-
-
+import { Loading } from "~/components";
 
 const RentalPrice = dynamic(
   () => import("~/screen").then((module) => module.RentalPrice),
   {
-    loading: () => <p>Loading...</p>,
+    loading: () => <Loading />,
     ssr: false,
   },
 );
