@@ -21,9 +21,28 @@ export type IItem = {
 };
 
 export const ResultsTab = () => {
+  const navigation = useAppNavigation();
   const { items, fetchNextPage, isRefetching, refetch } =
     useInfiniteSearchResults();
-
+  const ResultItem = ({
+    item,
+  }: ListRenderItemInfo<
+    RouterOutputs["searchResult"]["bySearchProfileId"]["data"][number]
+  >) => {
+    return (
+      <ResultCard
+        title={item?.realEstate.title}
+        description={item?.realEstate.description}
+        imageUrl={item?.realEstate.imageUrl}
+        createdAt={item?.createdAt}
+        onPress={() => {
+          navigation.push("ObjectDetail", {
+            itemId: item.id,
+          });
+        }}
+      />
+    );
+  };
   return (
     <Tabs.FlatList
       data={items}
@@ -44,27 +63,6 @@ const HeaderPost = () => {
     <AppText
       text="Heute"
       className="px-6 pb-1 pt-4 font-nunito-bold text-2xl text-white"
-    />
-  );
-};
-
-const ResultItem = ({
-  item,
-}: ListRenderItemInfo<
-  RouterOutputs["searchResult"]["bySearchProfileId"]["data"][number]
->) => {
-  const navigation = useAppNavigation();
-  return (
-    <ResultCard
-      title={item?.realEstate.title}
-      description={item?.realEstate.description}
-      imageUrl={item?.realEstate.imageUrl}
-      createdAt={item?.createdAt}
-      onPress={() => {
-        navigation.push("ObjectDetail", {
-          itemId: item.id,
-        });
-      }}
     />
   );
 };

@@ -9,8 +9,38 @@ import { ResultCard } from "~/components/ui";
 import { AppText } from "~/components/ui/AppText";
 
 export const ResultsTab = () => {
+  const navigation = useAppNavigation();
   const { items, fetchNextPage, isRefetching, refetch } =
     useInfiniteSearchResults();
+
+  const ResultItem = ({
+    item,
+  }: ListRenderItemInfo<
+    RouterOutputs["searchResult"]["bySearchProfileId"]["data"][number]
+  >) => {
+    return (
+      <ResultCard
+        onPress={() => {
+          navigation.push("ObjectDetail", {
+            itemId: item.id,
+          });
+        }}
+        title={item?.realEstate.title}
+        description={item?.realEstate.description}
+        imageUrl={item?.realEstate.imageUrl}
+        createdAt={item?.createdAt}
+        onOpenMenu={() => {
+          alert("Open menu");
+        }}
+        onComment={() => {
+          alert("Open comment");
+        }}
+        onShare={() => {
+          alert("Open share");
+        }}
+      />
+    );
+  };
   return (
     <Tabs.FlatList
       data={items}
@@ -31,37 +61,6 @@ const HeaderPost = () => {
     <AppText
       text="Today"
       className="px-6 pb-1 pt-4 font-nunito-bold text-2xl text-white"
-    />
-  );
-};
-
-const ResultItem = ({
-  item,
-}: ListRenderItemInfo<
-  RouterOutputs["searchResult"]["bySearchProfileId"]["data"][number]
->) => {
-  const navigation = useAppNavigation();
-
-  return (
-    <ResultCard
-      onPress={() => {
-        navigation.push("ObjectDetail", {
-          itemId: item.id,
-        });
-      }}
-      title={item?.realEstate.title}
-      description={item?.realEstate.description}
-      imageUrl={item?.realEstate.imageUrl}
-      createdAt={item?.createdAt}
-      onOpenMenu={() => {
-        alert("Open menu");
-      }}
-      onComment={() => {
-        alert("Open comment");
-      }}
-      onShare={() => {
-        alert("Open share");
-      }}
     />
   );
 };
