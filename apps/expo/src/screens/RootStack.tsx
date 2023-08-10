@@ -87,91 +87,6 @@ export function RootStack() {
               }}
             />
           </Stack.Group>
-
-          {/* search */}
-          <Stack.Group>
-            <Stack.Screen
-              name="ObjectType"
-              component={ObjectType}
-              options={{
-                headerLeft: () => (
-                  <BackButton
-                    screen={isSignedIn ? undefined : "LoginOrSignUp"}
-                  />
-                ),
-              }}
-            />
-            <Stack.Screen
-              name="Location"
-              component={Location}
-              options={{
-                headerLeft: () => <BackButton screen="ObjectType" />,
-              }}
-            />
-            <Stack.Screen
-              name="PlotSize"
-              component={PlotSize}
-              options={{
-                headerLeft: () => <BackButton screen="Location" />,
-              }}
-            />
-            <Stack.Screen
-              name="LivingArea"
-              component={LivingArea}
-              options={{
-                headerLeft: () => <BackButton screen="PlotSize" />,
-              }}
-            />
-            <Stack.Screen
-              name="NumberOfRooms"
-              component={NumberOfRooms}
-              options={{
-                headerLeft: () => <BackButton screen="LivingArea" />,
-              }}
-            />
-            <Stack.Screen
-              name="YearOfConstruction"
-              component={YearOfConstruction}
-              options={{
-                headerLeft: () => <BackButton screen="NumberOfRooms" />,
-              }}
-            />
-            <Stack.Screen
-              name="PriceRange"
-              component={PriceRange}
-              options={{
-                headerLeft: () => <BackButton screen="YearOfConstruction" />,
-              }}
-            />
-            <Stack.Screen
-              name="Availability"
-              component={Availability}
-              options={{
-                headerLeft: () => <BackButton screen="PriceRange" />,
-              }}
-            />
-            <Stack.Screen
-              name="ObjectStyle"
-              component={ObjectStyle}
-              options={{
-                headerLeft: () => <BackButton screen="Availability" />,
-              }}
-            />
-            <Stack.Screen
-              name="ObjectStyleResult"
-              component={ObjectStyleResult}
-              options={{
-                headerLeft: () => <BackButton screen="ObjectStyle" />,
-              }}
-            />
-            <Stack.Screen
-              name="Results"
-              component={Results}
-              options={{
-                headerLeft: () => <BackButton screen="ObjectStyleResult" />,
-              }}
-            />
-          </Stack.Group>
         </>
       ) : (
         <>
@@ -201,6 +116,89 @@ export function RootStack() {
           </Stack.Group>
         </>
       )}
+
+      {/* search */}
+      <Stack.Group>
+        <Stack.Screen
+          name="ObjectType"
+          component={ObjectType}
+          options={{
+            headerLeft: () => (
+              <BackButton screen={isSignedIn ? undefined : "LoginOrSignUp"} />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="Location"
+          component={Location}
+          options={{
+            headerLeft: () => <BackButton screen="ObjectType" />,
+          }}
+        />
+        <Stack.Screen
+          name="PlotSize"
+          component={PlotSize}
+          options={{
+            headerLeft: () => <BackButton screen="Location" />,
+          }}
+        />
+        <Stack.Screen
+          name="LivingArea"
+          component={LivingArea}
+          options={{
+            headerLeft: () => <BackButton screen="PlotSize" />,
+          }}
+        />
+        <Stack.Screen
+          name="NumberOfRooms"
+          component={NumberOfRooms}
+          options={{
+            headerLeft: () => <BackButton screen="LivingArea" />,
+          }}
+        />
+        <Stack.Screen
+          name="YearOfConstruction"
+          component={YearOfConstruction}
+          options={{
+            headerLeft: () => <BackButton screen="NumberOfRooms" />,
+          }}
+        />
+        <Stack.Screen
+          name="PriceRange"
+          component={PriceRange}
+          options={{
+            headerLeft: () => <BackButton screen="YearOfConstruction" />,
+          }}
+        />
+        <Stack.Screen
+          name="Availability"
+          component={Availability}
+          options={{
+            headerLeft: () => <BackButton screen="PriceRange" />,
+          }}
+        />
+        <Stack.Screen
+          name="ObjectStyle"
+          component={ObjectStyle}
+          options={{
+            headerLeft: () => <BackButton screen="Availability" />,
+          }}
+        />
+        <Stack.Screen
+          name="ObjectStyleResult"
+          component={ObjectStyleResult}
+          options={{
+            headerLeft: () => <BackButton screen="ObjectStyle" />,
+          }}
+        />
+        <Stack.Screen
+          name="Results"
+          component={Results}
+          options={{
+            headerLeft: () => <BackButton screen="ObjectStyleResult" />,
+          }}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 }
