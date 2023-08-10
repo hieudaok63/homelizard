@@ -1,22 +1,22 @@
+import { type NativeStackScreenProps } from "@react-navigation/native-stack";
+import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Toast from "react-native-toast-message";
-import { type NativeStackScreenProps } from "@react-navigation/native-stack";
-import dayjs from "dayjs";
 import { z } from "zod";
 
 import { genderSchema } from "@homelizard/schema";
 
-import { api } from "~/utils/api";
 import { TriggerDatePicker } from "~/components/DatePicker/TriggerDatePicker";
 import { ModalSelectGender } from "~/components/Profile/Modal";
 import { Button, SpeechBubbleIcon } from "~/components/ui";
 import { AppText } from "~/components/ui/AppText";
 import { HeaderForm, LayoutForm } from "~/components/ui/Profile";
-import InputProfile from "~/components/ui/input/InputProfile";
 import InputSelectGender from "~/components/ui/input/InputSelectGender";
+import TextInputController from "~/components/ui/input/TextInputController";
 import { useZodForm } from "~/hooks/useZodForm";
+import { api } from "~/utils/api";
 import { useApplicationLoadingStore } from "~/zustand/store";
 import { type TabStackParams } from "../../routes";
 import { LayoutBasicInfo } from "./_layout";
@@ -117,34 +117,39 @@ export const BasicInfoSection = ({ navigation }: IProps) => {
                 progress={100}
                 variant="yellow"
               />
-              <InputProfile
+              <TextInputController
                 name="title"
                 control={control}
                 placeholder="Add title"
+                variant="inline"
                 label="Title"
               />
-              <InputProfile
+              <TextInputController
                 name="first_name"
                 control={control}
                 placeholder="Add First name"
+                variant="inline"
                 label="First name"
               />
-              <InputProfile
+              <TextInputController
                 name="middle_name"
                 control={control}
                 placeholder="Add Middle name"
+                variant="inline"
                 label="Middle Name"
               />
-              <InputProfile
+              <TextInputController
                 name="last_name"
                 control={control}
                 placeholder="Add Last name"
+                variant="inline"
                 label="Last name"
               />
-              <InputProfile
+              <TextInputController
                 name="suffix"
                 control={control}
                 placeholder="Add Suffix"
+                variant="inline"
                 label="Suffix"
               />
               <InputSelectGender

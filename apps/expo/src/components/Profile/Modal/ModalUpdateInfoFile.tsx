@@ -5,7 +5,7 @@ import { z } from "zod";
 
 import { Button, PopupModal } from "~/components/ui";
 import { AppText } from "~/components/ui/AppText";
-import TextInput from "~/components/ui/input/TextInput";
+import TextInput from "~/components/ui/input/TextInputController";
 import { useZodForm } from "~/hooks/useZodForm";
 
 // types

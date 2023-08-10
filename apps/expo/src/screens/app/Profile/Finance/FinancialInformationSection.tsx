@@ -5,7 +5,7 @@ import { z } from "zod";
 
 import { ButtonProfile } from "~/components/Profile";
 import { ProfileSectionAccordion } from "~/components/ui/Profile";
-import InputProfile from "~/components/ui/input/InputProfile";
+import TextInputController from "~/components/ui/input/TextInputController";
 import { useZodForm } from "~/hooks/useZodForm";
 
 export const FinancialInformationSection = ({
@@ -31,12 +31,12 @@ export const FinancialInformationSection = ({
       style={style}
     >
       <KeyboardAwareScrollView>
-        <InputProfile
+        <TextInputController
           name="test"
           control={control}
           placeholder="Noch nicht verfügbar"
           label="Finanzierung"
-          inputGrey
+          variant="inline"
         />
         <ButtonProfile
           onPress={() => {}}

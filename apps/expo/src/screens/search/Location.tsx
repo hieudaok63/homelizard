@@ -8,7 +8,7 @@ import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import SearchIcon from "@assets/icons/SearchIcon.svg";
 
-import { AppInput, RangePicker, StepProgressButton } from "~/components/ui";
+import { InputDefault, RangePicker, StepProgressButton } from "~/components/ui";
 import { useLocation } from "~/hooks/useLocation";
 import {
   useApplicationLoadingStore,
@@ -132,25 +132,21 @@ const Location = ({ navigation }: Props) => {
         </View>
 
         <View className="mb-2 w-full flex-row items-center px-8">
-          <Text className=" basis-1/4 text-font-12 font-weight_300 text-black_1 opacity-60">
-            Suche
-          </Text>
-          <View className="w-full flex-1 flex-row items-center pl-2">
-            <AppInput
+          <View className="mr-2 flex-1">
+            <InputDefault
               placeholder="Suche"
-              className="mr-2 flex-1"
               value={address}
               onChangeText={setAddress}
               onSubmitEditing={handlePressSearch}
               returnKeyType="search"
             />
-            <TouchableOpacity
-              className="rounded-full bg-green p-2"
-              onPress={handlePressSearch}
-            >
-              <SearchIcon />
-            </TouchableOpacity>
           </View>
+          <TouchableOpacity
+            className="rounded-full bg-green p-2"
+            onPress={handlePressSearch}
+          >
+            <SearchIcon />
+          </TouchableOpacity>
         </View>
 
         <Text className="mb-1 pl-8 text-font-14 font-weight_800 text-black_1">

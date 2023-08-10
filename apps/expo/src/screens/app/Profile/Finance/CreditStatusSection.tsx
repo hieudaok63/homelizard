@@ -4,7 +4,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { z } from "zod";
 
 import { ProfileSectionAccordion } from "~/components/ui/Profile";
-import InputProfile from "~/components/ui/input/InputProfile";
+import TextInputController from "~/components/ui/input/TextInputController";
 import { useZodForm } from "~/hooks/useZodForm";
 
 export const CreditStatusSection = ({
@@ -23,21 +23,26 @@ export const CreditStatusSection = ({
   });
 
   return (
-    <ProfileSectionAccordion title="Zusagen" variant="blue" progress={41} style={style}>
+    <ProfileSectionAccordion
+      title="Zusagen"
+      variant="blue"
+      progress={41}
+      style={style}
+    >
       <KeyboardAwareScrollView>
-        <InputProfile
+        <TextInputController
           name="test"
           control={control}
           placeholder="Noch nicht verfügbar"
           label="Bonität"
-          inputGrey
+          variant="inline"
         />
-        <InputProfile
+        <TextInputController
           name="test"
           control={control}
           placeholder="Noch nicht verfügbar"
           label="Bonität"
-          inputGrey
+          variant="inline"
         />
       </KeyboardAwareScrollView>
     </ProfileSectionAccordion>

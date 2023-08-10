@@ -5,7 +5,7 @@ import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 import { z } from "zod";
 
 import { StepProgressButton } from "~/components/ui";
-import TextInput from "~/components/ui/input/TextInput";
+import TextInput from "~/components/ui/input/TextInputController";
 import { useZodForm } from "~/hooks/useZodForm";
 import { type RootStackParams } from "~/screens/RootStackParams";
 import { useApplicationLoadingStore } from "~/zustand/store";
@@ -89,10 +89,10 @@ export const RegisterEmailPassword = ({ navigation }: IProps) => {
         className="flex h-full justify-between px-6"
       >
         <View>
-          <Text className="font-nunito-800 text-dark text-lg">
+          <Text className="font-nunito-800 text-lg text-dark">
             Login : Registrierung
           </Text>
-          <Text className="font-nunito-800 text-dark pl-16 text-lg">
+          <Text className="pl-16 font-nunito-800 text-lg text-dark">
             E-Mail und Passwort
           </Text>
         </View>

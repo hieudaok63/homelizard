@@ -15,7 +15,7 @@ import { useAppNavigation } from "~/components/navigation/useAppNavigation";
 import { Button, SpeechBubbleIcon } from "~/components/ui";
 import { AppText } from "~/components/ui/AppText";
 import { HeaderForm, LayoutForm } from "~/components/ui/Profile";
-import InputProfile from "~/components/ui/input/InputProfile";
+import TextInputController from "~/components/ui/input/TextInputController";
 import { useZodForm } from "~/hooks/useZodForm";
 import { locationSlice } from "~/zustand/store";
 import { LayoutBasicInfo } from "./_layout";
@@ -118,16 +118,18 @@ export const PlaceOfWorkSection = () => {
                 progress={50}
                 variant="yellow"
               />
-              <InputProfile
+              <TextInputController
                 name="position"
                 control={control}
                 placeholder="Enter position"
+                variant="inline"
                 label="Position"
               />
-              <InputProfile
+              <TextInputController
                 name="company"
                 control={control}
                 placeholder="Enter name"
+                variant="inline"
                 label="Company"
               />
 
@@ -142,7 +144,7 @@ export const PlaceOfWorkSection = () => {
                   }
                 }}
               >
-                <View className="flex w-full flex-row items-center py-4 pl-4 pr-10">
+                <View className="flex w-full flex-row items-center py-4 pl-4 pr-2">
                   <AppText
                     text="Company since"
                     className="w-4/12 text-font-16 text-grey"
@@ -155,40 +157,44 @@ export const PlaceOfWorkSection = () => {
                 </View>
               </TriggerDatePicker>
 
-              <View className="w-full">
-                <TouchableOpacity
-                  className=" absolute bottom-0 left-0 right-0 top-0 z-20 w-full    "
-                  onPress={() => navigation?.navigate("LocationSection")}
-                />
-                <InputProfile
-                  name="company_address"
-                  control={control}
-                  placeholder="Search location"
-                  label="Company address"
-                  rightIconProps={<SearchIcon fill="#0080FF" />}
-                  multiline
-                />
-              </View>
-
-              <InputProfile
+              <TextInputController
                 control={control}
                 name="phone_company"
                 placeholder="Enter company phone"
                 label="Phone"
+                variant="inline"
                 keyboardType="number-pad"
               />
-              <InputProfile
+              <TextInputController
                 control={control}
                 name="email_company"
                 placeholder="Enter your work email"
+                variant="inline"
                 label="Email"
               />
-              <InputProfile
+              <TextInputController
                 control={control}
                 placeholder="Company website"
                 label="Web"
+                variant="inline"
                 name="web_company"
               />
+              <TouchableOpacity
+                className="flex w-full flex-row items-center pr-2"
+                onPress={() => navigation?.navigate("LocationSection")}
+              >
+                <View className="flex-1">
+                  <TextInputController
+                    name="company_address"
+                    control={control}
+                    placeholder="Search location"
+                    label="Company address"
+                    variant="inline"
+                    multiline
+                  />
+                </View>
+                <SearchIcon fill="#0080FF" />
+              </TouchableOpacity>
               <View className="px-4 py-4">
                 <Button
                   title="Update"
