@@ -1,6 +1,13 @@
 import Image from "next/image";
 
-import Wing from "~/assets/icons/pngwing.svg";
+import { cn } from "@homelizard/tailwind-config/utils";
+
+import {
+  PuchasePrice1,
+  PuchasePrice2,
+  PuchasePrice3,
+  PuchasePrice4,
+} from "~/assets";
 import { ArrowBack, ButtonSearchWizard, CustomInputRange } from "~/components";
 import { PATH_CONSTRUCTION, PATH_RENTALPRICE } from "~/constants/navigation";
 import LayoutSearch from "~/pages/search-wizard/_layout";
@@ -48,19 +55,32 @@ export default function PurchasePrice() {
       </div>
 
       <div className="mt-28 flex w-full items-end justify-center">
-        {purchasePrice <= 200000 && (
-          <Image src={Wing} alt="construction" width={60} />
-        )}
-        {purchasePrice <= 400000 && (
-          <Image src={Wing} alt="construction" width={85} />
-        )}
-        {purchasePrice <= 600000 && (
-          <Image src={Wing} alt="construction" width={110} />
-        )}
-        {purchasePrice <= 800000 && (
-          <Image src={Wing} alt="construction" width={135} />
-        )}
-        <Image src={Wing} alt="construction" width={160} />
+        <Image
+          src={PuchasePrice1}
+          alt="construction"
+          className="mr-10 w-[100px]"
+        />
+        <Image
+          src={PuchasePrice2}
+          alt="construction"
+          className={cn(
+            "mr-10 w-[150px]",
+            purchasePrice <= 300000 && "blur-md",
+          )}
+        />
+        <Image
+          src={PuchasePrice3}
+          alt="construction"
+          className={cn("mr-10 w-[150px]", purchasePrice < 600000 && "blur-md")}
+        />
+        <Image
+          src={PuchasePrice4}
+          alt="construction"
+          className={cn(
+            "mr-10 w-[150px]",
+            purchasePrice <= 900000 && "blur-md",
+          )}
+        />
       </div>
       <div className="flex w-full justify-center">
         <ButtonSearchWizard title="Continue" path={PATH_RENTALPRICE} />

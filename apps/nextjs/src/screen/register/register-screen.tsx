@@ -1,24 +1,14 @@
-import React, { useState } from "react";
-import Image from "next/image";
 import { useRouter } from "next/router";
-import { useSignUp, useUser } from "@clerk/nextjs";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, FormProvider } from "react-hook-form";
-
-
+import { useClerk, useSignUp } from "@clerk/nextjs";
+import { FormProvider } from "react-hook-form";
 
 import { showAppToast } from "~/utils/toast";
-import { RegisterBackground } from "~/assets";
-import { Button, DropUpload, Input, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue, TextInput } from "~/components";
-import { EGender } from "~/enums";
-import { useGetUserInfo, useZodForm } from "~/hooks";
-import { IRegister } from "~/interfaces";
-import { TOptions } from "~/types";
+import { Button, LayoutLoginRegister, Loading } from "~/components";
+import { PATH_SIGN_IN, PATH_VERIFYCODE } from "~/constants/navigation";
+import { useZodForm } from "~/hooks";
 import { registerSchema } from "~/validations";
 import { useApplicationLoadingStore } from "~/zustand/store";
-import { Layout } from "./_layout";
 import { RegisterSignUp } from "./register-signup";
-
 
 const initialValues = {
   email: "",
@@ -26,32 +16,23 @@ const initialValues = {
   confirmPassword: "",
 };
 
-const genderOptions: TOptions<number>[] = [
-  { value: 1, label: EGender.MALE },
-  { value: 2, label: EGender.FEMALE },
-  { value: 3, label: EGender.OTHERS },
-];
-
 export const RegisterScreen = () => {
+  const router = useRouter();
   const methods = useZodForm({
     mode: "onSubmit",
     schema: registerSchema,
     defaultValues: initialValues,
   });
-  const navigate = useRouter();
   const { isLoaded, signUp } = useSignUp();
+  const { signOut } = useClerk();
   const setLoadingApp = useApplicationLoadingStore((state) => state.setLoading);
 
   const {
-    control,
-    setValue,
-    setError,
     handleSubmit,
     formState: { errors },
   } = methods;
 
   const onSubmit = async (data: any) => {
-    // navigate.push("register/verify-code");
     if (!isLoaded) {
       console.log("load failed");
       return;
@@ -62,39 +43,50 @@ export const RegisterScreen = () => {
         emailAddress: data?.email,
         password: data?.password,
       });
-      showAppToast(`Please check email to get code"}`, "success");
+      showAppToast(`Please check email to get code`, "success");
       await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
-
-      navigate.push("register/verify-code");
+      router.push(PATH_VERIFYCODE);
     } catch (error: any) {
       showAppToast(
         `${error?.errors[0]?.message || "Some thing went wrong!"}`,
         "error",
       );
+      await signOut();
     } finally {
       setLoadingApp(false);
     }
   };
 
   return (
-    <Layout>
-      <FormProvider {...methods}>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="form-register flex-1 justify-center pl-8"
-        >
-          <RegisterSignUp />
-          <div className="mt-14 flex w-full justify-center">
-            <Button
-              className="w-[80%] bg-gradient-to-l from-[#74ebd5] to-[#9face6]"
-              color="white"
-              type="submit"
+    <>
+      {isLoaded ? (
+        <LayoutLoginRegister title="Sign up">
+          <FormProvider {...methods}>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="form-register flex-1 justify-center p-8"
             >
-              Continue
-            </Button>
+              <RegisterSignUp />
+              <div className="mt-14 flex w-full justify-center">
+                <Button className="w-[80%]" color="white" type="submit">
+                  Sign up
+                </Button>
+              </div>
+            </form>
+          </FormProvider>
+          <div className="mt-4 flex w-full justify-center text-gray-400">
+            Do you have an account ?
+            <span
+              className="ml-[2px] cursor-pointer text-blue_1"
+              onClick={() => router.push(PATH_SIGN_IN)}
+            >
+              Login
+            </span>
           </div>
-        </form>
-      </FormProvider>
-    </Layout>
+        </LayoutLoginRegister>
+      ) : (
+        <Loading />
+      )}
+    </>
   );
 };

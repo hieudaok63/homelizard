@@ -19,15 +19,15 @@ export const HeaderForm = ({
   variant,
 }: HeaderForm) => {
   return (
-    <View className="mt-2 flex w-full flex-row overflow-hidden p-2">
-      <View className="w-2/12">{iconLeft}</View>
-      <View className="w-9/12">
-        <AppText text={title} className="text-font-24 pt-2" />
+    <View className="mt-2 flex w-full flex-row overflow-hidden px-4 py-2">
+      <View className="mr-4">{iconLeft}</View>
+      <View className="flex-1">
+        <AppText text={title} className="pt-2 text-font-24" />
         <View className="mb-2 flex w-3/5 flex-row items-center">
-          <View className="bg-text_yellow mr-2 rounded-full">
-            <Text className="font-weight_500 p-1">Private</Text>
+          <View className="mr-2 rounded-full bg-text_yellow">
+            <Text className="p-1 font-weight_500">Private</Text>
           </View>
-          <AppText text="Filled" className="text-grey font-weight_700 mr-1" />
+          <AppText text="Filled" className="mr-1 font-weight_700 text-grey" />
           <AppText text={`${progress}%`} className="text-blue_1" />
         </View>
         <View className="w-full">

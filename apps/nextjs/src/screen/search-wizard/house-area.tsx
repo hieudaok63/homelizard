@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-import Hous from "~/assets/icons/House.svg";
+import { number_room2 } from "~/assets";
 import LandIcon from "~/assets/icons/LandIcon.svg";
 import { ArrowBack, ButtonSearchWizard, CustomInputRange } from "~/components";
 import { PATH_LANDAREA, PATH_NUMBERROOMS } from "~/constants/navigation";
@@ -29,7 +29,7 @@ export default function HouseArea() {
 
   const setlivingArea = useSearchWizardStore((state) => state?.setLivingArea);
   const livingArea = useSearchWizardStore((state) => state?.livingArea);
-  const livingM2 = Number(livingArea) / 2;
+  const livingM2 = Number(livingArea) / 3;
 
   const handleChange = (newValue: number) => {
     setlivingArea(newValue);
@@ -60,19 +60,17 @@ export default function HouseArea() {
         />
       </div>
 
-      <div className="relative flex  w-full items-center justify-center overflow-hidden">
+      <div className="relative flex  w-full items-center justify-center">
         <Image
           src={LandIcon}
           alt="land-icon"
           style={{
-            width: `${
-              plotArea < 100 ? 100 : plotArea > 400 ? 400 : plotArea
-            }px`,
+            width: `${plotArea < 100 ? 100 : plotArea}px`,
           }}
         />
         <div className="absolute">
           <Image
-            src={Hous}
+            src={number_room2}
             alt="hous-icon"
             style={{
               width: `${
@@ -81,11 +79,8 @@ export default function HouseArea() {
             }}
           />
         </div>
-        <span className="absolute text-xs text-[#26233299] ">
-          {livingArea} m²
-        </span>
-        <span className="absolute right-[40%] top-[-20px] text-xs text-[#26233299]">
-          {plotSize} m²
+        <span className="text-gray absolute top-[-20px] text-sm text-grey ">
+          {livingArea} {livingArea === 1000 ? "+" : ""} m²
         </span>
       </div>
       <div className="flex w-full justify-center">

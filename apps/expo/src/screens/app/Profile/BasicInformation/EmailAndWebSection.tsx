@@ -1,49 +1,74 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { View } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Toast from "react-native-toast-message";
+import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 import { z } from "zod";
 
-import IconPlus from "@assets/icons/IconPlus.svg";
-
 import { api } from "~/utils/api";
-import { SpeechBubbleIcon, type Percentage } from "~/components/ui";
+import { Button, SpeechBubbleIcon } from "~/components/ui";
 import { HeaderForm, LayoutForm } from "~/components/ui/Profile";
-import InputProfile from "~/components/ui/input/InputProfile";
+import TextInputController from "~/components/ui/input/TextInputController";
 import { useZodForm } from "~/hooks/useZodForm";
-import { progressSlice } from "~/zustand/store";
+import { useApplicationLoadingStore } from "~/zustand/store";
+import { type TabStackParams } from "../../routes";
 import { LayoutBasicInfo } from "./_layout";
 
-export const EmailAndWebSection = () => {
-  const utils = api.useContext();
+type IProps = NativeStackScreenProps<TabStackParams, "EmailAndWebSection">;
 
+const defaultValues = {
+  email: "",
+  website: "",
+};
+const schema = z.object({
+  email: z.string(),
+  website: z.string(),
+});
+
+export const EmailAndWebSection = ({ navigation }: IProps) => {
+  // trpc
+  const utils = api.useContext();
   const { data } = api.user.userInfo.useQuery();
 
-  const setEmailAndWebProgress = progressSlice(
-    (state) => state?.setEmailAndWebProgress,
-  );
+  // zustand
+  const setLoading = useApplicationLoadingStore((state) => state.setLoading);
 
-  const [progress, setProgress] = useState<Percentage>(0);
-
-  const TOTAL_FIELD = 2;
-
-  const DATA_FIELD = {
-    email: data?.email,
-    website: data?.website,
-  };
-
-  const formSchema = z.object({
-    email: z.string(),
-    website: z.string(),
+  const { handleSubmit, control, reset } = useZodForm({
+    schema,
+    defaultValues,
   });
 
-  const { handleSubmit, control, reset, setValue } = useZodForm({
-    schema: formSchema,
-    defaultValues: {
-      email: "",
-      website: "",
+  const { mutateAsync } = api.user.update.useMutation({
+    async onSuccess() {
+      await utils.user.invalidate();
+      Toast?.show({
+        type: "success",
+        text1: "Success",
+        text2: "Email and Website saved!",
+      });
+      navigation.goBack();
+      setLoading(false);
+    },
+    onError(err) {
+      setLoading(false);
+      console.log({ err: err.message });
+      Toast?.show({
+        type: "error",
+        text1: "Error!",
+        text2: err.message,
+      });
     },
   });
 
+  const onSubmit = handleSubmit(async (data) => {
+    setLoading(true);
+    await mutateAsync({
+      email: data.email,
+      website: data.website,
+    });
+  });
+
+  // auto fill existing data
   useEffect(() => {
     if (data) {
       reset({
@@ -51,93 +76,41 @@ export const EmailAndWebSection = () => {
         website: data.website as string,
       });
     }
-  }, [data]);
+  }, [data, reset]);
 
-  const { mutate } = api.user.update.useMutation({
-    async onSuccess() {
-      await utils.user.invalidate();
-      Toast?.show({
-        type: "success",
-        text1: "Success",
-        visibilityTime: 2000,
-      });
-    },
-    onError(err) {
-      console.log({ err: err.message });
-      Toast?.show({
-        type: "error",
-        text1: err.message,
-        visibilityTime: 2000,
-      });
-    },
-  });
-
-  const onSubmit = handleSubmit(async (data) => {
-    mutate({
-      email: data.email,
-      website: data.website,
-    });
-
-    try {
-    } catch (error) {
-      console.log(error);
-    }
-  });
-
-  const elementCheck = (objarray: any) => {
-    const listArray = Object.keys(objarray);
-    let count = 0;
-
-    for (const key of listArray) {
-      const item = objarray[key];
-
-      if (item === undefined || item === "" || item === null) {
-        count++;
-      }
-    }
-
-    if (count === 0) {
-      setProgress(100);
-      setEmailAndWebProgress(100);
-    } else if (count) {
-      const numberProgress = Math.round(
-        ((TOTAL_FIELD - count) / TOTAL_FIELD) * 100,
-      ) as Percentage;
-      setProgress(numberProgress);
-      setEmailAndWebProgress(numberProgress);
-    }
-  };
-
-  useEffect(() => {
-    elementCheck(DATA_FIELD);
-  }, []);
-
+  // main return
   return (
     <LayoutBasicInfo>
       <LayoutForm>
-        <View className="mt-5 h-[80%] rounded-[45px] bg-white">
-          <HeaderForm
-            iconLeft={<SpeechBubbleIcon color="yellow" />}
-            title="Email & web"
-            progress={progress}
-            variant="yellow"
-          />
-          <InputProfile
-            name="email"
-            control={control}
-            placeholder="Add Email"
-            label="Email"
-            rightIconProps={<IconPlus />}
-            onPressRightInput={onSubmit}
-          />
-          <InputProfile
-            name="website"
-            control={control}
-            placeholder="Add Web"
-            label="Web"
-            rightIconProps={<IconPlus />}
-            onPressRightInput={onSubmit}
-          />
+        <View className="mt-5 min-h-[70%] rounded-3xl bg-white">
+          <KeyboardAwareScrollView>
+            <HeaderForm
+              iconLeft={<SpeechBubbleIcon color="yellow" />}
+              title="Email & web"
+              progress={100}
+              variant="yellow"
+            />
+            <TextInputController
+              name="email"
+              control={control}
+              placeholder="Add Email"
+              variant="inline"
+              label="Email"
+            />
+            <TextInputController
+              name="website"
+              control={control}
+              placeholder="Add Web"
+              variant="inline"
+              label="Web"
+            />
+
+            <Button
+              title="Save"
+              className="mx-4 mt-2 rounded-full"
+              onPress={onSubmit}
+            />
+          </KeyboardAwareScrollView>
         </View>
       </LayoutForm>
     </LayoutBasicInfo>

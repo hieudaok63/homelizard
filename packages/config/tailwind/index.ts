@@ -1,33 +1,9 @@
 import type { Config } from "tailwindcss";
 
-
-
-
-
 export default {
   content: [""],
   theme: {
     extend: {
-      screens: {
-        sm: "576px",
-        // => @media (min-width: 576px) { ... }
-
-        md: "960px",
-        // => @media (min-width: 960px) { ... }
-
-        lg: "1048px",
-        // => @media (min-width: 1024px) { ... }
-        xl: "1280px",
-        // => @media (min-width: 1280px) { ... }
-        "1.5xl": "1440px",
-        // => @media (min-width: 1440px) { ... }
-        "2xl": "1536px",
-        // => @media (min-width: 1536px) { ... }
-        "3xl": "1600px",
-        // => @media (min-width: 1600px) { ... }
-        desktop: "1920px",
-        // => @media (min-width: 1920px) { ... }
-      },
       fontFamily: {
         nunito: ["Nunito_400Regular"],
         "nunito-italic": ["Nunito_400Regular_Italic"],
@@ -49,6 +25,7 @@ export default {
         brand: "#1F2937",
         dark: "#262636",
         green_2: "#C2E1C1",
+        green_1: "#97b54f",
         green: "#37E1EC",
         grey_2: "#A8B7C6",
         grey_3: "#F4F4F4",
@@ -91,6 +68,9 @@ export default {
       },
       height: {
         "height-header": "6rem",
+      },
+      boxShadow: {
+        "4xl": "4px 8px 8px  rgba(0, 0, 0, 0.38)",
       },
     },
   },

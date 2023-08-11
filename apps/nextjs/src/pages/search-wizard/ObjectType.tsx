@@ -1,13 +1,11 @@
 import dynamic from "next/dynamic";
 
-
-
-
+import { Loading } from "~/components";
 
 const ObjectTypeScreen = dynamic(
   () => import("~/screen").then((module) => module.ObjectTypeScreen),
   {
-    loading: () => <p>Loading...</p>,
+    loading: () => <Loading />,
     ssr: false,
   },
 );

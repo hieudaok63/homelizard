@@ -1,41 +1,43 @@
-import React from "react";
 import Image from "next/image";
 
 import { cn } from "@homelizard/tailwind-config/utils";
 
-import { Warning } from "~/assets";
-import { type TCardStyle } from "~/types";
+import { type ObjectStyleItem } from "./CardStyle";
 
-export const CardStyleSelected = ({ data, className }: TCardStyle) => {
+type IProps = {
+  data: ObjectStyleItem;
+  className?: string;
+};
+
+export const CardStyleSelected = ({ data, className }: IProps) => {
   return (
-    <div
-      className={cn(
-        "flex h-[100px] w-full cursor-pointer  justify-start rounded-3xl bg-white transition hover:bg-slate-200",
-        className,
-      )}
-    >
-      <div className="h-full max-w-[200px]">
-        <Image
-          width={1000}
-          height={500}
-          src={data?.image ?? ""}
-          alt="Bohemian"
-          className="h-full w-full rounded-3xl"
-        />
-      </div>
-      <div className="ml-6 flex w-full justify-between overflow-hidden px-4 py-3">
-        <div className="w-[90%] overflow-hidden">
-          <p className="line-clamp-3 w-full text-ellipsis whitespace-nowrap text-lg font-bold">
-            {data?.title}
-          </p>
-          <p className="mt-2 line-clamp-3 flex-1 whitespace-pre-line text-sm text-grey_2">
-            {data?.content}
-          </p>
+    <>
+      <div
+        className={cn(
+          "w-full cursor-pointer overflow-hidden rounded-3xl transition-all duration-300 hover:scale-95",
+          className,
+        )}
+      >
+        <div className="h-full w-full">
+          <Image
+            width={500}
+            height={500}
+            src={data?.imageUrl}
+            alt={data.id}
+            className="h-full w-full"
+          />
         </div>
-        <div className="flex w-[10%] items-center pl-4">
-          <Warning color={data?.is_check ? "#3BAF55" : "#000"} />
+        <div className="h-auto bg-white">
+          <div className="p-3">
+            <p className="w-full py-2 text-center text-lg font-bold">
+              {data?.title}
+            </p>
+            <p className="line-clamp-6 min-h-[120px] flex-1 text-sm text-grey_2">
+              {data?.description}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };

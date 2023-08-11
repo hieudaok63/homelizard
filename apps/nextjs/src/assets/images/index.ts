@@ -1,3 +1,3 @@
-import RegisterBackground from "./bg_home.jpg";
+import BackgroundRegister from "./BackgroundRegister.jpg";
 
-export { RegisterBackground };
+export { BackgroundRegister };

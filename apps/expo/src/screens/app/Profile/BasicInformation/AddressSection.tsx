@@ -5,12 +5,12 @@ import { z } from "zod";
 import SearchIcon from "@assets/icons/SearchIcon.svg";
 
 import { useAppNavigation } from "~/components/navigation/useAppNavigation";
+import { SpeechBubbleIcon } from "~/components/ui";
 import { HeaderForm, LayoutForm } from "~/components/ui/Profile";
-import InputProfile from "~/components/ui/input/InputProfile";
+import TextInputController from "~/components/ui/input/TextInputController";
 import { useZodForm } from "~/hooks/useZodForm";
 import { locationSlice } from "~/zustand/store";
 import { LayoutBasicInfo } from "./_layout";
-import { SpeechBubbleIcon } from "~/components/ui";
 
 export const AddressSection = () => {
   const navigation = useAppNavigation();
@@ -45,22 +45,22 @@ export const AddressSection = () => {
             progress={50}
             variant="yellow"
           />
-          <View>
-            <TouchableOpacity
-              className="absolute bottom-0 left-0 right-0 top-0 z-20 h-[200px]  w-full  "
-              onPress={() => navigation?.navigate("LocationSection")}
-            />
-            <View className=" absolute bottom-0 left-0 right-0 top-0 h-[200px] w-full ">
-              <InputProfile
+          <TouchableOpacity
+            className="flex flex-row items-center pl-2 pr-4"
+            onPress={() => navigation?.navigate("LocationSection")}
+          >
+            <View className="flex-1">
+              <TextInputController
                 name="addressUser"
                 control={control}
                 placeholder="Add a address"
-                label="Address"
                 multiline
-                rightIconProps={<SearchIcon fill="#0080FF" />}
+                variant="inline"
+                label="Address"
               />
             </View>
-          </View>
+            <SearchIcon fill="#0080FF" />
+          </TouchableOpacity>
         </View>
       </LayoutForm>
     </LayoutBasicInfo>

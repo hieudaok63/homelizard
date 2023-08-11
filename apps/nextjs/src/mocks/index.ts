@@ -1,1 +1,1 @@
-export * from "./list-style";
+export * from "./profile";

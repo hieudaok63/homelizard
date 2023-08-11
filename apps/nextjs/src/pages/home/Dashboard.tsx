@@ -1,9 +1,11 @@
 import dynamic from "next/dynamic";
 
+import { Loading } from "~/components";
+
 const DashBoard = dynamic(
   () => import("~/screen").then((module) => module.Dashboard),
   {
-    loading: () => <p>Loading...</p>,
+    loading: () => <Loading />,
     ssr: false,
   },
 );

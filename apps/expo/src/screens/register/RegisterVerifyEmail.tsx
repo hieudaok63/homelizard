@@ -7,7 +7,7 @@ import { type SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "~/components/ui";
-import TextInput from "~/components/ui/input/TextInput";
+import TextInput from "~/components/ui/input/TextInputController";
 import { useZodForm } from "~/hooks/useZodForm";
 import { type RootStackParams } from "~/screens/RootStackParams";
 import { useApplicationLoadingStore } from "~/zustand/store";
@@ -72,10 +72,10 @@ export const RegisterVerifyEmail = ({}: IProps) => {
     <RegisterLayout>
       <KeyboardAwareScrollView>
         <View className="h-full w-full px-5 pb-14">
-          <Text className="font-nunito-800 text-dark text-lg">
+          <Text className="font-nunito-800 text-lg text-dark">
             Login : Registrierung
           </Text>
-          <Text className="font-nunito-800 text-dark pl-16 text-lg">
+          <Text className="pl-16 font-nunito-800 text-lg text-dark">
             Verify your E-Mail
           </Text>
 

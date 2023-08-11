@@ -9,9 +9,9 @@ import { ResultCard } from "~/components/ui";
 import { AppText } from "~/components/ui/AppText";
 
 export const ResultsTab = () => {
-  const { items, fetchNextPage, isLoading, isRefetching, refetch } =
-    useInfiniteSearchResults();
   const navigation = useAppNavigation();
+  const { items, fetchNextPage, isRefetching, refetch } =
+    useInfiniteSearchResults();
   const ResultItem = ({
     item,
   }: ListRenderItemInfo<

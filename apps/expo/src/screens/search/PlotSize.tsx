@@ -9,6 +9,7 @@ import HouseMultipleRoomIcon from "@assets/icons/HouseMultipleRoomIcon.svg";
 import LandIcon from "@assets/icons/LandIcon.svg";
 
 import { RangePicker, StepProgressButton } from "~/components/ui";
+import { getCountScreen } from "~/utils";
 import { useSearchWizardStore } from "~/zustand/store";
 import { type RootStackParams } from "../RootStackParams";
 import { SearchLayout } from "./_layout";
@@ -121,7 +122,7 @@ const PlotSize = ({ navigation }: Props) => {
 
       <StepProgressButton
         title="Continue"
-        progress={40}
+        progress={getCountScreen("PlotSize")}
         onPress={handlePressNext}
         variant="turquoise"
       />

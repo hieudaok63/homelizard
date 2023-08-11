@@ -1,9 +1,11 @@
 import dynamic from "next/dynamic";
 
+import { Loading } from "~/components";
+
 const NumberRooms = dynamic(
   () => import("~/screen").then((module) => module.NumberRooms),
   {
-    loading: () => <p>Loading...</p>,
+    loading: () => <Loading />,
     ssr: false,
   },
 );

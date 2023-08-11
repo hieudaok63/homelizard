@@ -1,7 +1,12 @@
 import { useMemo } from "react";
-import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
 
-import { ArrowBack, ButtonSearchWizard, CustomInputRange } from "~/components";
+import {
+  ArrowBack,
+  ButtonSearchWizard,
+  CustomInputRange,
+  Loading,
+} from "~/components";
 import { PATH_LANDAREA, PATH_OBJECTTYPE } from "~/constants/navigation";
 import LayoutSearch from "~/pages/search-wizard/_layout";
 import { useSearchWizardStore } from "~/zustand/store";
@@ -21,20 +26,30 @@ const customMarks = [
 ];
 
 export default function LocationScreen() {
-  const center = useMemo(() => ({ lat: 44, lng: -80 }), []);
+  const libraries = useMemo(() => ["places"], []);
+  const mapCenter = useMemo(() => ({ lat: 21.0283, lng: 105.8542 }), []);
+  const mapOptions = useMemo<google.maps.MapOptions>(
+    () => ({
+      disableDefaultUI: true,
+      clickableIcons: true,
+      scrollwheel: false,
+    }),
+    [],
+  );
 
   // zustand
-  const location = useSearchWizardStore((state) => state?.location);
+  // const location = useSearchWizardStore((state) => state?.location);
   const radius = useSearchWizardStore((state) => state?.radius);
 
-  const setLocation = useSearchWizardStore((state) => state?.setLocation);
+  // const setLocation = useSearchWizardStore((state) => state?.setLocation);
   const setRadius = useSearchWizardStore((state) => state?.setRadius);
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyB3Wt83Wzsc23m5IdRtyegqaoVRe6roVRM",
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY as string,
+    libraries: libraries as any,
   });
 
-  if (!isLoaded) return <div>Loading...</div>;
+  if (!isLoaded) return <Loading />;
 
   return (
     <LayoutSearch>
@@ -90,19 +105,23 @@ export default function LocationScreen() {
           step={1}
         />
       </div>
-      <div className="mt-10 flex justify-center rounded-full">
+
+      <div className="relative mt-10 flex justify-center rounded-full ">
         <GoogleMap
-          zoom={10}
-          center={{ lat: 44, lng: -80 }}
+          options={mapOptions}
+          zoom={14}
+          center={mapCenter}
+          mapTypeId={google.maps.MapTypeId.ROADMAP}
           mapContainerStyle={{
-            width: "300px",
-            height: "300px",
-            borderRadius: "999px",
+            width: "600px",
+            height: "400px",
           }}
         >
-          <Marker position={{ lat: 44, lng: -80 }} />
+          <MarkerF position={mapCenter} />
         </GoogleMap>
+        <div className="absolute right-[24%] text-grey">{radius}km</div>
       </div>
+
       <div className="flex w-full justify-center">
         <ButtonSearchWizard title="Continue" path={PATH_LANDAREA} />
       </div>

@@ -25,6 +25,7 @@ import GoogleDriveIcon from "./GoogleDriveIcon.svg";
 import HomeIcon from "./HomeIcon.svg";
 import HouseIcon from "./HouseIcon.svg";
 import HouseMultipleRoomIcon from "./HouseMultipleRoomIcon.svg";
+import IconBack from "./IconBack.svg";
 import IconCloseBorder from "./IconCloseBorder.svg";
 import IconPlus from "./IconPlus.svg";
 import InfoIcon from "./InfoIcon.svg";
@@ -82,7 +83,10 @@ export {
   HomeIcon,
   HouseIcon,
   HouseMultipleRoomIcon,
+  IconBack,
+  IconCloseBorder,
   IconPlus,
+  InfoIcon,
   InfoSCircleIcon,
   KeyMessageIcon,
   LandIcon,
@@ -99,15 +103,13 @@ export {
   PlusIcon,
   PropertyIcon,
   QuestionCircleIcon,
+  RemoveIcon,
   SearchIcon,
+  SettingIcon,
   SettingsIcon,
   ShareIcon,
   SharePostIcon,
-  SettingIcon,
-  InfoIcon,
-  RemoveIcon,
-  IconCloseBorder,
-  WarnIcon,
-  SwitchOn,
   SwitchOff,
+  SwitchOn,
+  WarnIcon,
 };

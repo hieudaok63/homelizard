@@ -7,5 +7,5 @@ export const useApplicationLoadingStore = create<ILoadingSlice>()((...a) => ({
 }));
 
 export { useSearchWizardStore } from "./slices/searchWizard";
+export { useToggleStore } from "./slices/toggle";
 export { useUserStore } from "./slices/user";
-export { useToggleBtnStore } from "./slices/toggleButton";

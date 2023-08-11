@@ -24,15 +24,13 @@ export default function ArrowBack({
       <div className=" w-full justify-center">
         {!hide && (
           <div className="flex w-full flex-col items-center">
-            <h3 className="mb-4 text-3xl font-extrabold text-[#262332]">
+            <h3 className="mb-4 text-3xl font-extrabold text-black_xtra">
               {text}
             </h3>
-            <h4 className="mb-2 text-lg font-extrabold text-[#262332]">
+            <h4 className="mb-2 text-lg font-extrabold text-black_xtra">
               {content}
             </h4>
-            <span className="text-base font-light text-[#26233299]">
-              {subContent}
-            </span>
+            <span className="text-base font-light text-grey">{subContent}</span>
           </div>
         )}
       </div>

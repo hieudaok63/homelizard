@@ -104,6 +104,8 @@ model SearchResult {
 
   searchProfileId    String
   realEstateObjectId String
+  score              Float?
+  shownAt            DateTime?   @map("shown_at")
 
   searchProfile SearchProfile    @relation(fields: [searchProfileId], references: [id])
   realEstate    RealEstateObject @relation(fields: [realEstateObjectId], references: [id])

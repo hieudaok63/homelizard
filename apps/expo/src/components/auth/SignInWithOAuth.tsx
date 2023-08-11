@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 import React from "react";
+import Toast from "react-native-toast-message";
 import { maybeCompleteAuthSession } from "expo-web-browser";
 import { useOAuth, type UseOAuthFlowParams } from "@clerk/clerk-expo";
 
@@ -32,6 +33,11 @@ const OAuthSignInButton = ({ strategy, title }: OAuthSignInButtonProps) => {
     } catch (err) {
       console.log(JSON.stringify(err, null, 2));
       console.log("error signing in", err);
+      Toast?.show({
+        type: "error",
+        text1: "Error!",
+        text2: "Something went wrong.",
+      });
     }
   }, []);
 
@@ -50,6 +56,7 @@ const SignInWithOAuth = () => {
   return (
     <>
       <OAuthSignInButton strategy="oauth_google" title="Anmeldung mit Google" />
+      <OAuthSignInButton strategy="oauth_apple" title="Anmeldung mit Apple" />
     </>
   );
 };

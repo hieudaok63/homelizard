@@ -28,20 +28,22 @@ export const AppInputSelectGender = forwardRef<
   return (
     <TouchableWithoutFeedback onPress={() => innerRef.current?.focus()}>
       <View>
-        <View className="border-color_gray flex w-full flex-row items-center rounded-l-2xl rounded-tr-2xl border-b bg-white p-4">
+        <View className="flex w-full flex-row items-center border-b border-color_gray bg-white p-4">
           <View className=" flex w-full flex-row items-center">
-            <Text className="text-placeholder  text-font-16 -mt-0  w-4/12">
+            <Text className="-mt-0  w-4/12 text-font-16  text-placeholder">
               {placeholder}
             </Text>
             <TouchableOpacity className="w-10/12 pl-1" onPress={onPressGender}>
               <AppText
                 text={value}
-                className="font-weight_500 w-10/12 text-[18px] text-black"
+                className="w-10/12 text-[18px] font-weight_500 text-black"
               />
             </TouchableOpacity>
           </View>
         </View>
-        {error && <Text className="text-red_1 pl-32  ">{error?.toString()}</Text>}
+        {error && (
+          <Text className="text-red_1 pl-32  ">{error?.toString()}</Text>
+        )}
       </View>
     </TouchableWithoutFeedback>
   );

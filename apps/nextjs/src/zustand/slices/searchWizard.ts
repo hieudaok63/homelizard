@@ -1,34 +1,49 @@
+import { z } from "zod";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
+import { type RouterOutputs } from "~/utils/api";
 
-
-import { TSearchWizardStyle } from "~/types";
-
-interface Range {
-  max: number;
-  min: number;
-}
 type LatLng = {
   latitude: number;
   longitude: number;
 };
+
+export const purchaseTypeOptions = ["rent", "buy"] as const;
+export const purchaseTypeSchema = z.enum(purchaseTypeOptions);
+export type PurchaseType = z.infer<typeof purchaseTypeSchema>;
+
+export const objectTypeOptions = [
+  "Apartment",
+  "Country house",
+  "Dormitory on campus",
+  "House with garden",
+  "Mansion",
+  "Shared apartment",
+  "Town house",
+  "Villa",
+] as const;
+
+export type ObjectType = (typeof objectTypeOptions)[number];
+
+type ObjectStylesOptionValue =
+  RouterOutputs["objectStyle"]["all"][number]["id"];
+
 // define types for state values and actions separately
 export type ISearchWizardState = {
   isCompleted: boolean;
 
   // objectType
-  objectType: string;
-  typeSearch: string;
-  toggleType: string;
+  objectType: ObjectType;
+  purchaseType: PurchaseType;
 
   // location
   location: LatLng | null;
   radius: number;
 
   // plotSize
-  plotSize: Range | number;
+  plotSize: number;
 
   // livingArea
   livingArea: number;
@@ -50,22 +65,22 @@ export type ISearchWizardState = {
   availabilityDate: Date;
 
   // objectStyles
-  objectStyles: TSearchWizardStyle[];
+  objectStyles: ObjectStylesOptionValue[];
 };
 
 export type ISearchWizardActions = {
   setIsCompleted: (val: boolean) => void;
 
   // objectType
-  setTypeSearch: (val: string) => void;
-  setToggleType: (val: string) => void;
+  setObjectType: (val: ObjectType) => void;
+  setPurchaseType: (val: PurchaseType) => void;
 
   // location
   setLocation: (location: LatLng) => void;
   setRadius: (val: number) => void;
 
   // plotSize
-  setPlotSize: (val: number | Range) => void;
+  setPlotSize: (val: number) => void;
 
   // livingArea
   setLivingArea: (val: number) => void;
@@ -87,7 +102,7 @@ export type ISearchWizardActions = {
   setAvailabilityDate: (val: Date) => void;
 
   // objectStyles
-  setObjectStyles: (val: TSearchWizardStyle[]) => void;
+  setObjectStyles: (val: ObjectStylesOptionValue[]) => void;
 
   // reset
   reset: () => void;
@@ -98,9 +113,8 @@ const initialState: ISearchWizardState = {
   isCompleted: false,
 
   // objectType
-  objectType: "",
-  typeSearch: "",
-  toggleType: "Mieten",
+  objectType: "Apartment",
+  purchaseType: "buy",
 
   // location
   location: null,
@@ -135,7 +149,7 @@ const initialState: ISearchWizardState = {
 // store
 export const useSearchWizardStore = create(
   persist(
-    immer<ISearchWizardState & ISearchWizardActions>((set) => ({
+    immer<ISearchWizardState & ISearchWizardActions>((set, get) => ({
       ...initialState,
 
       setIsCompleted: (val) =>
@@ -144,14 +158,14 @@ export const useSearchWizardStore = create(
         }),
 
       // objectType
-      setTypeSearch: (val) =>
+      setObjectType: (val) =>
         set((state) => {
-          state.typeSearch = val;
+          state.objectType = val;
         }),
 
-      setToggleType: (val) =>
+      setPurchaseType: (val) =>
         set((state) => {
-          state.toggleType = val;
+          state.purchaseType = val;
         }),
 
       // location
