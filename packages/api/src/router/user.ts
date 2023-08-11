@@ -72,8 +72,10 @@ export const userRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const user = await ctx.prisma.user.findUnique({
-        where: { externalId: ctx.auth.userId },
+        where: { externalId: ctx.auth.userId, deletedAt: null },
       });
+
+      if (!user) throw new UserNotFound();
 
       return ctx.prisma.user.update({
         where: { externalId: ctx.auth.userId },
@@ -106,12 +108,14 @@ export const userRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const user = await ctx.prisma.user.findUnique({
-        where: { externalId: ctx.auth.userId },
+        where: { externalId: ctx.auth.userId, deletedAt: null },
       });
+
+      if (!user) throw new UserNotFound();
 
       if (!user?.placeOfWorkId) {
         const newPlaceOfWork = await ctx.prisma.user.update({
-          where: { id: user?.id },
+          where: { id: user.id },
           data: {
             placeOfWork: {
               create: {
@@ -138,7 +142,7 @@ export const userRouter = createTRPCRouter({
 
   userInfo: protectedProcedure.query(async ({ ctx }) => {
     const user = await ctx.prisma.user.findUnique({
-      where: { externalId: ctx.auth.userId },
+      where: { externalId: ctx.auth.userId, deletedAt: null },
       include: {
         placeOfWork: true,
         address: true,
@@ -152,5 +156,20 @@ export const userRouter = createTRPCRouter({
     return user as typeof user & {
       gender: Gender;
     };
+  }),
+  deleteAccount: protectedProcedure.mutation(async ({ ctx }) => {
+    const user = await ctx.prisma.user.findUnique({
+      where: {
+        externalId: ctx.auth.userId,
+        deletedAt: null,
+      },
+    });
+
+    if (!user) throw new UserNotFound();
+
+    return await ctx.prisma.user.update({
+      data: { deletedAt: new Date() },
+      where: { id: user.id },
+    });
   }),
 });
