@@ -167,6 +167,8 @@ export const userRouter = createTRPCRouter({
 
     if (!user) throw new UserNotFound();
 
+    await clerkClient.users.deleteUser(user?.externalId); // delete user on Clerk
+
     return await ctx.prisma.user.update({
       data: { deletedAt: new Date() },
       where: { id: user.id },
