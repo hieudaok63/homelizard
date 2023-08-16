@@ -35,6 +35,16 @@ import LandIcon from "./LandIcon.svg";
 import LoveIcon from "./LoveIcon.svg";
 import MenuIcon from "./MenuIcon.svg";
 import MessageIcon from "./MessageIcon.svg";
+import MyHouseIcon1 from "./MyHouseIcon1.svg";
+import MyHouseIcon2 from "./MyHouseIcon2.svg";
+import MyHouseIcon3 from "./MyHouseIcon3.svg";
+import MyHouseIcon4 from "./MyHouseIcon4.svg";
+import MyHouseIcon5 from "./MyHouseIcon5.svg";
+import MyHouseIcon6 from "./MyHouseIcon6.svg";
+import MyHouseIcon7 from "./MyHouseIcon7.svg";
+import MyHouseIcon8 from "./MyHouseIcon8.svg";
+import MyHouseIcon9 from "./MyHouseIcon9.svg";
+import MyHouseIcon10 from "./MyHouseIcon10.svg";
 import NotepadIcon from "./NotepadIcon.svg";
 import PeopleIcon from "./PeopleIcon.svg";
 import PersonIcon from "./PersonIcon.svg";
@@ -93,6 +103,16 @@ export {
   LoveIcon,
   MenuIcon,
   MessageIcon,
+  MyHouseIcon1,
+  MyHouseIcon10,
+  MyHouseIcon2,
+  MyHouseIcon3,
+  MyHouseIcon4,
+  MyHouseIcon5,
+  MyHouseIcon6,
+  MyHouseIcon7,
+  MyHouseIcon8,
+  MyHouseIcon9,
   NotepadIcon,
   PeopleIcon,
   PersonIcon,

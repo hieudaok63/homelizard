@@ -7,6 +7,7 @@ export * from "./ButtonAddFavorite";
 export * from "./CustomSwitch";
 export * from "./DetailObject";
 export * from "./HeaderScroll";
+export * from "./HouseMultipRoom";
 export * from "./NotificationBadge";
 export * from "./PopupModal";
 export * from "./RangePicker";
