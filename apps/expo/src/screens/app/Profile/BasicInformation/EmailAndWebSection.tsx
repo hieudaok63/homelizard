@@ -8,7 +8,7 @@ import { z } from "zod";
 import { api } from "~/utils/api";
 import { Button, SpeechBubbleIcon } from "~/components/ui";
 import { HeaderForm, LayoutForm } from "~/components/ui/Profile";
-import InputProfile from "~/components/ui/input/InputProfile";
+import TextInputController from "~/components/ui/input/TextInputController";
 import { useZodForm } from "~/hooks/useZodForm";
 import { useApplicationLoadingStore } from "~/zustand/store";
 import { type TabStackParams } from "../../routes";
@@ -90,16 +90,18 @@ export const EmailAndWebSection = ({ navigation }: IProps) => {
               progress={100}
               variant="yellow"
             />
-            <InputProfile
+            <TextInputController
               name="email"
               control={control}
               placeholder="Add Email"
+              variant="inline"
               label="Email"
             />
-            <InputProfile
+            <TextInputController
               name="website"
               control={control}
               placeholder="Add Web"
+              variant="inline"
               label="Web"
             />
 

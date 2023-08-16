@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import ArrowRight from "~/assets/icons/ArrowRight.svg";
+import { ArrowRight } from "~/assets";
 
 export default function LinkProfileItem() {
   return (
@@ -12,12 +12,10 @@ export default function LinkProfileItem() {
         <div>
           <h3 className="mb-1 text-base font-bold">Basti Salzman</h3>
           <div className="flex items-center justify-between">
-            <p className="mr-2 rounded-full bg-[#E3CDBB] px-2 py-1 text-xs text-white">
+            <p className="mr-2 rounded-full bg-orange-100 px-2 py-1 text-xs text-white">
               Family
             </p>
-            <span className="text-xs text-[#828282D9]">
-              Birthday: 25 Jun 2021
-            </span>
+            <span className="text-gray text-xs">Birthday: 25 Jun 2021</span>
           </div>
         </div>
         <div>

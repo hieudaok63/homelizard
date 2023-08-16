@@ -21,7 +21,7 @@ import QuestionCircleIcon from "@assets/icons/QuestionCircleIcon.svg";
 import { api } from "~/utils/api";
 import { StepProgressButton } from "~/components/ui";
 import { BottomSheet } from "~/components/ui/BottomSheet";
-import TextInput from "~/components/ui/input/TextInput";
+import TextInput from "~/components/ui/input/TextInputController";
 import { useDisableBackButton } from "~/hooks/useDisableBackButton";
 import { useZodForm } from "~/hooks/useZodForm";
 import { type RootStackParams } from "~/screens/RootStackParams";

@@ -16,7 +16,7 @@ export const favoriteRoute = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const user = await ctx.prisma.user.findUnique({
-        where: { externalId: ctx.auth.userId },
+        where: { externalId: ctx.auth.userId, deletedAt: null },
       });
 
       if (!user) {
@@ -58,7 +58,7 @@ export const favoriteRoute = createTRPCRouter({
     .input(z.string())
     .mutation(async ({ ctx, input }) => {
       const user = await ctx.prisma.user.findUnique({
-        where: { externalId: ctx.auth.userId },
+        where: { externalId: ctx.auth.userId, deletedAt: null },
       });
       if (!user) {
         throw new UserNotFound();
@@ -76,7 +76,7 @@ export const favoriteRoute = createTRPCRouter({
 
   list: protectedProcedure.query(async ({ ctx }) => {
     const user = await ctx.prisma.user.findUnique({
-      where: { externalId: ctx.auth.userId },
+      where: { externalId: ctx.auth.userId, deletedAt: null },
     });
 
     if (!user) {

@@ -1,0 +1,8 @@
+import { getBaseUrl } from "./api";
+
+export function genImageUrl(path?: string) {
+  if (!path || path.startsWith("http")) {
+    return path || "";
+  }
+  return `${getBaseUrl()}${path}`;
+}

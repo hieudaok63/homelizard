@@ -1,8 +1,6 @@
 import Image from "next/image";
-import { type Range } from "react-input-range";
 
-import Hous from "~/assets/icons/House.svg";
-import LandIcon from "~/assets/icons/LandIcon.svg";
+import { LandIcon, number_room2 } from "~/assets";
 import { ArrowBack, ButtonSearchWizard, CustomInputRange } from "~/components";
 import { PATH_HOUSEAREA, PATH_LOCATION } from "~/constants/navigation";
 import LayoutSearch from "~/pages/search-wizard/_layout";
@@ -25,7 +23,7 @@ export default function LandAreaScreen() {
   const plotSize = useSearchWizardStore((state) => state?.plotSize);
   const setPlotSize = useSearchWizardStore((state) => state?.setPlotSize);
 
-  const handleChange = (newValue: Range | number) => {
+  const handleChange = (newValue: number) => {
     setPlotSize(newValue);
   };
   const plotArea = Number(plotSize) / 2;
@@ -44,28 +42,26 @@ export default function LandAreaScreen() {
           maxValue={1000}
           minValue={0}
           step={5}
-          onChange={(val: number | Range) => {
+          onChange={(val: number) => {
             handleChange(val);
           }}
           marks={customMarks}
         />
       </div>
 
-      <div className="relative  flex w-full items-center justify-center ">
+      <div className="relative flex w-full items-center justify-center ">
         <Image
           src={LandIcon}
           alt="land-icon"
           style={{
-            width: `${
-              plotArea < 100 ? 100 : plotArea > 400 ? 400 : plotArea
-            }px`,
+            width: `${plotArea < 100 ? 100 : plotArea}px`,
           }}
         />
         <div className="absolute ">
-          <Image src={Hous} alt="land-icon" />
+          <Image src={number_room2} alt="land-icon" width={50} />
         </div>
-        <span className="absolute right-[40%] top-[-20px] text-xs text-black_1">
-          {plotSize} m²
+        <span className="text-gray absolute top-[-26px] text-sm text-grey">
+          {`${plotSize}${plotSize === 1000 ? "+" : ""} m²`}
         </span>
       </div>
       <div className=" flex w-full justify-center">

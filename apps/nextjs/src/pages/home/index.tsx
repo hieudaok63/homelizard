@@ -1,14 +1,26 @@
-import LayoutHome from "~/components/layouts";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { useAuth, useSession } from "@clerk/nextjs";
+
+import Layout from "~/components/layouts";
+import { PATH_SIGN_IN } from "~/constants/navigation";
 import { Dashboard, Ergebnisse } from "~/screen";
-import { useToggleBtnStore } from "~/zustand/store";
+import { useToggleStore } from "~/zustand/store";
 
 export default function Home() {
-  const toggleBtn = useToggleBtnStore((state) => state.toggleButton);
+  const toggleBtn = useToggleStore((state) => state.toggleButton);
+  const router = useRouter();
+  const { isSignedIn } = useAuth();
+  const { session } = useSession();
+
+  useEffect(() => {
+    !isSignedIn && router.push(`${PATH_SIGN_IN}`);
+  }, [session]);
   return (
-    <LayoutHome>
-      <div className=" bg-[#f5f5f5]">
+    <Layout>
+      <div className=" bg-bg_home">
         {!toggleBtn ? <Dashboard /> : <Ergebnisse />}
       </div>
-    </LayoutHome>
+    </Layout>
   );
 }

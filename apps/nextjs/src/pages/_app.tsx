@@ -1,7 +1,7 @@
+"use client";
+
 import type { AppType } from "next/app";
 import { ClerkProvider } from "@clerk/nextjs";
-
-
 
 import "../styles/globals.css";
 import { appWithTranslation } from "next-i18next";

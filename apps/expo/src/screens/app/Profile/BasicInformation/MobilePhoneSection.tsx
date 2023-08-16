@@ -13,7 +13,7 @@ import { api } from "~/utils/api";
 import { Button, SpeechBubbleIcon } from "~/components/ui";
 import { AppText } from "~/components/ui/AppText";
 import { HeaderForm, LayoutForm } from "~/components/ui/Profile";
-import InputProfile from "~/components/ui/input/InputProfile";
+import TextInputController from "~/components/ui/input/TextInputController";
 import { useZodForm } from "~/hooks/useZodForm";
 import { useApplicationLoadingStore } from "~/zustand/store";
 import { type TabStackParams } from "../../routes";
@@ -102,11 +102,13 @@ export const MobilePhoneSection = ({ navigation }: IProps) => {
             </TouchableOpacity>
           </View>
 
-          <InputProfile
+          <TextInputController
             name="phone"
             control={control}
             keyboardType="number-pad"
             placeholder="Add a number"
+            // variant="inline"
+            label="Phone number"
           />
 
           <Button

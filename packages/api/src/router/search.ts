@@ -14,7 +14,7 @@ export const searchRouter = createTRPCRouter({
 
       const customer = await ctx.prisma.customer.findFirst({
         where: {
-          users: { some: { externalId: ctx.auth.userId } },
+          users: { some: { externalId: ctx.auth.userId, deletedAt: null } },
         },
       });
 
@@ -40,7 +40,9 @@ export const searchRouter = createTRPCRouter({
     }),
   list: protectedProcedure.query(async ({ ctx }) => {
     const customer = await ctx.prisma.customer.findFirst({
-      where: { users: { some: { externalId: ctx.auth.userId } } },
+      where: {
+        users: { some: { externalId: ctx.auth.userId, deletedAt: null } },
+      },
     });
 
     if (!customer) {

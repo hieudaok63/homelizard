@@ -18,6 +18,7 @@ import InfoSCircleIcon from "@assets/icons/InfoSCircleIcon.svg";
 import { api, type RouterOutputs } from "~/utils/api";
 import { genImageUrl } from "~/utils/imageUrl";
 import { StepProgressButton } from "~/components/ui";
+import { getCountScreen } from "~/utils";
 import { useSearchWizardStore } from "~/zustand/store";
 import { type RootStackParams } from "../RootStackParams";
 import { SearchLayout } from "./_layout";
@@ -127,7 +128,7 @@ const ObjectStyleResult = ({ navigation }: Props) => {
 
       <StepProgressButton
         title="Continue"
-        progress={100}
+        progress={getCountScreen("ObjectStyleResult")}
         onPress={handlePressNext}
         disabled={!objectStyles_zutand?.length}
         variant="turquoise"

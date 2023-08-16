@@ -4,25 +4,17 @@ import React, { useCallback } from "react";
 import { Text, View } from "react-native";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
-import HouseIcon from "@assets/icons/HouseIcon.svg";
-import HouseMultipleRoomIcon from "@assets/icons/HouseMultipleRoomIcon.svg";
-import LandIcon from "@assets/icons/LandIcon.svg";
-
 import {
   HouseMultipleRoom,
   RangePicker,
   StepProgressButton,
 } from "~/components/ui";
+import { getCountScreen } from "~/utils";
 import { useSearchWizardStore } from "~/zustand/store";
 import { type RootStackParams } from "../RootStackParams";
 import { SearchLayout } from "./_layout";
 
 type Props = NativeStackScreenProps<RootStackParams, "PlotSize">;
-
-const minWidthLand = 100;
-const minHeightLand = 100;
-const maxWidthLand = 300;
-const maxHeightLand = 300;
 
 const maxValueLand = 1000;
 const minValueLand = 0;
@@ -92,7 +84,7 @@ const PlotSize = ({ navigation }: Props) => {
 
       <StepProgressButton
         title="Continue"
-        progress={40}
+        progress={getCountScreen("PlotSize")}
         onPress={handlePressNext}
         variant="turquoise"
       />

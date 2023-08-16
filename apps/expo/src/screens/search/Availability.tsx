@@ -9,6 +9,7 @@ import dayjs from "dayjs";
 
 import { generateBoxShadowStyle } from "~/utils/helpers";
 import { StepProgressButton } from "~/components/ui";
+import { getCountScreen } from "~/utils";
 import { useSearchWizardStore } from "~/zustand/store";
 import { type RootStackParams } from "../RootStackParams";
 import { SearchLayout } from "./_layout";
@@ -28,7 +29,9 @@ const Availability = ({ navigation }: Props) => {
 
   // functions
   const handlePressNext = () => {
-    navigation.navigate("ObjectStyle");
+    // navigation.navigate("ObjectStyle");
+    // hidden for now - WD-138
+    navigation.navigate("Results");
   };
 
   const datePickerProps: AndroidNativeProps = useMemo(
@@ -87,7 +90,7 @@ const Availability = ({ navigation }: Props) => {
 
       <StepProgressButton
         title="Continue"
-        progress={80}
+        progress={getCountScreen("Availability")}
         onPress={handlePressNext}
         variant="turquoise"
       />

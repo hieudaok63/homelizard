@@ -2,3 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import url(input-range.style.css);
+
+::-webkit-scrollbar {
+  width: 0px;
+}

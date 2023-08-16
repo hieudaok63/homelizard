@@ -9,7 +9,7 @@ import { z } from "zod";
 import SignInWithOAuth from "~/components/auth/SignInWithOAuth";
 import { Button, TransparentHeaderSafeView } from "~/components/ui";
 import GradientPatternBackground from "~/components/ui/GradientPatternBackground";
-import TextInput from "~/components/ui/input/TextInput";
+import TextInputController from "~/components/ui/input/TextInputController";
 import { useZodForm } from "~/hooks/useZodForm";
 import { useApplicationLoadingStore } from "~/zustand/store";
 
@@ -67,7 +67,7 @@ const Login = () => {
       Toast?.show({
         type: "error",
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-        text1: err?.errors?.[0]?.message || "Incorect email or password",
+        text1: err?.errors?.[0]?.message || "Incorrect email or password",
         visibilityTime: 5000,
       });
     } finally {
@@ -81,27 +81,28 @@ const Login = () => {
       <KeyboardAwareScrollView>
         <TransparentHeaderSafeView>
           <View className="h-full w-full px-8 py-4">
-            <Text className="font-weight_500 text-font-18 mb-8 text-center text-black opacity-70">
+            <Text className="mb-8 text-center text-font-18 font-weight_500 text-black opacity-70">
               Wählen sie ihre anmeldeoption
             </Text>
 
             <SignInWithOAuth />
             <Text className="my-5 text-center text-black opacity-70">Oder</Text>
             <View className="mb-4">
-              <TextInput
+              <TextInputController
                 control={control}
                 name="email"
                 placeholder="E-Mailadresse"
               />
             </View>
             <View className="mb-4">
-              <TextInput
+              <TextInputController
                 control={control}
                 name="password"
                 placeholder="Passwort"
                 secureTextEntry={true}
               />
             </View>
+
             <View>
               <Button
                 title="Anmelden"

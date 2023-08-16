@@ -5,7 +5,7 @@ import * as LocationExpo from "expo-location";
 
 import SearchIcon from "@assets/icons/SearchIcon.svg";
 
-import { AppInput, RangePicker } from "~/components/ui";
+import { InputDefault, RangePicker } from "~/components/ui";
 import { useLocation } from "~/hooks/useLocation";
 import {
   locationSlice,
@@ -26,7 +26,7 @@ export const LocationSection = () => {
   const { location: userLocation, locationLoaded } = useLocation();
 
   // local states
-  const [address, setAddress] = useState<string | null>();
+  const [address, setAddress] = useState<string | undefined>();
 
   const { setAddressParam, setAddressUser } = locationSlice((state) => state);
 
@@ -81,7 +81,7 @@ export const LocationSection = () => {
 
       const nameAddress = detailLocation[0]?.name;
 
-      setAddress(nameAddress);
+      setAddress(nameAddress || "");
     },
     [setLocation],
   );
@@ -166,7 +166,7 @@ export const LocationSection = () => {
           Suche
         </Text>
         <View className="w-full flex-1 flex-row items-center pl-2">
-          <AppInput
+          <InputDefault
             placeholder="Suche"
             className="mr-2 flex-1"
             value={address}

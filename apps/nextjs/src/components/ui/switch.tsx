@@ -1,8 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "@homelizard/tailwind-config/utils";
 import * as SwitchPrimitives from "@radix-ui/react-switch";
+
+import { cn } from "@homelizard/tailwind-config/utils";
 
 const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitives.Root>,

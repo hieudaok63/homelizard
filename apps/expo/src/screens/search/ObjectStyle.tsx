@@ -14,6 +14,7 @@ import { api, type RouterOutputs } from "~/utils/api";
 import { genImageUrl } from "~/utils/imageUrl";
 import { StepProgressButton } from "~/components/ui";
 import { AppText } from "~/components/ui/AppText";
+import { getCountScreen } from "~/utils";
 import { useSearchWizardStore } from "~/zustand/store";
 import { type RootStackParams } from "../RootStackParams";
 import { SearchLayout } from "./_layout";
@@ -137,7 +138,7 @@ const ObjectStyle = ({ navigation }: Props) => {
 
       <StepProgressButton
         title="Continue"
-        progress={85}
+        progress={getCountScreen("ObjectStyle")}
         onPress={handlePressNext}
         disabled={!objectStyles?.length}
         variant="turquoise"

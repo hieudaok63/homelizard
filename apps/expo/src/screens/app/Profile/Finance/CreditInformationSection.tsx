@@ -7,7 +7,7 @@ import PropertyIcon from "@assets/icons/PropertyIcon.svg";
 
 import { ButtonProfile } from "~/components/Profile";
 import { ProfileSectionAccordion } from "~/components/ui/Profile";
-import InputProfile from "~/components/ui/input/InputProfile";
+import TextInputController from "~/components/ui/input/TextInputController";
 import { useZodForm } from "~/hooks/useZodForm";
 
 interface CreditInformationSection {
@@ -40,12 +40,12 @@ export const CreditInformationSection = ({
       style={style}
     >
       <KeyboardAwareScrollView>
-        <InputProfile
+        <TextInputController
           name="test"
           control={control}
           placeholder="Noch nicht verfügbar"
           label="Bonität"
-          inputGrey
+          variant="inline"
         />
         <ButtonProfile
           onPress={() => {}}

@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import ArrowRight from "~/assets/icons/ArrowRight.svg";
+import { ArrowRight } from "~/assets";
 
 export default function UploadItem() {
   return (

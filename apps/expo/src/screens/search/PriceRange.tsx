@@ -7,6 +7,7 @@ import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 import EuroIcon from "@assets/icons/EuroIcon.svg";
 
 import { RangePicker, StepProgressButton } from "~/components/ui";
+import { getCountScreen } from "~/utils";
 import { useSearchWizardStore } from "~/zustand/store";
 import { type RootStackParams } from "../RootStackParams";
 import { SearchLayout } from "./_layout";
@@ -81,7 +82,7 @@ const PriceRange = ({ navigation }: Props) => {
 
       <StepProgressButton
         title="Continue"
-        progress={75}
+        progress={getCountScreen("PriceRange")}
         variant="turquoise"
         onPress={handlePressNext}
       />

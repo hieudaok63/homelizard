@@ -3,7 +3,7 @@ import { View } from "react-native";
 import dayjs from "dayjs";
 import { z } from "zod";
 
-import InputProfile from "~/components/ui/input/InputProfile";
+import TextInputController from "~/components/ui/input/TextInputController";
 import { useZodForm } from "~/hooks/useZodForm";
 import { type SearchProfileItem } from "./ListSearchHistorySection";
 
@@ -40,61 +40,61 @@ export const ItemSearchProfile = ({ item }: { item: SearchProfileItem }) => {
   // main return
   return (
     <View>
-      <InputProfile
+      <TextInputController
         name="objectType"
         control={control}
         placeholder="Noch nicht verfügbar"
         label="Objekttyp"
-        inputGrey
+        variant="inline"
       />
-      <InputProfile
+      <TextInputController
         name="radius"
         control={control}
         placeholder="Noch nicht verfügbar"
         label="Ort, Umkreis (km)"
-        inputGrey
+        variant="inline"
       />
-      <InputProfile
+      <TextInputController
         name="plotSize"
         control={control}
         placeholder="Noch nicht verfügbar"
         label="Grundstück (m²)"
-        inputGrey
+        variant="inline"
       />
-      <InputProfile
+      <TextInputController
         name="livingAreaSize"
         control={control}
         placeholder="Noch nicht verfügbar"
         label="Wohnfläche (m²)"
-        inputGrey
+        variant="inline"
       />
-      <InputProfile
+      <TextInputController
         name="roomAmount"
         control={control}
         placeholder="Noch nicht verfügbar"
         label="Zimmer"
-        inputGrey
+        variant="inline"
       />
-      <InputProfile
+      <TextInputController
         name="objectStyle"
         control={control}
         placeholder="Noch nicht verfügbar"
         label="Stil"
-        inputGrey
+        variant="inline"
       />
-      <InputProfile
+      <TextInputController
         name="yearOfConstruction"
         control={control}
         placeholder="Noch nicht verfügbar"
         label="Baujahr"
-        inputGrey
+        variant="inline"
       />
-      <InputProfile
+      <TextInputController
         name="availability"
         control={control}
         placeholder="Noch nicht verfügbar"
         label="Verfügbarkeit"
-        inputGrey
+        variant="inline"
       />
     </View>
   );

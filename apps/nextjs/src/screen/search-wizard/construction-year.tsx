@@ -1,8 +1,15 @@
 import { useState } from "react";
 import Image from "next/image";
-import InputRange from "react-input-range";
 
-import Construction from "~/assets/icons/Construction.svg";
+import { cn } from "@homelizard/tailwind-config/utils";
+
+import {
+  Contruction_year1,
+  Contruction_year2,
+  Contruction_year3,
+  Contruction_year4,
+  Contruction_year5,
+} from "~/assets";
 import { ArrowBack, ButtonSearchWizard, CustomInputRange } from "~/components";
 import { PATH_NUMBERROOMS, PATH_PURCHASEPRICE } from "~/constants/navigation";
 import LayoutSearch from "~/pages/search-wizard/_layout";
@@ -22,18 +29,24 @@ const customMarks = [
   { value: 2023, label: "2023+" },
 ];
 
-const minValueYOC = 1950;
-const maxValueYOC = new Date()?.getFullYear();
-
 export default function ConstructionYear() {
-  // const [value, setValue] = useState<object>({ min: 0, max: 100 });
-  const yearOfConstruction_zutand = useSearchWizardStore(
+  const yearOfConstruction_start = useSearchWizardStore(
     (state) => state?.yearOfConstructionStart,
   );
 
-  const setYearOfConstruction_zutand = useSearchWizardStore(
+  const setYearOfConstruction_start = useSearchWizardStore(
     (state) => state?.setYearOfConstructionStart,
   );
+  const yearOfConstruction_end = useSearchWizardStore(
+    (state) => state?.yearOfConstructionEnd,
+  );
+  const setYearOfConstruction_end = useSearchWizardStore(
+    (state) => state?.setYearOfConstructionEnd,
+  );
+  const [value, setValue] = useState<object>({
+    min: yearOfConstruction_start,
+    max: yearOfConstruction_end,
+  });
 
   return (
     <LayoutSearch>
@@ -46,17 +59,63 @@ export default function ConstructionYear() {
       <div className="mb-20 mt-10">
         <CustomInputRange
           marks={customMarks}
-          onChange={(val: number) => {
-            setYearOfConstruction_zutand(val);
+          onChange={(val: any) => {
+            setValue(val);
+            setYearOfConstruction_start(val.min);
+            setYearOfConstruction_end(val.max);
           }}
-          value={yearOfConstruction_zutand}
-          minValue={minValueYOC}
-          maxValue={maxValueYOC}
+          value={value}
           step={1}
+          minValue={1950}
+          maxValue={2023}
         />
       </div>
-      <div className="mt-28 flex w-full justify-center">
-        <Image src={Construction} alt="construction" width={380} />
+      <div className="mt-28 flex w-full items-end justify-center">
+        <Image
+          src={Contruction_year1}
+          alt="construction"
+          className={cn(
+            "",
+            yearOfConstruction_start >= 1980 && "blur-md",
+            yearOfConstruction_end <= 1950 && "blur-md",
+          )}
+        />
+        <Image
+          src={Contruction_year2}
+          alt="construction"
+          className={cn(
+            "",
+            yearOfConstruction_start >= 1990 && "blur-md",
+            yearOfConstruction_end <= 1980 && "blur-md",
+          )}
+        />
+        <Image
+          src={Contruction_year3}
+          alt="construction"
+          className={cn(
+            "",
+            yearOfConstruction_start >= 2000 && "blur-md",
+            yearOfConstruction_end <= 1990 && "blur-md",
+          )}
+        />
+        <Image
+          src={Contruction_year4}
+          alt="construction"
+          className={cn(
+            "",
+            yearOfConstruction_start >= 2010 && "blur-md",
+            yearOfConstruction_end <= 2000 && "blur-md",
+          )}
+        />
+        <Image
+          src={Contruction_year5}
+          alt="construction"
+          className={cn(
+            "",
+            yearOfConstruction_start >= 2023 && "blur-md",
+            yearOfConstruction_end <= 2010 && "blur-md",
+          )}
+        />
       </div>
 
       <div className=" flex w-full justify-center">

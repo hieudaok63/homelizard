@@ -1,56 +1,64 @@
-import React, { useState } from "react";
-import { useUser } from "@clerk/nextjs";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, FormProvider, useFormContext } from "react-hook-form";
+import { useRouter } from "next/router";
+import { useClerk, useUser } from "@clerk/nextjs";
+import dayjs from "dayjs";
+import { Controller } from "react-hook-form";
 
 import { api } from "~/utils/api";
+import { showAppToast } from "~/utils/toast";
 import {
   Button,
-  DropUpload,
-  Input,
+  LayoutLoginRegister,
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
   TextInput,
 } from "~/components";
-import { EGender } from "~/enums";
+import { PATH_OBJECTTYPE } from "~/constants/navigation";
 import { useZodForm } from "~/hooks";
-import { IRegister } from "~/interfaces";
-import { TOptions } from "~/types";
-import { registerNameGenderSchema, registerSchema } from "~/validations";
+import { registerNameGenderSchema } from "~/validations";
 import {
   useApplicationLoadingStore,
   useSearchWizardStore,
   useUserStore,
 } from "~/zustand/store";
-import { Layout } from "./_layout";
 
 const initialValues = {
-  email: "",
-  password: "",
-  confirmPassword: "",
+  firstName: "",
+  lastName: "",
+  gender: "",
 };
 
-const genderOptions: TOptions<number>[] = [
-  { value: 1, label: EGender.MALE },
-  { value: 2, label: EGender.FEMALE },
-  { value: 3, label: EGender.OTHERS },
-];
+const genderOptions = {
+  male: "male",
+  female: "female",
+  other: "other",
+};
 
 export const RegisterNameGender = () => {
-  console.log("first");
-  const register = api.user.register.useMutation({
-    onSuccess: async () => {
-      const user = await trpc.client.user.userInfo.query();
-      setUserInfo(user);
+  const searchWizardData = useSearchWizardStore((state) => state);
+  const setLoadingApp = useApplicationLoadingStore((state) => state.setLoading);
+  const resetSearchWizard = useSearchWizardStore((state) => state.reset);
+  const setUserInfo = useUserStore((state) => state.setUser);
+  const router = useRouter();
+  // api
+  const searchTrpc = api?.search?.searchProfile?.useMutation();
+  const trpc = api.useContext();
+  // clerk
+  const { user, isLoaded } = useUser();
+  const { signOut } = useClerk();
 
-      const body = {
-        objectType: searchWizardData?.objectType || "Apartment",
-        objectStyle: searchWizardData?.objectStyles?.[0] || "Bohemian",
+  // functions
+  const saveSearchProfile = async () => {
+    await searchTrpc?.mutateAsync(
+      {
+        objectType: searchWizardData?.objectType,
+        // objectStyles: searchWizardData?.objectStyles,
+        // hardcode objectStyles
+        objectStyles: ["minimalistic", "modern", "rustic"],
+        purchaseType: searchWizardData?.purchaseType,
         livingAreaSize: searchWizardData?.livingArea,
         roomAmount: searchWizardData?.numberOfRooms,
         latitude: searchWizardData?.location?.latitude ?? 20,
@@ -59,42 +67,53 @@ export const RegisterNameGender = () => {
         plotSize: searchWizardData?.plotSize,
         startYearOfConstruction: searchWizardData?.yearOfConstructionStart,
         endYearOfConstruction: searchWizardData?.yearOfConstructionEnd,
-        availability: new Date(searchWizardData?.availabilityDate),
-        rentOrBuy: "rent",
-        minPrice: 10,
-        maxPrice: 100,
+        availability:
+          dayjs(searchWizardData?.availabilityDate)?.toDate() || new Date(),
+        minPrice: 1000,
+        maxPrice: searchWizardData?.puchasePrice,
         address: {
-          street: "f",
-          city: "z.string()",
-          zipCode: "z.string()",
-          country: "z.string()",
+          street: "Cau Giay",
+          city: "Ha Noi",
+          zipCode: "100000",
+          country: "Viet Nam",
         },
-      };
+      },
+      {
+        onSuccess: () => {
+          router.push("image-agb");
+          showAppToast("Register successfully!", "success");
+        },
+        onError: async (err) => {
+          console.log("err when saving search profile: ", err);
+          await signOut();
+          router.push(PATH_OBJECTTYPE);
+          showAppToast(err?.message, "error");
+        },
+      },
+    );
+  };
+
+  const register = api.user.register.useMutation({
+    onSuccess: async () => {
+      const user = await trpc.client.user.userInfo.query();
+      setUserInfo(user);
 
       // save search profile
-      await searchTrpc?.mutateAsync(body);
-
+      saveSearchProfile();
+      // clear local cache
       resetSearchWizard();
     },
-  });
 
-  const searchTrpc = api?.search?.searchProfile?.useMutation();
-  const searchWizardData = useSearchWizardStore((state) => state);
-  const setLoadingApp = useApplicationLoadingStore((state) => state.setLoading);
-  const resetSearchWizard = useSearchWizardStore((state) => state.reset);
-  const setUserInfo = useUserStore((state) => state.setUser);
-  const trpc = api.useContext();
-
-  const { control, setValue, setError, handleSubmit } = useZodForm({
-    schema: registerNameGenderSchema,
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      gender: "",
+    onError: async (err) => {
+      await signOut();
+      showAppToast(err?.message, "error");
     },
   });
 
-  const { user, isLoaded } = useUser();
+  const { control, handleSubmit } = useZodForm({
+    schema: registerNameGenderSchema,
+    defaultValues: initialValues,
+  });
 
   const onSubmit = handleSubmit(async (data) => {
     if (!isLoaded || !user) return;
@@ -102,25 +121,16 @@ export const RegisterNameGender = () => {
     try {
       setLoadingApp(true);
       await register.mutateAsync(data);
-      console.log("success");
-      // navigation?.navigate("RegisterAgb");
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      console.error(JSON.stringify(err, null, 2));
       console.log(err);
-      // Toast.show({
-      //   type: "error",
-      //   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-      //   text1: err?.message || "Cannot save name and gender",
-      // });
     } finally {
       setLoadingApp(false);
-      // navigation?.navigate("RegisterAgb"); // hard code for now
     }
   });
 
+  // main return
   return (
-    <Layout title="">
+    <LayoutLoginRegister title="Anrede und Name">
       <form
         className="form-register w-full flex-1 justify-center pl-8"
         onSubmit={onSubmit}
@@ -157,13 +167,22 @@ export const RegisterNameGender = () => {
                   </SelectTrigger>
                   <SelectGroup className="text-left">
                     <SelectContent className="border-1 border border-gray-700 text-left">
-                      <SelectItem className="text-left" value={"male"}>
+                      <SelectItem
+                        className="cursor-pointer text-left text-base"
+                        value={genderOptions?.male}
+                      >
                         Male
                       </SelectItem>
-                      <SelectItem className="text-left" value={"female"}>
+                      <SelectItem
+                        className="cursor-pointer text-left text-base"
+                        value={genderOptions?.female}
+                      >
                         Female
                       </SelectItem>
-                      <SelectItem className="text-left" value={"other"}>
+                      <SelectItem
+                        className="cursor-pointer text-left text-base"
+                        value={genderOptions?.other}
+                      >
                         Others
                       </SelectItem>
                     </SelectContent>
@@ -174,15 +193,11 @@ export const RegisterNameGender = () => {
           />
         </div>
         <div className="mt-14 flex w-full justify-center">
-          <Button
-            className="w-[80%] bg-gradient-to-l from-[#74ebd5] to-[#9face6]"
-            color="white"
-            type="submit"
-          >
+          <Button className="w-[80%]" color="white" type="submit">
             Continue
           </Button>
         </div>
       </form>
-    </Layout>
+    </LayoutLoginRegister>
   );
 };
