@@ -3,9 +3,13 @@ import Link from "next/link";
 
 import { cn } from "@homelizard/tailwind-config/utils";
 
-import { ArrowRight, Create, Heart, Setting, Tell } from "~/assets";
+import { Create, Heart, Setting, Tell } from "~/assets";
 import Chevron from "~/assets/icons/chevron-up.svg";
-import { PATH_FAVORITE, PATH_OBJECTTYPE } from "~/constants/navigation";
+import {
+  PATH_FAVORITE,
+  PATH_OBJECTTYPE,
+  PATH_SETTING,
+} from "~/constants/navigation";
 import { useToggleStore } from "~/zustand/store";
 
 const menuSideBar = [
@@ -35,7 +39,7 @@ const menuSideBar = [
     title: "Settings",
     icon: Setting,
     color: "bg-yellow-300",
-    path: "",
+    path: PATH_SETTING,
   },
 ];
 

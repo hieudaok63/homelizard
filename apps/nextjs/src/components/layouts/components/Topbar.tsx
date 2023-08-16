@@ -63,6 +63,12 @@ export default function Topbar() {
           )
         )}
       </div>
+      {isRoute === "/setting" && (
+        <p className="text-center text-4xl font-semibold">Settings</p>
+      )}
+      {isRoute === "/setting/delete-account" && (
+        <p className="text-center text-4xl font-semibold">Delete Account</p>
+      )}
 
       <div className="flex items-center">
         <div className="relative mr-8 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full">

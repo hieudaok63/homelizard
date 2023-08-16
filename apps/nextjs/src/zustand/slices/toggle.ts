@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
 export type IToggleState = {
@@ -21,27 +20,21 @@ const initialState: IToggleState = {
 };
 
 export const useToggleStore = create(
-  persist(
-    immer<IToggleState & IToggleAction>((set) => ({
-      ...initialState,
-      //ToggleButton
-      setToggleButton: (val) =>
-        set((state) => {
-          state.toggleButton = val;
-        }),
+  immer<IToggleState & IToggleAction>((set) => ({
+    ...initialState,
+    //ToggleButton
+    setToggleButton: (val) =>
+      set((state) => {
+        state.toggleButton = val;
+      }),
 
-      setToggleModal: (val) =>
-        set((state) => {
-          state.toggleModal = val;
-        }),
-      setToggleSideBar: (val) =>
-        set((state) => {
-          state.toggleSideBar = val;
-        }),
-    })),
-    {
-      name: "toggleButton-store",
-      storage: createJSONStorage(() => localStorage),
-    },
-  ),
+    setToggleModal: (val) =>
+      set((state) => {
+        state.toggleModal = val;
+      }),
+    setToggleSideBar: (val) =>
+      set((state) => {
+        state.toggleSideBar = val;
+      }),
+  })),
 );

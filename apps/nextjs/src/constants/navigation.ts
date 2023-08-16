@@ -17,6 +17,7 @@ const PATH_HOME = "/home";
 const PATH_PROFILE = "/profile";
 const PATH_VERIFYCODE = "/register/verify-code";
 const PATH_NAME_GENDER = "name-gender";
+const PATH_SETTING = "/setting";
 
 //Path object detail
 const PATH_OBJECT_DETAIL = "/detail";
@@ -41,4 +42,5 @@ export {
   PATH_OBJECT_DETAIL,
   PATH_VERIFYCODE,
   PATH_NAME_GENDER,
+  PATH_SETTING,
 };

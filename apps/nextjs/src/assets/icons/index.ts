@@ -18,6 +18,8 @@ import Setting from "./Setting.svg";
 import Share from "./Share.svg";
 import Shower from "./Shower.svg";
 import Tell from "./Tell.svg";
+import ToggleFalse from "./ToggleFalse.svg";
+import ToggleTrue from "./Toggletrue.svg";
 import Utilities from "./Utilities.svg";
 import Wohnung from "./Wohnung.svg";
 import ChevronUp from "./chevron-up.svg";
@@ -44,10 +46,14 @@ import number_room9 from "./number_room9.svg";
 import number_room10 from "./number_room10.svg";
 import passwordHide from "./passwordHide.svg";
 import Plus from "./plus.svg";
+import question from "./question.svg";
 import Search from "./search.svg";
+import settings from "./settings.svg";
+import trash from "./trash.svg";
 import Twitter from "./twitter.svg";
 import uploadSvg from "./upload.svg";
 import globeSvg from "./upload.svg";
+import warning from "./warning.svg";
 
 export {
   ChevronUp,
@@ -100,4 +106,10 @@ export {
   PuchasePrice2,
   PuchasePrice3,
   PuchasePrice4,
+  settings,
+  trash,
+  question,
+  ToggleFalse,
+  ToggleTrue,
+  warning,
 };
