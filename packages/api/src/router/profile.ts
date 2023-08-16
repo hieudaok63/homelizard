@@ -12,6 +12,7 @@ import { type File } from "@homelizard/db";
 import { fileTypeOptions, fileTypeSchema } from "@homelizard/schema";
 
 import { DEFAULT_LIMIT, DEFAULT_PAGE } from "../constant/paginated.constant";
+import { UserNotFound } from "../exceptions/errors";
 import { getPaginatedItems } from "../helpers/pagination.helper";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
@@ -114,10 +115,13 @@ export const profileRouter = createTRPCRouter({
       const url = await getSignedUrl(client, command);
 
       const user = await ctx.prisma.user.findUnique({
-        where: { externalId: ctx.auth.userId },
+        where: { externalId: ctx.auth.userId, deletedAt: null },
       });
+
+      if (!user) throw new UserNotFound();
+
       const file = await ctx.prisma.file.findFirst({
-        where: { userId: user?.id, blobName: input.blobName },
+        where: { userId: user.id, blobName: input.blobName },
       });
       if (!file) {
         await ctx.prisma.file.create({
@@ -150,10 +154,10 @@ export const profileRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const user = await ctx.prisma.user.findUnique({
-        where: { externalId: ctx.auth.userId },
+        where: { externalId: ctx.auth.userId, deletedAt: null },
       });
       if (!user) {
-        throw new Error(`User not found`);
+        throw new UserNotFound();
       }
       const userOwnFile = await ctx.prisma.file.findFirst({
         where: { id: input.fileId, userId: user.id },
@@ -193,15 +197,18 @@ export const profileRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const user = await ctx.prisma.user.findUnique({
-        where: { externalId: ctx.auth.userId },
+        where: { externalId: ctx.auth.userId, deletedAt: null },
       });
+
+      if (!user) throw new UserNotFound();
+
       return ctx.prisma.file.create({
         data: {
           cvType: "link",
           url: input.link,
           blobName: input.blobName,
           fileType: fileTypeOptions[0],
-          user: { connect: { id: user?.id } },
+          user: { connect: { id: user.id } },
         },
       });
     }),
@@ -214,11 +221,11 @@ export const profileRouter = createTRPCRouter({
     )
     .query(async ({ ctx, input }) => {
       const user = await ctx.prisma.user.findUnique({
-        where: { externalId: ctx.auth.userId },
+        where: { externalId: ctx.auth.userId, deletedAt: null },
       });
 
       if (!user) {
-        throw new Error(`User not found`);
+        throw new UserNotFound();
       }
       const { page = DEFAULT_PAGE, limit = DEFAULT_LIMIT } = input;
       const [curriculumVitae, totalItems] = await Promise.all([

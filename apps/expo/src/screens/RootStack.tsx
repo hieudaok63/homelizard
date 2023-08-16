@@ -11,6 +11,7 @@ import LoginOrSignUp from "./LoginOrSignup";
 import { ObjectDetail } from "./ObjectDetail";
 import { type RootStackParams } from "./RootStackParams";
 import AppStack from "./app/AppStack";
+import { DeleteAccount } from "./app/Settings/DeleteAccount/DeleteAccount";
 import { EditProfilePicture } from "./profilePicture";
 import {
   RegisterAgb,
@@ -54,7 +55,13 @@ export function RootStack() {
               headerShown: false,
             }}
           />
-
+          <Stack.Screen
+            name="DeleteAccount"
+            component={DeleteAccount}
+            options={{
+              headerShown: false,
+            }}
+          />
           <Stack.Screen
             name="ObjectDetail"
             component={ObjectDetail}

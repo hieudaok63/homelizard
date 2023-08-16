@@ -62,7 +62,9 @@ const menuLinkData: IMenuLinkData[] = [
       from: "#A079EB",
       to: "#6E4AE5",
     },
+    screen: "Setting",
   },
+
   {
     name: "Create new search",
     Icon: NotepadIcon,
@@ -291,7 +293,7 @@ const MenuLink = ({
 
   const handleClickItemMenu = () => {
     setOpenMenu(false);
-    if (screen) navigation?.push(screen);
+    if (screen) navigation?.navigate(screen);
   };
 
   return (

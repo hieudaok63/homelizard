@@ -1,7 +1,8 @@
 {
   "navigation": {
     "home": "Home",
-    "profile": "Profile"
+    "profile": "Profile",
+    "settings": "Settings"
   },
   "continue": "Continue",
   "gender": {

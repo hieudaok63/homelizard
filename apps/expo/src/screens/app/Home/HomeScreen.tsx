@@ -67,11 +67,11 @@ const HomeScreenHeader = () => {
       className="flex flex-row items-center justify-between px-8 py-2"
     >
       <View pointerEvents="none">
-        <Text className="font-weight_400 text-font-28">Home</Text>
+        <Text className="text-font-28 font-weight_400">Home</Text>
       </View>
       <TouchableOpacity
         activeOpacity={0.5}
-        className="bg-dark flex h-12 w-12 items-center justify-center rounded-full"
+        className="flex h-12 w-12 items-center justify-center rounded-full bg-dark"
       >
         <MessageIcon width={24} height={24} />
         <NotificationBadge number={5} className="absolute -right-2 -top-2" />

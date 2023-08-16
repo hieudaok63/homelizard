@@ -24,4 +24,8 @@ export type TabStackParams = {
 
   //Favorite
   ListFavoriteSection: undefined;
+
+  //setting
+  Setting: undefined;
+  DeleteAccount: undefined;
 };

@@ -12,7 +12,6 @@ export const ResultsTab = () => {
   const navigation = useAppNavigation();
   const { items, fetchNextPage, isRefetching, refetch } =
     useInfiniteSearchResults();
-
   const ResultItem = ({
     item,
   }: ListRenderItemInfo<

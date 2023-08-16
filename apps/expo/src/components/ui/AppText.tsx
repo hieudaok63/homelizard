@@ -11,17 +11,19 @@ interface AppTextProps {
   isPrice?: boolean;
   className?: string;
   large?: boolean;
+  classText?: string;
 }
 
 export const AppText = (props: AppTextProps) => {
-  const { style, onPress, numberOfLines, className, text, large } = props;
-
+  const { style, onPress, classText, numberOfLines, className, text, large } =
+    props;
   return (
     <Text
       className={cn(
         "font-nunito text-sm text-black",
-        className,
         large && "text-4xl",
+        className,
+        classText,
       )}
       style={style}
       onPress={onPress}
