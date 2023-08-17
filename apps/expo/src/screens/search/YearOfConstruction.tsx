@@ -1,10 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import React, { useCallback } from "react";
-import { Text, View } from "react-native";
+import {
+  Image,
+  Text,
+  View,
+  type ImageResizeMode,
+  type ImageSourcePropType,
+} from "react-native";
+import { useAssets, type Asset } from "expo-asset";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
-
-import EvolutionIcon from "@assets/icons/EvolutionIcon.svg";
 
 import { RangePicker, StepProgressButton } from "~/components/ui";
 import { getCountScreen } from "~/utils";
@@ -13,11 +18,24 @@ import { type RootStackParams } from "../RootStackParams";
 import { SearchLayout } from "./_layout";
 
 type Props = NativeStackScreenProps<RootStackParams, "YearOfConstruction">;
-
+interface ImageBlurProps {
+  classImage?: string | undefined;
+  source?: Asset | undefined;
+  blur?: boolean | undefined;
+  resizeMode?: ImageResizeMode | undefined;
+}
 const minValueYOC = 1950;
 const maxValueYOC = new Date()?.getFullYear();
 
 const YearOfConstruction = ({ navigation }: Props) => {
+  // image
+  const [House] = useAssets([
+    require("../../../assets/ImageHouse/House.png"),
+    require("../../../assets/ImageHouse/House1.png"),
+    require("../../../assets/ImageHouse/House2.png"),
+    require("../../../assets/ImageHouse/House3.png"),
+    require("../../../assets/ImageHouse/House4.png"),
+  ]);
   // zustand
   const yearOfConstructionStart_zutand = useSearchWizardStore(
     (state) => state?.yearOfConstructionStart,
@@ -31,7 +49,20 @@ const YearOfConstruction = ({ navigation }: Props) => {
   const setYearOfConstructionEnd_zutand = useSearchWizardStore(
     (state) => state?.setYearOfConstructionEnd,
   );
+  const ImgaeBlur = (props: ImageBlurProps) => {
+    const { classImage, source, blur, resizeMode = "contain" } = props;
 
+    return (
+      <View className="flex-1">
+        <Image
+          className={classImage}
+          resizeMode={resizeMode}
+          source={source as ImageSourcePropType}
+          blurRadius={blur ? 7 : undefined}
+        />
+      </View>
+    );
+  };
   // functions
   const handleTouchEnd = useCallback((lowValue: number, hightValue: number) => {
     setYearOfConstructionEnd_zutand(hightValue);
@@ -47,7 +78,23 @@ const YearOfConstruction = ({ navigation }: Props) => {
     navigation.navigate("PriceRange");
   };
 
+  console.log(
+    { yearOfConstructionEnd_zutand },
+    { yearOfConstructionStart_zutand },
+  );
+  const getArrayYear = (max: number, number: number) => {
+    const values = [];
+    for (let index = 0; index <= number / 2; index++) {
+      values.push(
+        `${index === number / 2 ? "<" : ""}${max - number * index}${
+          index === 0 ? "+" : ""
+        }`,
+      );
+    }
+    return values.reverse();
+  };
   // main return
+  if (!House || !House1 || !House2 || !House3 || !House4) return null;
   return (
     <SearchLayout>
       <View>
@@ -66,9 +113,9 @@ const YearOfConstruction = ({ navigation }: Props) => {
           </View>
         </View>
 
-        <View className="mb-8 px-4">
+        <View className="mb-8 px-3">
           <RangePicker
-            min={minValueYOC}
+            min={maxValueYOC - 50}
             max={maxValueYOC}
             rangeDisabled={false}
             lowProp={yearOfConstructionStart_zutand}
@@ -77,13 +124,13 @@ const YearOfConstruction = ({ navigation }: Props) => {
             showBottomMetric
             bottomMetricProps={{
               stepNum: 10,
-              values: ["<1950", 1980, 1990, 2000, 2010, `${maxValueYOC}+`],
+              values: getArrayYear(maxValueYOC, 10),
             }}
             // handleValueChange={handleValueChange} // avoid this, cause poor performace re-render
           />
         </View>
 
-        <Text className="mb-8 px-4 text-right text-font-12 font-weight_300 text-black opacity-60">
+        {/* <Text className="mb-8 px-4 text-right text-font-12 font-weight_300 text-black opacity-60">
           {yearOfConstructionStart_zutand === minValueYOC
             ? `<${yearOfConstructionStart_zutand}`
             : yearOfConstructionStart_zutand}{" "}
@@ -91,10 +138,39 @@ const YearOfConstruction = ({ navigation }: Props) => {
           {yearOfConstructionEnd_zutand === maxValueYOC
             ? `+${yearOfConstructionEnd_zutand}`
             : yearOfConstructionEnd_zutand}
-        </Text>
+        </Text> */}
 
-        <View className="mb-72 items-center">
-          <EvolutionIcon />
+        <View className=" mx-4  mt-10 flex-row  items-end justify-between">
+          <ImgaeBlur
+            classImage="h-[38px] w-[52px]"
+            resizeMode="contain"
+            source={House[0]}
+            blur={yearOfConstructionStart_zutand >= 1985}
+          />
+          <ImgaeBlur
+            classImage="h-[46px] w-[52px]"
+            resizeMode="contain"
+            source={House[1]}
+            blur={yearOfConstructionStart_zutand >= 1985}
+          />
+          <ImgaeBlur
+            classImage="h-[56px] w-[64px]"
+            resizeMode="contain"
+            source={House[2]}
+            blur={yearOfConstructionStart_zutand >= 2003}
+          />
+          <ImgaeBlur
+            classImage="h-[58px] w-[66px]"
+            resizeMode="contain"
+            source={House[3]}
+            // blur={}
+          />
+          <ImgaeBlur
+            classImage="h-[41px] w-[74px]"
+            resizeMode="center"
+            source={House[4]}
+            blur={yearOfConstructionEnd_zutand <= 2003}
+          />
         </View>
       </View>
 
