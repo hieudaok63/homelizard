@@ -5,3 +5,4 @@ export * from "./searchResultNotFound.error";
 export * from "./customerNotFound.error";
 export * from "./favoriteNotFound.error";
 export * from "./validateError.error";
+export * from "./realEstateObjectNotFound.error";
