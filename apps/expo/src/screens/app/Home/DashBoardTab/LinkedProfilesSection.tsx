@@ -1,4 +1,5 @@
 import { FlatList, TouchableOpacity, View } from "react-native";
+import { t } from "i18next";
 
 import { AppText } from "~/components/ui/AppText";
 import { splitArrayIntoChunks } from "~/utils";
@@ -160,9 +161,9 @@ export const LinkedProfilesSection = () => {
   return (
     <View className="my-4 px-8">
       <View className="flex flex-row items-center justify-between pb-4">
-        <AppText text="Linked profiles" large className="text-pink" />
+        <AppText text={t("home:linkedProfiles")} large className="text-pink" />
         <TouchableOpacity activeOpacity={0.5}>
-          <AppText text="See all" className="text-blue_1" />
+          <AppText text={t("home:seeAll")} className="text-blue_1" />
         </TouchableOpacity>
       </View>
       <FlatList

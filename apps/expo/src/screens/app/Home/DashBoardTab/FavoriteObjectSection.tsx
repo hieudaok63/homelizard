@@ -2,6 +2,7 @@ import React from "react";
 import { Dimensions, Image, TouchableOpacity, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import { type CarouselRenderItemInfo } from "react-native-reanimated-carousel/lib/typescript/types";
+import { t } from "i18next";
 
 import { api, type RouterOutputs } from "~/utils/api";
 import { genImageUrl } from "~/utils/imageUrl";
@@ -16,7 +17,11 @@ export const FavoriteObjectSection = () => {
 
   return (
     <View className="px-8">
-      <AppText text="Favorite objects" large className="text-placeholder" />
+      <AppText
+        text={t("home:favoriteObjects")}
+        large
+        className="text-placeholder"
+      />
       <View className="-mx-8">
         <Carousel
           data={data ?? []}

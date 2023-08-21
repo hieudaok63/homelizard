@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { RefreshControl, type ListRenderItemInfo } from "react-native";
 import { Tabs } from "react-native-collapsible-tab-view";
+import { t } from "i18next";
 
 import { api, type RouterOutputs } from "~/utils/api";
 import { BottomNavBarPadding } from "~/components/navigation/NavBar";
@@ -58,7 +59,7 @@ export const ResultsTab = () => {
 const HeaderPost = () => {
   return (
     <AppText
-      text="Today"
+      text={t("home:today")}
       className="px-6 pb-1 pt-4 font-nunito-bold text-2xl text-white"
     />
   );
