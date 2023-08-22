@@ -6,6 +6,7 @@ import { genderSchema, type Gender } from "@homelizard/schema";
 import { MOBILE_PHONE_REGEX } from "../constant/base.constant";
 import { EmailNotFound, UserNotFound } from "../exceptions/errors";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { ERoles } from "../enums/base.enum";
 
 export const userRouter = createTRPCRouter({
   register: protectedProcedure
@@ -31,8 +32,15 @@ export const userRouter = createTRPCRouter({
         data: {
           externalId: ctx.auth.userId,
           email: email,
+          role: ERoles.USER,
           ...input,
         },
+      });
+
+      await clerkClient.users.updateUserMetadata(newUser.id, {
+        publicMetadata: {
+          role: ERoles.USER
+        }
       });
 
       await ctx.prisma.customer.create({

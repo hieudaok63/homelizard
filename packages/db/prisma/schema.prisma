@@ -35,6 +35,7 @@ model User {
   customers     Customer[]
   address       Address?     @relation(fields: [addressId], references: [id])
   addressId     String?
+  role          ERoles       @default(ADMIN)
   createdAt     DateTime     @default(now()) @map("created_at")
   updatedAt     DateTime     @updatedAt @map("updated_at")
   deletedAt     DateTime?    @map("deleted_at")
@@ -42,6 +43,11 @@ model User {
   placeOfWorkId String?
   file          File[]
   requests      Request[]
+}
+
+enum ERoles {
+  ADMIN
+  USER
 }
 
 model Customer {
