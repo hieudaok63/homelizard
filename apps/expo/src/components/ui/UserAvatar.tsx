@@ -30,12 +30,11 @@ export const UserAvatar = ({
       {backButton && <AppHeader />}
 
       {data?.url && (
-        // eslint-disable-next-line jsx-a11y/alt-text
         <Image
           className="h-full w-full"
           source={data.url}
           transition={300}
-          accessibilityLabel="Profile picture"
+          aria-label="Profile picture"
         />
       )}
     </View>

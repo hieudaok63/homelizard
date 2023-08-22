@@ -115,8 +115,7 @@ const initialState: ISearchWizardState = {
   yearOfConstructionEnd: new Date()?.getFullYear(),
 
   //priceRange
-  maxPrice: 100000,
-
+  maxPrice: 0,
   // availabilityDate
   availabilityDate: new Date(),
 
@@ -144,6 +143,7 @@ export const useSearchWizardStore = create(
       //purchaseType
       setPurchaseType: (val) =>
         set((state) => {
+          state.maxPrice = val === "buy" ? 650000 : 1500;
           state.purchaseType = val;
         }),
 

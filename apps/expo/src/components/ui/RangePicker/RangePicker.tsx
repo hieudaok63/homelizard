@@ -20,6 +20,7 @@ type IProps = {
   step?: number;
   showBottomMetric?: boolean;
   bottomMetricProps?: IBottomMetricProps;
+  renderLabelProps?: (text: number | string) => void | JSX.Element;
 };
 
 export const RangePicker = (props: IProps) => {
@@ -36,6 +37,7 @@ export const RangePicker = (props: IProps) => {
     step,
     showBottomMetric,
     bottomMetricProps,
+    renderLabelProps,
   } = props;
 
   const renderThumb = useCallback(
@@ -44,10 +46,13 @@ export const RangePicker = (props: IProps) => {
   );
   const renderRail = useCallback(() => <Rail />, []);
   const renderRailSelected = useCallback(() => <Rail selected={true} />, []);
-  const renderLabel = useCallback(
-    (value: number) => <Label text={value} />,
-    [],
-  );
+  const renderLabel = useCallback((value: number) => {
+    if (renderLabelProps) {
+      return renderLabelProps(value);
+    } else {
+      return <Label text={value} />;
+    }
+  }, []);
   const renderNotch = useCallback(() => <Notch />, []);
 
   return (

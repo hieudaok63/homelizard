@@ -22,12 +22,11 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ onPress }) => {
     <TouchableOpacity onPress={onPress} style={styleBoxShadow}>
       <View className="flex h-[265px] w-[265px] items-center justify-center overflow-hidden rounded-l-full rounded-tr-full bg-grey_2">
         {data?.url && (
-          // eslint-disable-next-line jsx-a11y/alt-text
           <Image
             className="h-full w-full"
             source={data.url}
             transition={300}
-            accessibilityLabel="Profile picture"
+            aria-label="Profile picture"
             onLoadEnd={() => setIsImageLoaded(true)}
           />
         )}
