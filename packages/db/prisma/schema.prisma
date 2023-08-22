@@ -68,26 +68,28 @@ model Address {
 }
 
 model SearchProfile {
-  id                      String         @id @default(cuid())
-  objectTypes             String[]       @map("object_types")
-  livingAreaSize          Int            @map("living_area_size")
-  latitude                Float
-  longitude               Float
-  radius                  Int
-  plotSize                Float          @map("plot_size")
-  roomAmount              Int            @map("room_amount")
-  startYearOfConstruction Int            @map("start_year_of_construction")
-  endYearOfConstruction   Int            @map("end_year_of_construction")
-  availability            DateTime
-  purchaseType            String         @map("purchase_type")
-  minPrice                Float          @map("min_price")
-  maxPrice                Float          @map("max_price")
-  address                 Address?       @relation(fields: [addressId], references: [id])
-  addressId               String?
-  searchResult            SearchResult[]
-  objectStyles            String[]
-  customer                Customer       @relation(fields: [customerId], references: [id])
-  customerId              String
+  id             String         @id @default(cuid())
+  objectTypes    String[]       @map("object_types")
+  livingAreaSize Int            @map("living_area_size")
+  latitude       Float
+  longitude      Float
+  radius         Int
+  plotSize       Float          @map("plot_size")
+  roomAmount     Int            @map("room_amount")
+  availability   DateTime
+  purchaseType   String         @map("purchase_type")
+  minPrice       Float          @map("min_price")
+  maxPrice       Float          @map("max_price")
+  address        Address?       @relation(fields: [addressId], references: [id])
+  addressId      String?
+  searchResult   SearchResult[]
+  customer       Customer       @relation(fields: [customerId], references: [id])
+  customerId     String
+  // hidden for now - WD-138
+  // objectStyles   String[]
+  // hidden for now - WD-1k8
+  // startYearOfConstruction Int            @map("start_year_of_construction")
+  // endYearOfConstruction   Int            @map("end_year_of_construction")
 }
 
 model Favorite {

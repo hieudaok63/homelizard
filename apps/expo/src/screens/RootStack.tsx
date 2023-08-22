@@ -181,7 +181,9 @@ export function RootStack() {
           name="PriceRange"
           component={PriceRange}
           options={{
-            headerLeft: () => <BackButton screen="YearOfConstruction" />,
+            // headerLeft: () => <BackButton screen="YearOfConstruction" />,
+            // hidden for now  WD-158
+            headerLeft: () => <BackButton screen="NumberOfRooms" />,
           }}
         />
         <Stack.Screen
@@ -209,7 +211,7 @@ export function RootStack() {
           name="Results"
           component={Results}
           options={{
-            headerLeft: () => <BackButton screen="ObjectStyleResult" />,
+            headerLeft: () => <BackButton screen="Availability" />,
           }}
         />
       </Stack.Group>

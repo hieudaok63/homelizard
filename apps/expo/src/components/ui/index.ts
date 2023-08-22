@@ -20,3 +20,4 @@ export * from "./TransparentHeaderSafeView";
 export * from "./UserAvatar";
 export * from "./input";
 export * from "./loading";
+export * from "./AnimatedHouse";

@@ -35,7 +35,9 @@ const NumberOfRooms = ({ navigation }: Props) => {
   }, []);
 
   const handlePressNext = useCallback(() => {
-    navigation.navigate("YearOfConstruction");
+    // navigation.navigate("YearOfConstruction");
+    // hidden for now  WD-158
+    navigation.navigate("PriceRange");
   }, []);
 
   // main return

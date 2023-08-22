@@ -54,7 +54,6 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
       // save search profile
       await searchTrpc.mutateAsync({
         objectTypes: searchWizardData.objectTypes,
-        objectStyles: searchWizardData?.objectStyles,
         livingAreaSize: searchWizardData?.livingArea,
         roomAmount: searchWizardData?.numberOfRooms,
         // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
@@ -63,13 +62,16 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
         longitude: (searchWizardData?.location)!.longitude,
         radius: searchWizardData?.radius,
         plotSize: searchWizardData?.plotSize,
-        startYearOfConstruction: searchWizardData?.yearOfConstructionStart,
-        endYearOfConstruction: searchWizardData?.yearOfConstructionEnd,
         // TODO: check why dayjs is needed here
         availability: dayjs(searchWizardData.availabilityDate).toDate(),
         purchaseType: searchWizardData?.purchaseType,
         minPrice: 1, // hard code for now
         maxPrice: searchWizardData?.maxPrice,
+        // hidden for now - WD-138
+        // objectStyles: searchWizardData?.objectStyles,
+        // hidden for now - WD-158
+        // startYearOfConstruction: searchWizardData?.yearOfConstructionStart,
+        // endYearOfConstruction: searchWizardData?.yearOfConstructionEnd,
       });
 
       resetSearchWizard();
@@ -112,7 +114,6 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
       setLoadingApp(true);
       await register.mutateAsync(data);
 
-      // navigation?.navigate("RegisterAgb");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.error(JSON.stringify(err, null, 2));

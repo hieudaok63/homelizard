@@ -6,7 +6,7 @@ const listScreen = [
   "PlotSize",
   "LivingArea",
   "NumberOfRooms",
-  "YearOfConstruction",
+  // "YearOfConstruction",
   "PriceRange",
   "Availability",
   //hidden for now - WD-138

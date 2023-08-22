@@ -1,12 +1,12 @@
-import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import Toast from "react-native-toast-message";
 import { useAuth } from "@clerk/clerk-expo";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 import dayjs from "dayjs";
+import React, { useEffect, useState } from "react";
+import { Text, View } from "react-native";
+import Toast from "react-native-toast-message";
 
+import { AnimatedHouse } from "~/components/ui";
 import { api } from "~/utils/api";
-import { StepProgressButton } from "~/components/ui";
 import {
   useApplicationLoadingStore,
   useSearchWizardStore,
@@ -14,10 +14,13 @@ import {
 import { type RootStackParams } from "../RootStackParams";
 import { SearchLayout } from "./_layout";
 
+const resultNumberFound = [1, 3, 5];
+
 type Props = NativeStackScreenProps<RootStackParams, "Results">;
 
 const Results = ({ navigation }: Props) => {
   const { isSignedIn } = useAuth();
+  const [loadingHouse, setLoadingHouse] = useState(true);
   // trpc
   const trpc = api.useContext();
   const searchProfileMutation = api.search.searchProfile.useMutation();
@@ -26,20 +29,44 @@ const Results = ({ navigation }: Props) => {
   const resetSearchWizard = useSearchWizardStore((state) => state.reset);
   const searchWizardData = useSearchWizardStore((state) => state);
 
-  // functions
-  const handlePressLoginSocial = () => {
-    navigation.navigate("LoginSocial", { screen: "RegisterEmailPassword" });
-  };
+  const [currentIndex, setCurrentIndex] = useState(0);
+  useEffect(() => {
+    if (currentIndex === resultNumberFound.length - 1) {
+      return;
+    }
 
-  const handleClickGetObjects = async () => {
+    const intervalId = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === resultNumberFound.length - 1 ? 0 : prevIndex + 1,
+      );
+    }, 600);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [currentIndex]);
+
+  useEffect(() => {
+    if (!loadingHouse && !searchProfileMutation.isLoading) {
+      if (isSignedIn) {
+        navigation.navigate("AppStack", { screen: "Profile" });
+        Toast.show({
+          type: "success",
+          text1: "Created new search profile!",
+        });
+      } else {
+        navigation.navigate("LoginSocial", { screen: "RegisterEmailPassword" });
+      }
+    }
+  }, [loadingHouse, searchProfileMutation.isLoading]);
+  
+  useEffect(() => {
+    if (isSignedIn) {
     setLoading(true);
 
-    await searchProfileMutation.mutateAsync(
+    searchProfileMutation.mutate(
       {
         objectTypes: searchWizardData.objectTypes,
-        // objectStyles:searchWizardData.objectStyles,
-        //hidden for now - WD-138
-        objectStyles: ["bohemian"],
         livingAreaSize: searchWizardData?.livingArea,
         roomAmount: searchWizardData?.numberOfRooms,
         // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
@@ -48,23 +75,20 @@ const Results = ({ navigation }: Props) => {
         longitude: (searchWizardData?.location)!.longitude,
         radius: searchWizardData?.radius,
         plotSize: searchWizardData?.plotSize,
-        startYearOfConstruction: searchWizardData?.yearOfConstructionStart,
-        endYearOfConstruction: searchWizardData?.yearOfConstructionEnd,
         // TODO: check why dayjs is needed here
         availability: dayjs(searchWizardData.availabilityDate).toDate(),
         purchaseType: searchWizardData?.purchaseType,
         minPrice: 1, // hard code for now
         maxPrice: searchWizardData?.maxPrice,
+        // hidden for now - WD-138
+        // objectStyles: searchWizardData.objectStyles,
+        // hidden for now - WD-158
+        // startYearOfConstruction: searchWizardData?.yearOfConstructionStart,
+        // endYearOfConstruction: searchWizardData?.yearOfConstructionEnd,
       },
       {
         async onSuccess() {
-          // @ts-ignore
-          navigation.navigate("Profile");
           setLoading(false);
-          Toast.show({
-            type: "success",
-            text1: "Created new search profile!",
-          });
           resetSearchWizard();
           await trpc.search.invalidate();
         },
@@ -78,58 +102,27 @@ const Results = ({ navigation }: Props) => {
         },
       },
     );
-  };
+    }
+  }, []);
+
   // main return
   return (
     <SearchLayout>
-      {isSignedIn ? (
-        <>
-          <View className="mb-4 h-5/6 items-center justify-center px-8 pt-8">
-            <Text className="mb-6 text-center text-font-18 font-weight_800 text-black_1">
-              Wir finden für dich
-            </Text>
+      <View className="mb-4 h-5/6 items-center px-8 pt-8">
+        <Text className="mb-6 text-center text-font-18 font-weight_800 text-black_1">
+          Wir finden für dich
+        </Text>
 
-            <Text className="mb-2 text-font-14 font-weight_800 text-black_1">
-              Wir konnten bereits 5 Objekte finden
-            </Text>
-          </View>
-
-          <StepProgressButton
-            title="Get objects"
-            progress={100}
-            onPress={handleClickGetObjects}
-            variant="turquoise"
-          />
-        </>
-      ) : (
-        <>
-          <View className="mb-4 px-8 pt-8">
-            <Text className="mb-6 text-center text-font-18 font-weight_800 text-black_1">
-              Wir finden für dich
-            </Text>
-
-            <Text className="mb-2 text-font-14 font-weight_800 text-black_1">
-              Wir konnten bereits 5 Objekte finden
-            </Text>
-
-            <Text className="pl-8 text-black_1 opacity-60">
-              Melde dich jetzt an oder erstelle einen Account um Details der
-              Objekte zu erhalten.
-            </Text>
-          </View>
-
-          <View className="flex-row items-center justify-center">
-            <Text className="mr-1 text-font-14 font-weight_400 text-black">
-              Oder nutzen sie
-            </Text>
-            <TouchableOpacity onPress={handlePressLoginSocial}>
-              <Text className="text-font-14 font-weight_500 text-blue_1">
-                E-Mail
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </>
-      )}
+        <Text className="mb-2 text-font-14 font-weight_800 text-black_1">
+          Wir konnten bereits {resultNumberFound[currentIndex]} Objekte finden
+        </Text>
+        <AnimatedHouse
+          numberOfRoom={searchWizardData.numberOfRooms}
+          livingArea={searchWizardData.livingArea}
+          plotSize={searchWizardData.plotSize}
+          onSuccess={() => setLoadingHouse(false)}
+        />
+      </View>
     </SearchLayout>
   );
 };

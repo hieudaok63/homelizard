@@ -25,7 +25,6 @@ export const ListSearchHistorySection = () => {
     return (
       <ProfileSectionAccordion
         title={item?.objectTypes?.join(", ")}
-        description={item?.objectStyles?.join(", ")}
         variant="turquoise"
         progress={100}
         className={handleItemClassName(index, data?.length)}

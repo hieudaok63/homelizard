@@ -35,15 +35,12 @@ const MAX_LONGTITUDE = 180;
 
 export const searchProfileSchema = z.object({
   objectTypes: z.array(objectTypeSchema).min(1),
-  objectStyles: z.array(objectStyleSchema).min(1),
   livingAreaSize: z.number().positive(),
   roomAmount: z.number().positive(),
   latitude: z.number().min(MIN_LATITUDE).max(MAX_LATITUDE),
   longitude: z.number().min(MIN_LONGTITUDE).max(MAX_LONGTITUDE),
   radius: z.number().positive(),
   plotSize: z.number().positive(),
-  startYearOfConstruction: z.number().positive(),
-  endYearOfConstruction: z.number().positive(),
   availability: z.date(),
   purchaseType: purchaseTypeSchema,
   minPrice: z.number().positive(),
@@ -56,4 +53,7 @@ export const searchProfileSchema = z.object({
       country: z.string(),
     })
     .optional(),
+  // objectStyles: z.array(objectStyleSchema).min(1),
+  // startYearOfConstruction: z.number().positive(),
+  // endYearOfConstruction: z.number().positive(),
 });
