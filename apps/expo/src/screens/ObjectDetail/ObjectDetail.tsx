@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Image, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Toast from "react-native-toast-message";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { cn } from "@homelizard/tailwind-config/utils";
@@ -26,46 +25,15 @@ type Props = NativeStackScreenProps<RootStackParams, "ObjectDetail">;
 export const ObjectDetail = ({ route }: Props) => {
   const { itemId } = route.params;
   const { bottom } = useSafeAreaInsets();
-
-  //zustand
   const setLoading = useApplicationLoadingStore((state) => state.setLoading);
 
-  // trpc
   const { data, isLoading } = api.searchResult.byId.useQuery({
     searchResultId: itemId,
   });
-
-  const requestObject = api.request.requestObject.useMutation({
-    onSuccess() {
-      Toast.show({
-        type: "success",
-        text1: "Success",
-        text2: "Sent request successfully!",
-      });
-    },
-    onError(error) {
-      console.log(error);
-      Toast?.show({
-        type: "error",
-        text1: "Error!",
-        text2: "Something went wrong.",
-      });
-    },
-  });
-
-  // functions
-  const handlePressRequestObject = () => {
-    requestObject.mutate({
-      realEstateObjectId: data!.realEstate.id,
-    });
-  };
-
-  // effects
   useEffect(() => {
-    setLoading(isLoading || requestObject.isLoading);
-  }, [setLoading, isLoading, requestObject.isLoading]);
+    setLoading(isLoading);
+  }, [setLoading, isLoading]);
 
-  // main return
   return (
     <ObjectDetailLayout>
       <HeaderScroll>
@@ -79,7 +47,6 @@ export const ObjectDetail = ({ route }: Props) => {
           <TouchableOpacity
             className="bg-purply_blue absolute bottom-5 right-11 h-10 w-10 items-center justify-center rounded-full"
             activeOpacity={0.9}
-            onPress={handlePressRequestObject}
           >
             <PhoneIcon width={20} height={20} />
           </TouchableOpacity>
