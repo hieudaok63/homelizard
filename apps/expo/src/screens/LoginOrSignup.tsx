@@ -1,17 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
 import React from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
-import { TransparentHeaderSafeView } from "~/components/ui";
+import { HomelizardLogo } from "@assets/icons";
+
 import { useSearchWizardStore } from "~/zustand/store";
 import { type RootStackParams } from "./RootStackParams";
 
 type Props = NativeStackScreenProps<RootStackParams, "LoginOrSignUp">;
 
 const LoginOrSignup = ({ navigation }: Props) => {
-  const resetSearchWizard = useSearchWizardStore((state) => state?.reset);
   const isSearchComplete = useSearchWizardStore((state) => state?.isCompleted);
 
   // functions
@@ -25,45 +23,34 @@ const LoginOrSignup = ({ navigation }: Props) => {
   };
 
   const handlePressLoginOption = () => {
-    navigation?.navigate("Login");
+    navigation?.navigate("LoginSocial", { screen: "Login" });
   };
 
   return (
-    <TransparentHeaderSafeView>
-      <View className="flex h-full w-full items-center justify-center">
-        <TouchableOpacity
-          className="flex-row items-center justify-center"
-          onPress={handlePressLoginOption}
-        >
-          <Image source={require("@assets/OAuth.png")} alt="oauth" />
-        </TouchableOpacity>
-        <View className="flex-row items-center justify-center">
-          <Text className="font-weight_400 text-font-14 mr-1 text-black">
-            Oder nutzen sie
-          </Text>
-          <TouchableOpacity onPress={handlePressLoginOption}>
-            <Text className="font-weight_500 text-font-14 text-blue_1">
-              E-Mail
-            </Text>
-          </TouchableOpacity>
-        </View>
+    <View className="flex h-full w-full items-center bg-[#F7FAFF] pt-[120px]">
+      <HomelizardLogo />
+      <Text className="nunito mb-48 text-2xl font-light text-[#26233299]">
+        Wir finden deine Immobilie
+      </Text>
 
-        <View className="flex-row items-center justify-center">
-          <Text className="font-weight_400 text-font-14 mr-1 text-black">
-            Sie haben kein Konto?
-          </Text>
-          <TouchableOpacity onPress={handlePressRegister}>
-            <Text className="font-weight_500 text-font-14 text-blue">
-              Jetzt registrieren
-            </Text>
-          </TouchableOpacity>
-        </View>
+      <TouchableOpacity
+        onPress={handlePressLoginOption}
+        className="w-[70%] items-center rounded-3xl  bg-white px-4 py-3 shadow-md"
+      >
+        <Text className=" nunito text-base font-normal  text-black ">
+          Log in
+        </Text>
+      </TouchableOpacity>
 
-        <TouchableOpacity onPress={resetSearchWizard} className="bg-green">
-          <Text>reset seacrh (using for dev)</Text>
-        </TouchableOpacity>
-      </View>
-    </TransparentHeaderSafeView>
+      <TouchableOpacity
+        onPress={handlePressRegister}
+        className="mt-11 w-[70%] items-center rounded-3xl  bg-[#262636] px-4 py-3 shadow-md"
+      >
+        <Text className=" nunito text-base font-normal  text-white ">
+          Sign up
+        </Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 

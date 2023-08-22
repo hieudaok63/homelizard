@@ -1,3 +1,4 @@
+import HomelizardLogo from "../homelizard.svg";
 import AreaRoomIcon from "./AreaRoomIcon.svg";
 import ArrowDownIcon from "./ArrowDownIcon.svg";
 import ArrowLeftIcon from "./ArrowLeftIcon.svg";
@@ -63,10 +64,25 @@ import SettingIcon from "./SettingIcon.svg";
 import SettingsIcon from "./SettingsIcon.svg";
 import ShareIcon from "./ShareIcon.svg";
 import SharePostIcon from "./SharePostIcon.svg";
-import WohnungIcon from "./WohnungIcon.svg";
 import SwitchOff from "./SwitchOff.svg";
 import SwitchOn from "./SwitchOn.svg";
 import WarnIcon from "./WarnIcon.svg";
+import WohnungIcon from "./WohnungIcon.svg";
+import AppleIcon from "./social/AppleIcon.svg";
+import EmailIcon from "./social/EmailIcon.svg";
+import FacebookIcon from "./social/FacebookIcon.svg";
+import GoogleIcon from "./social/GoogleIcon.svg";
+import LinkedinIcon from "./social/LinkedinIcon.svg";
+import TwitterIcon from "./social/TwitterIcon.svg";
+
+const SocialIcons = {
+  AppleIcon,
+  EmailIcon,
+  FacebookIcon,
+  GoogleIcon,
+  LinkedinIcon,
+  TwitterIcon,
+};
 
 export {
   AreaRoomIcon,
@@ -95,6 +111,7 @@ export {
   GoogleDriveIcon,
   HausIcon,
   HomeIcon,
+  HomelizardLogo,
   HouseIcon,
   HouseMultipleRoomIcon,
   IconBack,
@@ -134,6 +151,7 @@ export {
   SettingsIcon,
   ShareIcon,
   SharePostIcon,
+  SocialIcons,
   SwitchOff,
   SwitchOn,
   WarnIcon,

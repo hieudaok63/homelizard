@@ -7,6 +7,9 @@ export type RootStackParams = {
   AppStack: NavigatorScreenParams<TabStackParams>;
   LoginOrSignUp: undefined;
   Login: undefined;
+  LoginSocial: {
+    screen: string;
+  };
   // Search
   ObjectType: undefined;
   Location: undefined;

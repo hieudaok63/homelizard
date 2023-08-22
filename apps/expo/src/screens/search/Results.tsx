@@ -27,8 +27,8 @@ const Results = ({ navigation }: Props) => {
   const searchWizardData = useSearchWizardStore((state) => state);
 
   // functions
-  const handlePressEmailOption = () => {
-    navigation.navigate("RegisterEmailPassword");
+  const handlePressLoginSocial = () => {
+    navigation.navigate("LoginSocial", { screen: "RegisterEmailPassword" });
   };
 
   const handleClickGetObjects = async () => {
@@ -122,7 +122,7 @@ const Results = ({ navigation }: Props) => {
             <Text className="mr-1 text-font-14 font-weight_400 text-black">
               Oder nutzen sie
             </Text>
-            <TouchableOpacity onPress={handlePressEmailOption}>
+            <TouchableOpacity onPress={handlePressLoginSocial}>
               <Text className="text-font-14 font-weight_500 text-blue_1">
                 E-Mail
               </Text>

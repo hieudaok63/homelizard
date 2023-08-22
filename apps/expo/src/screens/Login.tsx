@@ -6,7 +6,6 @@ import { useSignIn } from "@clerk/clerk-expo";
 import { type SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 
-import SignInWithOAuth from "~/components/auth/SignInWithOAuth";
 import { Button, TransparentHeaderSafeView } from "~/components/ui";
 import GradientPatternBackground from "~/components/ui/GradientPatternBackground";
 import TextInputController from "~/components/ui/input/TextInputController";
@@ -39,7 +38,6 @@ const Login = () => {
   // functions
   const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
     if (!isLoaded) {
-      console.log("load failed");
       return;
     }
 
@@ -77,16 +75,14 @@ const Login = () => {
 
   // main return
   return (
-    <GradientPatternBackground variant="yellow">
+    <GradientPatternBackground variant="white">
       <KeyboardAwareScrollView>
         <TransparentHeaderSafeView>
           <View className="h-full w-full px-8 py-4">
             <Text className="mb-8 text-center text-font-18 font-weight_500 text-black opacity-70">
-              Wählen sie ihre anmeldeoption
+              Login
             </Text>
 
-            <SignInWithOAuth />
-            <Text className="my-5 text-center text-black opacity-70">Oder</Text>
             <View className="mb-4">
               <TextInputController
                 control={control}

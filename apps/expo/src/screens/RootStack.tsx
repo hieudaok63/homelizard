@@ -8,6 +8,7 @@ import { BackButton } from "~/components/navigation/BackButton";
 import { useGetUserInfo } from "~/hooks/useGetUserInfo";
 import Login from "./Login";
 import LoginOrSignUp from "./LoginOrSignup";
+import { LoginSocialScreen } from "./LoginSocial";
 import { ObjectDetail } from "./ObjectDetail";
 import { type RootStackParams } from "./RootStackParams";
 import AppStack from "./app/AppStack";
@@ -109,7 +110,13 @@ export function RootStack() {
             }}
           />
           <Stack.Screen name="Login" component={Login} />
-
+          <Stack.Screen
+            name="LoginSocial"
+            options={{
+              headerShown: false,
+            }}
+            component={LoginSocialScreen}
+          />
           {/* register email and password */}
           <Stack.Group>
             <Stack.Screen
