@@ -3,6 +3,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { Tabs, type TabItemProps } from "react-native-collapsible-tab-view";
 import Animated from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { t } from "i18next";
 
 import MessageIcon from "@assets/icons/MessageIcon.svg";
 
@@ -26,7 +27,7 @@ export function HomeScreen({ navigation }: AppNavigationProps<"Home">) {
           headerHeight={HOME_SCREEN_HEADER_HEIGHT}
           snapThreshold={0.5}
         >
-          <Tabs.Tab name="dashboard" label="Dashboard">
+          <Tabs.Tab name="dashboard" label={t("home:dashboard")}>
             <DashboardTab />
           </Tabs.Tab>
           <Tabs.Tab name="results" label={ResultsTabLabel}>
@@ -50,7 +51,9 @@ const ResultsTabLabel = (props: TabItemProps<"results">) => {
   );
   return (
     <View className="flex-row items-center gap-1">
-      <Animated.Text style={textColorStyle}>Ergebnisse</Animated.Text>
+      <Animated.Text style={textColorStyle}>
+        {t("home:ergebnisse")}
+      </Animated.Text>
       <NotificationBadge number={3} />
     </View>
   );
@@ -67,7 +70,7 @@ const HomeScreenHeader = () => {
       className="flex flex-row items-center justify-between px-8 py-2"
     >
       <View pointerEvents="none">
-        <Text className="text-font-28 font-weight_400">Home</Text>
+        <Text className="text-font-28 font-weight_400">{t("home:title")}</Text>
       </View>
       <TouchableOpacity
         activeOpacity={0.5}

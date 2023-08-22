@@ -37,7 +37,7 @@ export const userRouter = createTRPCRouter({
         },
       });
 
-      await clerkClient.users.updateUserMetadata(newUser.id, {
+      await clerkClient.users.updateUserMetadata(newUser.externalId, {
         publicMetadata: {
           role: ERoles.USER
         }

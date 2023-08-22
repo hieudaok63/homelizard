@@ -1,5 +1,6 @@
 import React from "react";
 import { FlatList, TouchableOpacity, View } from "react-native";
+import { t } from "i18next";
 
 import { cn } from "@homelizard/tailwind-config/utils";
 
@@ -45,9 +46,9 @@ export const UploadSection = () => {
   return (
     <View className="mb-4 px-8">
       <View className="flex flex-row items-center justify-between pb-4 pt-3">
-        <AppText text="Uploads" large className="text-purple" />
+        <AppText text={t("home:uploads")} large className="text-purple" />
         <TouchableOpacity activeOpacity={0.5}>
-          <AppText text="See all" className="text-blue" />
+          <AppText text={t("home:seeAll")} className="text-blue" />
         </TouchableOpacity>
       </View>
       <FlatList data={DATA_UPLOAD} renderItem={UploadItem} />
@@ -69,10 +70,10 @@ const UploadItem = ({ item }: { item: IItem }) => {
               >
                 <AppText
                   text={item.type}
-                  className="font-weight_600 text-center text-white"
+                  className="text-center font-weight_600 text-white"
                 />
               </View>
-              <AppText text={item.date} className="text-grey ml-1" />
+              <AppText text={item.date} className="ml-1 text-grey" />
             </View>
           </View>
           <View className="ml-7 mt-5  ">

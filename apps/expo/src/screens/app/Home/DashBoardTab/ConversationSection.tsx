@@ -6,6 +6,7 @@ import {
   type ImageSourcePropType,
 } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
+import { t } from "i18next";
 
 import { AppText } from "~/components/ui/AppText";
 
@@ -97,7 +98,11 @@ export const ConversationSection = () => {
 
   return (
     <View className="px-8">
-      <AppText text="Conversations" large className="text-text_yellow" />
+      <AppText
+        text={t("home:conversations")}
+        large
+        className="text-text_yellow"
+      />
       <View className="-mx-8">
         <Carousel
           data={carouselItems}

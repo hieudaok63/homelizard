@@ -1,5 +1,6 @@
 import React from "react";
 import { Tabs } from "react-native-collapsible-tab-view";
+import { t } from "i18next";
 
 import { BottomNavBarPadding } from "~/components/navigation/NavBar";
 import { ConversationSection } from "./ConversationSection";
@@ -9,19 +10,19 @@ import { UploadSection } from "./UploadSection";
 
 const sections = [
   {
-    title: "Linked Profiles",
+    title: t("home:linkedProfiles"),
     Section: LinkedProfilesSection,
   },
   {
-    title: "Favorite Objects",
+    title: t("home:favoriteObjects"),
     Section: FavoriteObjectSection,
   },
   {
-    title: "Conversations",
+    title: t("home:conversations"),
     Section: ConversationSection,
   },
   {
-    title: "Uploads",
+    title: t("home:uploads"),
     Section: UploadSection,
   },
 ];

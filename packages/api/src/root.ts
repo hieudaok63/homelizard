@@ -4,7 +4,6 @@ import { favoriteRoute } from "./router/favorite";
 import { objectStyleRouter } from "./router/objectStyle";
 import { postRouter } from "./router/post";
 import { profileRouter } from "./router/profile";
-import { requestRouter } from "./router/requestObject";
 import { searchRouter } from "./router/search";
 import { searchResultRouter } from "./router/searchResult";
 import { userRouter } from "./router/user";
@@ -20,7 +19,6 @@ export const appRouter = createTRPCRouter({
   favorite: favoriteRoute,
   searchResult: searchResultRouter,
   objectStyle: objectStyleRouter,
-  request: requestRouter,
 });
 
 // export type definition of API
