@@ -57,7 +57,7 @@ export const CustomSwitch = ({
         />
         <Animated.Text
           style={[{ transform: [{ translateX: labelTranslateX }] }]}
-          className="font-weight_400 text-font-16"
+          className="text-font-16 font-weight_400"
         >
           {isEnabled ? onLabel : offLabel}
         </Animated.Text>

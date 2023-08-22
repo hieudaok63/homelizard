@@ -23,8 +23,7 @@ const ModalOpenFile = ({
     <BottomSheet
       show={showModal}
       height={500}
-      onOuterClick={() => setShowModal(false)}
-      setShow={() => setShowModal(false)}
+      onClose={() => setShowModal(false)}
     >
       <View>
         <View className="border-color_gray  border-b p-6">

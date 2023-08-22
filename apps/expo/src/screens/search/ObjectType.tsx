@@ -2,57 +2,83 @@ import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 
-import { type ObjectType as IObjectType } from "@homelizard/schema";
+import {
+  type ObjectType as IObjectType,
+  type ObjectSelectType,
+} from "@homelizard/schema";
 
-import BuildingIcon from "@assets/icons/BuildingIcon.svg";
-import CheckIcon from "@assets/icons/CheckIcon.svg";
-import HouseIcon from "@assets/icons/HouseIcon.svg";
+import { HausIcon, MFHIcon, WohnungIcon } from "@assets/icons";
 
 import { generateBoxShadowStyle } from "~/utils/helpers";
-import { BottomSheet, CustomSwitch, StepProgressButton } from "~/components/ui";
+import {
+  BottomSheet,
+  Button,
+  CustomSwitch,
+  StepProgressButton,
+} from "~/components/ui";
 import { getCountScreen } from "~/utils";
 import { useSearchWizardStore } from "~/zustand/store";
 import { type RootStackParams } from "../RootStackParams";
 import { SearchLayout } from "./_layout";
 
 type Props = NativeStackScreenProps<RootStackParams, "ObjectType">;
-
-const realEstateOptions: IObjectType[] = [
-  "Apartment",
-  "Country house",
-  "Dormitory on campus",
-  "House with garden",
-  "Mansion",
-  "Shared apartment",
-  "Town house",
-  "Villa",
+const houseOptions: IObjectType[] = [
+  "apartment_normal",
+  "apartment_maisonette",
+  "apartment_attic",
+  "apartment_penthouse",
+  "apartment_terraced",
+  "apartment_studio",
 ];
-
+const apartmentOptions: IObjectType[] = [
+  "house_detached",
+  "house_semi_detached",
+  "house_row_corner",
+  "house_row_middle",
+  "house_farm",
+];
 export const styleBoxShadow = generateBoxShadowStyle("shadowObjectType");
 
 const ObjectType = ({ navigation }: Props) => {
   // zustand
-  const setObjectType = useSearchWizardStore((state) => state?.setObjectType);
+  const setObjectTypes = useSearchWizardStore((state) => state?.setObjectTypes);
   const setPurchaseType = useSearchWizardStore(
     (state) => state?.setPurchaseType,
   );
-  const objectType = useSearchWizardStore((state) => state?.objectType);
+
+  const objectTypes = useSearchWizardStore((state) => state?.objectTypes);
   const purchaseType = useSearchWizardStore((state) => state?.purchaseType);
 
   // local states
-  const [showBottomSheet, setShowBottomSheet] = useState(false);
+  const [showList, setShowList] = useState<ObjectSelectType>(null);
 
   // functions
-  const openBottomSheet = () => {
-    setShowBottomSheet(true);
-  };
-
   const hideBottomSheet = () => {
-    setShowBottomSheet(false);
+    setShowList(null);
   };
 
   const handlePressNext = () => {
     navigation?.navigate("Location");
+  };
+
+  const toggleObjectType = (objectType: IObjectType) => {
+    const index = objectTypes.indexOf(objectType);
+    if (index > -1) {
+      setObjectTypes([
+        ...objectTypes.slice(0, index),
+        ...objectTypes.slice(index + 1),
+      ]);
+    } else {
+      setObjectTypes([...objectTypes, objectType]);
+    }
+  };
+
+  const isSelected = (objectType: IObjectType) => {
+    return objectTypes.includes(objectType);
+  };
+
+  const selectedAtLeastOneOf = (options: IObjectType[]) => {
+    return options.some((value) => isSelected(value));
   };
 
   // main return
@@ -85,95 +111,97 @@ const ObjectType = ({ navigation }: Props) => {
 
       <View className="mb-64 flex flex-row flex-wrap items-center justify-between px-4">
         <TouchableOpacity
-          className={`w-[30%] items-center rounded-3xl bg-grey_3 py-7 ${
-            objectType === "House with garden" && "border-4 border-color_green"
-          }`}
+          className={`h-[150px] w-[30%] items-center justify-end rounded-3xl bg-[#F4F4F4] pb-6 `}
           onPress={() => {
-            setObjectType("House with garden");
+            setShowList("houseList");
           }}
-          style={styleBoxShadow}
+          style={selectedAtLeastOneOf(houseOptions) && styleBoxShadow}
         >
-          <HouseIcon />
+          <HausIcon />
           <Text className="mt-3 text-font-14 font-weight_800 text-black_1">
             Haus
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          className={`w-[30%] items-center rounded-3xl bg-grey_3 py-7 ${
-            objectType === "Apartment" && "border-4 border-color_green"
-          }`}
+          className="h-[150px] w-[30%] items-center justify-end rounded-3xl bg-[#F4F4F4] pb-6"
           onPress={() => {
-            setObjectType("Apartment");
+            setShowList("MFH");
+            toggleObjectType("Multi-Family house");
           }}
-          style={styleBoxShadow}
+          style={objectTypes.includes("Multi-Family house") && styleBoxShadow}
         >
-          <BuildingIcon />
+          <MFHIcon />
+          <Text className="mt-3 text-font-14 font-weight_800 text-black_1">
+            MFH
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          className={`h-[150px] w-[30%] items-center justify-end rounded-3xl bg-[#F4F4F4] pb-6 
+   
+          `}
+          onPress={() => {
+            setShowList("apartementList");
+          }}
+          style={selectedAtLeastOneOf(apartmentOptions) && styleBoxShadow}
+        >
+          <WohnungIcon />
           <Text className="mt-3 text-font-14 font-weight_800 text-black_1">
             Wohnung
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          className={`w-[30%] items-center rounded-3xl bg-grey_3 py-14 ${
-            objectType &&
-            objectType !== "House with garden" &&
-            objectType !== "Apartment" &&
-            "border-4 border-color_green"
-          }`}
-          onPress={openBottomSheet}
-          style={styleBoxShadow}
-        >
-          <Text className="text-font-14 font-weight_800 text-black_1">
-            Mehr
-          </Text>
-          <Text className="text-font-14 font-weight_800 text-black_1">
-            Optionen
-          </Text>
-        </TouchableOpacity>
       </View>
       <StepProgressButton
-        progress={(objectType && getCountScreen("ObjectType")) || 0}
+        progress={(objectTypes.length && getCountScreen("ObjectType")) || 0}
         title="Continue"
         onPress={handlePressNext}
-        disabled={!objectType}
+        disabled={!objectTypes.length}
         variant="turquoise"
       />
       {/* bottom menu */}
       <BottomSheet
-        show={showBottomSheet}
+        show={showList !== null && showList !== "MFH"}
         height={600}
-        onOuterClick={hideBottomSheet}
-        setShow={setShowBottomSheet}
+        onClose={hideBottomSheet}
         closeOnBackBtnAndroid
       >
-        <View>
+        <View className="flex-1">
           <View className="border-b border-color_gray">
             <Text className="py-4 text-center text-font-24 font-weight_400 text-grey opacity-80">
-              Residence type
+              {showList === "apartementList"
+                ? "Art der Wohnung"
+                : "Residence type"}
             </Text>
           </View>
-          {realEstateOptions?.map((item) => (
+          {(showList === "apartementList"
+            ? apartmentOptions
+            : houseOptions
+          )?.map((item) => (
             <TouchableOpacity
               key={item}
-              className="flex-row items-center justify-center border-b border-color_gray py-4"
+              className={`flex-row items-center justify-center border-b border-color_gray py-4 ${
+                isSelected(item) && "bg-[#0080FF]"
+              }`}
               onPress={() => {
-                hideBottomSheet();
-                setObjectType(item);
-                setTimeout(() => {
-                  navigation?.navigate("Location");
-                }, 300);
+                toggleObjectType(item);
               }}
             >
-              <Text className="text-font-24 font-weight_400 text-blue_1">
+              <Text
+                className={`text-font-24 font-weight_400 ${
+                  isSelected(item) ? "text-white" : "text-blue_1"
+                }`}
+              >
                 {item}
               </Text>
-              {objectType === item && (
-                <View className="ml-3">
-                  <CheckIcon stroke="#37E1EC" fill="#37E1EC" />
-                </View>
-              )}
             </TouchableOpacity>
           ))}
         </View>
+        <Button
+          className="mb-9 h-12 w-[143px] self-center rounded-[28px] bg-[#0080FF]"
+          title="Ok"
+          onPress={() => {
+            hideBottomSheet();
+          }}
+        />
       </BottomSheet>
     </SearchLayout>
   );

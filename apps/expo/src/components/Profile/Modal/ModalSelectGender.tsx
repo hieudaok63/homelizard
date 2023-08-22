@@ -26,8 +26,7 @@ export const ModalSelectGender = ({
     <BottomSheet
       height={500}
       show={!!showModal}
-      onOuterClick={() => setShowModal(false)}
-      setShow={() => setShowModal(false)}
+      onClose={() => setShowModal(false)}
       className="opacity-0"
     >
       <View>

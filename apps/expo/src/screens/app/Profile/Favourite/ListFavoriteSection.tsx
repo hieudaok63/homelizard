@@ -26,7 +26,7 @@ export const ListFavoriteSection = () => {
     return (
       <ProfileSectionAccordion
         title={item?.searchResult?.realEstate?.title}
-        description={item?.searchResult?.realEstate?.objectType}
+        description={item?.searchResult?.realEstate?.objectTypes.join(", ")}
         variant="pink"
         progress={100}
         className={handleItemClassName(index, data?.length)}

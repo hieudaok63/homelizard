@@ -15,7 +15,7 @@ export type ISearchWizardState = {
   isCompleted: boolean;
 
   // objectType
-  objectType: ObjectType | null;
+  objectTypes: Array<ObjectType>;
 
   // purchaseType
   purchaseType: PurchaseType;
@@ -51,7 +51,7 @@ export type ISearchWizardActions = {
   setIsCompleted: (val: boolean) => void;
 
   // objectType
-  setObjectType: (val: ObjectType) => void;
+  setObjectTypes: (val: ObjectType[]) => void;
 
   //purchaseType
   setPurchaseType: (val: PurchaseType) => void;
@@ -92,7 +92,7 @@ const initialState: ISearchWizardState = {
   isCompleted: false,
 
   // objectType
-  objectType: null,
+  objectTypes: [],
 
   //purchaseType
   purchaseType: "buy",
@@ -136,9 +136,9 @@ export const useSearchWizardStore = create(
         }),
 
       // objectType
-      setObjectType: (val) =>
+      setObjectTypes: (val) =>
         set((state) => {
-          state.objectType = val;
+          state.objectTypes = val;
         }),
 
       //purchaseType
@@ -211,8 +211,7 @@ export const useSearchWizardStore = create(
               (item) => item !== val,
             );
           } else {
-            // @ts-ignore
-            state.objectStyles.push(val?.toLocaleLowerCase());
+            state.objectStyles.push(val);
           }
         });
       },

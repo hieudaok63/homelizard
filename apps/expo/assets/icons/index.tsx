@@ -22,6 +22,7 @@ import EuroIcon from "./EuroIcon.svg";
 import EvolutionIcon from "./EvolutionIcon.svg";
 import EyeIcon from "./EyeIcon.svg";
 import GoogleDriveIcon from "./GoogleDriveIcon.svg";
+import HausIcon from "./HausIcon.svg";
 import HomeIcon from "./HomeIcon.svg";
 import HouseIcon from "./HouseIcon.svg";
 import HouseMultipleRoomIcon from "./HouseMultipleRoomIcon.svg";
@@ -33,6 +34,7 @@ import InfoSCircleIcon from "./InfoSCircleIcon.svg";
 import KeyMessageIcon from "./KeyMessageIcon.svg";
 import LandIcon from "./LandIcon.svg";
 import LoveIcon from "./LoveIcon.svg";
+import MFHIcon from "./MFHIcon.svg";
 import MenuIcon from "./MenuIcon.svg";
 import MessageIcon from "./MessageIcon.svg";
 import MyHouseIcon1 from "./MyHouseIcon1.svg";
@@ -61,6 +63,7 @@ import SettingIcon from "./SettingIcon.svg";
 import SettingsIcon from "./SettingsIcon.svg";
 import ShareIcon from "./ShareIcon.svg";
 import SharePostIcon from "./SharePostIcon.svg";
+import WohnungIcon from "./WohnungIcon.svg";
 import SwitchOff from "./SwitchOff.svg";
 import SwitchOn from "./SwitchOn.svg";
 import WarnIcon from "./WarnIcon.svg";
@@ -90,6 +93,7 @@ export {
   EvolutionIcon,
   EyeIcon,
   GoogleDriveIcon,
+  HausIcon,
   HomeIcon,
   HouseIcon,
   HouseMultipleRoomIcon,
@@ -101,6 +105,7 @@ export {
   KeyMessageIcon,
   LandIcon,
   LoveIcon,
+  MFHIcon,
   MenuIcon,
   MessageIcon,
   MyHouseIcon1,
@@ -132,4 +137,5 @@ export {
   SwitchOff,
   SwitchOn,
   WarnIcon,
+  WohnungIcon,
 };

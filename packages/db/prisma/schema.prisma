@@ -63,7 +63,7 @@ model Address {
 
 model SearchProfile {
   id                      String         @id @default(cuid())
-  objectType              String         @map("object_type")
+  objectTypes             String[]       @map("object_types")
   livingAreaSize          Int            @map("living_area_size")
   latitude                Float
   longitude               Float
@@ -105,7 +105,7 @@ model SearchResult {
   searchProfileId    String
   realEstateObjectId String
   score              Float?
-  shownAt            DateTime?   @map("shown_at")
+  shownAt            DateTime? @map("shown_at")
 
   searchProfile SearchProfile    @relation(fields: [searchProfileId], references: [id])
   realEstate    RealEstateObject @relation(fields: [realEstateObjectId], references: [id])
@@ -119,7 +119,7 @@ model SearchResult {
 model RealEstateObject {
   id               String         @id @default(cuid())
   title            String
-  objectType       String         @map("object_type")
+  objectTypes      String[]       @map("object_types")
   numberOfFloor    Int            @map("number_of_floor")
   livingAreaSize   Float          @map("living_area_size")
   plotSize         Float          @map("plot_size")

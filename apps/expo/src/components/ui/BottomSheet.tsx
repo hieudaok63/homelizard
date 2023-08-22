@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, type Dispatch, type SetStateAction } from "react";
+import { useEffect, type PropsWithChildren } from "react";
 import {
   Animated,
   BackHandler,
@@ -45,11 +45,9 @@ function useAnimatedBottom(show: boolean, height: number = DEFAULT_HEIGHT) {
 }
 
 interface Props {
-  children: React.ReactNode;
   show: boolean;
-  setShow: Dispatch<SetStateAction<boolean>>;
   height?: number;
-  onOuterClick?: () => void;
+  onClose: () => void;
   closeOnBackBtnAndroid?: boolean;
   className?: string;
 }
@@ -58,17 +56,16 @@ export const BottomSheet = ({
   children,
   show,
   height = DEFAULT_HEIGHT,
-  onOuterClick,
-  setShow,
+  onClose,
   closeOnBackBtnAndroid,
   className,
-}: Props) => {
+}: PropsWithChildren<Props>) => {
   const { height: screenHeight } = useWindowDimensions();
 
   const bottom = useAnimatedBottom(show, height);
 
   const hideByBackBtnFuc = () => {
-    setShow(false);
+    onClose();
     return true;
   };
 
@@ -93,9 +90,9 @@ export const BottomSheet = ({
     <>
       {show && (
         <Pressable
-          onPress={onOuterClick}
+          onPress={onClose}
           style={{ height: screenHeight }}
-          className={cn("bg-black_1 z-1 absolute w-full opacity-50", className)}
+          className={cn("z-1 absolute w-full bg-black_1 opacity-50", className)}
         >
           <View />
         </Pressable>

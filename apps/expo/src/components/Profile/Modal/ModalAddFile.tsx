@@ -5,8 +5,8 @@ import { BottomSheet } from "~/components/ui";
 import { AppText } from "~/components/ui/AppText";
 
 interface IModalAddFile {
-  showModal?: boolean;
-  setShowModal?: Dispatch<SetStateAction<boolean>>;
+  showModal: boolean;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
   handleActionUploadFile: any;
   handleActionAddLink: any;
 }
@@ -23,8 +23,7 @@ const ModalAddFile = ({
     <BottomSheet
       show={showModal}
       height={500}
-      onOuterClick={() => setShowModal(false)}
-      setShow={() => setShowModal(false)}
+      onClose={() => setShowModal(false)}
     >
       <View>
         <View className="border-color_gray  border-b p-6">

@@ -21,11 +21,10 @@ const handleItemClassName = (index: number, length?: number) => {
 // component
 export const ListSearchHistorySection = () => {
   const { data, isLoading } = api.search.list.useQuery();
-
   const renderItem: ListRenderItem<SearchProfileItem> = ({ item, index }) => {
     return (
       <ProfileSectionAccordion
-        title={item?.objectType}
+        title={item?.objectTypes?.join(", ")}
         description={item?.objectStyles?.join(", ")}
         variant="turquoise"
         progress={100}

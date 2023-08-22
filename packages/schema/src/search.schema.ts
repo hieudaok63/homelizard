@@ -3,18 +3,21 @@ import { z } from "zod";
 import { objectStyleOptions } from "./objectStyles.schema";
 
 export const objectTypeOptions = [
-  "Apartment",
-  "Country house",
-  "Dormitory on campus",
-  "House with garden",
-  "Mansion",
-  "Shared apartment",
-  "Town house",
-  "Villa",
+  "apartment_normal",
+  "apartment_maisonette",
+  "apartment_attic",
+  "apartment_penthouse",
+  "apartment_terraced",
+  "apartment_studio",
+  "house_detached",
+  "house_semi_detached",
+  "house_row_corner",
+  "house_row_middle",
+  "house_farm",
+  "Multi-Family house",
 ] as const;
-
 export type ObjectType = (typeof objectTypeOptions)[number];
-
+export type ObjectSelectType = "houseList" | "apartementList" | "MFH" | null;
 export const purchaseTypeOptions = ["rent", "buy"] as const;
 
 export const objectTypeSchema = z.enum(objectTypeOptions);
@@ -31,7 +34,7 @@ const MIN_LONGTITUDE = -180;
 const MAX_LONGTITUDE = 180;
 
 export const searchProfileSchema = z.object({
-  objectType: objectTypeSchema,
+  objectTypes: z.array(objectTypeSchema).min(1),
   objectStyles: z.array(objectStyleSchema).min(1),
   livingAreaSize: z.number().positive(),
   roomAmount: z.number().positive(),

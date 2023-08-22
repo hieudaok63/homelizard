@@ -94,7 +94,7 @@ const YearOfConstruction = ({ navigation }: Props) => {
     return values.reverse();
   };
   // main return
-  if (!House || !House1 || !House2 || !House3 || !House4) return null;
+  if (!House) return null;
   return (
     <SearchLayout>
       <View>
@@ -140,7 +140,7 @@ const YearOfConstruction = ({ navigation }: Props) => {
             : yearOfConstructionEnd_zutand}
         </Text> */}
 
-        <View className=" mx-4  mt-10 flex-row  items-end justify-between">
+        <View className="mx-4  mt-10 flex-row items-end justify-between">
           <ImgaeBlur
             classImage="h-[38px] w-[52px]"
             resizeMode="contain"

@@ -22,7 +22,7 @@ beforeAll(async () => {
             description: "some description",
             title: "some title",
             livingAreaSize: 100,
-            objectType: "apartment",
+            objectTypes: ["apartment"],
             numberOfBedroom: 3,
             numberOfBathroom: 2,
             numberOfFloor: 1,
@@ -41,7 +41,7 @@ beforeAll(async () => {
             radius: 100,
             livingAreaSize: 100,
             objectStyle: "foo",
-            objectType: "apartment",
+            objectTypes: ["apartment"],
             plotSize: 100,
             roomAmount: 4,
             customer: {

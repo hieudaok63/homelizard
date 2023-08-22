@@ -7,7 +7,6 @@ import dayjs from "dayjs";
 
 import { api } from "~/utils/api";
 import { StepProgressButton } from "~/components/ui";
-import { getCountScreen } from "~/utils";
 import {
   useApplicationLoadingStore,
   useSearchWizardStore,
@@ -37,7 +36,7 @@ const Results = ({ navigation }: Props) => {
 
     await searchProfileMutation.mutateAsync(
       {
-        objectType: searchWizardData.objectType!,
+        objectTypes: searchWizardData.objectTypes,
         // objectStyles:searchWizardData.objectStyles,
         //hidden for now - WD-138
         objectStyles: ["bohemian"],
@@ -97,7 +96,7 @@ const Results = ({ navigation }: Props) => {
 
           <StepProgressButton
             title="Get objects"
-            progress={getCountScreen("Results")}
+            progress={100}
             onPress={handleClickGetObjects}
             variant="turquoise"
           />

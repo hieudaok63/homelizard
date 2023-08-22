@@ -8,7 +8,7 @@ export const userData = {
 
 export const searchProfilesData = [
   {
-    objectType: "House",
+    objectTypes: ["apartment_normal"],
     livingAreaSize: 300,
     latitude: 10,
     longitude: 70,
@@ -24,7 +24,7 @@ export const searchProfilesData = [
     objectStyles: ["modern", "rustic"],
   },
   {
-    objectType: "House",
+    objectTypes: ["apartment_normal"],
     livingAreaSize: 100,
     latitude: 20,
     longitude: 50,
@@ -40,7 +40,7 @@ export const searchProfilesData = [
     objectStyles: ["modern"],
   },
   {
-    objectType: "Apartment",
+    objectTypes: ["apartment_normal"],
     livingAreaSize: 100,
     latitude: 30,
     longitude: 30,
@@ -61,7 +61,7 @@ export const realEstateObjectsData = [
   {
     title:
       "Architektonisches Highlight - tolles Einfamilienhaus mit großem Garten in Fellheim!",
-    objectType: "House",
+    objectTypes: ["House"],
     numberOfFloor: 3,
     livingAreaSize: 300,
     plotSize: 800,
@@ -76,7 +76,7 @@ export const realEstateObjectsData = [
   {
     title:
       "Architektonisches Highlight - tolles Einfamilienhaus mit großem Garten in Fellheim!",
-    objectType: "House",
+    objectTypes: ["House"],
     numberOfFloor: 1,
     livingAreaSize: 200,
     plotSize: 300,
@@ -91,7 +91,7 @@ export const realEstateObjectsData = [
   {
     title:
       "Architektonisches Highlight - tolles Einfamilienhaus mit großem Garten in Fellheim!",
-    objectType: "Apartment",
+    objectTypes: ["Apartment"],
     numberOfFloor: 3,
     livingAreaSize: 100,
     plotSize: 200,

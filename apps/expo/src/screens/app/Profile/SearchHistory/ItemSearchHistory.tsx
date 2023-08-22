@@ -3,12 +3,14 @@ import { View } from "react-native";
 import dayjs from "dayjs";
 import { z } from "zod";
 
+import { objectTypeSchema } from "@homelizard/schema";
+
 import TextInputController from "~/components/ui/input/TextInputController";
 import { useZodForm } from "~/hooks/useZodForm";
 import { type SearchProfileItem } from "./ListSearchHistorySection";
 
 const formSchema = z.object({
-  objectType: z.string(),
+  objectTypes: z.array(objectTypeSchema),
   radius: z.string(),
   plotSize: z.string(),
   livingAreaSize: z.string(),
@@ -24,7 +26,7 @@ export const ItemSearchProfile = ({ item }: { item: SearchProfileItem }) => {
   const { control } = useZodForm({
     schema: formSchema,
     defaultValues: {
-      objectType: item.objectType,
+      objectTypes: item.objectTypes,
       radius: `${
         item?.address?.city ? item?.address?.city + "," : ""
       } ${item.radius.toString()}`.trim(),
@@ -41,7 +43,7 @@ export const ItemSearchProfile = ({ item }: { item: SearchProfileItem }) => {
   return (
     <View>
       <TextInputController
-        name="objectType"
+        name="objectTypes"
         control={control}
         placeholder="Noch nicht verfügbar"
         label="Objekttyp"

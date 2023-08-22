@@ -53,7 +53,7 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
       // TODO: validate search wizard data
       // save search profile
       await searchTrpc.mutateAsync({
-        objectType: searchWizardData.objectType!,
+        objectTypes: searchWizardData.objectTypes,
         objectStyles: searchWizardData?.objectStyles,
         livingAreaSize: searchWizardData?.livingArea,
         roomAmount: searchWizardData?.numberOfRooms,
@@ -196,8 +196,7 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
       <BottomSheet
         show={showBottomSheet}
         height={428}
-        onOuterClick={hideBottomSheet}
-        setShow={setShowBottomSheet}
+        onClose={hideBottomSheet}
       >
         <View>
           <View className="flex-row justify-between border-b border-color_gray p-6">
