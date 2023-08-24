@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useSignIn, useUser } from "@clerk/nextjs";
+import { useClerk, useSignIn, useUser } from "@clerk/nextjs";
 import { z } from "zod";
 
 import { showAppToast } from "~/utils/toast";
@@ -31,6 +31,7 @@ export const LoginScreen = () => {
   const [showPasswordEye, setShowPasswordEye] = useState<boolean>(false);
   const { isSignedIn } = useUser();
   const router = useRouter();
+  const clerk = useClerk();
   useEffect(() => {
     if (isSignedIn) {
       router.push(PATH_PROFILE);
@@ -47,6 +48,23 @@ export const LoginScreen = () => {
   const setLoadingApp = useApplicationLoadingStore((state) => state.setLoading);
 
   const { control, handleSubmit } = methods;
+  function parseJwt(token: string | null) {
+    if (!token) return;
+
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url?.replace(/-/g, "+").replace(/_/g, "/") || "";
+    const jsonPayload = decodeURIComponent(
+      window
+        .atob(base64)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join(""),
+    );
+
+    return JSON.parse(jsonPayload);
+  }
 
   const onSubmit = async (data: any) => {
     if (!isLoaded) {
@@ -61,7 +79,9 @@ export const LoginScreen = () => {
       });
       if (result?.status === "complete") {
         await setActive({ session: result.createdSessionId });
-
+        if (!clerk.session) return;
+        const jwt = await clerk.session.getToken({ template: "jwt_metadata" });
+        console.log(parseJwt(jwt));
         showAppToast(`Login successful`, "success");
 
         navigate.push(PATH_PROFILE);
