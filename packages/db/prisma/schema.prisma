@@ -38,10 +38,10 @@ model User {
   role          ERoles       @default(USER)
   createdAt     DateTime     @default(now()) @map("created_at")
   updatedAt     DateTime     @updatedAt @map("updated_at")
-  deletedAt     DateTime?    @map("deleted_at")
   placeOfWork   PlaceOfWork? @relation(fields: [placeOfWorkId], references: [id])
   placeOfWorkId String?
   file          File[]
+  requests      Request[]
 }
 
 enum ERoles {
@@ -127,7 +127,7 @@ model SearchResult {
 model RealEstateObject {
   id               String         @id @default(cuid())
   title            String
-  objectTypes      String[]       @map("object_types")
+  objectType       String         @map("object_type")
   numberOfFloor    Int            @map("number_of_floor")
   livingAreaSize   Float          @map("living_area_size")
   plotSize         Float          @map("plot_size")
@@ -140,6 +140,7 @@ model RealEstateObject {
   address          Address?       @relation(fields: [addressId], references: [id])
   addressId        String?
   searchResult     SearchResult[]
+  requests         Request[]
 }
 
 model File {
@@ -166,4 +167,22 @@ model PlaceOfWork {
   addressId String?
 
   User User[]
+}
+
+model Request {
+  id                 String                   @id @default(cuid())
+  userId             String?
+  user               User?                    @relation(fields: [userId], references: [id])
+  realEstateObjectId String?
+  realEstateObject   RealEstateObject?        @relation(fields: [realEstateObjectId], references: [id])
+  comment            String?
+  status             EStatusUserRequestObject @default(OPEN)
+  createdAt          DateTime                 @default(now()) @map("created_at")
+  updatedAt          DateTime                 @updatedAt @map("updated_at")
+}
+
+enum EStatusUserRequestObject {
+  OPEN
+  IN_PROGRESS
+  CLOSED
 }
