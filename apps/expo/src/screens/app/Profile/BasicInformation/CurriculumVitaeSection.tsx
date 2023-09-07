@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { FlatList, Linking, View } from "react-native";
+import { FlatList, Linking, Text, TouchableOpacity, View } from "react-native";
 import Toast from "react-native-toast-message";
 import * as DocumentPicker from "expo-document-picker";
 import { useTranslation } from "react-i18next";
@@ -16,6 +16,7 @@ import {
   SpeechBubbleIcon,
   type Percentage,
 } from "~/components/ui";
+import { AppText } from "~/components/ui/AppText";
 import { HeaderForm, LayoutForm } from "~/components/ui/Profile";
 import { UploadFile } from "~/components/ui/UploadFile";
 import { useApplicationLoadingStore } from "~/zustand/store";
@@ -199,14 +200,19 @@ export const CurriculumVitaeSection = () => {
               renderItem={renderItem}
               ListFooterComponent={() => {
                 return (
-                  <ButtonActionMain
-                    title="Add"
+                  <TouchableOpacity
+                    className="mb-16 mt-2 w-11/12  flex-row justify-between self-end rounded-none border-b py-2 pr-4"
+                    style={{
+                      borderBottomWidth: 1,
+                      borderBottomColor: "#0000001F",
+                    }}
                     onPress={() => setShowModalAdd(true)}
-                    IconRightProps={<IconPlus />}
-                    classTitleButton="text-grey text-font-25"
-                    classButton="border-b border-r-0 border-placeholder mb-16 rounded-none w-11/12"
-                    variant="yellow"
-                  />
+                  >
+                    <Text className="text-base font-extrabold text-[#828282D9]">
+                      Add
+                    </Text>
+                    <IconPlus />
+                  </TouchableOpacity>
                 );
               }}
             />

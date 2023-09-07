@@ -58,18 +58,22 @@ const ModalUpdateInfoFile = (props: ModalUpdateInfoFileType) => {
         />
       </View>
       <View className="p-4">
-        <TextInput
-          control={control}
-          name="blobName"
-          placeholder="Name"
-          className="w-300 mt-4"
-        />
-        <TextInput
-          control={control}
-          name="link"
-          placeholder="Link"
-          className="fx-1 mt-4"
-        />
+        <View className="w-300">
+          <TextInput
+            control={control}
+            name="blobName"
+            placeholder="Name"
+            //
+          />
+        </View>
+        <View className="fx-1 mt-4">
+          <TextInput
+            control={control}
+            name="link"
+            placeholder="Link"
+            // className="fx-1 mt-4"
+          />
+        </View>
         <Button
           title="Upload"
           onPress={() => {
