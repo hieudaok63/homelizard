@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useAuth } from "@clerk/nextjs";
 
 import { api } from "~/utils/api";
+import ChangeLanguage from "~/components/ChangeLanguage";
 import {
   Popover,
   PopoverContent,
@@ -19,6 +20,7 @@ const ButtonToggleHome = dynamic(
 );
 
 export default function Topbar() {
+  // router
   const router = useRouter();
   const isRoute = router.asPath;
   const { signOut, isLoaded } = useAuth();
@@ -71,12 +73,10 @@ export default function Topbar() {
       )}
 
       <div className="flex items-center">
+        <ChangeLanguage />
+
         <div className="relative mr-8 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full">
-          <Image
-            src={Message}
-            alt="Message"
-            className="scale-105 hover:scale-110"
-          />
+          <Image src={Message} alt="Message" className="hover:scale-110" />
           <div className="">
             <span className="absolute right-0 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-xs font-semibold text-white">
               2

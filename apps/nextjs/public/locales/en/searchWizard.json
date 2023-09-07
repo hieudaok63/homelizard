@@ -1,0 +1,54 @@
+{
+  "search": {
+    "label": {
+      "weSearch": "We search for you",
+      "objectType": "Object Type",
+      "country": "Country",
+      "ZIParea": "Select ZIP code and radius",
+      "radius": "Radius",
+      "landArea": "Land area",
+      "livingArea": "Living area size"
+    },
+    "switch": {
+      "buy": "Buy",
+      "rent": "Rent"
+    },
+    "button": {
+      "apartement": "Apartement",
+      "multiHouse": "Apartement House",
+      "house": "House"
+    },
+    "text": {
+      "selectObjectType": "Wähle die Art der gesuchten Immobilie",
+      "whereYouLook": "Where are you looking for a property?",
+      "country": "Country",
+      "ZIP": "ZIP",
+      "landAreaSize": "How many sqm of land do you need?",
+      "livingAreaSize": "How many sqm of living space do you need?"
+    },
+    "list": {
+      "apartementTypes": "Apartement type",
+      "apartementNormal": "Standard apartement",
+      "apMaisonette": "Maisonette",
+      "attic": "Attic",
+      "penthouse": "Penthouse",
+      "terraced": "Terraced",
+      "studio": "Studio",
+      "houseTypes": "House Type",
+      "houseDetached": "Detached",
+      "semiDetached": "Semi detached",
+      "rowCorner": "Row corner",
+      "rowMiddle": "Row middle",
+      "farm": "Farm house"
+    }
+  },
+  "general": {
+    "slogan": {
+      "weFind": "Wir finden deine Immobilie."
+    },
+    "button": {
+      "continue": "Continue",
+      "OK": "OK"
+    }
+  }
+}
