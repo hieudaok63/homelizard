@@ -16,80 +16,151 @@ type IItemProps = {
 
 export type IItem = {
   title: string;
-  desc: string;
+  description: string;
   imgSrc: ImageSourcePropType;
+  listUser: ImageSourcePropType[];
 };
 
 export const carouselItems: Array<IItem> = [
   {
     title: "Bohemian",
-    desc: "A popular style among those...",
+    description: "A popular style among those...",
     imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Bohemian.png"),
+    listUser: [
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+    ],
   },
   {
     title: "Coastal-hamptons",
-    desc: "Coastal style, also referred to ...",
+    description: "Coastal style, also referred to ...",
     imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Coastal-hamptons.png"),
+    listUser: [
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+    ],
   },
   {
     title: "Contemporary",
-    desc: "Often used synonymously for ...",
+    description: "Often used synonymously for ...",
     imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+    listUser: [
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+    ],
   },
   {
     title: "French country",
-    desc: "It's all about warm, earthy colo...",
+    description: "It's all about warm, earthy colo...",
     imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/FrenchCountry.png"),
+    listUser: [
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+    ],
   },
   {
     title: "Hollywood glam",
-    desc: "A luxurious, over-the-top and...",
+    description: "A luxurious, over-the-top and...",
     imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/HollywoodGlam.png"),
+    listUser: [
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+    ],
   },
   {
     title: "Industrial",
-    desc: "Inspired by a warehouse or u...",
+    description: "Inspired by a warehouse or u...",
     imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Industrial.png"),
+    listUser: [
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+    ],
   },
   {
     title: "Mid-century modern",
-    desc: "The style gained popularity du...",
+    description: "The style gained popularity du...",
     imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/MidCenturyModern.png"),
+    listUser: [
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+    ],
   },
   {
     title: "Minimalistic",
-    desc: "Takes the ideas of modern des...",
+    description: "Takes the ideas of modern des...",
     imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Minimalistic.png"),
+    listUser: [
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+    ],
   },
   {
     title: "Modern",
-    desc: "Takes the ideas of modern des...",
+    description: "Takes the ideas of modern des...",
     imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Modern.png"),
+    listUser: [
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+    ],
   },
   {
     title: "Rustic",
-    desc: "A return to the basics of natur....",
+    description: "A return to the basics of natur....",
     imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Rustic.png"),
+    listUser: [
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+    ],
   },
   {
     title: "Scandinavian",
-    desc: "A return to the basics of natur...",
+    description: "A return to the basics of natur...",
     imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Scandinavian.png"),
+    listUser: [
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+    ],
   },
   {
     title: "Shabby chic",
-    desc: "A vintage-inspired style, that ...",
+    description: "A vintage-inspired style, that ...",
     imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/ShabbyChic.png"),
+    listUser: [
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+    ],
   },
   {
     title: "Traditional",
-    desc: "A combination of comfortable...",
+    description: "A combination of comfortable...",
     imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Traditional.png"),
+    listUser: [
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+    ],
   },
   {
     title: "Transitional",
-    desc: "A much-loved style using el...",
+    description: "A much-loved style using el...",
     imgSrc: require<ImageSourcePropType>("@assets/objectStyleImage/Transitional.png"),
+    listUser: [
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+      require<ImageSourcePropType>("@assets/objectStyleImage/Contemporary.png"),
+    ],
   },
 ];
 
@@ -97,18 +168,19 @@ export const ConversationSection = () => {
   const width = Dimensions.get("window").width;
 
   return (
-    <View className="px-8">
+    <View className="px-6">
       <AppText
         text={t("home:conversations")}
         large
         className="text-text_yellow"
       />
-      <View className="-mx-8">
+      <View className="-mx-6">
         <Carousel
           data={carouselItems}
           width={width}
           height={330}
           renderItem={ConversationItem}
+          style={{ marginTop: -24 }}
           loop={false}
           scrollAnimationDuration={1000}
           mode="parallax"
@@ -134,6 +206,27 @@ const ConversationItem = ({ item }: IItemProps) => {
           alt={item?.title}
           className="max-h-80 w-full"
         />
+      </View>
+      <View className="absolute bottom-0 left-0  right-0 flex-row justify-between bg-white/30 backdrop-brightness-200">
+        <View className="flex-1 justify-between px-4 py-3 ">
+          <AppText
+            text={item?.title}
+            classText="text-2xl font-extrabold"
+            numberOfLines={1}
+          />
+          <View className="flex-row">
+            {item?.listUser.map((elm) => {
+              return (
+                <Image
+                  className="-mr-4 flex h-14 w-14  rounded-l-full  rounded-tr-full"
+                  style={{ borderWidth: 1, borderColor: "white" }}
+                  source={elm}
+                  aria-label="Profile picture"
+                />
+              );
+            })}
+          </View>
+        </View>
       </View>
     </View>
   );

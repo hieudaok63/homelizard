@@ -1,12 +1,16 @@
 import React from "react";
-import { FlatList, TouchableOpacity, View } from "react-native";
+import { FlatList, ListRenderItem, TouchableOpacity, View } from "react-native";
 import { t } from "i18next";
 
 import { cn } from "@homelizard/tailwind-config/utils";
 
+import { GoogleDriveIcon } from "@assets/icons";
 import ArrowRightIcon from "@assets/icons/ArrowRightIcon.svg";
 
+import { api } from "~/utils/api";
 import { AppText } from "~/components/ui/AppText";
+import { UploadFile } from "~/components/ui/UploadFile";
+import { styleBoxShadow } from "./ContentDashBoard";
 
 export const DATA_UPLOAD = [
   {
@@ -43,6 +47,14 @@ const badgeColorByType = (type: string) => {
 };
 
 export const UploadSection = () => {
+  const { data, isLoading } = api.profile.listProfileCV.useQuery({
+    page: 1,
+    limit: 50,
+  });
+
+  console.log({ data });
+
+  if (!data?.data.length) return null;
   return (
     <View className="mb-4 px-8">
       <View className="flex flex-row items-center justify-between pb-4 pt-3">
@@ -51,36 +63,22 @@ export const UploadSection = () => {
           <AppText text={t("home:seeAll")} className="text-blue" />
         </TouchableOpacity>
       </View>
-      <FlatList data={DATA_UPLOAD} renderItem={UploadItem} />
+      <FlatList data={data?.data || []} renderItem={UploadItem} />
     </View>
   );
 };
 
-const UploadItem = ({ item }: { item: IItem }) => {
+const UploadItem = ({ item }) => {
+  const { blobName, cvType, updatedAt } = item;
   return (
-    <View className="flex items-center px-14">
-      <TouchableOpacity className="mb-3 mr-1 flex w-80 justify-center rounded-full bg-white ">
-        <View className="flex flex-row">
-          {/* <UserAvatar radius={20} color="red" /> */}
-          <View className="ml-10 w-4/6 p-3">
-            <AppText text={item.name} className="font-weight_700" />
-            <View className="mt-1 flex  flex-row">
-              <View
-                className={cn("w-20 rounded-full", badgeColorByType(item.type))}
-              >
-                <AppText
-                  text={item.type}
-                  className="text-center font-weight_600 text-white"
-                />
-              </View>
-              <AppText text={item.date} className="ml-1 text-grey" />
-            </View>
-          </View>
-          <View className="ml-7 mt-5  ">
-            <ArrowRightIcon fill="#000000" />
-          </View>
-        </View>
-      </TouchableOpacity>
-    </View>
+    <UploadFile
+      titleFile={blobName}
+      typeFileUpload={cvType}
+      onPress={() => {}}
+      iconLeft={<GoogleDriveIcon />}
+      dateCreate={updatedAt}
+      classButton="bg-white rounded-full"
+      style={[styleBoxShadow]}
+    />
   );
 };

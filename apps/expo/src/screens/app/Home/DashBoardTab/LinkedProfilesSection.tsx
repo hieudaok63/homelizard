@@ -1,4 +1,13 @@
-import { FlatList, TouchableOpacity, View } from "react-native";
+import React, { useRef, useState } from "react";
+import {
+  Dimensions,
+  FlatList,
+  PanResponder,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  ViewToken,
+} from "react-native";
 import { t } from "i18next";
 
 import { AppText } from "~/components/ui/AppText";
@@ -155,27 +164,56 @@ export const DATA = [
 ];
 export const DEFAULT_RENDER_ITEM = 4;
 
+interface IItem {
+  name: string;
+  date: string;
+  status: string;
+  id: number;
+}
 export const LinkedProfilesSection = () => {
   const chunkedData = splitArrayIntoChunks<DataItem>(DATA, DEFAULT_RENDER_ITEM);
+  const refFlatList = useRef<any>();
 
+  const [numItem, setNumItem] = useState(0);
+  const onViewCallBack = React.useCallback(
+    ({
+      viewableItems,
+      changed,
+    }: {
+      viewableItems: Array<ViewToken>;
+      changed: Array<ViewToken>;
+    }) => {
+      const num: number = viewableItems[0]?.index || 0;
+      setNumItem(num || 0);
+    },
+    [],
+  );
+  const viewConfigRef = React.useRef({ viewAreaCoveragePercentThreshold: 50 });
+
+  const renderItem = ({ item, index }: { item: IItem[]; index: number }) => {
+    return <ContentDashBoard item={item} index={index} />;
+  };
+  const { width } = Dimensions.get("window");
   return (
-    <View className="my-4 px-8">
-      <View className="flex flex-row items-center justify-between pb-4">
+    <View className="my-6">
+      <View className="mx-6 flex flex-row items-center justify-between">
         <AppText text={t("home:linkedProfiles")} large className="text-pink" />
         <TouchableOpacity activeOpacity={0.5}>
           <AppText text={t("home:seeAll")} className="text-blue_1" />
         </TouchableOpacity>
       </View>
+
       <FlatList
-        className="-mx-8"
         data={chunkedData}
-        renderItem={ContentDashBoard}
+        renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         onEndReachedThreshold={1}
         initialNumToRender={4}
         pagingEnabled
         horizontal
+        initialScrollIndex={numItem}
+        className="mt-2"
       />
     </View>
   );

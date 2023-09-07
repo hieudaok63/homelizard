@@ -1,5 +1,11 @@
 import React from "react";
-import { Dimensions, FlatList, TouchableOpacity, View } from "react-native";
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import ArrowRightIcon from "@assets/icons/ArrowRightIcon.svg";
 
@@ -28,34 +34,46 @@ const itemColorByStatus = (status: string) => {
   }
 };
 
-export const ContentDashBoard = ({ item }: { item: IItem[] }) => {
+export const ContentDashBoard = ({
+  item,
+  index,
+}: {
+  item: IItem[];
+  index: number;
+}) => {
   const { width } = Dimensions.get("window");
+  const ContemporaryImage = require("@assets/objectStyleImage/Contemporary.png");
   const _renderItemChild = ({ item }: { item: IItem }) => {
     return (
-      <View
-        className="mb-3 items-center justify-center"
-        style={{
-          width: width,
-        }}
-      >
+      <View className={`mb-3 px-6 `}>
         <TouchableOpacity
-          className="flex w-80 flex-row items-center justify-between rounded-full bg-white px-4 py-3"
+          className="flex-1 flex-row items-center justify-between rounded-full bg-white px-4 py-3"
           style={[styleBoxShadow]}
         >
-          <View>
-            <AppText text={item.name} className="font-nunito-bold" />
-            <View className="mt-1 flex flex-row">
-              <View
-                className={`${itemColorByStatus(
-                  item.status,
-                )} w-20 rounded-full`}
-              >
+          <View className="flex-1 flex-row">
+            <Image
+              className="flex h-14 w-14 overflow-hidden rounded-l-full rounded-tr-full bg-grey_2"
+              source={ContemporaryImage}
+              aria-label="Profile picture"
+            />
+            <View className="mx-4 flex-1  justify-between">
+              <AppText text={item.name} className="font-nunito-bold" />
+              <View className="mt-1 flex flex-row">
+                <View
+                  className={`${itemColorByStatus(
+                    item.status,
+                  )} w-20 rounded-full`}
+                >
+                  <AppText
+                    text={item.status}
+                    className="font-nunito-semibold text-center text-white"
+                  />
+                </View>
                 <AppText
-                  text={item.status}
-                  className="font-nunito-semibold text-center text-white"
+                  text={item.date}
+                  className="ml-2 flex-1 text-zinc-500"
                 />
               </View>
-              <AppText text={item.date} className="text-zinc-500" />
             </View>
           </View>
           <ArrowRightIcon fill="#000000" />
@@ -69,7 +87,7 @@ export const ContentDashBoard = ({ item }: { item: IItem[] }) => {
       data={item}
       renderItem={_renderItemChild}
       scrollEnabled={false}
-      style={{ paddingTop: 10 }}
+      style={{ width: width }}
     />
   );
 };

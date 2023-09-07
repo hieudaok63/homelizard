@@ -16,17 +16,18 @@ export const FavoriteObjectSection = () => {
   const { data } = api.favorite.list.useQuery();
 
   return (
-    <View className="px-8">
+    <View className="px-6">
       <AppText
         text={t("home:favoriteObjects")}
         large
         className="text-placeholder"
       />
-      <View className="-mx-8">
+      <View className="-mx-6">
         <Carousel
           data={data ?? []}
           width={width}
-          height={330}
+          height={300}
+          style={{ marginTop: -24 }}
           renderItem={FavoriteObjectItem}
           loop={false}
           scrollAnimationDuration={1000}
@@ -57,7 +58,7 @@ const FavoriteObjectItem = ({ item }: CarouselRenderItemInfo<FavoriteItem>) => {
 
   return (
     <TouchableOpacity
-      className="w-full overflow-hidden rounded-3xl"
+      className="h-[300px] w-full overflow-hidden rounded-3xl"
       onPress={() =>
         navigation.push("ObjectDetail", {
           itemId: item.searchResult.id,
@@ -69,7 +70,19 @@ const FavoriteObjectItem = ({ item }: CarouselRenderItemInfo<FavoriteItem>) => {
         alt={item.searchResult.realEstate.title}
         className="h-full w-full"
       />
-      <View className="absolute bottom-0 right-0">
+      <View className="absolute bottom-0 left-0  right-0 flex-row justify-between bg-white/30 backdrop-brightness-200">
+        <View className="flex-1 justify-between py-3 pl-4 ">
+          <AppText
+            text={item?.searchResult.realEstate.title}
+            classText="text-2xl font-extrabold"
+            numberOfLines={1}
+          />
+          <AppText
+            text={item?.searchResult.realEstate.description}
+            classText="text-sm font-bold"
+            numberOfLines={2}
+          />
+        </View>
         <ButtonAddFavorite
           selected
           onPressSelect={() => removeFavoriteById(item.id)}
