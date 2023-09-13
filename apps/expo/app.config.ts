@@ -12,11 +12,6 @@ const defineConfig = (): ExpoConfig => ({
   orientation: "portrait",
   icon: "./assets/icon.png",
   userInterfaceStyle: "light",
-  splash: {
-    image: "./assets/splash.png",
-    resizeMode: "cover",
-    backgroundColor: "#000000",
-  },
   updates: {
     fallbackToCacheTimeout: 0,
   },

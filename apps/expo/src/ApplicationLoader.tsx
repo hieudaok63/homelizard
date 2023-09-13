@@ -1,7 +1,5 @@
 import React, { useEffect, useState, type PropsWithChildren } from "react";
-import { Image, Text, View, type ImageSourcePropType } from "react-native";
 import Toast from "react-native-toast-message";
-import { useAssets } from "expo-asset";
 import * as SplashScreen from "expo-splash-screen";
 import { useAuth } from "@clerk/clerk-expo";
 import {
@@ -17,7 +15,8 @@ import {
 } from "@expo-google-fonts/nunito";
 
 import { useApplicationLoadingStore } from "~/zustand/store";
-import { FullScreenLoading } from "./components/ui";
+import { LoggedInSplash, LoggedOutSplash } from "./components/ui";
+import { FullScreenLoading } from "./components/ui/loading";
 
 // Instruct SplashScreen not to hide yet, we want to do this manually
 SplashScreen.preventAutoHideAsync().catch(() => {
@@ -49,38 +48,41 @@ const useApplicationLoaded = () => {
 };
 
 const ApplicationLoader: React.FC<PropsWithChildren> = ({ children }) => {
-  const [assets] = useAssets([require("../assets/splash.png")]);
   const [imageLoaded, setImageLoaded] = useState(false);
   const isApplicationReady = useApplicationLoaded();
-
+  const { isSignedIn } = useAuth();
+  const [loadingSplash, setLoadingSplash] = useState(true);
   // global states
   const appLoading = useApplicationLoadingStore((state) => state?.loading);
 
   useEffect(() => {
-    if (imageLoaded) {
+    if (imageLoaded || !isApplicationReady) {
       void SplashScreen.hideAsync();
     }
-  }, [imageLoaded]);
-
-  if (!assets) return null;
+  }, [imageLoaded, isApplicationReady]);
 
   if (!isApplicationReady) {
-    return (
-      <View>
-        <Image
-          source={assets[0] as ImageSourcePropType}
-          className="h-full w-full"
-          onLoadEnd={() => {
-            setImageLoaded(true);
-          }}
-          alt="Splash screen"
-        />
-        <View className="absolute flex h-full w-full flex-col items-center justify-center">
-          <Text className="bg-sky-500">Loading...</Text>
-        </View>
-      </View>
-    );
+    return <FullScreenLoading status={!isApplicationReady} />;
   }
+
+  if (loadingSplash) {
+    if (isSignedIn) {
+      return (
+        <LoggedInSplash
+          setImageLoaded={setImageLoaded}
+          goToScreen={() => setLoadingSplash(false)}
+        />
+      );
+    } else {
+      return (
+        <LoggedOutSplash
+          setImageLoaded={setImageLoaded}
+          goToScreen={() => setLoadingSplash(false)}
+        />
+      );
+    }
+  }
+
   return (
     <>
       {children}
