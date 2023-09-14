@@ -79,11 +79,12 @@ export const RegisterVerifyEmail = ({}: IProps) => {
             Verify your E-Mail
           </Text>
 
+          <View className="h-32" />
           <TextInput
             control={control}
             name="code"
             placeholder="6-digits code"
-            className="mt-32"
+            // className="mt-32"
           />
 
           <View className="mt-3 w-full">

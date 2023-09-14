@@ -3,7 +3,7 @@ import { Text, TextInput, View } from "react-native";
 
 import { type AppInputProps } from "./types";
 
-export const InputDefault = forwardRef<TextInput, AppInputProps>(
+export const InputFlex = forwardRef<TextInput, AppInputProps>(
   function InputDefault(props, ref) {
     const { placeholder, error, onFocus, onBlur, value } = props;
 
@@ -11,7 +11,8 @@ export const InputDefault = forwardRef<TextInput, AppInputProps>(
     const innerRef = useRef<TextInput | null>(null);
 
     return (
-      <View>
+      <View className="flex-row">
+        <View className={`flex-col ${(isFocus || value || error) ?  'w-full': ''}`}>
         <View className="rounded-l-2xl rounded-tr-2xl bg-white p-4">
           {(isFocus || value) && (
             <Text className="-mt-2 text-xs text-placeholder mb-1">
@@ -29,7 +30,7 @@ export const InputDefault = forwardRef<TextInput, AppInputProps>(
                 ref.current = node;
               }
             }}
-            className={`text-font-16 font-weight_${(isFocus || value) ? 600 : 400} text-black`}
+            className={`text-font-16 font-weight_${(isFocus || value) ? 6 : 4}00 text-black`}
             placeholderTextColor="#828282"
             placeholder={!isFocus ? placeholder : ""}
             onFocus={(e) => {
@@ -45,6 +46,7 @@ export const InputDefault = forwardRef<TextInput, AppInputProps>(
         {error && (
           <Text className="text-red_1 mb-2 pl-2">{error?.toString()}</Text>
         )}
+        </View>
       </View>
     );
   },

@@ -1,7 +1,7 @@
-import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
-import Toast from "react-native-toast-message";
 import { useSignUp } from "@clerk/clerk-expo";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
+import { KeyboardAvoidingView, Platform, Text, View } from "react-native";
+import Toast from "react-native-toast-message";
 import { z } from "zod";
 
 import { StepProgressButton } from "~/components/ui";
@@ -97,20 +97,25 @@ export const RegisterEmailPassword = ({ navigation }: IProps) => {
           </Text>
         </View>
 
-        <View className="flex gap-6">
+        <View className="flex">
           <TextInput
+            variant="flex"
             autoCapitalize="none"
             name="email"
             control={control}
             placeholder="E-Mailadresse"
           />
+          <View className="h-6"/>
           <TextInput
+            variant="flex"
             name="password"
             control={control}
             placeholder="Passwort"
             secureTextEntry
           />
+           <View className="h-6"/>
           <TextInput
+            variant="flex"
             name="confirmPassword"
             control={control}
             placeholder="Passwort bestätigen"

@@ -153,7 +153,7 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
           </Text>
         </View>
 
-        <View className="flex gap-6">
+        <View className="flex">
           <View>
             <TouchableOpacity
               className="rounded-l-2xl rounded-t-2xl bg-white px-4 py-4"
@@ -167,7 +167,7 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
                   </Text>
                 </>
               ) : (
-                <Text className="text-base  font-weight_600 text-placeholder">
+                <Text className="text-base  font-weight_400 text-placeholder">
                   Anrede
                 </Text>
               )}
@@ -178,8 +178,9 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
               </Text>
             )}
           </View>
-
+          <View className="h-6"/>
           <TextInput control={control} name="firstName" placeholder="Vorname" />
+          <View className="h-6"/>
           <TextInput control={control} name="lastName" placeholder="Nachname" />
         </View>
 

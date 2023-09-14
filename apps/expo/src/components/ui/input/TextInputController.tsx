@@ -3,10 +3,11 @@ import {
   Controller,
   type ControllerProps,
   type FieldPath,
-  type FieldValues,
+  type FieldValues
 } from "react-hook-form";
 
 import { InputDefault } from "./variants/InputDefault";
+import { InputFlex } from "./variants/InputFlex";
 import { InputInline } from "./variants/InputInline";
 import { type AppInputProps } from "./variants/types";
 
@@ -15,7 +16,7 @@ type TextInputProps<
   TName extends FieldPath<TFieldValues>,
 > = Omit<ControllerProps<TFieldValues, TName>, "render"> &
   Omit<AppInputProps, "onChangeText" | "value" | "onBlur" | "error"> & {
-    variant?: "default" | "inline";
+    variant?: "default" | "inline" | "flex";
   };
 
 const TextInputController = <
@@ -44,7 +45,16 @@ const TextInputController = <
             />
           );
         }
-
+        if (variant === "flex") {
+          return (
+            <InputFlex
+              value={value}
+              onChangeText={onChange}
+              error={error?.message}
+              {...appInputProps}
+            />
+          );
+        }
         // default
         return (
           <InputDefault
