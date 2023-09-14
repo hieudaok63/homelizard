@@ -1,5 +1,11 @@
 {
   "title": "Profile",
+  "profilePicture": "Your profile picture",
+  "desProfilePicture": "This will make it easier for your friends, family or co-workers to find you",
+  "shipStep": "Skip this step",
+  "howToSkip": "Would you like to jump directly to the homepage? Yo can always continue the personalization from your profile.",
+  "skip": "Skip",
+  "continuePersonalizing": "Continue personalizing"
   "hello": "Hello,",
   "somethingAbout": "Teile uns etwas über dich mit...",
   "personalData": "Persönliche Daten",
@@ -80,7 +86,6 @@
       "title": "Suche"
     }
   },
-
   "save": "Save",
   "update": "Update",
   "finance": {

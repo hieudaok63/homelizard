@@ -7,7 +7,7 @@ export const ProfilePictureLayout = ({ children }: PropsWithChildren) => {
   // main return
   return (
     <GradientPatternBackground variant="yellow">
-      <SafeAreaView>{children}</SafeAreaView>
+      <SafeAreaView style={{ flex: 1 }}>{children}</SafeAreaView>
     </GradientPatternBackground>
   );
 };

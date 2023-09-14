@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 // libs
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useTranslation } from "react-i18next";
 
 // icons
 import ArrowLeftIcon from "@assets/icons/ArrowLeftIcon.svg";
@@ -19,6 +21,8 @@ import { ProfilePictureLayout } from "./_layout";
 type IProps = NativeStackScreenProps<RootStackParams, "ProfilePictureEdit">;
 
 export const EditProfilePicture = ({ navigation }: IProps) => {
+  const { t } = useTranslation("profile");
+  const { top } = useSafeAreaInsets();
   // local states
   const [isSkipModalVisible, setIsSkipModalVisible] = useState<boolean>(false);
 
@@ -39,7 +43,7 @@ export const EditProfilePicture = ({ navigation }: IProps) => {
   // main return
   return (
     <ProfilePictureLayout>
-      <View className="flex-row items-center justify-between px-5 pt-10">
+      <View className="mt-4 flex-row items-center justify-between px-5 pb-2">
         <TouchableOpacity onPress={goBack}>
           <ArrowLeftIcon />
         </TouchableOpacity>
@@ -47,7 +51,7 @@ export const EditProfilePicture = ({ navigation }: IProps) => {
         <View className="flex-row items-center">
           <TouchableOpacity onPress={showSkipModal}>
             <Text className="text-font-16 font-weight_400 text-black_xtra">
-              SKIP
+              {t("skip").toLocaleUpperCase()}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity className="ml-3">
@@ -56,25 +60,30 @@ export const EditProfilePicture = ({ navigation }: IProps) => {
         </View>
       </View>
 
-      <View className="mt-14 px-14">
-        <Text className="mb-6 text-font-45 font-weight_400 text-black_xtra opacity-80">
-          Your profile picture
-        </Text>
-        <Text className="text-font-17 font-weight_400 text-black_xtra  opacity-80">
-          This will make it easier for your friends, family or co-workers to
-          find you
-        </Text>
-      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View className="mt-14 px-14">
+          <Text className="mb-6 text-5xl font-weight_400 text-black_xtra opacity-80">
+            {t("profilePicture")}
+          </Text>
+          <Text className="text-font-15 font-weight_400 text-black_xtra  opacity-80">
+            {t("desProfilePicture")}
+          </Text>
+        </View>
 
-      <View className="mb-10 mt-6 flex-row items-center justify-center">
-        <ImagePicker />
-      </View>
+        <View className="mb-10 mt-6 flex-row items-center justify-center">
+          <ImagePicker />
+        </View>
 
-      <View className="flex-row pl-10">
-        <PersonIcon_1 className="mr-6" />
-        <PersonIcon_2 className="mr-6" />
-        <PersonIcon_3 className="mr-6" />
-      </View>
+        <ScrollView
+          className="mb-8 "
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        >
+          <PersonIcon_1 className="ml-8" />
+          <PersonIcon_2 className="ml-6" />
+          <PersonIcon_3 className="ml-6 mr-8" />
+        </ScrollView>
+      </ScrollView>
 
       {/* skip popup modal */}
       <PopupModal
@@ -84,7 +93,7 @@ export const EditProfilePicture = ({ navigation }: IProps) => {
       >
         <View className="p-4">
           <Text className="mb-1 text-center font-nunito-italic text-font-17 font-weight_200">
-            Skip this step
+            {t("howToSkip")}
           </Text>
           <Text className="text-black_extra text-font-13 font-weight_400">
             Would you like to jump directly to the homepage? Yo can always
@@ -96,7 +105,7 @@ export const EditProfilePicture = ({ navigation }: IProps) => {
           className="w-full flex-row items-center justify-center border-t border-color_gray"
         >
           <Text className="py-2.5 text-font-17 font-weight_200 italic text-blue_2">
-            Skip
+            {t("skip")}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -104,7 +113,7 @@ export const EditProfilePicture = ({ navigation }: IProps) => {
           className="w-full flex-row items-center justify-center border-t border-color_gray pb-1"
         >
           <Text className="py-2.5 text-font-17 font-weight_400 text-blue_2">
-            Continue personalizing
+            {t("continuePersonalizing")}
           </Text>
         </TouchableOpacity>
       </PopupModal>
