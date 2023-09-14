@@ -179,10 +179,20 @@ model Request {
   status             EStatusUserRequestObject @default(OPEN)
   createdAt          DateTime                 @default(now()) @map("created_at")
   updatedAt          DateTime                 @updatedAt @map("updated_at")
+
+  requestHistories   RequestHistory[]
 }
 
 enum EStatusUserRequestObject {
   OPEN
   IN_PROGRESS
   CLOSED
+}
+
+model RequestHistory {
+  id                 String                   @id @default(cuid())
+  requestId          String?
+  request            Request?                 @relation(fields: [requestId], references: [id])
+  date               DateTime                 @default(now())
+  note               String
 }
