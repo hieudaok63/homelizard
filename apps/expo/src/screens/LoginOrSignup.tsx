@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useTranslation } from "react-i18next";
 
 import { HomelizardLogo } from "@assets/icons";
 
@@ -11,7 +12,7 @@ type Props = NativeStackScreenProps<RootStackParams, "LoginOrSignUp">;
 
 const LoginOrSignup = ({ navigation }: Props) => {
   const isSearchComplete = useSearchWizardStore((state) => state?.isCompleted);
-
+  const { t } = useTranslation("auth");
   // functions
   const handlePressRegister = () => {
     if (!isSearchComplete) {
@@ -30,7 +31,7 @@ const LoginOrSignup = ({ navigation }: Props) => {
     <View className="flex h-full w-full items-center bg-[#F7FAFF] pt-[120px]">
       <HomelizardLogo />
       <Text className="nunito mb-48 text-2xl font-light text-[#26233299]">
-        Wir finden deine Immobilie
+        {t("slogan_weFind")}
       </Text>
 
       <TouchableOpacity
@@ -38,7 +39,7 @@ const LoginOrSignup = ({ navigation }: Props) => {
         className="w-[70%] items-center rounded-3xl  bg-white px-4 py-3 shadow-md"
       >
         <Text className=" nunito text-base font-normal  text-black ">
-          Log in
+          {t("login.title")}
         </Text>
       </TouchableOpacity>
 
@@ -47,7 +48,7 @@ const LoginOrSignup = ({ navigation }: Props) => {
         className="mt-11 w-[70%] items-center rounded-3xl  bg-[#262636] px-4 py-3 shadow-md"
       >
         <Text className=" nunito text-base font-normal  text-white ">
-          Sign up
+          {t("signUp.title")}
         </Text>
       </TouchableOpacity>
     </View>

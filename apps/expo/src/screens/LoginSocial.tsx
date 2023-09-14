@@ -6,9 +6,11 @@ import Toast from "react-native-toast-message";
 import { useOAuth, type UseOAuthFlowParams } from "@clerk/clerk-expo";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 import { debounce } from "lodash";
+import { useTranslation } from "react-i18next";
 
 import { ArrowLeftIcon, HomelizardLogo, SocialIcons } from "@assets/icons";
 
+import { Spacing } from "~/utils";
 import { type RootStackParams } from "./RootStackParams";
 
 type OAuthSignInButtonProps = {
@@ -48,7 +50,7 @@ const OAuthSignInButton = ({
 
   return (
     <TouchableOpacity className={classContainer} onPress={handler}>
-      {!!Icon && <Icon />}
+      {!!Icon && <Icon width={Spacing.width100} />}
     </TouchableOpacity>
   );
 };
@@ -64,7 +66,7 @@ export const LoginSocialScreen = ({
 }: LoginSocialScreenProps) => {
   const { top } = useSafeAreaInsets();
   const { screen } = route.params;
-
+  const { t } = useTranslation("auth");
   const loginEmail = () => {
     navigation?.navigate(
       screen === "Login" ? "Login" : "RegisterEmailPassword",
@@ -85,21 +87,19 @@ export const LoginSocialScreen = ({
         <View className="pt-[80px]">
           <HomelizardLogo className="self-center" />
           <Text className="nunito mb-20 text-center text-2xl font-light text-[#26233299]">
-            Wir finden deine Immobilie
+            {t("slogan_weFind")}
           </Text>
         </View>
       ) : (
-        <View className="mb-6 pt-[76px]">
+        <View className="mb-6 items-center pt-[76px]">
           <Text className="mb-6 text-center text-font-18 font-weight_800 text-black_1">
-            Wir finden für dich
+            {t("weSearch")}
           </Text>
-          <Text className="nunito mx-16 mb-2 text-center text-font-14 font-weight_800 text-black_1">
-            Wir konnten bereits 7 Objekte finden
+          <Text className="nunito mb-2 w-3/4 text-center text-font-14 font-weight_800 text-black_1">
+            {t("searchObject")}
           </Text>
-          <Text className="nunito mx-[90px] text-font-12 text-[#26233299]">
-            Melde dich jetzt an oder erstelle einen Account um Details der
-            Objekte zu erhalten. Du kannst einen der Scoial-Logins nutzen oder
-            deinen Account mit E-Mail und Passwort erstellen.
+          <Text className="nunito w-3/4 text-center text-font-12 text-[#26233299]">
+            {t("desSearchObject")}
           </Text>
         </View>
       )}
@@ -139,7 +139,7 @@ export const LoginSocialScreen = ({
             />
           )} */}
           <TouchableOpacity onPress={loginEmail} className="px-4">
-            <SocialIcons.EmailIcon />
+            <SocialIcons.EmailIcon width={Spacing.width107} />
           </TouchableOpacity>
         </View>
       </View>

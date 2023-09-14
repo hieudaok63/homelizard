@@ -3,7 +3,9 @@ import { Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Toast from "react-native-toast-message";
 import { useSignIn } from "@clerk/clerk-expo";
+import { t } from "i18next";
 import { type SubmitHandler } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { z } from "zod";
 
 import { Button, TransparentHeaderSafeView } from "~/components/ui";
@@ -14,11 +16,14 @@ import { useApplicationLoadingStore } from "~/zustand/store";
 
 // form schema
 const formSchema = z.object({
-  email: z.string().email("Invalid email").min(1, "Email is required"),
+  email: z
+    .string()
+    .email(t("auth:login.emailInvalid"))
+    .min(1, t("auth:login.emailRequired")),
   password: z
     .string()
-    .min(1, "Password is required")
-    .min(8, "Password must have more than 8 characters"),
+    .min(1, t("auth:login.passwordRequired"))
+    .min(8, t("auth:login.validatePassword")),
 });
 
 type FormSchemaType = z.infer<typeof formSchema>;
@@ -26,7 +31,7 @@ type FormSchemaType = z.infer<typeof formSchema>;
 const Login = () => {
   const { signIn, isLoaded, setActive } = useSignIn();
   const setLoadingApp = useApplicationLoadingStore((state) => state.setLoading);
-
+  const { t: language } = useTranslation("auth");
   const { handleSubmit, control } = useZodForm({
     schema: formSchema,
     defaultValues: {
@@ -52,7 +57,7 @@ const Login = () => {
         await setActive({ session: result.createdSessionId });
         Toast?.show({
           type: "success",
-          text1: "Login successfully!",
+          text1: language("login.loginSuccess"),
           visibilityTime: 5000,
         });
       } else {
@@ -80,7 +85,7 @@ const Login = () => {
         <TransparentHeaderSafeView>
           <View className="h-full w-full px-8 py-4">
             <Text className="mb-8 text-center text-font-18 font-weight_500 text-black opacity-70">
-              Login
+              {language("login.title")}
             </Text>
 
             <View className="mb-4">
@@ -94,14 +99,14 @@ const Login = () => {
               <TextInputController
                 control={control}
                 name="password"
-                placeholder="Passwort"
+                placeholder={language("login.placeholderPassword")}
                 secureTextEntry={true}
               />
             </View>
 
             <View>
               <Button
-                title="Anmelden"
+                title={language("login.title")}
                 className="rounded-3xl"
                 onPress={() => {
                   void handleSubmit(onSubmit)();
