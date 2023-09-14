@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { ImageBackground, StyleProp, View, ViewStyle } from "react-native";
+import { Dimensions, StyleProp, View, ViewStyle } from "react-native";
 
 import {
   LandIcon,
@@ -30,23 +30,21 @@ interface HouseMultipleRoomProps {
 // Living
 const minWidthLiving = 61;
 const minHeightLiving = 61;
-const maxWidthLiving = 270;
-const maxHeightLiving = 220;
+const maxWidthLiving = Dimensions.get("window").width;
+const maxHeightLiving = Dimensions.get("window").height / 4.5;
 const maxValueLiving = 400;
 
 // plotSize
 
 const minWidthLand = 100;
 const minHeightLand = 100;
-const maxWidthLand = 400;
-const maxHeightLand = 400;
+const maxWidthLand = Dimensions.get("window").width;
+const maxHeightLand = Dimensions.get("window").height / 2.6;
 
 const maxValueLand = 1000;
 export const HouseMultipleRoom = (props: HouseMultipleRoomProps) => {
   const {
     classImage,
-    width,
-    height,
     style,
     numberOfRoom,
     livingArea = 0,
@@ -203,18 +201,21 @@ export const HouseMultipleRoom = (props: HouseMultipleRoomProps) => {
   }, [numberOfRoom, livingArea]);
 
   return (
-    <>
+    <View>
       <AppText
         text={value}
         className="px-4 text-center text-font-12 font-weight_300 text-black opacity-60"
       />
-      <View className={`mt-3 h-[370px] items-center justify-center`}>
+      <View
+        className={`mt-3 items-center justify-center`}
+        style={{ height: maxHeightLand }}
+      >
         {renderImage()}
         <LandIcon
           width={handlePlotSizeLand("width")}
           height={handlePlotSizeLand("height")}
         />
       </View>
-    </>
+    </View>
   );
 };

@@ -175,7 +175,7 @@ const Location = ({ navigation }: Props) => {
           {radius === maxValueRadius ? `${radius}km +` : `${radius}km`}
         </Text>
 
-        <View className="mb-12 px-8">
+        <View className="mb-12 flex-1 px-8 ">
           <View className="aspect-square overflow-hidden rounded-full">
             <MapView
               ref={mapRef}
@@ -198,6 +198,7 @@ const Location = ({ navigation }: Props) => {
             </MapView>
           </View>
         </View>
+        <View className="mb-12" />
       </KeyboardAwareScrollView>
       <StepProgressButton
         title={t("general.button.continue")}
