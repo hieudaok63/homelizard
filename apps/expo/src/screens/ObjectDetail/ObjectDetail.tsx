@@ -181,20 +181,18 @@ export const ObjectDetail = ({ route }: Props) => {
         <BottomNavBarPadding />
       </HeaderScroll>
       <View
-        style={{ paddingBottom: bottom }}
+        style={{ paddingBottom: bottom || 16 }}
         className={cn(
-          "absolute bottom-0 left-6 right-6 mx-2 mt-5 flex flex-row items-center justify-around",
+          "items-between absolute bottom-0 left-6 right-6 mx-2 mt-5 flex flex-row justify-between ",
         )}
       >
-        <View className="">
-          <TouchableOpacity className="h-12 w-12 items-center justify-center rounded-full bg-black_1">
-            <LoveIcon />
-          </TouchableOpacity>
-        </View>
-        <TouchableOpacity className="ml-6 rounded-3xl bg-black_1">
+        <TouchableOpacity className="h-12 w-12 items-center justify-center rounded-full bg-black_1">
+          <LoveIcon />
+        </TouchableOpacity>
+        <TouchableOpacity className="h-12 w-[80%] items-center justify-center rounded-3xl bg-black_1">
           <AppText
             text="Besichtigung vereinbaren"
-            className="font-nunito-light mt-auto px-20 py-4 text-center text-white"
+            className="font-nunito-light text-center text-white"
           />
         </TouchableOpacity>
       </View>
