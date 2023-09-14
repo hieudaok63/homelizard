@@ -1,3 +1,4 @@
+export * from "./AnimatedHouse";
 export * from "./AppBanner";
 export * from "./AppInputSelectGender";
 export * from "./BottomSheet";
@@ -8,6 +9,7 @@ export * from "./CustomSwitch";
 export * from "./DetailObject";
 export * from "./HeaderScroll";
 export * from "./HouseMultipRoom";
+export * from "./InputMultiSelect";
 export * from "./NotificationBadge";
 export * from "./PopupModal";
 export * from "./RangePicker";
@@ -34,4 +36,3 @@ export * from "./Splash/LoggedOutSplash";
 export * from "./Splash/LoadingSpinner";
 export * from "./input";
 export * from "./loading";
-export * from "./AnimatedHouse";

@@ -3,8 +3,12 @@ import { View } from "react-native";
 import dayjs from "dayjs";
 import { z } from "zod";
 
-import { objectTypeSchema } from "@homelizard/schema";
+import {
+  objectTypeSchema,
+  type ObjectType as IObjectType,
+} from "@homelizard/schema";
 
+import { InputMultiSelect } from "~/components/ui";
 import TextInputController from "~/components/ui/input/TextInputController";
 import { useZodForm } from "~/hooks/useZodForm";
 import { type SearchProfileItem } from "./ListSearchHistorySection";
@@ -16,14 +20,26 @@ const formSchema = z.object({
   livingAreaSize: z.string(),
   roomAmount: z.string(),
   // TODO: change to select objectStyles
-  objectStyle: z.string(),
-  yearOfConstruction: z.string(),
+  // objectStyle: z.string(),
+  // yearOfConstruction: z.string(),
   availability: z.string(),
   status: z.boolean(),
 });
-
+const listObjectTypes: IObjectType[] = [
+  "apartment_normal",
+  "apartment_maisonette",
+  "apartment_attic",
+  "apartment_penthouse",
+  "apartment_terraced",
+  "apartment_studio",
+  "house_detached",
+  "house_semi_detached",
+  "house_row_corner",
+  "house_row_middle",
+  "house_farm",
+];
 export const ItemSearchProfile = ({ item }: { item: SearchProfileItem }) => {
-  const { control } = useZodForm({
+  const { control, watch, setValue } = useZodForm({
     schema: formSchema,
     defaultValues: {
       objectTypes: item.objectTypes,
@@ -33,8 +49,8 @@ export const ItemSearchProfile = ({ item }: { item: SearchProfileItem }) => {
       plotSize: `${item.plotSize.toString()}`,
       livingAreaSize: `${item.livingAreaSize.toString()}`,
       roomAmount: item.roomAmount.toString(),
-      objectStyle: item.objectStyles?.join(", "),
-      yearOfConstruction: `${item.startYearOfConstruction} - ${item.endYearOfConstruction}`,
+      // objectStyle: item.objectStyles?.join(", "),
+      // yearOfConstruction: `${item.startYearOfConstruction} - ${item.endYearOfConstruction}`,
       availability: dayjs(item.availability).format("DD.MM.YYYY"),
     },
   });
@@ -42,12 +58,14 @@ export const ItemSearchProfile = ({ item }: { item: SearchProfileItem }) => {
   // main return
   return (
     <View>
-      <TextInputController
-        name="objectTypes"
-        control={control}
+      <InputMultiSelect
+        data={listObjectTypes}
+        value={watch("objectTypes")}
         placeholder="Noch nicht verfügbar"
         label="Objekttyp"
-        variant="inline"
+        onSelected={(values) => {
+          setValue("objectTypes", values);
+        }}
       />
       <TextInputController
         name="radius"
@@ -77,7 +95,7 @@ export const ItemSearchProfile = ({ item }: { item: SearchProfileItem }) => {
         label="Zimmer"
         variant="inline"
       />
-      <TextInputController
+      {/* <TextInputController
         name="objectStyle"
         control={control}
         placeholder="Noch nicht verfügbar"
@@ -90,7 +108,7 @@ export const ItemSearchProfile = ({ item }: { item: SearchProfileItem }) => {
         placeholder="Noch nicht verfügbar"
         label="Baujahr"
         variant="inline"
-      />
+      /> */}
       <TextInputController
         name="availability"
         control={control}

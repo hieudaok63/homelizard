@@ -1,6 +1,7 @@
 {
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": true,
+    "source.organizeImports": true
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
@@ -39,7 +40,5 @@
     "package.json": ".npmrc, .nvmrc, package-lock.json, yarn.lock, pnpm-lock.yaml",
     ".env": ".env.*"
   },
-  "[prisma]": {
-    "editor.defaultFormatter": "Prisma.prisma"
-  }
+  "[prisma]": { "editor.defaultFormatter": "Prisma.prisma" }
 }
