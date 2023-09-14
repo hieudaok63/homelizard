@@ -5,4 +5,5 @@ export * from "./Detail";
 
 export * from "./register";
 export * from "./login";
+export * from "./Admin";
 export * from "./Setting";

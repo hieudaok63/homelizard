@@ -23,6 +23,7 @@ import ToggleTrue from "./Toggletrue.svg";
 import Utilities from "./Utilities.svg";
 import Wohnung from "./Wohnung.svg";
 import ChevronUp from "./chevron-up.svg";
+import close from "./close.svg";
 import Contruction_year1 from "./contruction_year1.svg";
 import Contruction_year2 from "./contruction_year2.svg";
 import Contruction_year3 from "./contruction_year3.svg";
@@ -34,6 +35,8 @@ import fileSvg from "./file.svg";
 import Google from "./google.svg";
 import Heart from "./heart.svg";
 import Linkedin from "./linkedin.svg";
+import lizardWiggle from "./lizardWiggle.svg";
+import logoAdmin from "./logoAdmin.svg";
 import number_room1 from "./number_room1.svg";
 import number_room2 from "./number_room2.svg";
 import number_room3 from "./number_room3.svg";
@@ -49,11 +52,14 @@ import Plus from "./plus.svg";
 import question from "./question.svg";
 import Search from "./search.svg";
 import settings from "./settings.svg";
+import tableIcon1 from "./tableIcon1.svg";
+import tableIcon2 from "./tableIcon2.svg";
 import trash from "./trash.svg";
 import Twitter from "./twitter.svg";
 import uploadSvg from "./upload.svg";
 import globeSvg from "./upload.svg";
 import warning from "./warning.svg";
+import write from "./write.svg";
 
 export {
   ChevronUp,
@@ -106,6 +112,12 @@ export {
   PuchasePrice2,
   PuchasePrice3,
   PuchasePrice4,
+  logoAdmin,
+  lizardWiggle,
+  tableIcon1,
+  tableIcon2,
+  write,
+  close,
   settings,
   trash,
   question,

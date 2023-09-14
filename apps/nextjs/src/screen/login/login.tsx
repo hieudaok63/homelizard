@@ -26,6 +26,7 @@ const schema = z.object({
   email: z.string().email(),
   password: z.string(),
 });
+const role = "user";
 
 export const LoginScreen = () => {
   const [showPasswordEye, setShowPasswordEye] = useState<boolean>(false);
@@ -34,7 +35,11 @@ export const LoginScreen = () => {
   const clerk = useClerk();
   useEffect(() => {
     if (isSignedIn) {
-      router.push(PATH_PROFILE);
+      if (role === "admin") {
+        router.push("/admin");
+      } else {
+        router.push(PATH_PROFILE);
+      }
     }
   }, [isSignedIn, router]);
 
@@ -43,7 +48,6 @@ export const LoginScreen = () => {
     schema: schema,
     defaultValues: initialValues,
   });
-  const navigate = useRouter();
   const { isLoaded, signIn, setActive } = useSignIn();
   const setLoadingApp = useApplicationLoadingStore((state) => state.setLoading);
 
@@ -83,8 +87,11 @@ export const LoginScreen = () => {
         const jwt = await clerk.session.getToken({ template: "jwt_metadata" });
         console.log(parseJwt(jwt));
         showAppToast(`Login successful`, "success");
-
-        navigate.push(PATH_PROFILE);
+        if (role === "admin") {
+          router.push("/admin");
+        } else {
+          router.push(PATH_PROFILE);
+        }
       }
     } catch (error: any) {
       showAppToast(
@@ -176,7 +183,7 @@ export const LoginScreen = () => {
             Have not account yet?
             <span
               className="ml-1 cursor-pointer text-blue_1"
-              onClick={() => navigate.push(PATH_OBJECTTYPE)}
+              onClick={() => router.push(PATH_OBJECTTYPE)}
             >
               Sign up
             </span>
