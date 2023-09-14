@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 
 import AreaRoomIcon from "@assets/icons/AreaRoomIcon.svg";
 import BathRoomIcon from "@assets/icons/BathRoomIcon.svg";
@@ -22,18 +22,18 @@ export const ItemFavorite = ({ item }: { item: FavoriteItem }) => {
           itemId: item.searchResult.id,
         })
       }
-      className="flex flex-col rounded-b-[28px] bg-white"
+      className="flex flex-col rounded-b-[28px] bg-white pb-2"
     >
       <Image
         source={genImageUrl(realEstate.imageUrl)}
         alt={realEstate.title}
         className="h-[380px]"
       />
-      <View className="ml-auto mr-auto flex w-7/12 flex-row items-center justify-between pt-5">
+      <View className="flex flex-row items-center justify-between  px-14 pt-5">
         {realEstate.numberOfBedroom && (
           <DetailObject
             text={realEstate.numberOfBedroom}
-            Icon={<BedRoomIcon fill="#262332" />}
+            Icon={<BedRoomIcon />}
           />
         )}
         {realEstate.numberOfBathroom && (
@@ -49,8 +49,10 @@ export const ItemFavorite = ({ item }: { item: FavoriteItem }) => {
           />
         )}
       </View>
-      <View>
-        {realEstate.price && <DetailObject text={realEstate.price} />}
+      <View className="mt-2 pl-14">
+        {realEstate.price && (
+          <Text className="text-lg font-extrabold">{realEstate.price}</Text>
+        )}
       </View>
     </TouchableOpacity>
   );

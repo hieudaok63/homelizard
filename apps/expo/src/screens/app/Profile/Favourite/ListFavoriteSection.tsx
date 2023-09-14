@@ -26,10 +26,14 @@ export const ListFavoriteSection = () => {
     return (
       <ProfileSectionAccordion
         title={item?.searchResult?.realEstate?.title}
-        description={item?.searchResult?.realEstate?.objectTypes.join(", ")}
+        description={[
+          `${item?.searchResult.realEstate.livingAreaSize} m²`,
+          item?.searchResult?.realEstate?.objectTypes.join(", "),
+        ].join(", ")}
         variant="pink"
         progress={100}
         className={handleItemClassName(index, data?.length)}
+        style={{ borderBottomColor: "#0000001F", borderBottomWidth: 1 }}
         iconLeft={<LoveIcon />}
       >
         <ItemFavorite item={item} />
@@ -49,12 +53,13 @@ export const ListFavoriteSection = () => {
 
   return (
     <LayoutFavorite>
-      <View className="mt-3">
+      <View className="mt-3 flex-1">
         {data?.length ? (
           <FlatList
             data={data ?? []}
             renderItem={renderItem}
             showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 80 }}
             keyExtractor={(item) => item.id.toString()}
           />
         ) : (
