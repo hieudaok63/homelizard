@@ -5,6 +5,7 @@ import { Platform, Text, View, type ImageSourcePropType } from "react-native";
 import { useAssets, type Asset } from "expo-asset";
 import { Image } from "expo-image";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useTranslation } from "react-i18next";
 
 import { RangePicker, StepProgressButton } from "~/components/ui";
 import { getCountScreen } from "~/utils";
@@ -44,6 +45,7 @@ const rangeConfig = {
 };
 
 const PriceRange = ({ navigation }: Props) => {
+  const { t } = useTranslation("search");
   // image
   const [GoldIcons] = useAssets([
     require("@assets/GoldCoinsIcon.png"),
@@ -109,14 +111,16 @@ const PriceRange = ({ navigation }: Props) => {
       <View>
         <View className="mb-4 px-8">
           <Text className="text-font-18 font-weight_800 text-black_1">
-            Wir finden für dich
+            {t("search.label.weSearch")}
           </Text>
           <View className="mt-5">
             <Text className="mb-1 text-font-14 font-weight_800 text-black_1">
-              {purchaseType === "buy" ? "Kaufpreis" : "Mietpreis (kalt)"}
+              {purchaseType === "buy"
+                ? t("search.text.buy")
+                : t("search.text.rent")}
             </Text>
             <Text className="text-font-12 font-weight_300 text-black_1 opacity-60">
-              Welchen Kaufpreis soll deine Immobilie maximal haben?
+              {t("search.text.priceRange")}
             </Text>
           </View>
         </View>
@@ -140,7 +144,7 @@ const PriceRange = ({ navigation }: Props) => {
       </View>
 
       <StepProgressButton
-        title="Continue"
+        title={t("general.button.continue")}
         progress={getCountScreen("PriceRange")}
         variant="turquoise"
         onPress={handlePressNext}

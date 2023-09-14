@@ -1,0 +1,66 @@
+{
+  "search": {
+    "label": {
+      "weSearch": "Wir finden für dich",
+      "objectType": "Objekttyp",
+      "country": "Land",
+      "ZIParea": "Wähle PLZ und Umkreis",
+      "radius": "Umkreis",
+      "landArea": "Grundstücksfläche",
+      "livingArea": "Wohnfläche",
+      "numberOfRoom": "Anzahl Räume",
+      "yearOfConstruction": "Baujahr",
+      "availability": "Verfügbarkeit"
+    },
+    "switch": {
+      "buy": "Kaufen",
+      "rent": "Mieten"
+    },
+    "button": {
+      "apartement": "Haus",
+      "multiHouse": "MFH",
+      "house": "Haus"
+    },
+    "text": {
+      "selectObjectType": "Select the type of property you are looking for",
+      "whereYouLook": "Wo suchst du?",
+      "country": "Land",
+      "ZIP": "PLZ",
+      "landAreaSize": "Wie viel qm Grundstücksfläche benötigst Du?",
+      "livingAreaSize": "Wieviel qm Wohnfläche benötigst Du?",
+      "numberOfRoom": "Wieviel Räume sollten es sein?",
+      "number": "Räume",
+      "priceRange": "Welchen Kaufpreis soll deine Immobilie maximal haben?",
+      "buy": "Kaufpreis",
+      "rent": "Mietpreis (kalt)",
+      "yearOfConstruction": "Welches Baujahr soll deine Immobilie haben?",
+      "availability": "Wann sollte die Immobilie verfügbar sein?",
+      "results": "Wir konnten bereits COUNT Objekte finden",
+      "createSearchSuccess": "Created new search profile!"
+    },
+    "list": {
+      "apartementTypes": "Art der Wohnung",
+      "apartementNormal": "Standard Wohnung",
+      "apMaisonette": "Maisonette",
+      "attic": "Dachgeschoss",
+      "penthouse": "Penthouse",
+      "terraced": "Mit Balkon",
+      "studio": "Studio",
+      "houseTypes": "Art des Hauses",
+      "houseDetached": "Freistehend",
+      "semiDetached": "Doppelhaushälfte",
+      "rowCorner": "Reihenendhaus",
+      "rowMiddle": "Reihenmittelhaus",
+      "farm": "Bauernhof"
+    }
+  },
+  "general": {
+    "slogan": {
+      "weFind": "Let us find a property for you!"
+    },
+    "button": {
+      "continue": "Weiter",
+      "OK": "OK"
+    }
+  }
+}

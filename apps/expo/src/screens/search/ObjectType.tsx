@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useTranslation } from "react-i18next";
 
 import {
   type ObjectType as IObjectType,
@@ -9,6 +10,7 @@ import {
 
 import { HausIcon, MFHIcon, WohnungIcon } from "@assets/icons";
 
+import { getNameObjectType } from "~/utils/getNameObjectType";
 import { generateBoxShadowStyle } from "~/utils/helpers";
 import {
   BottomSheet,
@@ -40,6 +42,8 @@ const apartmentOptions: IObjectType[] = [
 export const styleBoxShadow = generateBoxShadowStyle("shadowObjectType");
 
 const ObjectType = ({ navigation }: Props) => {
+  const { t } = useTranslation("search");
+
   // zustand
   const setObjectTypes = useSearchWizardStore((state) => state?.setObjectTypes);
   const setPurchaseType = useSearchWizardStore(
@@ -51,7 +55,6 @@ const ObjectType = ({ navigation }: Props) => {
 
   // local states
   const [showList, setShowList] = useState<ObjectSelectType>(null);
-
   // functions
   const hideBottomSheet = () => {
     setShowList(null);
@@ -86,15 +89,15 @@ const ObjectType = ({ navigation }: Props) => {
     <SearchLayout>
       <View className="mb-40 px-8">
         <Text className="text-font-18 font-weight_800 text-black_1">
-          Wir finden für dich
+          {t("search.label.weSearch")}
         </Text>
 
         <View className="mt-5">
           <Text className="mb-1 text-font-14 font-weight_800 text-black_1">
-            Objekttyp
+            {t("search.label.objectType")}
           </Text>
           <Text className="text-font-12 font-weight_300 text-black_1 opacity-60">
-            Wähle die Art der gesuchten Immobilie
+            {t("search.text.selectObjectType")}
           </Text>
         </View>
         <View className="mt-6 w-full items-center">
@@ -103,15 +106,15 @@ const ObjectType = ({ navigation }: Props) => {
               setPurchaseType(isEnabled ? "buy" : "rent")
             }
             defaultValue={purchaseType === "buy"}
-            onLabel="Kaufen"
-            offLabel="Mieten"
+            onLabel={t("search.switch.buy")}
+            offLabel={t("search.switch.rent")}
           />
         </View>
       </View>
 
       <View className="mb-64 flex flex-row flex-wrap items-center justify-between px-4">
         <TouchableOpacity
-          className={`h-[150px] w-[30%] items-center justify-end rounded-3xl bg-[#F4F4F4] pb-6 `}
+          className={`h-[150px] w-[30%] items-center justify-center rounded-3xl bg-[#F4F4F4] pt-4`}
           onPress={() => {
             setShowList("houseList");
           }}
@@ -119,11 +122,11 @@ const ObjectType = ({ navigation }: Props) => {
         >
           <HausIcon />
           <Text className="mt-3 text-font-14 font-weight_800 text-black_1">
-            Haus
+            {t("search.button.house")}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          className="h-[150px] w-[30%] items-center justify-end rounded-3xl bg-[#F4F4F4] pb-6"
+          className="h-[150px] w-[30%] items-center justify-center rounded-3xl bg-[#F4F4F4] pt-4"
           onPress={() => {
             setShowList("MFH");
             toggleObjectType("Multi-Family house");
@@ -131,28 +134,26 @@ const ObjectType = ({ navigation }: Props) => {
           style={objectTypes.includes("Multi-Family house") && styleBoxShadow}
         >
           <MFHIcon />
-          <Text className="mt-3 text-font-14 font-weight_800 text-black_1">
-            MFH
+          <Text className="mt-3 flex-1 text-center text-font-14 font-weight_800 text-black_1">
+            {t("search.button.multiHouse")}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          className={`h-[150px] w-[30%] items-center justify-end rounded-3xl bg-[#F4F4F4] pb-6 
-   
-          `}
+          className={`h-[150px] w-[30%] items-center justify-center rounded-3xl bg-[#F4F4F4] pt-4`}
           onPress={() => {
             setShowList("apartementList");
           }}
           style={selectedAtLeastOneOf(apartmentOptions) && styleBoxShadow}
         >
           <WohnungIcon />
-          <Text className="mt-3 text-font-14 font-weight_800 text-black_1">
-            Wohnung
+          <Text className="mt-3 text-center text-font-14 font-weight_800 text-black_1">
+            {t("search.button.apartement")}
           </Text>
         </TouchableOpacity>
       </View>
       <StepProgressButton
         progress={(objectTypes.length && getCountScreen("ObjectType")) || 0}
-        title="Continue"
+        title={t("general.button.continue")}
         onPress={handlePressNext}
         disabled={!objectTypes.length}
         variant="turquoise"
@@ -168,14 +169,14 @@ const ObjectType = ({ navigation }: Props) => {
           <View className="border-b border-color_gray">
             <Text className="py-4 text-center text-font-24 font-weight_400 text-grey opacity-80">
               {showList === "apartementList"
-                ? "Art der Wohnung"
-                : "Residence type"}
+                ? t("search.list.apartementTypes")
+                : t("search.list.houseTypes")}
             </Text>
           </View>
           {(showList === "apartementList"
             ? apartmentOptions
             : houseOptions
-          )?.map((item) => (
+          )?.map((item: IObjectType) => (
             <TouchableOpacity
               key={item}
               className={`flex-row items-center justify-center border-b border-color_gray py-4 ${
@@ -190,14 +191,14 @@ const ObjectType = ({ navigation }: Props) => {
                   isSelected(item) ? "text-white" : "text-blue_1"
                 }`}
               >
-                {item}
+                {getNameObjectType(item)}
               </Text>
             </TouchableOpacity>
           ))}
         </View>
         <Button
           className="mb-9 h-12 w-[143px] self-center rounded-[28px] bg-[#0080FF]"
-          title="Ok"
+          title={t("general.button.OK")}
           onPress={() => {
             hideBottomSheet();
           }}

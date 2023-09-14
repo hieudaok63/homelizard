@@ -5,6 +5,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import MapView, { Circle, Marker, type MapPressEvent } from "react-native-maps";
 import * as LocationExpo from "expo-location";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useTranslation } from "react-i18next";
 
 import SearchIcon from "@assets/icons/SearchIcon.svg";
 
@@ -29,6 +30,7 @@ const ONE_DEGREE_OF_LATITUDE_IN_KM = 111.32;
 
 const Location = ({ navigation }: Props) => {
   const mapRef = React.useRef<MapView>(null);
+  const { t } = useTranslation("search");
   const { location: userLocation, locationLoaded } = useLocation();
 
   // local states
@@ -124,11 +126,11 @@ const Location = ({ navigation }: Props) => {
       <KeyboardAwareScrollView>
         <View className="mb-2 px-8">
           <Text className="text-font-18 font-weight_800 text-black_1">
-            Wir finden für dich
+            {t("search.label.weSearch")}
           </Text>
 
           <Text className="mb-1 mt-2 text-font-14 font-weight_800 text-black_1">
-            Wo suchst du?
+            {t("search.text.whereYouLook")}
           </Text>
         </View>
 
@@ -151,7 +153,7 @@ const Location = ({ navigation }: Props) => {
         </View>
 
         <Text className="mb-1 pl-8 text-font-14 font-weight_800 text-black_1">
-          Umkreis
+          {t("search.label.radius")}
         </Text>
 
         <View className="mb-9 px-4">
@@ -198,7 +200,7 @@ const Location = ({ navigation }: Props) => {
         </View>
       </KeyboardAwareScrollView>
       <StepProgressButton
-        title="Continue"
+        title={t("general.button.continue")}
         progress={getCountScreen("Location")}
         onPress={handlePressNext}
         variant="turquoise"

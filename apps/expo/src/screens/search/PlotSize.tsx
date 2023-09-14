@@ -3,6 +3,7 @@
 import React, { useCallback } from "react";
 import { Text, View } from "react-native";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useTranslation } from "react-i18next";
 
 import {
   HouseMultipleRoom,
@@ -21,6 +22,8 @@ const minValueLand = 0;
 const minimumAcceptedValueLand = 0;
 
 const PlotSize = ({ navigation }: Props) => {
+  const { t } = useTranslation("search");
+
   // zustand
   const plotSize = useSearchWizardStore((state) => state?.plotSize);
   const setPlotSize = useSearchWizardStore((state) => state?.setPlotSize);
@@ -42,15 +45,15 @@ const PlotSize = ({ navigation }: Props) => {
       <View>
         <View className="mb-4 px-8">
           <Text className="text-font-18 font-weight_800 text-black_1">
-            Wir finden für dich
+            {t("search.label.weSearch")}
           </Text>
 
           <View className="mt-5">
             <Text className="mb-1 text-font-14 font-weight_800 text-black_1">
-              Grundstücksfläche
+              {t("search.label.landArea")}
             </Text>
             <Text className="text-font-12 font-weight_300 text-black_1 opacity-60">
-              Wieviel qm Grundstücksfläche benötigst du?
+              {t("search.text.landAreaSize")}
             </Text>
           </View>
         </View>
@@ -83,7 +86,7 @@ const PlotSize = ({ navigation }: Props) => {
       </View>
 
       <StepProgressButton
-        title="Continue"
+        title={t("general.button.continue")}
         progress={getCountScreen("PlotSize")}
         onPress={handlePressNext}
         variant="turquoise"

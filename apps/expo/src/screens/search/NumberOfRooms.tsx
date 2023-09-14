@@ -3,6 +3,7 @@
 import React, { useCallback } from "react";
 import { Text, View } from "react-native";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useTranslation } from "react-i18next";
 
 import {
   HouseMultipleRoom,
@@ -24,7 +25,7 @@ const NumberOfRooms = ({ navigation }: Props) => {
   const numberOfRoom = useSearchWizardStore((state) => state?.numberOfRooms);
   const livingArea = useSearchWizardStore((state) => state?.livingArea);
   const plotSize = useSearchWizardStore((state) => state?.plotSize);
-
+  const { t } = useTranslation("search");
   const setNumberOfRoom = useSearchWizardStore(
     (state) => state?.setNumberOfRooms,
   );
@@ -46,15 +47,15 @@ const NumberOfRooms = ({ navigation }: Props) => {
       <View>
         <View className="mb-4 px-8">
           <Text className="text-font-18 font-weight_800 text-black_1">
-            Wir finden für dich
+            {t("search.label.weSearch")}
           </Text>
 
           <View className="mt-5">
             <Text className="mb-1 text-font-14 font-weight_800 text-black_1">
-              Anzahl Räume
+              {t("search.label.numberOfRoom")}
             </Text>
             <Text className="text-font-12 font-weight_300 text-black_1 opacity-60">
-              Wieviel Räume sollten es sein?
+              {t("search.text.numberOfRoom")}
             </Text>
           </View>
         </View>
@@ -83,14 +84,14 @@ const NumberOfRooms = ({ navigation }: Props) => {
           plotSize={plotSize}
           value={
             numberOfRoom === maxValueRoomNum
-              ? `${numberOfRoom}+ Räume`
-              : `${numberOfRoom} Räume`
+              ? `${numberOfRoom}+ ${t("search.text.number")}`
+              : `${numberOfRoom} ${t("search.text.number")}`
           }
         />
       </View>
 
       <StepProgressButton
-        title="Continue"
+        title={t("general.button.continue")}
         progress={getCountScreen("NumberOfRooms")}
         onPress={handlePressNext}
         variant="turquoise"

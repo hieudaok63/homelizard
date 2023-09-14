@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { useAssets, type Asset } from "expo-asset";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useTranslation } from "react-i18next";
 
 import { RangePicker, StepProgressButton } from "~/components/ui";
 import { getCountScreen } from "~/utils";
@@ -28,6 +29,7 @@ const minValueYOC = 1950;
 const maxValueYOC = new Date()?.getFullYear();
 
 const YearOfConstruction = ({ navigation }: Props) => {
+  const { t } = useTranslation("search");
   // image
   const [House] = useAssets([
     require("../../../assets/ImageHouse/House.png"),
@@ -100,15 +102,15 @@ const YearOfConstruction = ({ navigation }: Props) => {
       <View>
         <View className="mb-4 px-8">
           <Text className="text-font-18 font-weight_800 text-black_1">
-            Wir finden für dich
+            {t("search.label.weSearch")}
           </Text>
 
           <View className="mt-5">
             <Text className="mb-1 text-font-14 font-weight_800 text-black_1">
-              Baujahr
+              {t("search.label.yearOfConstruction")}
             </Text>
             <Text className="text-font-12 font-weight_300 text-black_1 opacity-60">
-              Welches Baujahr soll deine Immobilie haben?
+              {t("search.text.yearOfConstruction")}
             </Text>
           </View>
         </View>
@@ -175,7 +177,7 @@ const YearOfConstruction = ({ navigation }: Props) => {
       </View>
 
       <StepProgressButton
-        title="Continue"
+        title={t("general.button.continue")}
         progress={getCountScreen("YearOfConstruction")}
         onPress={handlePressNext}
         variant="turquoise"

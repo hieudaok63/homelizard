@@ -6,6 +6,7 @@ import DateTimePicker, {
 } from "@react-native-community/datetimepicker";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 import dayjs from "dayjs";
+import { useTranslation } from "react-i18next";
 
 import { generateBoxShadowStyle } from "~/utils/helpers";
 import { StepProgressButton } from "~/components/ui";
@@ -19,6 +20,7 @@ export const styleBoxShadow = generateBoxShadowStyle("shadowDate");
 type Props = NativeStackScreenProps<RootStackParams, "Availability">;
 
 const Availability = ({ navigation }: Props) => {
+  const { t } = useTranslation("search");
   // zustand
   const availabilityDate_zutand = useSearchWizardStore(
     (state) => state?.availabilityDate,
@@ -54,15 +56,15 @@ const Availability = ({ navigation }: Props) => {
       <View>
         <View className="mb-4 px-8">
           <Text className="text-font-18 font-weight_800 text-black_1">
-            Wir finden für dich
+            {t("search.label.weSearch")}
           </Text>
 
           <View className="mt-5">
             <Text className="mb-1 text-font-14 font-weight_800 text-black_1">
-              Verfügbarkeit
+              {t("search.label.availability")}
             </Text>
             <Text className="text-font-12 font-weight_300 text-black_1 opacity-60">
-              Wann sollte die Immobilie verfügbar sein?
+              {t("search.text.availability")}
             </Text>
           </View>
         </View>
@@ -89,7 +91,7 @@ const Availability = ({ navigation }: Props) => {
       </View>
 
       <StepProgressButton
-        title="Continue"
+        title={t("general.button.continue")}
         progress={getCountScreen("Availability")}
         onPress={handlePressNext}
         variant="turquoise"

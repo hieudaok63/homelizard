@@ -1,12 +1,13 @@
-import { useAuth } from "@clerk/clerk-expo";
-import { type NativeStackScreenProps } from "@react-navigation/native-stack";
-import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import Toast from "react-native-toast-message";
+import { useAuth } from "@clerk/clerk-expo";
+import { type NativeStackScreenProps } from "@react-navigation/native-stack";
+import dayjs from "dayjs";
+import { useTranslation } from "react-i18next";
 
-import { AnimatedHouse } from "~/components/ui";
 import { api } from "~/utils/api";
+import { AnimatedHouse } from "~/components/ui";
 import {
   useApplicationLoadingStore,
   useSearchWizardStore,
@@ -20,6 +21,7 @@ type Props = NativeStackScreenProps<RootStackParams, "Results">;
 
 const Results = ({ navigation }: Props) => {
   const { isSignedIn } = useAuth();
+  const { t } = useTranslation("search");
   const [loadingHouse, setLoadingHouse] = useState(true);
   // trpc
   const trpc = api.useContext();
@@ -52,56 +54,56 @@ const Results = ({ navigation }: Props) => {
         navigation.navigate("AppStack", { screen: "Profile" });
         Toast.show({
           type: "success",
-          text1: "Created new search profile!",
+          text1: t("search.text.createSearchSuccess"),
         });
       } else {
         navigation.navigate("LoginSocial", { screen: "RegisterEmailPassword" });
       }
     }
   }, [loadingHouse, searchProfileMutation.isLoading]);
-  
+
   useEffect(() => {
     if (isSignedIn) {
-    setLoading(true);
-
-    searchProfileMutation.mutate(
-      {
-        objectTypes: searchWizardData.objectTypes,
-        livingAreaSize: searchWizardData?.livingArea,
-        roomAmount: searchWizardData?.numberOfRooms,
-        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-        latitude: (searchWizardData?.location)!.latitude,
-        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-        longitude: (searchWizardData?.location)!.longitude,
-        radius: searchWizardData?.radius,
-        plotSize: searchWizardData?.plotSize,
-        // TODO: check why dayjs is needed here
-        availability: dayjs(searchWizardData.availabilityDate).toDate(),
-        purchaseType: searchWizardData?.purchaseType,
-        minPrice: 1, // hard code for now
-        maxPrice: searchWizardData?.maxPrice,
-        // hidden for now - WD-138
-        // objectStyles: searchWizardData.objectStyles,
-        // hidden for now - WD-158
-        // startYearOfConstruction: searchWizardData?.yearOfConstructionStart,
-        // endYearOfConstruction: searchWizardData?.yearOfConstructionEnd,
-      },
-      {
-        async onSuccess() {
-          setLoading(false);
-          resetSearchWizard();
-          await trpc.search.invalidate();
+      setLoading(true);
+      searchProfileMutation.mutate(
+        {
+          objectTypes: searchWizardData.objectTypes,
+          livingAreaSize: searchWizardData?.livingArea,
+          roomAmount: searchWizardData?.numberOfRooms,
+          // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+          latitude: (searchWizardData?.location)!.latitude,
+          // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+          longitude: (searchWizardData?.location)!.longitude,
+          radius: searchWizardData?.radius,
+          plotSize: searchWizardData?.plotSize,
+          // TODO: check why dayjs is needed here
+          availability: dayjs(searchWizardData.availabilityDate).toDate(),
+          purchaseType: searchWizardData?.purchaseType,
+          minPrice: 1, // hard code for now
+          maxPrice: searchWizardData?.maxPrice,
+          // hidden for now - WD-138
+          // objectStyles: searchWizardData.objectStyles,
+          // hidden for now - WD-158
+          // startYearOfConstruction: searchWizardData?.yearOfConstructionStart,
+          // endYearOfConstruction: searchWizardData?.yearOfConstructionEnd,
         },
-        onError(error) {
-          setLoading(false);
-          Toast.show({
-            type: "error",
-            text1:
-              error?.data?.zodError?.formErrors?.[0] || "Something went wrong!",
-          });
+        {
+          async onSuccess() {
+            setLoading(false);
+            resetSearchWizard();
+            await trpc.search.invalidate();
+          },
+          onError(error) {
+            setLoading(false);
+            Toast.show({
+              type: "error",
+              text1:
+                error?.data?.zodError?.formErrors?.[0] ||
+                "Something went wrong!",
+            });
+          },
         },
-      },
-    );
+      );
     }
   }, []);
 
@@ -110,18 +112,23 @@ const Results = ({ navigation }: Props) => {
     <SearchLayout>
       <View className="mb-4 h-5/6 items-center px-8 pt-8">
         <Text className="mb-6 text-center text-font-18 font-weight_800 text-black_1">
-          Wir finden für dich
+          {t("search.label.weSearch")}
         </Text>
 
         <Text className="mb-2 text-font-14 font-weight_800 text-black_1">
-          Wir konnten bereits {resultNumberFound[currentIndex]} Objekte finden
+          {t("search.text.results").replace(
+            "COUNT",
+            resultNumberFound[currentIndex]?.toString() || "",
+          )}
         </Text>
-        <AnimatedHouse
-          numberOfRoom={searchWizardData.numberOfRooms}
-          livingArea={searchWizardData.livingArea}
-          plotSize={searchWizardData.plotSize}
-          onSuccess={() => setLoadingHouse(false)}
-        />
+        <View className="flex-1 items-center justify-center">
+          <AnimatedHouse
+            numberOfRoom={searchWizardData.numberOfRooms}
+            livingArea={searchWizardData.livingArea}
+            plotSize={searchWizardData.plotSize}
+            onSuccess={() => setLoadingHouse(false)}
+          />
+        </View>
       </View>
     </SearchLayout>
   );
