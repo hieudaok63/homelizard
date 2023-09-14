@@ -1,6 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import dayjs from "dayjs";
+import { t } from "i18next";
 import { z } from "zod";
 
 import {
@@ -61,8 +62,8 @@ export const ItemSearchProfile = ({ item }: { item: SearchProfileItem }) => {
       <InputMultiSelect
         data={listObjectTypes}
         value={watch("objectTypes")}
-        placeholder="Noch nicht verfügbar"
-        label="Objekttyp"
+        placeholder={t("profile:search.objectTypes.placeholder")}
+        label={t("profile:search.objectTypes.title")}
         onSelected={(values) => {
           setValue("objectTypes", values);
         }}
@@ -70,50 +71,50 @@ export const ItemSearchProfile = ({ item }: { item: SearchProfileItem }) => {
       <TextInputController
         name="radius"
         control={control}
-        placeholder="Noch nicht verfügbar"
-        label="Ort, Umkreis (km)"
+        placeholder={t("profile:search.objectTypes.placeholder")}
+        label={t("profile:search.radius")}
         variant="inline"
       />
       <TextInputController
         name="plotSize"
         control={control}
-        placeholder="Noch nicht verfügbar"
-        label="Grundstück (m²)"
+        placeholder={t("profile:search.objectTypes.placeholder")}
+        label={t("profile:search.plotSize")}
         variant="inline"
       />
       <TextInputController
         name="livingAreaSize"
         control={control}
-        placeholder="Noch nicht verfügbar"
-        label="Wohnfläche (m²)"
+        placeholder={t("profile:search.objectTypes.placeholder")}
+        label={t("profile:search.livingAreaSize")}
         variant="inline"
       />
       <TextInputController
         name="roomAmount"
         control={control}
-        placeholder="Noch nicht verfügbar"
-        label="Zimmer"
+        placeholder={t("profile:search.objectTypes.placeholder")}
+        label={t("profile:search.roomAmount")}
         variant="inline"
       />
       {/* <TextInputController
         name="objectStyle"
         control={control}
-        placeholder="Noch nicht verfügbar"
-        label="Stil"
+        placeholder={t("profile:search.objectTypes.placeholder")}
+        label={t("profile:search.objectStyle")}
         variant="inline"
       />
       <TextInputController
         name="yearOfConstruction"
         control={control}
-        placeholder="Noch nicht verfügbar"
-        label="Baujahr"
+        placeholder={t("profile:search.objectTypes.placeholder")}
+        label={t("profile:search.yearOfConstruction")}
         variant="inline"
       /> */}
       <TextInputController
         name="availability"
         control={control}
-        placeholder="Noch nicht verfügbar"
-        label="Verfügbarkeit"
+        placeholder={t("profile:search.objectTypes.placeholder")}
+        label={t("profile:search.availability")}
         variant="inline"
       />
     </View>

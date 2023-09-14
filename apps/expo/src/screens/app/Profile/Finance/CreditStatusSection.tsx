@@ -1,6 +1,7 @@
 import React from "react";
 import { type StyleProp, type ViewStyle } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { t } from "i18next";
 import { z } from "zod";
 
 import { ProfileSectionAccordion } from "~/components/ui/Profile";
@@ -24,7 +25,7 @@ export const CreditStatusSection = ({
 
   return (
     <ProfileSectionAccordion
-      title="Zusagen"
+      title={t("profile:finance.zusagen.title")}
       variant="blue"
       progress={41}
       style={style}
@@ -33,15 +34,19 @@ export const CreditStatusSection = ({
         <TextInputController
           name="test"
           control={control}
-          placeholder="Noch nicht verfügbar"
-          label="Bonität"
+          placeholder={t(
+            "profile:finance.zusagen.creditworthiness.description",
+          )}
+          label={t("profile:finance.zusagen.creditworthiness.title")}
           variant="inline"
         />
         <TextInputController
           name="test"
           control={control}
-          placeholder="Noch nicht verfügbar"
-          label="Bonität"
+          placeholder={t(
+            "profile:finance.zusagen.creditworthiness.description",
+          )}
+          label={t("profile:finance.zusagen.creditworthiness.title")}
           variant="inline"
         />
       </KeyboardAwareScrollView>

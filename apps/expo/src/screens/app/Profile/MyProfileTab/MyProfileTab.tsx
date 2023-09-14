@@ -1,6 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { Tabs } from "react-native-collapsible-tab-view";
+import { t } from "i18next";
 
 import LoveIcon from "@assets/icons/LoveIcon.svg";
 import PeopleIcon from "@assets/icons/PeopleIcon.svg";
@@ -16,8 +17,8 @@ export const MyProfileTab = () => {
       <View className="flex-column gap-y-2 px-6 py-4">
         {/* Personal Detail */}
         <ButtonActionMain
-          title="Persönliche Daten"
-          description="Address,etc..."
+          title={t("profile:personalData")}
+          description={t("profile:desPersonalData")}
           onPress={() => navigation.navigate("ListBasicSection")}
           IconLeftProps={<PeopleIcon />}
           progress={10}
@@ -27,8 +28,8 @@ export const MyProfileTab = () => {
 
         {/* Finanzen */}
         <ButtonActionMain
-          title="Finanzen"
-          description="Finanzierung, Bank etc..."
+          title={t("profile:finance.title")}
+          description={t("profile:finance.description")}
           onPress={() => navigation.navigate("ListFinanceSection")}
           progress={10}
           isButton
@@ -37,8 +38,8 @@ export const MyProfileTab = () => {
 
         {/* Search History  */}
         <ButtonActionMain
-          title="Suchen"
-          description="Suchen und Filter"
+          title={t("profile:search.title")}
+          description={t("profile:search.description")}
           onPress={() => navigation.navigate("ListSearchHistorySection")}
           progress={30}
           isButton
@@ -46,8 +47,8 @@ export const MyProfileTab = () => {
         />
 
         <ButtonActionMain
-          title="Objekte"
-          description="Such-Ergebnisse"
+          title={t("profile:object")}
+          description={t("profile:desObject")}
           onPress={() => navigation.navigate("ListFavoriteSection")}
           IconLeftProps={<LoveIcon />}
           progress={30}

@@ -2,6 +2,7 @@ import React from "react";
 import { TouchableOpacity, View } from "react-native";
 import { Tabs, type TabItemProps } from "react-native-collapsible-tab-view";
 import Animated from "react-native-reanimated";
+import { t } from "i18next";
 
 import DotIcon from "@assets/icons/DotIcon.svg";
 import EditIcon from "@assets/icons/EditIcon.svg";
@@ -84,14 +85,14 @@ const ProfileScreenHeader = () => {
       >
         <View pointerEvents="box-none">
           <View pointerEvents="none">
-            <AppText text={`Hello, ${userData?.lastName || ""}`} large />
+            <AppText
+              text={`${t("profile:hello")} ${userData?.lastName || ""}`}
+              large
+            />
           </View>
           <TouchableOpacity>
             <View className="mt-[0px] flex flex-row items-center">
-              <AppText
-                text="Teile uns etwas über dich mit..."
-                numberOfLines={1}
-              />
+              <AppText text={t("profile:somethingAbout")} numberOfLines={1} />
               <EditIcon />
             </View>
           </TouchableOpacity>

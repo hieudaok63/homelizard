@@ -1,13 +1,15 @@
-import { type NativeStackScreenProps } from "@react-navigation/native-stack";
-import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Toast from "react-native-toast-message";
+import { type NativeStackScreenProps } from "@react-navigation/native-stack";
+import dayjs from "dayjs";
+import { t } from "i18next";
 import { z } from "zod";
 
 import { genderSchema } from "@homelizard/schema";
 
+import { api } from "~/utils/api";
 import { TriggerDatePicker } from "~/components/DatePicker/TriggerDatePicker";
 import { ModalSelectGender } from "~/components/Profile/Modal";
 import { Button, SpeechBubbleIcon } from "~/components/ui";
@@ -16,7 +18,6 @@ import { HeaderForm, LayoutForm } from "~/components/ui/Profile";
 import InputSelectGender from "~/components/ui/input/InputSelectGender";
 import TextInputController from "~/components/ui/input/TextInputController";
 import { useZodForm } from "~/hooks/useZodForm";
-import { api } from "~/utils/api";
 import { useApplicationLoadingStore } from "~/zustand/store";
 import { type TabStackParams } from "../../routes";
 import { LayoutBasicInfo } from "./_layout";
@@ -113,49 +114,51 @@ export const BasicInfoSection = ({ navigation }: IProps) => {
             <KeyboardAwareScrollView>
               <HeaderForm
                 iconLeft={<SpeechBubbleIcon color="yellow" />}
-                title="Basisdaten"
+                title={t("profile:contactDetails.basicData.title")}
                 progress={100}
                 variant="yellow"
               />
               <TextInputController
                 name="title"
                 control={control}
-                placeholder="Add title"
+                placeholder={t("profile:contactDetails.basicData.addTitle")}
                 variant="inline"
-                label="Title"
+                label={t("profile:contactDetails.basicData.Title")}
               />
               <TextInputController
                 name="first_name"
                 control={control}
-                placeholder="Add First name"
+                placeholder={t("profile:contactDetails.basicData.addFirstName")}
                 variant="inline"
-                label="First name"
+                label={t("profile:contactDetails.basicData.firstName")}
               />
               <TextInputController
                 name="middle_name"
                 control={control}
-                placeholder="Add Middle name"
+                placeholder={t(
+                  "profile:contactDetails.basicData.addMiddleName",
+                )}
                 variant="inline"
-                label="Middle Name"
+                label={t("profile:contactDetails.basicData.middleName")}
               />
               <TextInputController
                 name="last_name"
                 control={control}
-                placeholder="Add Last name"
+                placeholder={t("profile:contactDetails.basicData.addLastName")}
                 variant="inline"
-                label="Last name"
+                label={t("profile:contactDetails.basicData.lastName")}
               />
               <TextInputController
                 name="suffix"
                 control={control}
-                placeholder="Add Suffix"
+                placeholder={t("profile:contactDetails.basicData.addSuffix")}
                 variant="inline"
-                label="Suffix"
+                label={t("profile:contactDetails.basicData.suffix")}
               />
               <InputSelectGender
                 control={control}
                 name="gender"
-                placeholder="Gender"
+                placeholder={t("profile:contactDetails.basicData.gender")}
                 onPressGender={() => setShowModalGender(true)}
               />
               <TriggerDatePicker
@@ -171,7 +174,7 @@ export const BasicInfoSection = ({ navigation }: IProps) => {
               >
                 <View className="flex w-full flex-row border-b border-color_gray px-4 py-4">
                   <AppText
-                    text="Birthday"
+                    text={t("profile:contactDetails.basicData.birthday")}
                     className="w-4/12 text-font-16 text-grey"
                   />
                   <AppText
@@ -183,7 +186,7 @@ export const BasicInfoSection = ({ navigation }: IProps) => {
 
               <View className="mt-4 w-full px-4 pb-2">
                 <Button
-                  title="Save"
+                  title={t("profile:save")}
                   className="rounded-full"
                   onPress={onSubmit}
                 />

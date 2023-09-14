@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Toast from "react-native-toast-message";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
+import { t } from "i18next";
 import { z } from "zod";
 
 import { api } from "~/utils/api";
@@ -44,7 +45,7 @@ export const EmailAndWebSection = ({ navigation }: IProps) => {
       Toast?.show({
         type: "success",
         text1: "Success",
-        text2: "Email and Website saved!",
+        text2: t("profile:contactDetails.emailWeb.saveEmailAndWeb"),
       });
       navigation.goBack();
       setLoading(false);
@@ -86,27 +87,27 @@ export const EmailAndWebSection = ({ navigation }: IProps) => {
           <KeyboardAwareScrollView>
             <HeaderForm
               iconLeft={<SpeechBubbleIcon color="yellow" />}
-              title="Email & web"
+              title={t("profile:contactDetails.emailWeb.title")}
               progress={100}
               variant="yellow"
             />
             <TextInputController
               name="email"
               control={control}
-              placeholder="Add Email"
+              placeholder={t("profile:contactDetails.emailWeb.addEmail")}
               variant="inline"
-              label="Email"
+              label={t("profile:contactDetails.emailWeb.email")}
             />
             <TextInputController
               name="website"
               control={control}
-              placeholder="Add Web"
+              placeholder={t("profile:contactDetails.emailWeb.addWeb")}
               variant="inline"
-              label="Web"
+              label={t("profile:contactDetails.emailWeb.web")}
             />
 
             <Button
-              title="Save"
+              title={t("profile:save")}
               className="mx-4 mt-2 rounded-full"
               onPress={onSubmit}
             />

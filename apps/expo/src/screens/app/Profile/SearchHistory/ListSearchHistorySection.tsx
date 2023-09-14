@@ -1,5 +1,6 @@
 import React from "react";
 import { FlatList, View, type ListRenderItem } from "react-native";
+import { t } from "i18next";
 
 import { api, type RouterOutputs } from "~/utils/api";
 import { BottomNavBarPadding } from "~/components/navigation/NavBar";
@@ -38,7 +39,7 @@ export const ListSearchHistorySection = () => {
     return (
       <LayoutSearchHistory>
         <View className="mt-3">
-          <AppText text="Loading..." className="w-full text-center" />
+          <AppText text={t("profile:loading")} className="w-full text-center" />
         </View>
       </LayoutSearchHistory>
     );
@@ -56,7 +57,10 @@ export const ListSearchHistorySection = () => {
             ListFooterComponent={<BottomNavBarPadding />}
           />
         ) : (
-          <AppText text="Nothing here yet." className="w-full text-center" />
+          <AppText
+            text={t("profile:nothingHere")}
+            className="w-full text-center"
+          />
         )}
       </View>
     </LayoutSearchHistory>

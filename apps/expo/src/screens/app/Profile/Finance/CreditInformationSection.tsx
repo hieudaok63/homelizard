@@ -1,6 +1,7 @@
 import React, { type Dispatch, type SetStateAction } from "react";
 import { type StyleProp, type ViewStyle } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { t } from "i18next";
 import { z } from "zod";
 
 import PropertyIcon from "@assets/icons/PropertyIcon.svg";
@@ -34,7 +35,7 @@ export const CreditInformationSection = ({
 
   return (
     <ProfileSectionAccordion
-      title="Bonität"
+      title={t("profile:finance.zusagen.creditworthiness.title")}
       variant="blue"
       progress={41}
       style={style}
@@ -43,56 +44,72 @@ export const CreditInformationSection = ({
         <TextInputController
           name="test"
           control={control}
-          placeholder="Noch nicht verfügbar"
-          label="Bonität"
+          placeholder={t(
+            "profile:finance.zusagen.creditworthiness.description",
+          )}
+          label={t("profile:finance.zusagen.creditworthiness.title")}
           variant="inline"
         />
         <ButtonProfile
           onPress={() => {}}
           variant="blue"
           progress={25}
-          title="Bonitätsangaben"
-          description="Zahlungsverhalten"
+          title={t(
+            "profile:finance.zusagen.creditworthiness.creditInformation",
+          )}
+          description={t(
+            "profile:finance.zusagen.creditworthiness.paymentHistory",
+          )}
           IconLeftProps
         />
         <ButtonProfile
           onPress={() => {}}
           variant="blue"
           progress={20}
-          title="Wohnorte"
-          description="Bisherige Wohnorte"
+          title={t("profile:finance.zusagen.creditworthiness.placeOfResidence")}
+          description={t(
+            "profile:finance.zusagen.creditworthiness.bisherigeWohnorte",
+          )}
           IconLeftProps
         />
         <ButtonProfile
           onPress={() => {}}
           variant="blue"
           progress={20}
-          title="Familienstand"
-          description="Ehegatten, Kinder, etc..."
+          title={t("profile:finance.zusagen.creditworthiness.maritalStatus")}
+          description={t(
+            "profile:finance.zusagen.creditworthiness.desMaritalStatus",
+          )}
           IconLeftProps
         />
         <ButtonProfile
           onPress={() => {}}
           variant="blue"
           progress={20}
-          title="Laufende Kredite"
-          description="Höhe und Zwecke"
+          title={t("profile:finance.zusagen.creditworthiness.currentLoans")}
+          description={t(
+            "profile:finance.zusagen.creditworthiness.desCurrentLoans",
+          )}
           IconLeftProps
         />
         <ButtonProfile
           onPress={() => {}}
           variant="blue"
           progress={20}
-          title="Eigentum"
-          description="Besitzt du bereits Immobilien?"
+          title={t("profile:finance.zusagen.creditworthiness.desInvestments")}
+          description={t(
+            "profile:finance.zusagen.creditworthiness.desInvestments",
+          )}
           IconLeftProps={<PropertyIcon />}
         />
         <ButtonProfile
           onPress={() => {}}
           variant="blue"
           progress={20}
-          title="Investments"
-          description="Unternehmensbeteiligungen"
+          title={t("profile:finance.zusagen.creditworthiness.investments")}
+          description={t(
+            "profile:finance.zusagen.creditworthiness.desInvestments",
+          )}
           IconLeftProps
           isLastItem
         />

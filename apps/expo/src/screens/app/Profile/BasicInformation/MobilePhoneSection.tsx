@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { TouchableOpacity, View } from "react-native";
 import Toast from "react-native-toast-message";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
+import { t } from "i18next";
 import { z } from "zod";
 
 import { MOBILE_PHONE_REGEX } from "@homelizard/api/src/constant/base.constant";
@@ -82,7 +83,7 @@ export const MobilePhoneSection = ({ navigation }: IProps) => {
         <View className="mt-5 min-h-[50%] rounded-3xl bg-white pb-8">
           <HeaderForm
             iconLeft={<SpeechBubbleIcon color="yellow" />}
-            title="Mobile phone"
+            title={t("profile:contactDetails.mobilePhone.title")}
             progress={100}
             variant="yellow"
           />
@@ -93,7 +94,10 @@ export const MobilePhoneSection = ({ navigation }: IProps) => {
             </TouchableOpacity>
 
             <TouchableOpacity className="flex flex-row items-center">
-              <AppText text="Mobile" className="text-font-16 text-blue_2" />
+              <AppText
+                text={t("profile:contactDetails.mobilePhone.mobile")}
+                className="text-font-16 text-blue_2"
+              />
               <ArrowUpIcon
                 width={25}
                 height={25}
@@ -106,13 +110,13 @@ export const MobilePhoneSection = ({ navigation }: IProps) => {
             name="phone"
             control={control}
             keyboardType="number-pad"
-            placeholder="Add a number"
+            placeholder={t("profile:contactDetails.mobilePhone.addANumber")}
             // variant="inline"
-            label="Phone number"
+            label={t("profile:contactDetails.mobilePhone.phoneNumber")}
           />
 
           <Button
-            title="Save"
+            title={t("profile:save")}
             onPress={onSubmit}
             className="mx-4 rounded-full"
           />

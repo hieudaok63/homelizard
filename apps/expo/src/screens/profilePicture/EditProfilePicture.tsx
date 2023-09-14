@@ -46,7 +46,7 @@ export const EditProfilePicture = ({ navigation }: IProps) => {
 
         <View className="flex-row items-center">
           <TouchableOpacity onPress={showSkipModal}>
-            <Text className="text-font-16 text-black_xtra font-weight_400">
+            <Text className="text-font-16 font-weight_400 text-black_xtra">
               SKIP
             </Text>
           </TouchableOpacity>
@@ -57,10 +57,10 @@ export const EditProfilePicture = ({ navigation }: IProps) => {
       </View>
 
       <View className="mt-14 px-14">
-        <Text className="font-weight_400 text-font-45 text-black_xtra mb-6 opacity-80">
+        <Text className="mb-6 text-font-45 font-weight_400 text-black_xtra opacity-80">
           Your profile picture
         </Text>
-        <Text className="font-weight_400 text-font-17 text-black_xtra  opacity-80">
+        <Text className="text-font-17 font-weight_400 text-black_xtra  opacity-80">
           This will make it easier for your friends, family or co-workers to
           find you
         </Text>
@@ -83,27 +83,27 @@ export const EditProfilePicture = ({ navigation }: IProps) => {
         top="30%"
       >
         <View className="p-4">
-          <Text className="font-nunito-italic font-weight_200 text-font-17 mb-1 text-center">
+          <Text className="mb-1 text-center font-nunito-italic text-font-17 font-weight_200">
             Skip this step
           </Text>
-          <Text className="text-black_extra font-weight_400 text-font-13">
+          <Text className="text-black_extra text-font-13 font-weight_400">
             Would you like to jump directly to the homepage? Yo can always
             continue the personalization from your profile.
           </Text>
         </View>
         <TouchableOpacity
           onPress={handleSkip}
-          className="border-color_gray w-full flex-row items-center justify-center border-t"
+          className="w-full flex-row items-center justify-center border-t border-color_gray"
         >
-          <Text className="font-weight_200 text-blue_2 text-font-17 py-2.5 italic">
+          <Text className="py-2.5 text-font-17 font-weight_200 italic text-blue_2">
             Skip
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={hideSkipModal}
-          className="border-color_gray w-full flex-row items-center justify-center border-t pb-1"
+          className="w-full flex-row items-center justify-center border-t border-color_gray pb-1"
         >
-          <Text className="font-weight_400 text-blue_2 text-font-17 py-2.5">
+          <Text className="py-2.5 text-font-17 font-weight_400 text-blue_2">
             Continue personalizing
           </Text>
         </TouchableOpacity>

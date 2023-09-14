@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, View } from "react-native";
+import { t } from "i18next";
 
 import { type ColorGradientVariant } from "~/utils/colorGradients";
 import { StepProgress, type Percentage } from "~/components/ui";
@@ -25,7 +26,7 @@ export const HeaderForm = ({
         <AppText text={title} className="pt-2 text-font-24" />
         <View className="mb-2 flex w-3/5 flex-row items-center">
           <View className="mr-2 rounded-full bg-text_yellow">
-            <Text className="p-1 font-weight_500">Private</Text>
+            <Text className="p-1 font-weight_500">{t("profile:private")}</Text>
           </View>
           <AppText text="Filled" className="mr-1 font-weight_700 text-grey" />
           <AppText text={`${progress}%`} className="text-blue_1" />

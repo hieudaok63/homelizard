@@ -3,6 +3,7 @@ import { TouchableOpacity, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Toast from "react-native-toast-message";
 import dayjs from "dayjs";
+import { t } from "i18next";
 import { z } from "zod";
 
 import { MOBILE_PHONE_REGEX } from "@homelizard/api/src/constant/base.constant";
@@ -95,10 +96,10 @@ export const PlaceOfWorkSection = () => {
         email: data?.email_company,
         web: data?.web_company,
         address: {
-          street: addressParam.street,
-          city: addressParam.city,
-          zipCode: addressParam.city,
-          country: addressParam.country,
+          street: addressParam.street || "",
+          city: addressParam.city || "",
+          zipCode: addressParam.city || "",
+          country: addressParam.country || "",
         },
       });
     } catch (error) {
@@ -114,23 +115,25 @@ export const PlaceOfWorkSection = () => {
             <KeyboardAwareScrollView>
               <HeaderForm
                 iconLeft={<SpeechBubbleIcon color="yellow" />}
-                title="Place of work"
+                title={t("profile:contactDetails.workplace.placeOfWork")}
                 progress={50}
                 variant="yellow"
               />
               <TextInputController
                 name="position"
                 control={control}
-                placeholder="Enter position"
+                placeholder={t(
+                  "profile:contactDetails.workplace.enterPosition",
+                )}
                 variant="inline"
-                label="Position"
+                label={t("profile:contactDetails.workplace.position")}
               />
               <TextInputController
                 name="company"
                 control={control}
-                placeholder="Enter name"
+                placeholder={t("profile:contactDetails.workplace.enterName")}
                 variant="inline"
-                label="Company"
+                label={t("profile:contactDetails.workplace.company")}
               />
 
               <TriggerDatePicker
@@ -146,7 +149,7 @@ export const PlaceOfWorkSection = () => {
               >
                 <View className="flex w-full flex-row items-center py-4 pl-4 pr-2">
                   <AppText
-                    text="Company since"
+                    text={t("profile:contactDetails.workplace.companySince")}
                     className="w-4/12 text-font-16 text-grey"
                   />
                   <View className="flex flex-1 flex-row justify-center border-b border-color_gray pb-2">
@@ -160,22 +163,28 @@ export const PlaceOfWorkSection = () => {
               <TextInputController
                 control={control}
                 name="phone_company"
-                placeholder="Enter company phone"
-                label="Phone"
+                placeholder={t(
+                  "profile:contactDetails.workplace.enterCompanyPhone",
+                )}
+                label={t("profile:contactDetails.workplace.phone")}
                 variant="inline"
                 keyboardType="number-pad"
               />
               <TextInputController
                 control={control}
                 name="email_company"
-                placeholder="Enter your work email"
+                placeholder={t(
+                  "profile:contactDetails.workplace.enterWorkEmail",
+                )}
                 variant="inline"
-                label="Email"
+                label={t("profile:contactDetails.emailWeb.email")}
               />
               <TextInputController
                 control={control}
-                placeholder="Company website"
-                label="Web"
+                placeholder={t(
+                  "profile:contactDetails.workplace.companyWebsite",
+                )}
+                label={t("profile:contactDetails.emailWeb.web")}
                 variant="inline"
                 name="web_company"
               />
@@ -187,8 +196,10 @@ export const PlaceOfWorkSection = () => {
                   <TextInputController
                     name="company_address"
                     control={control}
-                    placeholder="Search location"
-                    label="Company address"
+                    placeholder={t(
+                      "profile:contactDetails.workplace.searchLocation",
+                    )}
+                    label={t("profile:contactDetails.workplace.companyAddress")}
                     variant="inline"
                     multiline
                   />
@@ -197,7 +208,7 @@ export const PlaceOfWorkSection = () => {
               </TouchableOpacity>
               <View className="px-4 py-4">
                 <Button
-                  title="Update"
+                  title={t("profile:update")}
                   className="rounded-full"
                   onPress={onSubmit}
                 />

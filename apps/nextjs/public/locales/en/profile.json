@@ -1,3 +1,143 @@
 {
-  "title": "Profile"
+  "title": "Profile",
+  "hello": "Hello,",
+  "somethingAbout": "Teile uns etwas über dich mit...",
+  "personalData": "Persönliche Daten",
+  "desPersonalData": "Address,etc...",
+  "loading": "Loading...",
+  "nothingHere": "Nothing here yet.",
+  "object": "Objekte",
+  "desObject": "Such-Ergebnisse",
+  "private": "Private",
+  "contactDetails": {
+    "title": "Kontaktdaten",
+    "basicData": {
+      "title": "Basisdaten",
+      "description": "Titel, Namen, Beruf, Geburtsdaten",
+      "addTitle": "Add title",
+      "Title": "Title",
+      "firstName": "First name",
+      "addFirstName": "Add First name",
+      "middleName": "Middle Name",
+      "addMiddleName": "Add Middle Name",
+      "lastName": "Last name",
+      "addLastName": "Add Last name",
+      "addSuffix": "Add Suffix",
+      "suffix": "Suffix",
+      "gender": "Gender",
+      "birthday": "Birthday"
+    },
+    "mobilePhone": {
+      "title": "Mobile phone",
+      "description": "Telefonische Erreichbarkeit",
+      "mobile": "Mobile",
+      "addANumber": "Add a number",
+      "phoneNumber": "Phone number"
+    },
+    "emailWeb": {
+      "title": "Email & web",
+      "description": "Email- und Web-Adressen",
+      "saveEmailAndWeb": "Email and Website saved!",
+      "addEmail": "Add Email",
+      "email": "Email",
+      "addWeb": "Add Web",
+      "web": "Web"
+    },
+    "address": {
+      "title": "Address",
+      "description": "Wo und wie arbeiten Sie?",
+      "addAddress": "Add a address"
+    },
+    "profession": {
+      "title": "Beruf",
+      "description": "Ihr Arbeitsplatz und Lebenslauf"
+    },
+    "workplace": {
+      "title": "Arbeitsplatz",
+      "description": "Wo und wie arbeiten Sie?",
+      "placeOfWork": "Place of work",
+      "position": "Position",
+      "enterPosition": "Enter Position",
+      "company": "Company",
+      "enterName": "Enter name",
+      "companySince": "Company since",
+      "phone": "Phone",
+      "enterCompanyPhone": "Enter company phone",
+      "enterWorkEmail": "Enter your work email",
+      "companyWebsite": "Company website",
+      "searchLocation": "Search location",
+      "companyAddress": "Company address"
+    },
+    "curriculumVitae": {
+      "title": "Curriculum vitae",
+      "description": "Ausbildung, Qualifikation",
+      "successAddFile": "File upload successful!",
+      "deleteFile": "File deletion successful!",
+      "uploadLink": "Link upload successful!",
+      "add": "Add"
+    },
+    "location": {
+      "title": "Suche"
+    }
+  },
+
+  "save": "Save",
+  "update": "Update",
+  "finance": {
+    "title": "Finance",
+    "description": "Finanzierung, Bank etc...",
+    "titleBanner": "Brauchst du Hilfe?",
+    "banner": {
+      "title": "Brauchst du Hilfe?",
+      "description": "Hier verstecken sich oft Fragen deren Antwort man nicht kennt. Wende dich daher einfach unsere Spezialisten und Vermittler von finanzwerk",
+      "textBtn": "Zum Spezialisten"
+    },
+    "banner2": {
+      "title": "Zusage vorhanden?",
+      "description": "Lade einfach hier digitale Nachweise um den Prozess zu beschleunigen",
+      "textBtn": "Hier hochladen"
+    },
+    "zusagen": {
+      "title": "Zusagen",
+      "creditworthiness": {
+        "title": "Bonität",
+        "description": "Noch nicht verfügbar",
+        "notYetAvailable": "Noch nicht verfügbar",
+        "creditInformation": "Bonitätsangaben",
+        "paymentHistory": "Zahlungsverhalten",
+        "placeOfResidence": "Wohnorte",
+        "bisherigeWohnorte": "Bisherige Wohnorte",
+        "maritalStatus": "Familienstand",
+        "desMaritalStatus": "Ehegatten, Kinder, etc...",
+        "currentLoans": "Laufende Kredite",
+        "desCurrentLoans": "Höhe und Zwecke",
+        "property": "Eigentum",
+        "desProperty": "Besitzt du bereits Immobilien?",
+        "investments": "Investments",
+        "desInvestments": "Unternehmensbeteiligungen",
+        "financing": "Finanzierung",
+        "proof": "Nachweise",
+        "desProof": "Einkommensnachweis, Kontoauszüge",
+        "economicCreditworthiness": "Wirtschaftliche Bonität",
+        "desEconomicCreditworthiness": "Gehalt, Werte, monatliche Ausgaben",
+        "travel": "Travel",
+        "desTravel": "Your travel destinations"
+      }
+    }
+  },
+  "search": {
+    "title": "Suchen",
+    "description": "Suchen und Filter",
+    "objectTypes": {
+      "title": "Objekttyp",
+      "placeholder": "Noch nicht verfügbar"
+    },
+    "radius": "Ort, Umkreis (km)",
+    "plotSize": "Grundstück (m²)",
+    "livingAreaSize": "Wohnfläche (m²)",
+    "roomAmount": "Zimmer",
+    "objectStyle": "Stil",
+    "yearOfConstruction": "Baujahr",
+    "availability": "Verfügbarkeit"
+  }
 }

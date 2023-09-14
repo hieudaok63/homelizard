@@ -1,5 +1,6 @@
 import React from "react";
 import { type StyleProp, type ViewStyle } from "react-native";
+import { t } from "i18next";
 
 import { ButtonProfile } from "~/components/Profile";
 import { useAppNavigation } from "~/components/navigation/useAppNavigation";
@@ -14,8 +15,8 @@ export const ProfessionSection = ({ style }: ProfessionSectionProps) => {
 
   return (
     <ProfileSectionAccordion
-      title="Beruf"
-      description="Ihr Arbeitsplatz und Lebenslauf"
+      title={t("profile:contactDetails.profession.title")}
+      description={t("profile:contactDetails.profession.description")}
       variant="yellow"
       progress={14}
       style={style}
@@ -24,15 +25,15 @@ export const ProfessionSection = ({ style }: ProfessionSectionProps) => {
         onPress={() => navigation.navigate("PlaceOfWorkSection")}
         variant="yellow"
         progress={20}
-        title="Arbeitsplatz"
-        description="Wo und wie arbeiten Sie?"
+        title={t("profile:contactDetails.workplace.title")}
+        description={t("profile:contactDetails.workplace.description")}
       />
       <ButtonProfile
         onPress={() => navigation.navigate("CurriculumVitaeSection")}
         variant="yellow"
         progress={20}
-        title="Curriculum vitae"
-        description="Ausbildung, Qualifikation"
+        title={t("profile:contactDetails.curriculumVitae.title")}
+        description={t("profile:contactDetails.curriculumVitae.description")}
         isLastItem
       />
     </ProfileSectionAccordion>

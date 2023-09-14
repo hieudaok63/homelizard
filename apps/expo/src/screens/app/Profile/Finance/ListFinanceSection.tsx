@@ -1,5 +1,6 @@
 import React, { type PropsWithChildren } from "react";
 import { Dimensions, FlatList, ScrollView, View } from "react-native";
+import { t } from "i18next";
 
 import CartIcon from "@assets/icons/CartIcon.svg";
 
@@ -29,9 +30,9 @@ export const RenderBanner = () => {
     <>
       <LayoutListBanner>
         <AppBanner
-          title="Brauchst du Hilfe?"
-          description="Hier verstecken sich oft Fragen deren Antwort man nicht kennt. Wende dich daher einfach unsere Spezialisten und Vermittler von finanzwerk"
-          titleBtn="Zum Spezialisten"
+          title={t("profile:finance.banner.title")}
+          description={t("profile:finance.banner.description")}
+          titleBtn={t("profile:finance.banner.textBtn")}
           onPress={() => alert(1)}
           onCloseBanner={() => alert(2)}
           IconLeftProps={<CartIcon />}
@@ -40,9 +41,9 @@ export const RenderBanner = () => {
       </LayoutListBanner>
       <LayoutListBanner>
         <AppBanner
-          title="Zusage vorhanden?"
-          description="Lade einfach hier digitale Nachweise um den Prozess zu beschleunigen"
-          titleBtn="Hier hochladen"
+          title={t("profile:finance.banner2.title")}
+          description={t("profile:finance.banner2.description")}
+          titleBtn={t("profile:finance.banner2.textBtn")}
           onPress={() => alert(1)}
           onCloseBanner={() => alert(2)}
           IconLeftProps

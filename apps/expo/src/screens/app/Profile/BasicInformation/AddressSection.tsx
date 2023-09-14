@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { TouchableOpacity, View } from "react-native";
+import { t } from "i18next";
 import { z } from "zod";
 
 import SearchIcon from "@assets/icons/SearchIcon.svg";
@@ -24,7 +25,7 @@ export const AddressSection = () => {
   const { handleSubmit, control, reset } = useZodForm({
     schema: formSchema,
     defaultValues: {
-      addressUser: address.name,
+      addressUser: address.name || "",
     },
   });
 
@@ -41,7 +42,7 @@ export const AddressSection = () => {
         <View className="mt-5 h-[80%] rounded-[45px] bg-white">
           <HeaderForm
             iconLeft={<SpeechBubbleIcon color="yellow" />}
-            title="Address"
+            title={t("profile:contactDetails.address.title")}
             progress={50}
             variant="yellow"
           />
@@ -53,10 +54,10 @@ export const AddressSection = () => {
               <TextInputController
                 name="addressUser"
                 control={control}
-                placeholder="Add a address"
+                placeholder={t("profile:contactDetails.address.addAddress")}
                 multiline
                 variant="inline"
-                label="Address"
+                label={t("profile:contactDetails.address.title")}
               />
             </View>
             <SearchIcon fill="#0080FF" />

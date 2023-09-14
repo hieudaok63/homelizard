@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import MapView, { Circle, Marker, type MapPressEvent } from "react-native-maps";
 import * as LocationExpo from "expo-location";
+import { t } from "i18next";
 
 import SearchIcon from "@assets/icons/SearchIcon.svg";
 
@@ -163,11 +164,11 @@ export const LocationSection = () => {
     <LayoutBasicInfo>
       <View className="mb-2 w-full flex-row items-center ">
         <Text className=" basis-1/4 text-font-12 font-weight_300 text-black_1 opacity-60">
-          Suche
+          {t("profile:search.title")}
         </Text>
         <View className="w-full flex-1 flex-row items-center pl-2">
           <InputDefault
-            placeholder="Suche"
+            placeholder={t("profile:search.title")}
             className="mr-2 flex-1"
             value={address}
             onChangeText={setAddress}

@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { FlatList, Linking, Text, TouchableOpacity, View } from "react-native";
 import Toast from "react-native-toast-message";
 import * as DocumentPicker from "expo-document-picker";
+import { t } from "i18next";
 import { useTranslation } from "react-i18next";
 
 import GoogleDriveIcon from "@assets/icons/GoogleDriveIcon.svg";
@@ -55,7 +56,7 @@ export const CurriculumVitaeSection = () => {
       setLoading(false);
       Toast?.show({
         type: "success",
-        text1: "Link upload successful!",
+        text1: t("profile:contactDetails.curriculumVitae.uploadLink"),
         visibilityTime: 5000,
       });
       await trpc.profile.listProfileCV.invalidate();
@@ -122,7 +123,7 @@ export const CurriculumVitaeSection = () => {
 
     Toast?.show({
       type: "success",
-      text1: "File upload successful!",
+      text1: t("profile:contactDetails.curriculumVitae.successAddFile"),
       visibilityTime: 5000,
     });
     await trpc.profile.listProfileCV.invalidate();
@@ -135,7 +136,7 @@ export const CurriculumVitaeSection = () => {
 
       Toast?.show({
         type: "success",
-        text1: "File deletion successful!",
+        text1: t("profile:contactDetails.curriculumVitae.deleteFile"),
         visibilityTime: 5000,
       });
       await trpc.profile.listProfileCV.invalidate();
@@ -185,7 +186,7 @@ export const CurriculumVitaeSection = () => {
           <View className="mt-5 h-[80%] rounded-[45px] bg-white">
             <HeaderForm
               iconLeft={<SpeechBubbleIcon color="yellow" />}
-              title="Curriculum vitae"
+              title={t("profile:contactDetails.curriculumVitae.title")}
               progress={
                 (data.data?.length < 11
                   ? Number(data.data?.length / 10) * 100
@@ -200,12 +201,8 @@ export const CurriculumVitaeSection = () => {
               renderItem={renderItem}
               ListFooterComponent={() => {
                 return (
-                  <TouchableOpacity
-                    className="mb-16 mt-2 w-11/12  flex-row justify-between self-end rounded-none border-b py-2 pr-4"
-                    style={{
-                      borderBottomWidth: 1,
-                      borderBottomColor: "#0000001F",
-                    }}
+                  <ButtonActionMain
+                    title={t("profile:contactDetails.curriculumVitae.add")}
                     onPress={() => setShowModalAdd(true)}
                   >
                     <Text className="text-base font-extrabold text-[#828282D9]">

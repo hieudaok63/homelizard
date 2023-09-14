@@ -1,6 +1,7 @@
 import React from "react";
 import { type StyleProp, type ViewStyle } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { t } from "i18next";
 import { z } from "zod";
 
 import { ButtonProfile } from "~/components/Profile";
@@ -25,7 +26,7 @@ export const FinancialInformationSection = ({
 
   return (
     <ProfileSectionAccordion
-      title="Finanzierung"
+      title={t("profile:finance.zusagen.creditworthiness.financing")}
       variant="blue"
       progress={0}
       style={style}
@@ -34,32 +35,38 @@ export const FinancialInformationSection = ({
         <TextInputController
           name="test"
           control={control}
-          placeholder="Noch nicht verfügbar"
-          label="Finanzierung"
+          placeholder={t(
+            "profile:finance.zusagen.creditworthiness.notYetAvailable",
+          )}
+          label={t("profile:finance.zusagen.creditworthiness.financing")}
           variant="inline"
         />
         <ButtonProfile
           onPress={() => {}}
           variant="blue"
           progress={20}
-          title="Nachweise"
-          description="Einkommensnachweis, Kontoauszüge"
+          title={t("profile:finance.zusagen.creditworthiness.proof")}
+          description={t("profile:finance.zusagen.creditworthiness.desProof")}
           IconLeftProps
         />
         <ButtonProfile
           onPress={() => {}}
           variant="blue"
           progress={20}
-          title="Wirtschaftliche Bonität"
-          description="Gehalt, Werte, monatliche Ausgaben"
+          title={t(
+            "profile:finance.zusagen.creditworthiness.economicCreditworthiness",
+          )}
+          description={t(
+            "profile:finance.zusagen.creditworthiness.desEconomicCreditworthiness",
+          )}
           IconLeftProps
         />
         <ButtonProfile
           onPress={() => {}}
           variant="blue"
           progress={20}
-          title="Travel"
-          description="Your travel destinations"
+          title={t("profile:finance.zusagen.creditworthiness.travel")}
+          description={t("profile:finance.zusagen.creditworthiness.desTravel")}
           IconLeftProps
           isLastItem
         />
