@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import { FlatList, Linking, Text, TouchableOpacity, View } from "react-native";
 import Toast from "react-native-toast-message";
 import * as DocumentPicker from "expo-document-picker";
-import { t } from "i18next";
 import { useTranslation } from "react-i18next";
 
 import GoogleDriveIcon from "@assets/icons/GoogleDriveIcon.svg";
@@ -12,12 +11,7 @@ import { api } from "~/utils/api";
 import ModalAddFile from "~/components/Profile/Modal/ModalAddFile";
 import ModalOpenFile from "~/components/Profile/Modal/ModalOpenFile";
 import ModalUpdateInfoFile from "~/components/Profile/Modal/ModalUpdateInfoFile";
-import {
-  ButtonActionMain,
-  SpeechBubbleIcon,
-  type Percentage,
-} from "~/components/ui";
-import { AppText } from "~/components/ui/AppText";
+import { SpeechBubbleIcon, type Percentage } from "~/components/ui";
 import { HeaderForm, LayoutForm } from "~/components/ui/Profile";
 import { UploadFile } from "~/components/ui/UploadFile";
 import { useApplicationLoadingStore } from "~/zustand/store";
@@ -34,7 +28,7 @@ type ItemListProfileCVType = {
   updatedAt: string;
 };
 export const CurriculumVitaeSection = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("profile");
   const trpc = api.useContext();
   const [showModalAdd, setShowModalAdd] = useState<boolean>(false);
   const [showModalOpen, setShowModalOpen] = useState<boolean>(false);
@@ -56,7 +50,7 @@ export const CurriculumVitaeSection = () => {
       setLoading(false);
       Toast?.show({
         type: "success",
-        text1: t("profile:contactDetails.curriculumVitae.uploadLink"),
+        text1: t("contactDetails.curriculumVitae.uploadLink"),
         visibilityTime: 5000,
       });
       await trpc.profile.listProfileCV.invalidate();
@@ -81,7 +75,7 @@ export const CurriculumVitaeSection = () => {
         type: "*/*",
       });
 
-      if (result.type === "success") {
+      if (result?.type === "success") {
         // Printing the log realted to the file
         callApiUploadFile(result);
         // Setting the state to show single file attributes
@@ -123,7 +117,7 @@ export const CurriculumVitaeSection = () => {
 
     Toast?.show({
       type: "success",
-      text1: t("profile:contactDetails.curriculumVitae.successAddFile"),
+      text1: t("contactDetails.curriculumVitae.successAddFile"),
       visibilityTime: 5000,
     });
     await trpc.profile.listProfileCV.invalidate();
@@ -136,7 +130,7 @@ export const CurriculumVitaeSection = () => {
 
       Toast?.show({
         type: "success",
-        text1: t("profile:contactDetails.curriculumVitae.deleteFile"),
+        text1: t("contactDetails.curriculumVitae.deleteFile"),
         visibilityTime: 5000,
       });
       await trpc.profile.listProfileCV.invalidate();
@@ -186,7 +180,7 @@ export const CurriculumVitaeSection = () => {
           <View className="mt-5 h-[80%] rounded-[45px] bg-white">
             <HeaderForm
               iconLeft={<SpeechBubbleIcon color="yellow" />}
-              title={t("profile:contactDetails.curriculumVitae.title")}
+              title={t("contactDetails.curriculumVitae.title")}
               progress={
                 (data.data?.length < 11
                   ? Number(data.data?.length / 10) * 100
@@ -201,12 +195,16 @@ export const CurriculumVitaeSection = () => {
               renderItem={renderItem}
               ListFooterComponent={() => {
                 return (
-                  <ButtonActionMain
-                    title={t("profile:contactDetails.curriculumVitae.add")}
+                  <TouchableOpacity
+                    className="mb-16 mt-2 w-11/12  flex-row justify-between self-end rounded-none border-b py-2 pr-4"
+                    style={{
+                      borderBottomWidth: 1,
+                      borderBottomColor: "#0000001F",
+                    }}
                     onPress={() => setShowModalAdd(true)}
                   >
                     <Text className="text-base font-extrabold text-[#828282D9]">
-                      Add
+                      {t("contactDetails.curriculumVitae.add")}
                     </Text>
                     <IconPlus />
                   </TouchableOpacity>

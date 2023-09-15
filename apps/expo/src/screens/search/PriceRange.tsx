@@ -43,7 +43,6 @@ const rangeConfig = {
     level4: 900000,
   },
 };
-
 const PriceRange = ({ navigation }: Props) => {
   const { t } = useTranslation("search");
   // image
@@ -80,7 +79,7 @@ const PriceRange = ({ navigation }: Props) => {
       <View className="mb-9 px-4">
         <RangePicker
           min={minPriceRange}
-          max={rangeConfig[purchaseType].maxPrice}
+          max={rangeConfig?.[purchaseType]?.maxPrice}
           rangeDisabled={true}
           lowProp={maxPrice}
           onSliderTouchEnd={handleTouchEnd}
@@ -89,8 +88,8 @@ const PriceRange = ({ navigation }: Props) => {
             return (
               <View className="items-center rounded-md bg-blue_3 p-1">
                 <Text className="text-font-12 font-weight_400 text-white">
-                  {value === rangeConfig[purchaseType].maxPrice
-                    ? rangeConfig[purchaseType].textMaxPrice
+                  {value === rangeConfig?.[purchaseType]?.maxPrice
+                    ? rangeConfig?.[purchaseType]?.textMaxPrice
                     : value}
                 </Text>
               </View>
@@ -98,7 +97,7 @@ const PriceRange = ({ navigation }: Props) => {
           }}
           bottomMetricProps={{
             stepNum: 8,
-            values: rangeConfig[purchaseType].rangeLabels,
+            values: rangeConfig?.[purchaseType]?.rangeLabels,
           }}
         />
       </View>
@@ -130,15 +129,15 @@ const PriceRange = ({ navigation }: Props) => {
           <GoldImage source={GoldIcons[0]!} />
           <GoldImage
             source={GoldIcons[1]!}
-            blur={maxPrice < rangeConfig[purchaseType].level2}
+            blur={maxPrice < rangeConfig?.[purchaseType]?.level2}
           />
           <GoldImage
             source={GoldIcons[2]!}
-            blur={maxPrice < rangeConfig[purchaseType].level3}
+            blur={maxPrice < rangeConfig?.[purchaseType]?.level3}
           />
           <GoldImage
             source={GoldIcons[3]!}
-            blur={maxPrice < rangeConfig[purchaseType].level4}
+            blur={maxPrice < rangeConfig?.[purchaseType]?.level4}
           />
         </View>
       </View>
@@ -147,6 +146,7 @@ const PriceRange = ({ navigation }: Props) => {
         title={t("general.button.continue")}
         progress={getCountScreen("PriceRange")}
         variant="turquoise"
+        disabled={maxPrice === 0}
         onPress={handlePressNext}
       />
     </SearchLayout>
