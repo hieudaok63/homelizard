@@ -54,29 +54,18 @@ export const RegisterNameGender = () => {
   const saveSearchProfile = async () => {
     await searchTrpc?.mutateAsync(
       {
-        objectType: searchWizardData?.objectType,
-        // objectStyles: searchWizardData?.objectStyles,
-        // hardcode objectStyles
-        objectStyles: ["minimalistic", "modern", "rustic"],
         purchaseType: searchWizardData?.purchaseType,
+        objectTypes: searchWizardData?.objectTypes,
         livingAreaSize: searchWizardData?.livingArea,
         roomAmount: searchWizardData?.numberOfRooms,
         latitude: searchWizardData?.location?.latitude ?? 20,
         longitude: searchWizardData?.location?.longitude ?? 100,
         radius: searchWizardData?.radius,
         plotSize: searchWizardData?.plotSize,
-        startYearOfConstruction: searchWizardData?.yearOfConstructionStart,
-        endYearOfConstruction: searchWizardData?.yearOfConstructionEnd,
         availability:
           dayjs(searchWizardData?.availabilityDate)?.toDate() || new Date(),
-        minPrice: 1000,
+        minPrice: 1,
         maxPrice: searchWizardData?.puchasePrice,
-        address: {
-          street: "Cau Giay",
-          city: "Ha Noi",
-          zipCode: "100000",
-          country: "Viet Nam",
-        },
       },
       {
         onSuccess: () => {

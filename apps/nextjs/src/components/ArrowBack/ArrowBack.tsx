@@ -4,9 +4,9 @@ import { useRouter } from "next/router";
 import ArrowLeft from "~/assets/icons/arrow-left.svg";
 
 interface ArrowBackProps {
-  text?: string;
-  content?: string;
-  subContent?: string;
+  text?: string | null;
+  content?: string | null;
+  subContent?: string | null;
   hide?: boolean;
   path?: string;
 }

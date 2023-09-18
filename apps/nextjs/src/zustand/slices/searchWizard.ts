@@ -1,7 +1,8 @@
-import { z } from "zod";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
+
+import { type ObjectType, type PurchaseType } from "@homelizard/schema";
 
 import { type RouterOutputs } from "~/utils/api";
 
@@ -9,23 +10,6 @@ type LatLng = {
   latitude: number;
   longitude: number;
 };
-
-export const purchaseTypeOptions = ["rent", "buy"] as const;
-export const purchaseTypeSchema = z.enum(purchaseTypeOptions);
-export type PurchaseType = z.infer<typeof purchaseTypeSchema>;
-
-export const objectTypeOptions = [
-  "Apartment",
-  "Country house",
-  "Dormitory on campus",
-  "House with garden",
-  "Mansion",
-  "Shared apartment",
-  "Town house",
-  "Villa",
-] as const;
-
-export type ObjectType = (typeof objectTypeOptions)[number];
 
 type ObjectStylesOptionValue =
   RouterOutputs["objectStyle"]["all"][number]["id"];
@@ -35,7 +19,7 @@ export type ISearchWizardState = {
   isCompleted: boolean;
 
   // objectType
-  objectType: ObjectType;
+  objectTypes: Array<ObjectType>;
   purchaseType: PurchaseType;
 
   // location
@@ -72,7 +56,7 @@ export type ISearchWizardActions = {
   setIsCompleted: (val: boolean) => void;
 
   // objectType
-  setObjectType: (val: ObjectType) => void;
+  setObjectTypes: (val: ObjectType[]) => void;
   setPurchaseType: (val: PurchaseType) => void;
 
   // location
@@ -113,7 +97,7 @@ const initialState: ISearchWizardState = {
   isCompleted: false,
 
   // objectType
-  objectType: "Apartment",
+  objectTypes: [],
   purchaseType: "buy",
 
   // location
@@ -149,7 +133,7 @@ const initialState: ISearchWizardState = {
 // store
 export const useSearchWizardStore = create(
   persist(
-    immer<ISearchWizardState & ISearchWizardActions>((set, get) => ({
+    immer<ISearchWizardState & ISearchWizardActions>((set, _get) => ({
       ...initialState,
 
       setIsCompleted: (val) =>
@@ -158,9 +142,9 @@ export const useSearchWizardStore = create(
         }),
 
       // objectType
-      setObjectType: (val) =>
+      setObjectTypes: (val) =>
         set((state) => {
-          state.objectType = val;
+          state.objectTypes = val;
         }),
 
       setPurchaseType: (val) =>
@@ -247,7 +231,7 @@ export const useSearchWizardStore = create(
       storage: createJSONStorage(() => localStorage),
       onRehydrateStorage: () => {
         // optional
-        return (state, error) => {
+        return (_state, error) => {
           if (error) {
             console.log(error);
           }

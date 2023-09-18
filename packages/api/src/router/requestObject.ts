@@ -74,7 +74,7 @@ export const requestRouter = createTRPCRouter({
             realEstateObject: {
               select: {
                 title: true,
-                objectType: true,
+                objectTypes: true,
               },
             },
           },

@@ -99,7 +99,6 @@ export const RegisterEmailPassword = ({ navigation }: IProps) => {
 
         <View className="flex">
           <TextInput
-            variant="flex"
             autoCapitalize="none"
             name="email"
             control={control}
@@ -107,7 +106,6 @@ export const RegisterEmailPassword = ({ navigation }: IProps) => {
           />
           <View className="h-6"/>
           <TextInput
-            variant="flex"
             name="password"
             control={control}
             placeholder="Passwort"
@@ -115,7 +113,6 @@ export const RegisterEmailPassword = ({ navigation }: IProps) => {
           />
            <View className="h-6"/>
           <TextInput
-            variant="flex"
             name="confirmPassword"
             control={control}
             placeholder="Passwort bestätigen"

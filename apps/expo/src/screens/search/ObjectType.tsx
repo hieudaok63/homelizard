@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, type ReactNode } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { type NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useTranslation } from "react-i18next";
 
-import {
-  type ObjectType as IObjectType,
-  type ObjectSelectType,
-} from "@homelizard/schema";
+import { type ObjectSelectType, type ObjectType } from "@homelizard/schema";
 
-import { HausIcon, MFHIcon, WohnungIcon } from "@assets/icons";
+import { HouseIcon, MFHIcon, WohnungIcon } from "@assets/icons";
 
 import { getNameObjectType } from "~/utils/getNameObjectType";
 import { generateBoxShadowStyle } from "~/utils/helpers";
@@ -24,7 +21,7 @@ import { type RootStackParams } from "../RootStackParams";
 import { SearchLayout } from "./_layout";
 
 type Props = NativeStackScreenProps<RootStackParams, "ObjectType">;
-const houseOptions: IObjectType[] = [
+const houseOptions: ObjectType[] = [
   "apartment_normal",
   "apartment_maisonette",
   "apartment_attic",
@@ -32,7 +29,7 @@ const houseOptions: IObjectType[] = [
   "apartment_terraced",
   "apartment_studio",
 ];
-const apartmentOptions: IObjectType[] = [
+const apartmentOptions: ObjectType[] = [
   "house_detached",
   "house_semi_detached",
   "house_row_corner",
@@ -41,11 +38,13 @@ const apartmentOptions: IObjectType[] = [
 ];
 export const styleBoxShadow = generateBoxShadowStyle("shadowObjectType");
 
-const ObjectType = ({ navigation }: Props) => {
+const ObjectTypeScreen = ({ navigation }: Props) => {
   const { t } = useTranslation("search");
 
   // zustand
-  const setObjectTypes = useSearchWizardStore((state) => state?.setObjectTypes);
+  const toggleObjectType = useSearchWizardStore(
+    (state) => state?.toggleObjectType,
+  );
   const setPurchaseType = useSearchWizardStore(
     (state) => state?.setPurchaseType,
   );
@@ -64,23 +63,11 @@ const ObjectType = ({ navigation }: Props) => {
     navigation?.navigate("Location");
   };
 
-  const toggleObjectType = (objectType: IObjectType) => {
-    const index = objectTypes.indexOf(objectType);
-    if (index > -1) {
-      setObjectTypes([
-        ...objectTypes.slice(0, index),
-        ...objectTypes.slice(index + 1),
-      ]);
-    } else {
-      setObjectTypes([...objectTypes, objectType]);
-    }
-  };
-
-  const isSelected = (objectType: IObjectType) => {
+  const isSelected = (objectType: ObjectType) => {
     return objectTypes.includes(objectType);
   };
 
-  const selectedAtLeastOneOf = (options: IObjectType[]) => {
+  const selectedAtLeastOneOf = (options: ObjectType[]) => {
     return options.some((value) => isSelected(value));
   };
 
@@ -113,43 +100,31 @@ const ObjectType = ({ navigation }: Props) => {
       </View>
 
       <View className="mb-64 flex flex-row flex-wrap items-center justify-between px-4">
-        <TouchableOpacity
-          className={`h-[150px] w-[30%] items-center justify-center rounded-3xl bg-[#F4F4F4] pt-4`}
+        <ObjectTypeButton
           onPress={() => {
             setShowList("houseList");
           }}
-          style={selectedAtLeastOneOf(houseOptions) && styleBoxShadow}
-        >
-          <HausIcon />
-          <Text className="mt-3 text-font-14 font-weight_800 text-black_1">
-            {t("search.button.house")}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          className="h-[150px] w-[30%] items-center justify-center rounded-3xl bg-[#F4F4F4] pt-4"
+          selected={selectedAtLeastOneOf(houseOptions)}
+          icon={<HouseIcon />}
+          title={t("search.button.house")}
+        />
+        <ObjectTypeButton
           onPress={() => {
             setShowList("MFH");
             toggleObjectType("Multi-Family house");
           }}
-          style={objectTypes.includes("Multi-Family house") && styleBoxShadow}
-        >
-          <MFHIcon />
-          <Text className="mt-3 flex-1 text-center text-font-14 font-weight_800 text-black_1">
-            {t("search.button.multiHouse")}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          className={`h-[150px] w-[30%] items-center justify-center rounded-3xl bg-[#F4F4F4] pt-4`}
+          selected={objectTypes.includes("Multi-Family house")}
+          icon={<MFHIcon />}
+          title={t("search.button.multiHouse")}
+        />
+        <ObjectTypeButton
           onPress={() => {
             setShowList("apartementList");
           }}
-          style={selectedAtLeastOneOf(apartmentOptions) && styleBoxShadow}
-        >
-          <WohnungIcon />
-          <Text className="mt-3 text-center text-font-14 font-weight_800 text-black_1">
-            {t("search.button.apartement")}
-          </Text>
-        </TouchableOpacity>
+          selected={selectedAtLeastOneOf(apartmentOptions)}
+          icon={<WohnungIcon />}
+          title={t("search.button.apartement")}
+        />
       </View>
       <StepProgressButton
         progress={(objectTypes.length && getCountScreen("ObjectType")) || 0}
@@ -176,7 +151,7 @@ const ObjectType = ({ navigation }: Props) => {
           {(showList === "apartementList"
             ? apartmentOptions
             : houseOptions
-          )?.map((item: IObjectType) => (
+          )?.map((item: ObjectType) => (
             <TouchableOpacity
               key={item}
               className={`flex-row items-center justify-center border-b border-color_gray py-4 ${
@@ -207,4 +182,31 @@ const ObjectType = ({ navigation }: Props) => {
     </SearchLayout>
   );
 };
-export default ObjectType;
+export default ObjectTypeScreen;
+
+type ObjectTypeButtonProps = {
+  onPress: () => void;
+  selected: boolean;
+  icon: ReactNode;
+  title: string;
+};
+
+const ObjectTypeButton = ({
+  onPress,
+  selected,
+  icon,
+  title,
+}: ObjectTypeButtonProps) => {
+  return (
+    <TouchableOpacity
+      className="h-[150px] w-[30%] items-center rounded-3xl bg-[#F4F4F4]"
+      onPress={onPress}
+      style={selected && styleBoxShadow}
+    >
+      <View className="flex h-2/3 justify-end">{icon}</View>
+      <Text className="py-3 text-font-14 font-weight_800 text-black_1">
+        {title}
+      </Text>
+    </TouchableOpacity>
+  );
+};

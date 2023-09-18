@@ -18,14 +18,13 @@ export const objectTypeOptions = [
 ] as const;
 export type ObjectType = (typeof objectTypeOptions)[number];
 export type ObjectSelectType = "houseList" | "apartementList" | "MFH" | null;
-export const purchaseTypeOptions = ["rent", "buy"] as const;
 
 export const objectTypeSchema = z.enum(objectTypeOptions);
 
 export const objectStyleSchema = z.enum(objectStyleOptions);
 
+export const purchaseTypeOptions = ["rent", "buy"] as const;
 export const purchaseTypeSchema = z.enum(purchaseTypeOptions);
-
 export type PurchaseType = z.infer<typeof purchaseTypeSchema>;
 
 const MIN_LATITUDE = -90;

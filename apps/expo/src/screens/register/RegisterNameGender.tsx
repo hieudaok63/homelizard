@@ -53,6 +53,7 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
       // TODO: validate search wizard data
       // save search profile
       await searchTrpc.mutateAsync({
+        purchaseType: searchWizardData?.purchaseType,
         objectTypes: searchWizardData.objectTypes,
         livingAreaSize: searchWizardData?.livingArea,
         roomAmount: searchWizardData?.numberOfRooms,
@@ -64,7 +65,6 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
         plotSize: searchWizardData?.plotSize,
         // TODO: check why dayjs is needed here
         availability: dayjs(searchWizardData.availabilityDate).toDate(),
-        purchaseType: searchWizardData?.purchaseType,
         minPrice: 1, // hard code for now
         maxPrice: searchWizardData?.maxPrice,
         // hidden for now - WD-138
@@ -178,9 +178,9 @@ export const RegisterNameGender = ({ navigation }: IProps) => {
               </Text>
             )}
           </View>
-          <View className="h-6"/>
+          <View className="h-6" />
           <TextInput control={control} name="firstName" placeholder="Vorname" />
-          <View className="h-6"/>
+          <View className="h-6" />
           <TextInput control={control} name="lastName" placeholder="Nachname" />
         </View>
 

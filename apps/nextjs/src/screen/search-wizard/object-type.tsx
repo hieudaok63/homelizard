@@ -1,5 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
+
+import { objectTypeOptions } from "@homelizard/schema";
 
 import { Check, Haus, MHF } from "~/assets";
 import {
@@ -9,7 +12,6 @@ import {
 } from "~/components";
 import { PATH_LOCATION } from "~/constants/navigation";
 import LayoutSearch from "~/pages/search-wizard/_layout";
-import { objectTypeOptions } from "~/zustand/slices/searchWizard";
 import { useSearchWizardStore } from "~/zustand/store";
 
 const CheckObject = () => (
@@ -19,8 +21,9 @@ const CheckObject = () => (
 );
 
 export default function ObjectTypeScreen() {
-  const objectType = useSearchWizardStore((state) => state?.objectType);
-  const setObjectType = useSearchWizardStore((state) => state?.setObjectType);
+  const { t } = useTranslation("search");
+  const objectType = useSearchWizardStore((state) => state?.objectTypes[0]);
+  const setObjectTypes = useSearchWizardStore((state) => state?.setObjectTypes);
 
   const [option, setOption] = useState<boolean>(false);
 
@@ -42,55 +45,46 @@ export default function ObjectTypeScreen() {
   return (
     <LayoutSearch>
       <ArrowBack
-        text="Wir finden für dich"
-        content="Objekttyp"
-        subContent="Wähle die Art der gesuchten Immobilie"
+        text={t("search.label.weSearch")}
+        content={t("search.label.objectType")}
+        subContent={t("search.text.selectObjectType")}
       />
       <div className="mb-14 mt-6 flex w-full justify-center">
         <ButtonSwitchToggle />
       </div>
 
       <div className="flex w-full items-center justify-between xl:justify-around ">
-        <div
-          className={`relative flex h-[160px] w-28 cursor-pointer flex-col items-center justify-center rounded-3xl bg-bg_home hover:bg-slate-100 xl:w-32 ${
-            objectType === "House with garden" && "shadow-lg shadow-slate-600"
-          }`}
-          onClick={() => setObjectType("House with garden")}
-        >
-          <Image src={Haus} alt="haus" />
-          <span className="mt-3 text-xl font-bold">Haus</span>
-          {objectType === "House with garden" && <CheckObject />}
-        </div>
-        <div
-          className={`relative flex h-[160px] w-28 cursor-pointer flex-col items-center justify-center rounded-3xl bg-bg_home hover:bg-slate-100 xl:w-32 ${
-            objectType === "Apartment" && "shadow-lg shadow-slate-600"
-          }`}
-          onClick={() => setObjectType("Apartment")}
-        >
-          <Image src={MHF} alt="haus" />
-          <span className="mt-3 text-xl font-bold">MHF</span>
-          {objectType === "Apartment" && <CheckObject />}
-        </div>
-
+        <ObjectTypeButton
+          onClick={() => setObjectTypes(["house_detached"])}
+          selected={objectType === "house_detached"}
+          icon={<Image src={Haus} alt={t("search.button.house")} />}
+          title={t("search.button.house")}
+        />
+        <ObjectTypeButton
+          onClick={() => setObjectTypes(["Multi-Family house"])}
+          selected={objectType === "Multi-Family house"}
+          icon={<Image src={MHF} alt={t("search.button.multiHouse")} />}
+          title={t("search.button.multiHouse")}
+        />
         <div
           className={`relative flex h-[160px] w-28 cursor-pointer flex-col items-center justify-center rounded-3xl bg-bg_home p-4 text-center hover:bg-slate-100 xl:w-32 ${
-            objectType !== "House with garden" &&
-            objectType !== "Apartment" &&
+            objectType !== "house_detached" &&
+            objectType !== "Multi-Family house" &&
             "shadow-lg shadow-slate-600"
           }`}
           onClick={() => setOption(!option)}
         >
           <span className="mt-3 select-none text-xl font-bold">
             {objectType &&
-            objectType !== "House with garden" &&
-            objectType !== "Apartment"
+            objectType !== "house_detached" &&
+            objectType !== "Multi-Family house"
               ? objectType
               : "Mehr Optionen"}
           </span>
 
-          {objectType !== "House with garden" && objectType !== "Apartment" && (
-            <CheckObject />
-          )}
+          {objectType &&
+            objectType !== "house_detached" &&
+            objectType !== "Multi-Family house" && <CheckObject />}
 
           {option && (
             <div
@@ -103,7 +97,7 @@ export default function ObjectTypeScreen() {
               {objectTypeOptions?.map((item) => (
                 <div
                   key={item}
-                  onClick={() => setObjectType(item)}
+                  onClick={() => setObjectTypes([item])}
                   className="w-[200px] select-none border-b-[1px] p-1 text-blue_1  hover:bg-gray-200"
                 >
                   {item}
@@ -123,3 +117,30 @@ export default function ObjectTypeScreen() {
     </LayoutSearch>
   );
 }
+
+type ObjectTypeButtonProps = {
+  onClick: () => void;
+  selected: boolean;
+  icon: ReactNode;
+  title: string;
+};
+
+const ObjectTypeButton = ({
+  onClick,
+  selected,
+  icon,
+  title,
+}: ObjectTypeButtonProps) => {
+  return (
+    <div
+      className={`relative flex h-[160px] w-28 cursor-pointer flex-col items-center justify-center rounded-3xl bg-bg_home hover:bg-slate-100 xl:w-32 ${
+        selected && "shadow-lg shadow-slate-600"
+      }`}
+      onClick={onClick}
+    >
+      {icon}
+      <span className="mt-3 text-xl font-bold">{title}</span>
+      {selected && <CheckObject />}
+    </div>
+  );
+};

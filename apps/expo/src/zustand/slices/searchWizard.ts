@@ -52,6 +52,7 @@ export type ISearchWizardActions = {
 
   // objectType
   setObjectTypes: (val: ObjectType[]) => void;
+  toggleObjectType: (val: ObjectType) => void;
 
   //purchaseType
   setPurchaseType: (val: PurchaseType) => void;
@@ -139,6 +140,18 @@ export const useSearchWizardStore = create(
         set((state) => {
           state.objectTypes = val;
         }),
+
+      toggleObjectType(val) {
+        set((state) => {
+          if (state.objectTypes.includes(val)) {
+            state.objectTypes = state.objectTypes.filter(
+              (item) => item !== val,
+            );
+          } else {
+            state.objectTypes.push(val);
+          }
+        });
+      },
 
       //purchaseType
       setPurchaseType: (val) =>
