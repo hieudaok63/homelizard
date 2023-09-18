@@ -8,6 +8,7 @@ import EditProfile from "./EditProfile.svg";
 import Ellipsis from "./Ellipsis.svg";
 import Haus from "./House.svg";
 import LandIcon from "./LandIcon.svg";
+import LogoHomelizard from "./LogoHomelizard.svg";
 import MHF from "./MHF.svg";
 import Message from "./Message.svg";
 import PuchasePrice1 from "./PuchasePrice1.svg";
@@ -34,6 +35,7 @@ import Facebook from "./facebook.svg";
 import fileSvg from "./file.svg";
 import Google from "./google.svg";
 import Heart from "./heart.svg";
+import HeartRed from "./heartRed.svg";
 import Linkedin from "./linkedin.svg";
 import lizardWiggle from "./lizardWiggle.svg";
 import logoAdmin from "./logoAdmin.svg";
@@ -56,44 +58,57 @@ import tableIcon1 from "./tableIcon1.svg";
 import tableIcon2 from "./tableIcon2.svg";
 import trash from "./trash.svg";
 import Twitter from "./twitter.svg";
-import uploadSvg from "./upload.svg";
-import globeSvg from "./upload.svg";
+import { default as globeSvg, default as uploadSvg } from "./upload.svg";
 import warning from "./warning.svg";
 import write from "./write.svg";
 
 export {
+  Area,
+  ArrowRight,
+  Bedroom,
+  Cart,
+  Check,
   ChevronUp,
+  Contruction_year1,
+  Contruction_year2,
+  Contruction_year3,
+  Contruction_year4,
+  Contruction_year5,
   Create,
-  Plus,
-  Setting,
-  Tell,
-  Search,
+  EditProfile,
+  Ellipsis,
   Facebook,
   Google,
-  Twitter,
-  Linkedin,
-  ArrowRight,
-  Check,
+  Haus,
   Heart,
-  uploadSvg,
-  Ellipsis,
-  EditProfile,
-  Area,
-  Bedroom,
-  Shower,
+  HeartRed,
+  LandIcon,
+  Linkedin,
+  LogoHomelizard,
+  MHF,
   Message,
+  Plus,
+  PuchasePrice1,
+  PuchasePrice2,
+  PuchasePrice3,
+  PuchasePrice4,
+  Search,
+  Setting,
   Share,
+  Shower,
+  Tell,
+  ToggleFalse,
+  ToggleTrue,
+  Twitter,
   Utilities,
-  passwordEye,
-  passwordHide,
-  Cart,
+  Wohnung,
+  close,
   fileSvg,
   globeSvg,
-  Haus,
-  MHF,
-  Wohnung,
-  LandIcon,
+  lizardWiggle,
+  logoAdmin,
   number_room1,
+  number_room10,
   number_room2,
   number_room3,
   number_room4,
@@ -102,26 +117,14 @@ export {
   number_room7,
   number_room8,
   number_room9,
-  number_room10,
-  Contruction_year1,
-  Contruction_year2,
-  Contruction_year3,
-  Contruction_year4,
-  Contruction_year5,
-  PuchasePrice1,
-  PuchasePrice2,
-  PuchasePrice3,
-  PuchasePrice4,
-  logoAdmin,
-  lizardWiggle,
+  passwordEye,
+  passwordHide,
+  question,
+  settings,
   tableIcon1,
   tableIcon2,
-  write,
-  close,
-  settings,
   trash,
-  question,
-  ToggleFalse,
-  ToggleTrue,
+  uploadSvg,
   warning,
+  write,
 };

@@ -6,3 +6,12 @@
 ::-webkit-scrollbar {
   width: 0px;
 }
+
+.swiper-pagination-bullet {
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 2px !important;
+}
+.swiper-pagination-bullet-active {
+  rotate: 45deg;
+}
