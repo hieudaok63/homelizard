@@ -58,10 +58,9 @@ main()
 
 async function getClerkUser(email: string | undefined) {
   if (!email) {
-    console.log(
+    throw new Error(
       "No developer email provided. Set the DEVELOPER_EMAIL variable in .env file",
     );
-    return;
   }
 
   const clerkUsers = await clerk.users.getUserList({
