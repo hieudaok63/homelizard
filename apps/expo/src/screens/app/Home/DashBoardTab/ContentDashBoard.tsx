@@ -45,12 +45,12 @@ export const ContentDashBoard = ({
   const ContemporaryImage = require("@assets/objectStyleImage/Contemporary.png");
   const _renderItemChild = ({ item }: { item: IItem }) => {
     return (
-      <View className={`mb-3 px-6 `}>
+      <View className={`mb-3 px-6`}>
         <TouchableOpacity
           className="flex-1 flex-row items-center justify-between rounded-full bg-white px-4 py-3"
           style={[styleBoxShadow]}
         >
-          <View className="flex-1 flex-row">
+          <View className="flex-1 flex-row items-center">
             <Image
               className="flex h-14 w-14 overflow-hidden rounded-l-full rounded-tr-full bg-grey_2"
               source={ContemporaryImage}
@@ -58,11 +58,11 @@ export const ContentDashBoard = ({
             />
             <View className="mx-4 flex-1  justify-between">
               <AppText text={item.name} className="font-nunito-bold" />
-              <View className="mt-1 flex flex-row">
+              <View className="mt-1 flex flex-row items-center">
                 <View
                   className={`${itemColorByStatus(
                     item.status,
-                  )} w-20 rounded-full`}
+                  )} h-6 w-20 items-center justify-center rounded-full`}
                 >
                   <AppText
                     text={item.status}
