@@ -39,7 +39,7 @@ export const AddressSection = () => {
   return (
     <LayoutBasicInfo>
       <LayoutForm>
-        <View className="mt-5 h-[80%] rounded-[45px] bg-white">
+        <View className="mt-5 h-[70%] rounded-[45px] bg-white">
           <HeaderForm
             iconLeft={<SpeechBubbleIcon color="yellow" />}
             title={t("profile:contactDetails.address.title")}

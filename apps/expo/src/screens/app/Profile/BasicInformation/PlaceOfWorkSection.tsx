@@ -111,8 +111,8 @@ export const PlaceOfWorkSection = () => {
     <>
       <LayoutBasicInfo>
         <LayoutForm>
-          <View className="mt-5 max-h-[75%] overflow-hidden rounded-3xl bg-white">
-            <KeyboardAwareScrollView>
+          <View className="mt-5 max-h-[70%] overflow-hidden rounded-3xl bg-white">
+            <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
               <HeaderForm
                 iconLeft={<SpeechBubbleIcon color="yellow" />}
                 title={t("profile:contactDetails.workplace.placeOfWork")}

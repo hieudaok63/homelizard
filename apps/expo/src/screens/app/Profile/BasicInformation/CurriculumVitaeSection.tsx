@@ -152,7 +152,6 @@ export const CurriculumVitaeSection = () => {
           blobName: value?.blobName,
           fileType: "curriculumVitae",
         });
-      console.log({ urlImageOnline });
       Linking.openURL(urlImageOnline || "");
     }
   };
@@ -177,7 +176,7 @@ export const CurriculumVitaeSection = () => {
     <>
       <LayoutBasicInfo>
         <LayoutForm>
-          <View className="mt-5 h-[80%] rounded-[45px] bg-white">
+          <View className="mt-5 h-[70%] rounded-[45px] bg-white">
             <HeaderForm
               iconLeft={<SpeechBubbleIcon color="yellow" />}
               title={t("contactDetails.curriculumVitae.title")}

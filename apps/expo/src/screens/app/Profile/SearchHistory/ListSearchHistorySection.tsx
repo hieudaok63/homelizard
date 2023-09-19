@@ -47,11 +47,12 @@ export const ListSearchHistorySection = () => {
 
   return (
     <LayoutSearchHistory>
-      <View className="mt-3">
+      <View className="mt-3 flex-1">
         {data?.length ? (
           <FlatList
             data={data}
             renderItem={renderItem}
+            style={{ flex: 1 }}
             showsVerticalScrollIndicator={false}
             keyExtractor={(item) => item.id.toString()}
             ListFooterComponent={<BottomNavBarPadding />}

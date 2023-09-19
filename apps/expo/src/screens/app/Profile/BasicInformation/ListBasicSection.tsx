@@ -1,6 +1,7 @@
 import React from "react";
-import { View } from "react-native";
+import { ScrollView } from "react-native";
 
+import { BottomNavBarPadding } from "~/components/navigation/NavBar";
 import { ContactDetailSection } from "./ContactDetailSection";
 import { ProfessionSection } from "./ProfessionSection";
 import { LayoutBasicInfo } from "./_layout";
@@ -8,10 +9,11 @@ import { LayoutBasicInfo } from "./_layout";
 export const ListBasicSection = () => {
   return (
     <LayoutBasicInfo>
-      <View className="flex flex-col space-y-2">
+      <ScrollView className="space-y-2" showsVerticalScrollIndicator={false}>
         <ContactDetailSection />
         <ProfessionSection />
-      </View>
+        <BottomNavBarPadding />
+      </ScrollView>
     </LayoutBasicInfo>
   );
 };
