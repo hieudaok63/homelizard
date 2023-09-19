@@ -33,6 +33,7 @@ export default function ExpandableContent({ data }: IToggleDrop) {
                 <Image src={check} alt="" className="mr-5" />
                 <p className="text-left text-lg font-normal">{item.title}</p>
               </AccordionTrigger>
+              
             </div>
 
             <AccordionContent className="ml-14 mt-2 text-sm text-[#737D8C]">

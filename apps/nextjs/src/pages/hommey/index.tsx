@@ -102,7 +102,7 @@ export default function Hommey() {
         </div>
       </ScreenFull>
 
-      <ScreenPadding>
+      {/* <ScreenPadding>
         <div className="py-[62px]">
           <TitleSeparate titleFirst="Recent" titleSecond="Property Deals" />
         </div>
@@ -124,7 +124,7 @@ export default function Hommey() {
         <div className="mb-32">
           <FederalStates />
         </div>
-      </ScreenPadding>
+      </ScreenPadding> */}
       <ScreenFull>
         <div className="py-[80px]">
           <Achievement />

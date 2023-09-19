@@ -104,9 +104,9 @@ const Region: NextPage<Region> = (data) => {
           imageUrl={dataBenefits?.imageUrl || testImageUrl}
         />
       </ScreenFull>
-      <ScreenPadding className="py-3 sm:py-6 3xl:py-[5rem]">
+      {/* <ScreenPadding className="py-3 sm:py-6 3xl:py-[5rem]">
         <ChartPrice />
-      </ScreenPadding>
+      </ScreenPadding> */}
       <ScreenFull className="py-10">
         <TitleSeparate
           titleSecond={`Wohnen in ${data.cityName}`}
@@ -118,16 +118,16 @@ const Region: NextPage<Region> = (data) => {
           reverse
         />
       </ScreenFull>
-      <ScreenPadding className="my-10">
+      {/* <ScreenPadding className="my-10">
         <TitleSeparate
           titleSecond={`Entwicklung von ${data.cityName}`}
           className="mb-16 mt-10"
         />
         <History {...dataHistory} />
-      </ScreenPadding>
-      <ScreenFull className="pt-20">
+      </ScreenPadding> */}
+      {/* <ScreenFull className="pt-20">
         <RecentPropertySection />
-      </ScreenFull>
+      </ScreenFull> */}
       <ScreenPadding>
         <div className="my-20">
           <HowItWork />
@@ -148,14 +148,14 @@ const Region: NextPage<Region> = (data) => {
           <ClientSaySection />
         </div>
       </ScreenPadding>
-      <ScreenFull className="pb-20">
+      {/* <ScreenFull className="pb-20">
         <TitleSeparate
           titleSecond="Properties {curated_offers} "
           titleFirst="Featured "
           className="pb-24 pt-10"
         />
         <FeaturedPropertySection />
-      </ScreenFull>
+      </ScreenFull> */}
       <ScreenPadding className="my-20">
         <ReviewEstate />
       </ScreenPadding>

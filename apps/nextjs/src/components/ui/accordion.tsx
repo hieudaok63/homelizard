@@ -2,6 +2,7 @@ import * as React from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 
 import { cn } from "@homelizard/tailwind-config/utils";
+import { ChevronDownIcon } from "lucide-react";
 
 const Accordion = AccordionPrimitive.Root;
 
@@ -21,16 +22,19 @@ const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
 >(({ className, children, ...props }, ref) => (
-  <AccordionPrimitive.Header className="flex">
+  <AccordionPrimitive.Header className="flex w-full">
     <AccordionPrimitive.Trigger
       ref={ref}
       className={cn(
-        "flex flex-1 items-center justify-between font-medium transition-all ",
+        "flex flex-1  justify-between items-center font-medium transition-all ",
         className,
       )}
       {...props}
     >
-      {children}
+      <div className="flex">
+                 {children}
+      </div>
+         <ChevronDownIcon className="AccordionChevron" aria-hidden />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ));
